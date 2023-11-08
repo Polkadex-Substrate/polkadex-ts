@@ -1,0 +1,25 @@
+{
+  "name": "numericals",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "license": "GPL-3.0-only",
+  "version": "0.0.1",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\""
+  },
+  "dependencies": {
+    "bignumber": "^1.1.0",
+    "eslint": "workspace:*",
+    "typescript": "latest"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0"
+  }
+}
