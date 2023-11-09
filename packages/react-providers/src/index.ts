@@ -1,1 +1,1 @@
-export * from "./ExtensionsProvider"
+export * from "./ExtensionsProvider";
