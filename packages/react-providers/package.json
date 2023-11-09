@@ -14,7 +14,12 @@
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "dependencies": {
+    "@polkadot-cloud/assets": "^0.1.34",
     "eslint": "workspace:*",
     "typescript": "latest"
   },
