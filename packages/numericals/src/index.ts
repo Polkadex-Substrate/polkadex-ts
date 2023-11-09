@@ -2,7 +2,7 @@ import { TrimFloatProps } from "./types";
 
 // @Param - string
 // @Desc - Removes the trailing zeros
-export const formatNumber = (value: string): string => {
+export const rmTrailingZeros = (value: string): string => {
   return value
     .replace(/(\.\d*?)0+$/, "$1") // Remove trailing zeros after the decimal
     .replace(/\.$/, ""); // Remove the deciaml point if there are no decimal places)
@@ -22,10 +22,10 @@ export const trimFloat = ({
       0,
       decimalIndex + digitsAfterDecimal + 1
     );
-    return formatNumber(parseFloat(numberPart).toFixed(digitsAfterDecimal));
+    return rmTrailingZeros(parseFloat(numberPart).toFixed(digitsAfterDecimal));
   }
 
-  return formatNumber(valueString);
+  return rmTrailingZeros(valueString);
 };
 
 // @Param - string/number
@@ -46,7 +46,7 @@ export const decimalPlaces = (num: number | string) => {
 
 // @Param - string/number
 // @Desc - Removes the commas from a string
-export const removeCommas = (value: string | number): string => {
+export const rmCommas = (value: string | number): string => {
   const valueStr = value.toString();
   return valueStr.replace(/,/g, "");
 };

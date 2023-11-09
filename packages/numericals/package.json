@@ -15,8 +15,11 @@
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "dependencies": {
+    "@types/jest": "^29.5.7",
     "bignumber": "^1.1.0",
     "eslint": "workspace:*",
+    "jest": "^29.6.2",
+    "ts-jest": "^29.1.1",
     "typescript": "latest"
   },
   "devDependencies": {
