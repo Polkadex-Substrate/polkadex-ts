@@ -1,5 +1,5 @@
 {
-  "name": "numericals",
+  "name": "react-providers",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
