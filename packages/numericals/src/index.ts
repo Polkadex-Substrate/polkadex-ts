@@ -1,13 +1,5 @@
 import { TrimFloatProps } from "./types";
 
-export const add = (a: number, b: number) => {
-  return a + b;
-};
-
-export const subtract = (a: number, b: number) => {
-  return a - b;
-};
-
 // @Param - string
 // @Desc - Removes the trailing zeros
 export const formatNumber = (value: string): string => {
