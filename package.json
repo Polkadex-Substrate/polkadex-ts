@@ -18,6 +18,9 @@
     "tsconfig": "*",
     "turbo": "latest",
     "@polkadex-ts/eslint-config": "*"
+    "jest": "^29.6.2",
+    "ts-jest": "^29.1.1",
+    "@types/jest": "^29.5.7"
   },
   "name": "polkadex-ts",
   "packageManager": "yarn@1.22.19",
