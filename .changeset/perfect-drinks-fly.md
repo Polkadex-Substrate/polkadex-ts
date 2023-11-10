@@ -1,5 +1,5 @@
 ---
-"numericals": major
+"numericals": minor
 ---
 
 Adding some utility functions
