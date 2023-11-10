@@ -1,5 +1,5 @@
 {
-  "name": "numericals",
+  "name": "react-providers",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -14,13 +14,17 @@
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "dependencies": {
-    "bignumber": "^1.1.0",
+    "@polkadot-cloud/assets": "^0.1.34",
     "eslint": "workspace:*",
     "typescript": "latest"
   },
   "devDependencies": {
-    "tsup": "^7.2.0",
-    "@polkadex-ts/eslint-config": "*"
+    "@polkadex-ts/eslint-config": "*",
+    "tsup": "^7.2.0"
   }
 }

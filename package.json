@@ -1,5 +1,6 @@
 {
   "private": true,
+  "license": "GPL-3.0-only",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -16,6 +17,7 @@
     "prettier": "^3.0.3",
     "tsconfig": "*",
     "turbo": "latest",
+    "@polkadex-ts/eslint-config": "*",
     "jest": "^29.6.2",
     "ts-jest": "^29.1.1",
     "@types/jest": "^29.5.7"
