@@ -1,5 +1,5 @@
 {
-  "private": false,
+  "private": true,
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -15,7 +15,10 @@
     "eslint": "^8.48.0",
     "prettier": "^3.0.3",
     "tsconfig": "*",
-    "turbo": "latest"
+    "turbo": "latest",
+    "jest": "^29.6.2",
+    "ts-jest": "^29.1.1",
+    "@types/jest": "^29.5.7"
   },
   "name": "polkadex-ts",
   "packageManager": "yarn@1.22.19",
