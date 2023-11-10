@@ -41,6 +41,7 @@ export interface ExtensionAccount extends ExtensionMetadata {
   address: string;
   meta?: AnyJson;
   name: string;
+  type: "sr25519" | "ethereum";
   signer?: AnyJson;
 }
 

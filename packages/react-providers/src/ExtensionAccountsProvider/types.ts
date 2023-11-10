@@ -5,13 +5,11 @@ import { ReactNode } from "react";
 import { MaybeAddress } from "@polkadex-ts/utils";
 
 import { ExtensionAccount } from "../ExtensionsProvider";
-import { ImportedAccount } from "../types";
 
 export interface ExtensionAccountsContextInterface {
   connectExtensionAccounts: (id: string) => Promise<boolean>;
-  forgetAccounts: (a: ExtensionAccount[]) => void;
   extensionAccountsSynced: Sync;
-  extensionAccounts: ImportedAccount[];
+  extensionAccounts: ExtensionAccount[];
 }
 
 export interface ExtensionAccountsProviderProps {

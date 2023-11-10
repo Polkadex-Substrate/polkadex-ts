@@ -7,7 +7,6 @@ import {
 } from "@polkadex-ts/utils";
 import { SnapNetworks } from "@chainsafe/metamask-polkadot-types";
 
-import { ImportedAccount } from "../types";
 import {
   ExtensionAccount,
   ExtensionInterface,
@@ -53,9 +52,9 @@ export const ExtensionAccountsProvider = ({
   } = useExtensions();
 
   // Store connected extension accounts.
-  const [extensionAccounts, setExtensionAccounts] = useState<ImportedAccount[]>(
-    []
-  );
+  const [extensionAccounts, setExtensionAccounts] = useState<
+    ExtensionAccount[]
+  >([]);
   const extensionAccountsRef = useRef(extensionAccounts);
 
   // Store whether extension accounts have been synced.
@@ -82,7 +81,7 @@ export const ExtensionAccountsProvider = ({
     if (typeof onExtensionEnabled === "function") onExtensionEnabled(id);
   };
 
-  const connectToAccount = (account: ImportedAccount | null) => {
+  const connectToAccount = (account: ExtensionAccount | null) => {
     maybeSetActiveAccount(account?.address ?? null);
   };
 
@@ -102,7 +101,7 @@ export const ExtensionAccountsProvider = ({
 
     // Iterate extensions, `enable` and add accounts to state.
     const total = extensionKeys?.length ?? 0;
-    let activeWalletAccount: ImportedAccount | null = null;
+    let activeWalletAccount: ExtensionAccount | null = null;
     let i = 0;
     for (const id of extensionKeys) {
       i++;
@@ -291,7 +290,7 @@ export const ExtensionAccountsProvider = ({
   };
 
   // Handle forgetting of an imported extension account.
-  const forgetAccounts = (forget: ImportedAccount[]) => {
+  const forgetAccounts = (forget: ExtensionAccount[]) => {
     // Unsubscribe and remove unsub from context ref.
     if (forget.length) {
       for (const { address } of forget) {
@@ -333,7 +332,7 @@ export const ExtensionAccountsProvider = ({
   };
 
   // Add an extension account to context state.
-  const addExtensionAccount = (a: ImportedAccount[]) => {
+  const addExtensionAccount = (a: ExtensionAccount[]) => {
     setStateWithRef(
       [...extensionAccountsRef.current].concat(a),
       setExtensionAccounts,
@@ -400,7 +399,6 @@ export const ExtensionAccountsProvider = ({
       value={{
         connectExtensionAccounts,
         extensionAccountsSynced,
-        forgetAccounts,
         extensionAccounts: extensionAccountsRef.current,
       }}
     >

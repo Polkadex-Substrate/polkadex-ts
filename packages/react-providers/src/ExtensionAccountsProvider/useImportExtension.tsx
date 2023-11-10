@@ -2,23 +2,17 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import Keyring from "@polkadot/keyring";
-import { isValidAddress } from "@polkadot-cloud/utils";
-import { AnyFunction } from "@polkadex-ts/utils";
+import { AnyFunction, isValidAddress } from "@polkadex-ts/utils";
 
 import { useExtensions } from "../ExtensionsProvider";
 import type {
   ExtensionAccount,
   ExtensionInterface,
 } from "../ExtensionsProvider";
-import { ImportedAccount } from "../types";
 
 import { defaultHandleImportExtension } from "./constants";
 import { HandleImportExtension } from "./types";
-import {
-  addToLocalExtensions,
-  getActiveAccountLocal,
-  getInExternalAccounts,
-} from "./utils";
+import { addToLocalExtensions, getActiveAccountLocal } from "./utils";
 
 export const useImportExtension = () => {
   const { setExtensionStatus } = useExtensions();
@@ -32,7 +26,7 @@ export const useImportExtension = () => {
     currentAccounts: ExtensionAccount[],
     extension: ExtensionInterface,
     newAccounts: ExtensionAccount[],
-    forget: (a: ImportedAccount[]) => void,
+    forget: (a: ExtensionAccount[]) => void,
     {
       network,
       ss58,
@@ -67,7 +61,7 @@ export const useImportExtension = () => {
     currentAccounts: ExtensionAccount[],
     extension: ExtensionInterface,
     newAccounts: ExtensionAccount[],
-    forget: (a: ImportedAccount[]) => void,
+    forget: (a: ExtensionAccount[]) => void,
     {
       ss58,
       network,
@@ -88,10 +82,6 @@ export const useImportExtension = () => {
       account.address = address;
       return account;
     });
-
-    // Remove newAccounts from local external accounts if present
-    const inExternal = getInExternalAccounts(newAccounts, network);
-    forget(inExternal);
 
     // Find any accounts that have been removed from this extension
     const goneFromExtension = currentAccounts
@@ -115,11 +105,12 @@ export const useImportExtension = () => {
     );
 
     // Format accounts properties
-    newAccounts = newAccounts.map(({ address, name }) => ({
+    newAccounts = newAccounts.map(({ address, name, type }) => ({
       address: address,
       source: id,
       name: name,
       signer: extension.signer,
+      type,
     }));
     return {
       newAccounts,
@@ -140,7 +131,7 @@ export const useImportExtension = () => {
       network: string;
       ss58: number;
     },
-    accounts: ImportedAccount[]
+    accounts: ExtensionAccount[]
   ) => {
     return (
       accounts.find(
@@ -153,7 +144,7 @@ export const useImportExtension = () => {
   //
   // Connects to active account if it is provided.
   const connectActiveExtensionAccount = (
-    account: ImportedAccount | null,
+    account: ExtensionAccount | null,
     callback: AnyFunction
   ) => {
     if (account !== null) {

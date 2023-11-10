@@ -1,11 +1,5 @@
-// Copyright 2023 @paritytech/polkadot-cloud authors & contributors
-// SPDX-License-Identifier: GPL-3.0-only
-
-import { localStorageOrDefault } from "@polkadot-cloud/utils";
 import Keyring from "@polkadot/keyring";
-
-import { ExtensionAccount } from "../ExtensionsProvider";
-import { ExternalAccount } from "../types";
+import { localStorageOrDefault } from "@polkadex-ts/utils";
 
 // Gets local `active_acount` for a network.
 export const getActiveAccountLocal = (network: string, ss58: number) => {
@@ -34,33 +28,6 @@ export const addToLocalExtensions = (id: string) => {
       );
     }
   }
-};
-
-// Gets accounts that exist in local `external_accounts`.
-export const getInExternalAccounts = (
-  accounts: ExtensionAccount[],
-  network: string
-) => {
-  const localExternalAccounts = getLocalExternalAccounts(network);
-
-  return (
-    localExternalAccounts.filter(
-      (a) => (accounts || []).find((b) => b.address === a.address) !== undefined
-    ) || []
-  );
-};
-
-// Gets local external accounts, formatting their addresses using active network ss58 format.
-export const getLocalExternalAccounts = (network?: string) => {
-  let localAccounts = localStorageOrDefault<ExternalAccount[]>(
-    "external_accounts",
-    [],
-    true
-  ) as ExternalAccount[];
-  if (network) {
-    localAccounts = localAccounts.filter((l) => l.network === network);
-  }
-  return localAccounts;
 };
 
 // Check if an extension exists in local `active_extensions`.
