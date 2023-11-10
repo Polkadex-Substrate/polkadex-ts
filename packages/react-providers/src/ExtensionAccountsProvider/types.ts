@@ -1,11 +1,14 @@
+// Copyright 2023 @paritytech/polkadot-cloud authors & contributors
+// SPDX-License-Identifier: GPL-3.0-only
+
 import { ReactNode } from "react";
-import { MaybeAddress } from "utils/src/types";
+import { MaybeAddress } from "@polkadex-ts/utils";
 
 import { ExtensionAccount } from "../ExtensionsProvider";
 import { ImportedAccount } from "../types";
 
 export interface ExtensionAccountsContextInterface {
-  connectExtensionAccounts: (id?: string) => Promise<boolean>;
+  connectExtensionAccounts: (id: string) => Promise<boolean>;
   forgetAccounts: (a: ExtensionAccount[]) => void;
   extensionAccountsSynced: Sync;
   extensionAccounts: ImportedAccount[];

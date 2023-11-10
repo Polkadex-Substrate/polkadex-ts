@@ -1,5 +1,5 @@
-import { AnyJson } from "utils/src/types";
 import { FunctionComponent, SVGProps } from "react";
+import { AnyJson } from "@polkadex-ts/utils";
 
 export type ExtensionStatus = "installed" | "not_authenticated" | "connected";
 
