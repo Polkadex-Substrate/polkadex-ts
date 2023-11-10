@@ -124,12 +124,12 @@ export const ExtensionAccountsProvider = ({
           // Continue if `enable` succeeded, and if the current network is supported.
           if (extension !== undefined) {
             // Handler for new accounts.
-            const handleAccounts = (a: ExtensionAccount[]) => {
+            const handleAccounts = (accounts: ExtensionAccount[]) => {
               const { newAccounts, meta } = handleImportExtension(
                 id,
                 extensionAccountsRef.current,
                 extension,
-                a,
+                accounts,
                 forgetAccounts,
                 {
                   network,
