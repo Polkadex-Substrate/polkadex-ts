@@ -69,7 +69,7 @@ interface HeadingProps extends ComponentProps<"h1"> {
   size?: keyof typeof headingSizes;
 }
 
-const headingTypes = ["h1", "h2", "h3", "h4", "h5", "h6"];
+const headingTypes = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
 const headingSizes = {
   "2xl": "text-[2rem] leading-[2.25rem]",
   xl: "text-[1.75rem] leading-[2rem]",

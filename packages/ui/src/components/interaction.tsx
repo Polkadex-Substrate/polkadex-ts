@@ -1,9 +1,9 @@
 import { ComponentProps, PropsWithChildren } from "react";
-import ClassNames from "classnames";
+import classNames from "classnames";
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 
-import { isValidComponent } from "../helpers/isValidComponent";
+import { isValidComponent } from "../helpers";
 
 import { Typography } from "./typography";
 import { Button } from "./button";
@@ -18,7 +18,7 @@ const Title = ({
 
   return (
     <div
-      className={ClassNames(
+      className={classNames(
         hasClose && "justify-between",
         "flex items-center gap-2 flex-1"
       )}
@@ -56,7 +56,7 @@ const Footer = ({
 
   return (
     <div
-      className={twMerge(ClassNames("flex flex-col gap-3", className))}
+      className={twMerge(classNames("flex flex-col gap-3", className))}
       {...props}
     >
       {ActionComponent}

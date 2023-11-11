@@ -1,6 +1,13 @@
 "use client";
 
-import { Button, Interaction, Logo, Modal, Typography } from "@polkadex/ux";
+import {
+  Button,
+  Dropdown,
+  Interaction,
+  Logo,
+  Modal,
+  Typography,
+} from "@polkadex/ux";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -26,7 +33,7 @@ export default function Home() {
           </ul>
         </div>
         <div>
-          <Modal
+          {/* <Modal
             closeOnClickOutside
             open={state}
             onOpenChange={setState}
@@ -48,10 +55,20 @@ export default function Home() {
                 </Interaction.Close>
               </Interaction.Footer>
             </Modal.Footer>
-          </Modal>
-          <Button.Primary onClick={() => setState(true)}>
-            Connect wallet
-          </Button.Primary>
+          </Modal> */}
+          <Dropdown>
+            <Dropdown.Trigger>
+              <Button.Primary>Connect wallet</Button.Primary>
+            </Dropdown.Trigger>
+            <Dropdown.Content className=" min-w-[12rem]">
+              <Dropdown.Label>Menu</Dropdown.Label>
+              <Dropdown.Item shortcut="⌘S">Item 1</Dropdown.Item>
+              <Dropdown.Item disabled> Item 2</Dropdown.Item>
+              <Dropdown.Separator />
+              <Dropdown.Item>Item 3</Dropdown.Item>
+              <Dropdown.Item>Item 4</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
         </div>
       </header>
       <div className="flex flex-col flex-1 items-center justify-center">
