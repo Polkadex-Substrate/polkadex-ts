@@ -3,10 +3,7 @@ import type {
   InjectedAccount,
   InjectedWindow,
 } from "@polkadot/extension-inject/types";
-import {
-  hasMetaMask,
-  isMetamaskSnapsSupported,
-} from "@chainsafe/metamask-polkadot-adapter/src/utils";
+import { isMetamaskSnapsSupported } from "@chainsafe/metamask-polkadot-adapter/src/utils";
 import { enablePolkadotSnap } from "@chainsafe/metamask-polkadot-adapter";
 import type {
   SignerPayloadJSON,
@@ -17,6 +14,7 @@ import type { HexString } from "@polkadot/util/types";
 import { SnapConfig } from "@chainsafe/metamask-polkadot-types";
 
 import { ExtensionAccount } from "../ExtensionsProvider";
+import { hasMetaMask } from "../ExtensionsProvider/utils";
 
 interface Web3Window extends InjectedWindow {
   ethereum: unknown;
