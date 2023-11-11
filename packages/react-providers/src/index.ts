@@ -1,2 +1,2 @@
-export * from "./ExtensionAccountsProvider/index";
-export * from "./ExtensionsProvider/index";
+export * from "./ExtensionAccountsProvider";
+export * from "./ExtensionsProvider";

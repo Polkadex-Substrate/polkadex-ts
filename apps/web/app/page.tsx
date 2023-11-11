@@ -1,7 +1,10 @@
 "use client";
 import Image from "next/image";
-import { ExtensionsProvider, useExtensions } from "react-providers";
-import { ExtensionAccountsProvider } from "react-providers/src/ExtensionAccountsProvider";
+import {
+  ExtensionsProvider,
+  useExtensions,
+  ExtensionAccountsProvider,
+} from "@polkadex/react-providers";
 
 import styles from "./page.module.css";
 

@@ -1,4 +1,8 @@
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ["ui", "react-providers"],
+  transpilePackages: [
+    "ui",
+    "@polkadex/react-providers",
+    "@chainsafe/metamask-polkadot-adapter",
+  ],
 };
