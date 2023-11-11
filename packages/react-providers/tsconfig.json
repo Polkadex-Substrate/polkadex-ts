@@ -9,7 +9,7 @@
     "noEmit": true,
     "strict": true,
     "jsx": "react-jsx",
-
+    "lib": ["DOM", "DOM.Iterable", "ESNext"]
   },
   "exclude": ["node_modules"]
 }
