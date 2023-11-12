@@ -1,5 +1,5 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { PropsWithChildren } from "react";
+import { Children, PropsWithChildren } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
@@ -10,30 +10,63 @@ const Radio = ({
   children,
   ...props
 }: PropsWithChildren<DropdownMenu.MenuRadioGroupProps>) => {
-  const [RadioComponent] = isValidComponent(children, Radio);
+  const items = Children.toArray(children);
+  // const [RadioComponent] = isValidComponent(children, Radio);
 
-  return (
-    <DropdownMenu.RadioGroup {...props}>
-      {RadioComponent}
-    </DropdownMenu.RadioGroup>
-  );
+  return <DropdownMenu.RadioGroup {...props}>{items}</DropdownMenu.RadioGroup>;
 };
+interface ItemRadioProps extends DropdownMenu.MenuRadioItemProps {
+  active?: boolean;
+}
 
 const ItemRadio = ({
   children,
+  className,
+  active,
   ...props
-}: PropsWithChildren<DropdownMenu.MenuRadioItemProps>) => {
-  return <DropdownMenu.RadioItem {...props}>{children}</DropdownMenu.RadioItem>;
+}: PropsWithChildren<ItemRadioProps>) => {
+  return (
+    <DropdownMenu.RadioItem
+      className={twMerge(
+        classNames(
+          "p-2 m-1 flex items-center gap-2 outline-none cursor-default",
+          "transition-colors duration-300 focus:bg-level-3 rounded-md",
+          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+          className
+        )
+      )}
+      {...props}
+    >
+      <div
+        className={classNames(
+          active ? "bg-primary-base" : "bg-level-4",
+          "w-1.5 h-1.5 rounded-full"
+        )}
+      />
+      {children}
+    </DropdownMenu.RadioItem>
+  );
 };
 
 const ItemCheckbox = ({
   children,
+  className,
   ...props
 }: PropsWithChildren<DropdownMenu.MenuCheckboxItemProps>) => {
   return (
-    <DropdownMenu.CheckboxItem {...props}>
+    <DropdownMenu.CheckboxItem
+      className={twMerge(
+        classNames(
+          "p-2 m-1 flex items-center gap-2 outline-none cursor-default",
+          "transition-colors duration-300 focus:bg-level-3 rounded-md",
+          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+          className
+        )
+      )}
+      {...props}
+    >
       <DropdownMenu.ItemIndicator>
-        <CheckIcon />
+        <CheckIcon className="w-3 h-3 text-primary-base" />
       </DropdownMenu.ItemIndicator>
       {children}
     </DropdownMenu.CheckboxItem>
@@ -70,9 +103,14 @@ const Item = ({
 
 const Trigger = ({
   children,
+  asChild,
   ...props
 }: PropsWithChildren<DropdownMenu.DropdownMenuTriggerProps>) => {
-  return <DropdownMenu.Trigger {...props}>{children}</DropdownMenu.Trigger>;
+  return (
+    <DropdownMenu.Trigger asChild={asChild} {...props}>
+      {asChild ? <div>{children}</div> : children}
+    </DropdownMenu.Trigger>
+  );
 };
 
 const Content = ({
@@ -84,7 +122,7 @@ const Content = ({
     <DropdownMenu.Content
       className={twMerge(
         classNames(
-          "bg-level-1 rounded-sm border border-primary min-w-[8rem]",
+          "bg-level-1 rounded-md border border-primary min-w-[8rem]",
           "z-50 overflow-hidden shadow-md",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
@@ -102,8 +140,11 @@ const Sub = ({
   children,
   ...props
 }: PropsWithChildren<DropdownMenu.MenuSubContentProps>) => {
-  const [SubTriggerComponent] = isValidComponent(children, SubTrigger);
-  const [SubContentComponent] = isValidComponent(children, SubContent);
+  const [SubTriggerComponent, SubContentComponent] = Children.toArray(children);
+
+  // const [SubTriggerComponent] = isValidComponent(children, SubTrigger);
+  // const [SubContentComponent] = isValidComponent(children, SubContent);
+
   return (
     <DropdownMenu.Sub {...props}>
       {SubTriggerComponent}
@@ -137,7 +178,7 @@ const Separator = ({
 }: PropsWithChildren<DropdownMenu.MenuSeparatorProps>) => {
   return (
     <DropdownMenu.Separator
-      className={twMerge(classNames("h-px bg-level-4", className))}
+      className={twMerge(classNames("border-b border-primary", className))}
       {...props}
     >
       {children}
@@ -153,7 +194,8 @@ const Label = ({
     <DropdownMenu.Label
       className={twMerge(
         classNames(
-          "p-2 text-sm font-semibold border-b border-secondary",
+          " text-actionInput text-sm font-semibold",
+          "p-2 border-b border-primary",
           className
         )
       )}
@@ -168,8 +210,10 @@ const Dropdown = ({
   children,
   ...props
 }: PropsWithChildren<DropdownMenu.DropdownMenuProps>) => {
-  const [TriggerComponent] = isValidComponent(children, Trigger);
-  const [ContentComponent] = isValidComponent(children, Content);
+  const [TriggerComponent, ContentComponent] = Children.toArray(children);
+  // const [TriggerComponent] = isValidComponent(children, Trigger);
+  // const [ContentComponent] = isValidComponent(children, Content);
+
   return (
     <DropdownMenu.Root {...props}>
       {TriggerComponent}

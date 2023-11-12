@@ -1,4 +1,4 @@
-import { ComponentProps, PropsWithChildren } from "react";
+import { Children, ComponentProps, PropsWithChildren } from "react";
 import classNames from "classnames";
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
@@ -51,8 +51,9 @@ const Footer = ({
   className,
   ...props
 }: PropsWithChildren<ComponentProps<"div">>) => {
-  const [ActionComponent] = isValidComponent(children, Action);
-  const [CloseComponent] = isValidComponent(children, Close);
+  const [ActionComponent, CloseComponent] = Children.toArray(children);
+  // const [ActionComponent] = isValidComponent(children, Action);
+  // const [CloseComponent] = isValidComponent(children, Close);
 
   return (
     <div
