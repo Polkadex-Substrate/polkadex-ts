@@ -9,8 +9,9 @@ on:
 
 jobs:
   build:
-    if: ${{ github.event.label.name == 'A0-PleaseReview' }}
-    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.pull_request.labels.*.name, 'A0-PleaseReview') ||
+      contains(github.event_name, 'push')
     strategy:
       matrix:
         node-version: [18.x, 19.x, 20.x]
