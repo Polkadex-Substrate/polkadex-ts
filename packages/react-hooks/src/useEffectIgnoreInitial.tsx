@@ -1,6 +1,3 @@
-/* @license Copyright 2023 @paritytech/polkadot-cloud authors & contributors
-SPDX-License-Identifier: GPL-3.0-only */
-
 import { useEffect, useRef } from "react";
 import { AnyFunction, AnyJson } from "@polkadex-ts/utils";
 
