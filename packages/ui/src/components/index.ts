@@ -7,3 +7,4 @@ export * from "./interaction";
 export * from "./dropdown";
 export * from "./popover";
 export * from "./skeleton";
+export * from "./spinner";
