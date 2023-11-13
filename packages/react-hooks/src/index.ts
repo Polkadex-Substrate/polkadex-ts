@@ -1,1 +1,1 @@
-export * from "./useEffectIgnoreInitial"
+export * from "./useEffectIgnoreInitial";

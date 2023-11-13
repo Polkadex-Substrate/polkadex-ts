@@ -1,11 +1,9 @@
 "use client";
 import Image from "next/image";
-import {
-  useExtensions,
-} from "@polkadex/react-providers";
+import { useExtensions } from "@polkadex/react-providers";
+import { Card } from "ui";
 
 import styles from "./page.module.css";
-import {Card} from "ui";
 
 function Gradient({
   conic,
@@ -50,7 +48,7 @@ const LINKS = [
     title: "Deploy",
     href: "https://vercel.com/new",
     description:
-        " Instantly deploy your Turborepo to a shareable URL with Vercel.",
+      " Instantly deploy your Turborepo to a shareable URL with Vercel.",
   },
 ];
 export default function Page(): JSX.Element {
@@ -129,9 +127,9 @@ export default function Page(): JSX.Element {
       </div>
       <div className={styles.grid}>
         {LINKS.map(({ title, href, description }) => (
-            <Card className={styles.card} href={href} key={title} title={title}>
-              {description}
-            </Card>
+          <Card className={styles.card} href={href} key={title} title={title}>
+            {description}
+          </Card>
         ))}
       </div>
     </main>

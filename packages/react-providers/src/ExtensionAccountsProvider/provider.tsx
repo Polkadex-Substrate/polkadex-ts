@@ -6,6 +6,7 @@ import {
   localStorageOrDefault,
 } from "@polkadex-ts/utils";
 import { SnapNetworks } from "@chainsafe/metamask-polkadot-types";
+import { useEffectIgnoreInitial } from "@polkadex/react-hooks";
 
 import {
   ExtensionAccount,
@@ -21,7 +22,6 @@ import {
 } from "./types";
 import { extensionIsLocal, removeFromLocalExtensions } from "./utils";
 import { defaultExtensionAccountsContext } from "./constants";
-import { useEffectIgnoreInitial } from "@polkadex/react-hooks";
 import { initPolkadotSnap } from "./metamask-snap";
 
 export const ExtensionAccountsContext =
