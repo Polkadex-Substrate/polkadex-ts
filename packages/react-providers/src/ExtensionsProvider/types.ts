@@ -58,5 +58,5 @@ export interface ExtensionConfig {
 // Miscellaneous metadata added to an extension.
 export interface ExtensionMetadata {
   addedBy?: string;
-  source: string;
+  source: string; //eg: talisman, polkadot-js
 }
