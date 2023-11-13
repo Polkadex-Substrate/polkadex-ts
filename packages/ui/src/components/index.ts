@@ -9,3 +9,4 @@ export * from "./popover";
 export * from "./skeleton";
 export * from "./spinner";
 export * from "./genericMessage";
+export * from "./multistep";
