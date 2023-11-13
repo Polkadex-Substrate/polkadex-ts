@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useExtensions } from "@polkadex/react-providers";
 import { Card } from "ui";
 
 import styles from "./page.module.css";
@@ -135,9 +134,3 @@ export default function Page(): JSX.Element {
     </main>
   );
 }
-
-const TheButton = () => {
-  const { extensionsStatus } = useExtensions();
-  console.log(extensionsStatus);
-  return <button onClick={() => alert("hello")}>hello</button>;
-};
