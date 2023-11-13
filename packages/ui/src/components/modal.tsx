@@ -16,7 +16,7 @@ const Title = ({
 }: PropsWithChildren<TitleProps>) => {
   return (
     <AlertDialog.Title
-      className={twMerge(classNames("flex items-center gap-2", className))}
+      className={twMerge(classNames("flex items-center gap-2"), className)}
       {...props}
     >
       {children}

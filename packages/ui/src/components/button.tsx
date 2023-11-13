@@ -45,9 +45,9 @@ const Base = ({
           "flex items-center justify-center",
           "disabled:pointer-events-none disabled:opacity-50",
           variants.size[size],
-          variants.variant[variant],
-          className
-        )
+          variants.variant[variant]
+        ),
+        className
       )}
       {...props}
     >

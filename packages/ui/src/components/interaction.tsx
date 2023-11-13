@@ -57,7 +57,7 @@ const Footer = ({
 
   return (
     <div
-      className={twMerge(classNames("flex flex-col gap-3", className))}
+      className={twMerge(classNames("flex flex-col gap-3"), className)}
       {...props}
     >
       {ActionComponent}

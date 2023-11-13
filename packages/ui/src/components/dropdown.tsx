@@ -31,9 +31,9 @@ const ItemRadio = ({
         classNames(
           "p-2 m-1 flex items-center gap-2 outline-none cursor-default",
           "transition-colors duration-300 focus:bg-level-3 rounded-md",
-          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
-          className
-        )
+          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
+        ),
+        className
       )}
       {...props}
     >
@@ -59,9 +59,9 @@ const ItemCheckbox = ({
         classNames(
           "p-2 m-1 flex items-center gap-2 outline-none cursor-default",
           "transition-colors duration-300 focus:bg-level-3 rounded-md",
-          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
-          className
-        )
+          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
+        ),
+        className
       )}
       {...props}
     >

@@ -19,7 +19,8 @@ const Text = ({
   return (
     <ElementRender
       className={twMerge(
-        classNames(paragraphVariants[variant], paragraphSize[size], className)
+        classNames(paragraphVariants[variant], paragraphSize[size]),
+        className
       )}
       {...props}
     >
@@ -56,7 +57,8 @@ const Paragraph = ({
 }: PropsWithChildren<ParagraphProps>) => (
   <p
     className={twMerge(
-      classNames(paragraphVariants[variant], paragraphSize[size], className)
+      classNames(paragraphVariants[variant], paragraphSize[size]),
+      className
     )}
     {...props}
   >
@@ -90,7 +92,8 @@ const Heading = ({
   return (
     <ElementRender
       className={twMerge(
-        classNames("font-semibold", headingSizes[size], className)
+        classNames("font-semibold", headingSizes[size]),
+        className
       )}
       {...props}
     >
