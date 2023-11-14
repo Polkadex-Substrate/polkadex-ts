@@ -2,7 +2,7 @@ import { ComponentProps, PropsWithChildren } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
-import * as Vectors from "./Vectors";
+import * as Vectors from "../illustrations";
 
 interface GenericMessageProps extends ComponentProps<"div"> {
   title: string;

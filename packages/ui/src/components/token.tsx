@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
 
-import * as Tokens from "./Tokens";
+import * as Tokens from "../tokens";
 
 interface Props extends ComponentProps<"svg"> {
   name: string;
