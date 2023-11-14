@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Card } from "ui";
 
@@ -49,7 +50,6 @@ const LINKS = [
       " Instantly deploy your Turborepo to a shareable URL with Vercel.",
   },
 ];
-
 export default function Page(): JSX.Element {
   return (
     <main className={styles.main}>
@@ -124,7 +124,6 @@ export default function Page(): JSX.Element {
           </div>
         </div>
       </div>
-
       <div className={styles.grid}>
         {LINKS.map(({ title, href, description }) => (
           <Card className={styles.card} href={href} key={title} title={title}>

@@ -1,5 +1,5 @@
 {
-  "name": "@polkadex-ts/utils",
+  "name": "@polkadex/react-hooks",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -14,13 +14,16 @@
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "dependencies": {
-    "@polkadot/keyring": "^12.5.1",
-    "@polkadot/util": "^12.5.1",
     "eslint": "workspace:*",
     "typescript": "latest"
   },
   "devDependencies": {
+    "@polkadex-ts/eslint-config": "*",
     "tsup": "^7.2.0"
   }
 }

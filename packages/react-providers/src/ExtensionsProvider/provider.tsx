@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useEffect, useRef, useState } from "react";
-import { AnyJson } from "utils/src/types";
 import { Extensions, ExtensionsArray } from "@polkadot-cloud/assets/extensions";
-import { setStateWithRef } from "utils/src";
+import { setStateWithRef, AnyJson } from "@polkadex-ts/utils";
 
 import {
   ExtensionFeature,
@@ -9,6 +8,7 @@ import {
   ExtensionStatus,
 } from "./types";
 import { defaultExtensionsContext } from "./constants";
+import { polkadotSnapAvailable } from "./utils";
 
 export const ExtensionsContext = createContext<ExtensionsContextInterface>(
   defaultExtensionsContext
@@ -35,13 +35,28 @@ export const ExtensionsProvider = ({ children }: { children: ReactNode }) => {
   let injectedWeb3Interval: ReturnType<typeof setInterval>;
   const injectCounter = 0;
 
+  // Handle injecting of `metamask-polkadot-snap` into injectedWeb3 if avaialble, and complete
+  // `injectedWeb3` syncing process.
+  const handleSnapInjection = async (hasInjectedWeb3: boolean) => {
+    const snapAvailable = await polkadotSnapAvailable();
+
+    if (hasInjectedWeb3 || snapAvailable)
+      setStateWithRef(
+        getExtensionsStatus(snapAvailable),
+        setExtensionsStatus,
+        extensionsStatusRef
+      );
+
+    setStateWithRef(false, setCheckingInjectedWeb3, checkingInjectedWeb3Ref);
+  };
+
   // Handle completed interval check for `injectedWeb3`.
   //
   // Clear interval and move on to checking for Metamask Polkadot Snap.
   const handleClearInterval = (hasInjectedWeb3: boolean) => {
     clearInterval(injectedWeb3Interval);
     // Check if Metamask Polkadot Snap is available.
-    // handleSnapInjection(hasInjectedWeb3);
+    handleSnapInjection(hasInjectedWeb3);
   };
 
   // Setter for an extension status.
