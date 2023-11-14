@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
+    "@polkadex/react-hooks": "*",
     "@chainsafe/metamask-polkadot-adapter": "^0.5.1",
     "@polkadex-ts/utils": "*",
     "@polkadot-cloud/assets": "^0.1.34",
