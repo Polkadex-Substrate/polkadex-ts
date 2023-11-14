@@ -24,16 +24,19 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Setup Yarn
-        uses: borales/actions-yarn@v4
+        uses: borales/actions-yarn@v4.2.0
+        with:
+          cmd: install # will run `yarn install` command
 
-      - name: Install Yarn
-        run: yarn
+      - name: Build Packages
+        uses: borales/actions-yarn@v4.2.0
+        with:
+          cmd: build # will run `yarn build` command
 
-      - name: Build Yarn
-        run: yarn build
-
-      - name: Lint Yarn
-        run: yarn lint
+      - name: Lint
+        uses: borales/actions-yarn@v4.2.0
+        with:
+          cmd: lint # will run `yarn lint` command
 
   all:
     # This job ensures that all jobs above (now we have just build) are successful.
