@@ -28,11 +28,6 @@ jobs:
         with:
           cmd: install # will run `yarn install` command
 
-      - name: Clean Cache
-        uses: borales/actions-yarn@v4.2.0
-        with:
-          cmd: clean # will run `yarn clean` command
-
       - name: Build Packages
         uses: borales/actions-yarn@v4.2.0
         with:
