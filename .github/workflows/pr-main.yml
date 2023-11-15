@@ -1,4 +1,4 @@
-name: CI Tests And Build
+name: CI Build and Test
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 19.x, 20.x]
+        node-version: [20.x]
     steps:
       - uses: actions/checkout@v4
 
@@ -24,19 +24,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Setup Yarn
-        uses: borales/actions-yarn@v4.2.0
-        with:
-          cmd: install # will run `yarn install` command
+        run : npm install -g yarn && yarn cache clean && yarn install
 
       - name: Build Packages
-        uses: borales/actions-yarn@v4.2.0
-        with:
-          cmd: build # will run `yarn build` command
+        run : yarn build
 
-      - name: Lint
-        uses: borales/actions-yarn@v4.2.0
-        with:
-          cmd: lint # will run `yarn lint` command
+      - name: Lint Packages
+        run : yarn lint
 
   all:
     # This job ensures that all jobs above (now we have just build) are successful.
