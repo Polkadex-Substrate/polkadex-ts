@@ -1,0 +1,41 @@
+import Link from "next/link"
+import { Tabs } from 'nextra/components'
+import { ChainCard } from "@polkadex/ux";
+
+# Chain Card
+
+## Usage
+<Tabs items={['Preview', 'Code']}>
+  <Tabs.Tab>
+    <div className="flex gap-4 items-center">
+      <ChainCard
+        title="Native Wallets"
+        description="Polkadot, Kusama & Parachains."
+        icon="DOT"
+      />
+      <ChainCard
+        title="Ethereum"
+        description="Moonbeam, Astar, Ethreum, etc."
+        icon="ETH"
+      />
+    </div>
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ````mdx 
+  import { ChainCard } from "@polkadex/ux";
+
+  <ChainCard
+    title="Native Wallets"
+    description="Polkadot, Kusama & Parachains."
+    icon="DOT"
+  />
+  <ChainCard
+    title="Ethereum"
+    description="Moonbeam, Astar, Ethreum, etc."
+    icon="ETH"
+  />
+  
+  
+  ````
+  </Tabs.Tab>
+</Tabs>

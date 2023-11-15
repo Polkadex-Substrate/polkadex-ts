@@ -1,0 +1,57 @@
+import Link from "next/link"
+import { Tabs } from 'nextra/components'
+import { ConnectWallet } from "@polkadex/ux";
+
+# Connect wallet interaction
+Re-usable components built using Radix UI and Tailwind CSS.
+
+### Walletss
+<Tabs items={['Preview', 'Code']}>
+  <Tabs.Tab>
+    <div className="flex items-start gap-5">
+      <ConnectWallet.Wallets wallets={[]} />
+      <ConnectWallet.Wallets />
+    </div>
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ````mdx 
+  import { ConnectWallet } from "@polkadex/ux";
+
+  <ConnectWallet.Wallets wallets={[]} />
+  <ConnectWallet.Wallets />
+  ````
+  </Tabs.Tab>
+</Tabs>
+
+
+### Authorization
+<Tabs items={['Preview', 'Code']}>
+  <Tabs.Tab>
+    <div className="flex items-start gap-5">
+      <ConnectWallet.Authorization logo="POLKADOTJS"/>
+      <ConnectWallet.Authorization logo="POLKADOTJS" error loading={false}/>
+    </div>
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ````mdx 
+  import { ConnectWallet } from "@polkadex/ux";
+
+  <ConnectWallet.Authorization logo="POLKADOTJS"/>
+  <ConnectWallet.Authorization logo="POLKADOTJS" error loading={false}/>
+  ````
+  </Tabs.Tab>
+</Tabs>
+
+### Connect wallet
+<Tabs items={['Preview', 'Code']}>
+  <Tabs.Tab>
+    <ConnectWallet/>
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ````mdx 
+  import { ConnectWallet } from "@polkadex/ux";
+
+  <ConnectWallet/>
+  ````
+  </Tabs.Tab>
+</Tabs>

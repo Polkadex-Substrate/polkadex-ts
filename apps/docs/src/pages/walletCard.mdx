@@ -1,0 +1,34 @@
+import Link from "next/link"
+import { Tabs } from 'nextra/components'
+import { WalletCard } from "@polkadex/ux";
+
+# Wallet Card
+
+## Usage
+<Tabs items={['Preview', 'Code']}>
+  <Tabs.Tab>
+    <div className="flex flex-col gap-4 max-w-sm">
+      <WalletCard
+        name="Orderbook Testing"
+        address="5GC6vwNE8FdToic5iVKnrZrycMLnGJBJVSdXcnqrMbDs1LJC"
+      />
+      <WalletCard
+        name="Thea Testing"
+        address="5Toic5iVKnrZryToic5iVKnrZrycMLnGJBJVSdXcnVKnrZry"
+      />
+    </div>
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ````mdx 
+  import { WalletCard } from "@polkadex/ux";
+  <WalletCard
+    name="Orderbook Testing"
+    address="5GC6vwNE8FdToic5iVKnrZrycMLnGJBJVSdXcnqrMbDs1LJC"
+  />
+  <WalletCard
+    name="Thea Testing"
+    address="5Toic5iVKnrZryToic5iVKnrZrycMLnGJBJVSdXcnVKnrZry"
+  />
+  ````
+  </Tabs.Tab>
+</Tabs>

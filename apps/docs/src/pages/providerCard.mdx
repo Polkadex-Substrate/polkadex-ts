@@ -1,0 +1,48 @@
+import Link from "next/link"
+import { Tabs } from 'nextra/components'
+import { ProviderCard } from "@polkadex/ux";
+
+# Wallet Card
+
+## Usage
+<Tabs items={['Preview', 'Code']}>
+  <Tabs.Tab>
+    <div className="flex flex-col gap-4 max-w-sm">
+        <ProviderCard
+          title="Polkadot{.js}"
+          icon="POLKADOTJS"
+          href="https://polkadot.js.org/extension/"
+        />
+        <ProviderCard
+          title="Talisman"
+          icon="TALISMAN"
+          action={() => window.alert("Clicked")}
+          installed={false}
+          href="https://www.talisman.xyz/download"
+        />
+        <ProviderCard
+          title="SubWallet"
+          icon="SUBWALLET"
+          href="https://www.subwallet.app"
+        />
+        <ProviderCard
+          title="Enkrypt"
+          icon="ENKRYPT"
+          href="https://www.enkrypt.com"
+        />
+    </div>
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ````mdx 
+  import { ProviderCard } from "@polkadex/ux";
+  <ProviderCard
+    name="Orderbook Testing"
+    address="5GC6vwNE8FdToic5iVKnrZrycMLnGJBJVSdXcnqrMbDs1LJC"
+  />
+  <ProviderCard
+    name="Thea Testing"
+    address="5Toic5iVKnrZryToic5iVKnrZrycMLnGJBJVSdXcnVKnrZry"
+  />
+  ````
+  </Tabs.Tab>
+</Tabs>

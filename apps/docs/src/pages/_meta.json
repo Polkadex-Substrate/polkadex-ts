@@ -1,0 +1,30 @@
+{
+  "-- Separator": {
+    "type": "separator",
+    "title": "Getting Started"
+  },
+  "index": "Introduction",
+  "installation": "Installation",
+  "contribute-guide": "Contribute Guide",
+  "code-of-conduct": "Code of Conduct",
+  "acknowledgements": "Acknowledgements",
+  "-- SeparatorOne": {
+    "type": "separator",
+    "title": "Components"
+  },
+  "text": "Text",
+  "button": "Button",
+  "interaction": "Interaction",
+  "-- SeparatorTwo": {
+    "type": "separator",
+    "title": "Plug-and-Play "
+  },
+  "connectWallet": "Connect Wallet",
+  "-- SeparatorThree": {
+    "type": "separator",
+    "title": "Ready to use"
+  },
+  "chainCard": "Chain Card",
+  "walletCard": "Wallet Card",
+  "providerCard": "Provider Card"
+}

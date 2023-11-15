@@ -1,0 +1,81 @@
+import Link from "next/link"
+import { Tabs } from 'nextra/components'
+import { Interaction } from "@polkadex/ux";
+import { Table } from '../components'
+
+# Interaction
+
+## Usage
+<Tabs items={['Preview', 'Code']}>
+  <Tabs.Tab>
+    <div className="flex gap-4 items-center">
+      <Interaction>
+        <Interaction.Title onBack={() => window.alert("back")}>
+          Connect your wallet
+        </Interaction.Title>
+        <Interaction.Content>
+          Start our Polkadex journey.
+        </Interaction.Content>
+        <Interaction.Footer>
+          <Interaction.Action>Action</Interaction.Action>
+          <Interaction.Close>Close</Interaction.Close>
+        </Interaction.Footer>
+      </Interaction>
+    </div>
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ````mdx 
+  import { Button } from "@polkadex/ux";
+  
+  <Button.Primary>Primary</Button.Primary>
+  <Button.Secondary>Secondary</Button.Secondary>
+  <Button.Ghost>Ghost</Button.Ghost>
+  <Button.Outline>Outline</Button.Outline>
+  ````
+  </Tabs.Tab>
+</Tabs>
+
+## API Reference
+
+### Variants
+Variants are tailored styles to meet specific design needs:
+
+<Table
+  content={[
+    {
+      title: 'Button.Primary',
+      description: "Commands attention with a bold and prominent style, typically reserved for important calls to action."
+    },
+    {
+      title:"Button.Secondary",
+      description:   "Takes a subdued approach, serving as an alternative for secondary or less critical actions.",
+    },
+    {
+      title:"Button.Ghost",
+      description: "Maintains a light and non-intrusive presence, suitable for tertiary actions like Cancel or Close.",
+    },
+    {
+      title:"Button.Outline",
+      description: "Presents a subtle appearance with a visible border, often used for actions without a solid background."
+    },
+  ]}
+/>
+
+### Props
+Sizes offer flexibility to cater to diverse design requirements:
+
+<Table
+  content={[
+    {
+      title: 'size',
+      props: "xs | sm | default | md | lg",
+      description: "Sizes offer a range from xs (Extra Small) to lg (Large), providing flexibility for various design needs—from a compact and subtle presence to a commanding and substantial appearance."
+    },
+    {
+      title: 'asChild',
+      props: "boolean",
+      description: "Merges its props onto its immediate child."
+    },
+  ]}
+/>
+
