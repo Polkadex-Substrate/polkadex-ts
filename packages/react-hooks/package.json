@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
+    "@polkadex-ts/utils": "*",
     "eslint": "workspace:*",
     "typescript": "latest"
   },
