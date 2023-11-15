@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 import { Slot } from "@radix-ui/react-slot";
 
-interface ButtonProps extends ComponentProps<"button"> {
+export interface ButtonProps extends ComponentProps<"button"> {
   asChild?: boolean;
   size?: keyof (typeof variants)["size"];
   variant?: keyof (typeof variants)["variant"];

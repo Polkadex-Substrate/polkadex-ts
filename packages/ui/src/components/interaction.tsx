@@ -6,7 +6,7 @@ import { twMerge } from "tailwind-merge";
 import { isValidComponent } from "../helpers";
 
 import { Typography } from "./typography";
-import { Button } from "./button";
+import { Button, ButtonProps } from "./button";
 
 interface TitleProps extends ComponentProps<"div"> {
   onBack?: () => void;
@@ -91,10 +91,9 @@ const Footer = ({
   );
 };
 
-const Action = ({
-  children,
-  ...props
-}: PropsWithChildren<ComponentProps<"button">>) => {
+interface ActionProps extends ButtonProps, ComponentProps<"button"> {}
+
+const Action = ({ children, ...props }: PropsWithChildren<ActionProps>) => {
   return (
     <Button.Primary size="md" {...props}>
       {children}
