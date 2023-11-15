@@ -41,16 +41,16 @@ export const Wallets = ({
             </div>
           </div>
         ) : (
-          <>
-            <Typography.Text variant="secondary" size="xs" className="px-7">
+          <div className="min-h-[15rem]">
+            <Typography.Text variant="secondary" size="xs" className="px-7 ">
               Available wallets
             </Typography.Text>
-            <div className="flex flex-col px-3">
+            <div className="flex flex-col px-3 max-h-[20rem] overflow-hidden hover:overflow-auto">
               {wallets.map((value, i) => (
                 <WalletCard key={i} name={value.name} address={value.address} />
               ))}
             </div>
-          </>
+          </div>
         )}
       </Interaction.Content>
       <Interaction.Footer>

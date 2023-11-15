@@ -24,7 +24,7 @@ export const WalletCard = ({
           <Avatar />
         </div>
         <div className="flex flex-col">
-          <span className="font-semibold">{name}</span>
+          <Typography.Text bold>{name}</Typography.Text>
           <div className="flex items-center gap-1 text-primary">
             <Copy value={address} />
             <Typography.Text variant="primary">{shortAddress}</Typography.Text>
