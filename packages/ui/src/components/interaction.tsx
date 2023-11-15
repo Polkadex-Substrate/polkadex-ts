@@ -147,7 +147,7 @@ const Interaction = ({
     <div
       className={twMerge(
         classNames(
-          "flex flex-col gap-5 pt-7 pb-10 max-w-sm",
+          "flex flex-col gap-5 pt-7 pb-10 max-w-sm w-full",
           "bg-level-1 border border-primary rounded-lg"
         ),
         className
