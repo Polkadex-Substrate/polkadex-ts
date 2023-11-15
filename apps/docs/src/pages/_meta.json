@@ -1,0 +1,16 @@
+{
+  "-- Separator": {
+    "type": "separator",
+    "title": "Getting Started"
+  },
+  "index": "Introduction",
+  "installation": "Installation",
+  "contribute-guide": "Contribute guide",
+  "code-of-conduct": "Code of Conduct",
+  "acknowledgements": "Acknowledgements",
+  "-- SeparatorTwo": {
+    "type": "separator",
+    "title": "Components"
+  },
+  "button": "Button"
+}

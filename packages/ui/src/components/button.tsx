@@ -41,7 +41,7 @@ const Base = ({
     <Rendercomponent
       className={twMerge(
         classNames(
-          "transition-colors duration-300 font-medium",
+          "transition-colors duration-300 font-medium text-sm",
           "flex items-center justify-center",
           "disabled:pointer-events-none disabled:opacity-50",
           variants.size[size],
