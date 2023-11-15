@@ -11,7 +11,6 @@ const Radio = ({
   ...props
 }: PropsWithChildren<DropdownMenu.MenuRadioGroupProps>) => {
   const items = Children.toArray(children);
-  // const [RadioComponent] = isValidComponent(children, Radio);
 
   return <DropdownMenu.RadioGroup {...props}>{items}</DropdownMenu.RadioGroup>;
 };
@@ -140,10 +139,8 @@ const Sub = ({
   children,
   ...props
 }: PropsWithChildren<DropdownMenu.MenuSubContentProps>) => {
-  const [SubTriggerComponent, SubContentComponent] = Children.toArray(children);
-
-  // const [SubTriggerComponent] = isValidComponent(children, SubTrigger);
-  // const [SubContentComponent] = isValidComponent(children, SubContent);
+  const [SubTriggerComponent] = isValidComponent(children, SubTrigger);
+  const [SubContentComponent] = isValidComponent(children, SubContent);
 
   return (
     <DropdownMenu.Sub {...props}>
@@ -210,9 +207,8 @@ const Dropdown = ({
   children,
   ...props
 }: PropsWithChildren<DropdownMenu.DropdownMenuProps>) => {
-  const [TriggerComponent, ContentComponent] = Children.toArray(children);
-  // const [TriggerComponent] = isValidComponent(children, Trigger);
-  // const [ContentComponent] = isValidComponent(children, Content);
+  const [TriggerComponent] = isValidComponent(children, Trigger);
+  const [ContentComponent] = isValidComponent(children, Content);
 
   return (
     <DropdownMenu.Root {...props}>

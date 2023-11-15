@@ -13,3 +13,4 @@ export * from "./multistep";
 export * from "./input";
 export * from "./tooltip";
 export * from "./copy";
+export * from "./icon";

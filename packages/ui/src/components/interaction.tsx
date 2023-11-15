@@ -1,4 +1,4 @@
-import { Children, ComponentProps, PropsWithChildren } from "react";
+import { ComponentProps, PropsWithChildren } from "react";
 import classNames from "classnames";
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
@@ -8,20 +8,33 @@ import { isValidComponent } from "../helpers";
 import { Typography } from "./typography";
 import { Button } from "./button";
 
+interface TitleProps extends ComponentProps<"div"> {
+  onBack?: () => void;
+  onClose?: () => void;
+  withPadding?: boolean;
+}
 const Title = ({
   children,
+  withPadding = true,
   onBack,
   onClose,
-}: PropsWithChildren<{ onBack?: () => void; onClose?: () => void }>) => {
+  className,
+  ...props
+}: PropsWithChildren<TitleProps>) => {
   const hasBack = typeof onBack === "function";
   const hasClose = typeof onClose === "function";
 
   return (
     <div
-      className={classNames(
-        hasClose && "justify-between",
-        "flex items-center gap-2 flex-1"
+      className={twMerge(
+        classNames(
+          hasClose && "justify-between",
+          withPadding && "px-7",
+          "flex items-center gap-2 flex-1 px-7"
+        ),
+        className
       )}
+      {...props}
     >
       {hasBack && (
         <button
@@ -31,7 +44,7 @@ const Title = ({
           <ArrowLeftIcon className="text-secondary group-hover:text-textBase duration-300 transition-colors" />
         </button>
       )}
-      <Typography.Heading type="h3" size="lg">
+      <Typography.Heading type="h3" size="md">
         {children}
       </Typography.Heading>
       {hasClose && (
@@ -46,20 +59,32 @@ const Title = ({
   );
 };
 
+interface FooterProps extends ComponentProps<"div"> {
+  withPadding?: boolean;
+}
+
 const Footer = ({
   children,
   className,
+  withPadding = true,
   ...props
-}: PropsWithChildren<ComponentProps<"div">>) => {
-  const [ActionComponent, CloseComponent] = Children.toArray(children);
-  // const [ActionComponent] = isValidComponent(children, Action);
-  // const [CloseComponent] = isValidComponent(children, Close);
+}: PropsWithChildren<FooterProps>) => {
+  const [ActionComponent] = isValidComponent(children, Action);
+  const [CloseComponent] = isValidComponent(children, Close);
 
+  const customClassNames = twMerge(
+    classNames(withPadding && "px-7", "flex flex-col gap-3"),
+    className
+  );
+
+  if (!ActionComponent || (CloseComponent && children))
+    return (
+      <div className={customClassNames} {...props}>
+        {children}
+      </div>
+    );
   return (
-    <div
-      className={twMerge(classNames("flex flex-col gap-3"), className)}
-      {...props}
-    >
+    <div className={customClassNames} {...props}>
       {ActionComponent}
       {CloseComponent}
     </div>
@@ -88,9 +113,58 @@ const Close = ({
   );
 };
 
-export const Interaction = {
-  Title,
-  Footer,
-  Action,
-  Close,
+interface ContentProps extends ComponentProps<"div"> {
+  onBack?: () => void;
+  onClose?: () => void;
+  withPadding?: boolean;
+}
+
+const Content = ({
+  children,
+  withPadding = true,
+  className,
+  ...props
+}: PropsWithChildren<ContentProps>) => {
+  return (
+    <div
+      className={twMerge(classNames(withPadding && "px-7"), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
 };
+const Interaction = ({
+  children,
+  className,
+  ...props
+}: PropsWithChildren<ComponentProps<"div">>) => {
+  const [TitleCompontent] = isValidComponent(children, Title);
+  const [ContentCompontent] = isValidComponent(children, Content);
+  const [FooterCompontent] = isValidComponent(children, Footer);
+
+  return (
+    <div
+      className={twMerge(
+        classNames(
+          "flex flex-col gap-5 pt-7 pb-10 max-w-sm",
+          "bg-level-1 border border-primary rounded-lg"
+        ),
+        className
+      )}
+      {...props}
+    >
+      {TitleCompontent}
+      {ContentCompontent}
+      {FooterCompontent}
+    </div>
+  );
+};
+
+Interaction.Title = Title;
+Interaction.Content = Content;
+Interaction.Footer = Footer;
+Interaction.Action = Action;
+Interaction.Close = Close;
+
+export { Interaction };

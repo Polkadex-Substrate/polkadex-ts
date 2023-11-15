@@ -1,7 +1,9 @@
 import * as TooltipRadix from "@radix-ui/react-Tooltip";
-import { Children, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
+
+import { isValidComponent } from "../helpers";
 
 const Trigger = ({
   children,
@@ -45,7 +47,8 @@ const Tooltip = ({
   delayDuration = 150,
   ...props
 }: PropsWithChildren<TooltipRadix.TooltipProps>) => {
-  const [TriggerComponent, ContentComponent] = Children.toArray(children);
+  const [TriggerComponent] = isValidComponent(children, Trigger);
+  const [ContentComponent] = isValidComponent(children, Content);
 
   return (
     <TooltipRadix.Provider delayDuration={delayDuration}>

@@ -1,17 +1,27 @@
-import { ComponentProps, ElementType, PropsWithChildren } from "react";
+import {
+  Children,
+  ComponentProps,
+  ElementType,
+  PropsWithChildren,
+  ReactElement,
+  cloneElement,
+} from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
+import { componentIsTypeof } from "../helpers";
 interface TextProps extends ParagraphProps {
   type?: "span" | "small" | "strong";
+  bold?: boolean;
 }
 
 const Text = ({
   children,
   className,
   variant = "base",
-  size = "base",
+  size = "sm",
   type = "span",
+  bold,
   ...props
 }: PropsWithChildren<TextProps>) => {
   const ElementRender = type;
@@ -19,7 +29,9 @@ const Text = ({
   return (
     <ElementRender
       className={twMerge(
-        classNames(paragraphVariants[variant], paragraphSize[size]),
+        classNames(bold && "font-semibold"),
+        paragraphVariants[variant],
+        paragraphSize[size],
         className
       )}
       {...props}
@@ -46,25 +58,38 @@ const paragraphSize = {
   base: "text-base",
   md: "text-md",
   lg: "text-lg",
+  xl: "text-xl",
 };
 
 const Paragraph = ({
   children,
   className,
   variant = "base",
-  size = "base",
+  size = "md",
   ...props
-}: PropsWithChildren<ParagraphProps>) => (
-  <p
-    className={twMerge(
-      classNames(paragraphVariants[variant], paragraphSize[size]),
-      className
-    )}
-    {...props}
-  >
-    {children}
-  </p>
-);
+}: PropsWithChildren<ParagraphProps>) => {
+  const isChildrenParagraph = Children.toArray(children).some((child) =>
+    componentIsTypeof(child, "p")
+  );
+  const customClassNames = twMerge(
+    paragraphVariants[variant],
+    paragraphSize[size],
+    classNames("leading-5"),
+    className
+  );
+  if (isChildrenParagraph) {
+    const childElement = Children.only(children) as ReactElement;
+    return cloneElement(childElement, {
+      className: customClassNames,
+      ...props,
+    });
+  }
+  return (
+    <p className={customClassNames} {...props}>
+      {children}
+    </p>
+  );
+};
 
 interface HeadingProps extends ComponentProps<"h1"> {
   type?: (typeof headingTypes)[number];
@@ -92,7 +117,8 @@ const Heading = ({
   return (
     <ElementRender
       className={twMerge(
-        classNames("font-semibold", headingSizes[size]),
+        classNames("font-semibold"),
+        headingSizes[size],
         className
       )}
       {...props}

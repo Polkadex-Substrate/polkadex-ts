@@ -1,7 +1,9 @@
 import * as PopoverRadix from "@radix-ui/react-popover";
-import { Children, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
+
+import { isValidComponent } from "../helpers";
 
 const Close = ({
   children,
@@ -54,7 +56,8 @@ const Popover = ({
   children,
   ...props
 }: PropsWithChildren<PopoverRadix.PopoverProps>) => {
-  const [TriggerComponent, ContentComponent] = Children.toArray(children);
+  const [TriggerComponent] = isValidComponent(children, Trigger);
+  const [ContentComponent] = isValidComponent(children, Content);
 
   return (
     <PopoverRadix.Root {...props}>

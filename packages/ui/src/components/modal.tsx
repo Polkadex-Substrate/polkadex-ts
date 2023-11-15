@@ -1,4 +1,4 @@
-import { Children, ComponentProps, PropsWithChildren } from "react";
+import { ComponentProps, PropsWithChildren } from "react";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
@@ -68,11 +68,9 @@ const Modal = ({
   placement = "center",
   ...props
 }: PropsWithChildren<ModalProps>) => {
-  const [TitleComponent, ContentComponent, FooterComponent] =
-    Children.toArray(children);
-  // const [TitleComponent] = isValidComponent(children, Title);
-  // const [ContentComponent] = isValidComponent(children, Content);
-  // const [FooterComponent] = isValidComponent(children, Footer);
+  const [TitleComponent] = isValidComponent(children, Title);
+  const [ContentComponent] = isValidComponent(children, Content);
+  const [FooterComponent] = isValidComponent(children, Footer);
 
   return (
     <AlertDialog.Root
