@@ -1,5 +1,5 @@
-import { AnyJson } from "utils/src/types";
 import { FunctionComponent, SVGProps } from "react";
+import { AnyJson } from "@polkadex-ts/utils";
 
 export type ExtensionStatus = "installed" | "not_authenticated" | "connected";
 
@@ -41,6 +41,7 @@ export interface ExtensionAccount extends ExtensionMetadata {
   address: string;
   meta?: AnyJson;
   name: string;
+  type: "sr25519" | "ethereum";
   signer?: AnyJson;
 }
 
@@ -57,5 +58,5 @@ export interface ExtensionConfig {
 // Miscellaneous metadata added to an extension.
 export interface ExtensionMetadata {
   addedBy?: string;
-  source: string;
+  source: string; // eg: talisman, polkadot-js
 }

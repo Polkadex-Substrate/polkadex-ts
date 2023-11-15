@@ -14,7 +14,7 @@ const withNextra = require("nextra")({
 
 const nextConfig = {
   reactStrictMode: false,
-  transpilePackages: ["@polkadex/ux"],
+  transpilePackages: ["@polkadex/ux", "react-providers"],
 };
 
 module.exports = withNextra(nextConfig);

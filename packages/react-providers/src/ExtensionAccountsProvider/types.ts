@@ -1,14 +1,12 @@
 import { ReactNode } from "react";
-import { MaybeAddress } from "utils/src/types";
+import { MaybeAddress } from "@polkadex-ts/utils";
 
 import { ExtensionAccount } from "../ExtensionsProvider";
-import { ImportedAccount } from "../types";
 
 export interface ExtensionAccountsContextInterface {
-  connectExtensionAccounts: (id?: string) => Promise<boolean>;
-  forgetAccounts: (a: ExtensionAccount[]) => void;
+  connectExtensionAccounts: (id: string) => Promise<boolean>;
   extensionAccountsSynced: Sync;
-  extensionAccounts: ImportedAccount[];
+  extensionAccounts: ExtensionAccount[];
 }
 
 export interface ExtensionAccountsProviderProps {

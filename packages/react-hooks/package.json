@@ -1,5 +1,5 @@
 {
-  "name": "@polkadex/react-providers",
+  "name": "@polkadex/react-hooks",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -19,16 +19,11 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@polkadex/react-hooks": "*",
-    "@chainsafe/metamask-polkadot-adapter": "^0.5.1",
     "@polkadex-ts/utils": "*",
-    "@polkadot-cloud/assets": "^0.1.34",
-    "@polkadot/keyring": "^12.5.1",
     "eslint": "workspace:*",
     "typescript": "latest"
   },
   "devDependencies": {
-    "@chainsafe/metamask-polkadot-types": "^0.6.0",
     "@polkadex-ts/eslint-config": "*",
     "tsup": "^7.2.0"
   }
