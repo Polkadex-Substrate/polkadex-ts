@@ -1,7 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  transpilePackages: ["@polkadex/ux"],
+module.exports = {
+  reactStrictMode: false,
+  transpilePackages: [
+    "ui",
+    "@polkadex/react-providers",
+    "@chainsafe/metamask-polkadot-adapter",
+  ],
 };
-
-module.exports = nextConfig;
