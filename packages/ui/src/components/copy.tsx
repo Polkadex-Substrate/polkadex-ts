@@ -1,7 +1,7 @@
 import { ComponentProps, MouseEvent, PropsWithChildren, useState } from "react";
 import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
 import classNames from "classnames";
-import { TooltipContentProps } from "@radix-ui/react-Tooltip";
+import { TooltipContentProps } from "@radix-ui/react-tooltip";
 import { twMerge } from "tailwind-merge";
 
 import { Tooltip } from "./tooltip";
