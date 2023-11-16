@@ -24,7 +24,6 @@ const Title = ({
   const hasBack = typeof onBack === "function";
   const hasClose = typeof onClose === "function";
 
-  console.log(typeof onBack);
   return (
     <div
       className={twMerge(

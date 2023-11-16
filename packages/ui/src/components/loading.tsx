@@ -6,7 +6,6 @@ export const Loading = ({
   children,
   active = true,
 }: PropsWithChildren<{ active?: boolean }>) => {
-  console.log("active", active);
   if (!active) return <Fragment>{children}</Fragment>;
 
   return (

@@ -19,3 +19,5 @@ export * from "./googleDrive";
 export * from "./folder";
 export * from "./mnemonic";
 export * from "./unknown";
+export * from "./device";
+export * from "./blockchain";
