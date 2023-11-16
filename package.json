@@ -1,4 +1,5 @@
 {
+  "name": "polkadex-ts",
   "private": true,
   "license": "GPL-3.0-only",
   "scripts": {
@@ -6,6 +7,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "jest",
     "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "dependencies": {
@@ -22,7 +24,6 @@
     "ts-jest": "^29.1.1",
     "@types/jest": "^29.5.7"
   },
-  "name": "polkadex-ts",
   "packageManager": "yarn@1.22.19",
   "workspaces": [
     "apps/*",
