@@ -13,7 +13,7 @@
     "build": "tsup index.ts --format esm,cjs --dts",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "lint": "eslint ."
+    "lint": "eslint ./src"
   },
   "peerDependencies": {
     "react": "^18.2.0",
