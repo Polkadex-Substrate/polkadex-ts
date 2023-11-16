@@ -21,3 +21,4 @@ export * from "./mnemonic";
 export * from "./unknown";
 export * from "./device";
 export * from "./blockchain";
+export * from "./check";

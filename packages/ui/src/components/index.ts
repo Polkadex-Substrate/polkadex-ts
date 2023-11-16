@@ -16,3 +16,4 @@ export * from "./copy";
 export * from "./icon";
 export * from "./separator";
 export * from "./loading";
+export * from "./checkbox";
