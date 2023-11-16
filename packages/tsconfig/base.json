@@ -13,6 +13,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
+    "types": ["node", "jest", "bignumber"],
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true
