@@ -24,6 +24,7 @@ const Title = ({
   const hasBack = typeof onBack === "function";
   const hasClose = typeof onClose === "function";
 
+  console.log(typeof onBack);
   return (
     <div
       className={twMerge(
@@ -37,23 +38,17 @@ const Title = ({
       {...props}
     >
       {hasBack && (
-        <button
-          className="w-8 h-8 p-1 hover:bg-level-3 rounded-full duration-300 transition-colors group"
-          onClick={onBack}
-        >
+        <Button.Icon onClick={onClose} variant="ghost" rounded>
           <ArrowLeftIcon className="text-secondary group-hover:text-textBase duration-300 transition-colors" />
-        </button>
+        </Button.Icon>
       )}
       <Typography.Heading type="h3" size="md">
         {children}
       </Typography.Heading>
       {hasClose && (
-        <button
-          className="w-8 h-8 p-1 hover:bg-level-3 rounded-full duration-300 transition-colors group"
-          onClick={onClose}
-        >
+        <Button.Icon onClick={onClose} variant="ghost" rounded>
           <XMarkIcon className="text-secondary group-hover:text-textBase duration-300 transition-colors" />
-        </button>
+        </Button.Icon>
       )}
     </div>
   );
@@ -147,7 +142,7 @@ const Interaction = ({
       className={twMerge(
         classNames(
           "flex flex-col gap-5 pt-7 pb-10 max-w-sm w-full",
-          "bg-level-1 border border-primary rounded-lg"
+          "bg-backgroundBase border border-primary rounded-lg"
         ),
         className
       )}

@@ -7,14 +7,16 @@ export interface ButtonProps extends ComponentProps<"button"> {
   asChild?: boolean;
   size?: keyof (typeof variants)["size"];
   variant?: keyof (typeof variants)["variant"];
+  withIcon?: boolean;
+  rounded?: boolean;
 }
 
 const variants = {
   size: {
     xs: "h-3 px-0.5 py-2 text-xs rounded-sm",
-    sm: "h-6 px-1 py-2 rounded-sm",
-    default: "h6 px-4 py-2 rounded-md",
-    md: "h-10 px-4 py-2 rounded-md",
+    sm: "h-6 px-1 py-2 text-xs rounded-sm",
+    default: "h6 px-4 py-2 text-sm rounded-md",
+    md: "h-10 px-4 py-2 text-sm rounded-md",
     lg: "h-14 px-8 py-4 text-md rounded-md",
   },
   variant: {
@@ -26,6 +28,13 @@ const variants = {
     outline:
       "border border-secondary-base hover:bg-secondary-pressed active:bg-secondary-hover ",
   },
+  iconSize: {
+    xs: "h-4 w-4 p-1 rounded-md",
+    sm: "h-6 w-6 p-1 rounded-md",
+    default: "h-8 w-8 p-1.5 rounded-md",
+    md: "h-10 w-10 p-3 rounded-md",
+    lg: "h-12 w-12 p-3 rounded-md",
+  },
 };
 
 const Base = ({
@@ -33,6 +42,8 @@ const Base = ({
   asChild = false,
   size = "default",
   variant = "primary",
+  withIcon = false,
+  rounded = false,
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
@@ -41,11 +52,13 @@ const Base = ({
     <Rendercomponent
       className={twMerge(
         classNames(
-          "transition-colors duration-300 font-medium text-sm",
+          "transition-colors duration-300 font-medium",
           "flex items-center justify-center",
           "disabled:pointer-events-none disabled:opacity-50",
-          variants.size[size],
-          variants.variant[variant]
+          withIcon ? variants.iconSize[size] : variants.size[size],
+          variants.variant[variant],
+          rounded && "rounded-full",
+          withIcon && "group"
         ),
         className
       )}
@@ -60,16 +73,23 @@ const Primary = (props: PropsWithChildren<Omit<ButtonProps, "variant">>) => (
   <Base variant="primary" {...props} />
 );
 
-const Secondary = (props: PropsWithChildren<Omit<ButtonProps, "variant">>) => (
-  <Base variant="secondary" {...props} />
-);
+const Secondary = (
+  props: PropsWithChildren<Omit<ButtonProps, "variant" | "withIcon">>
+) => <Base variant="secondary" {...props} />;
 
-const Ghost = (props: PropsWithChildren<Omit<ButtonProps, "variant">>) => (
-  <Base variant="ghost" {...props} />
-);
+const Ghost = (
+  props: PropsWithChildren<Omit<ButtonProps, "variant" | "withIcon">>
+) => <Base variant="ghost" {...props} />;
 
-const Outline = (props: PropsWithChildren<Omit<ButtonProps, "variant">>) => (
-  <Base variant="outline" {...props} />
+const Outline = (
+  props: PropsWithChildren<Omit<ButtonProps, "variant" | "withIcon">>
+) => <Base variant="outline" {...props} />;
+
+const Icon = ({
+  variant = "secondary",
+  ...props
+}: PropsWithChildren<Omit<ButtonProps, "withIcon">>) => (
+  <Base variant={variant} withIcon {...props} />
 );
 
 export const Button = {
@@ -77,4 +97,5 @@ export const Button = {
   Secondary,
   Ghost,
   Outline,
+  Icon,
 };

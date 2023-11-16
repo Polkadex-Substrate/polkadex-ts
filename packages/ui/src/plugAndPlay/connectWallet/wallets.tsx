@@ -1,18 +1,15 @@
+import { ExtensionAccount } from "@polkadex/react-providers";
+
 import { Interaction, Typography } from "../../components";
 import { WalletNotFound } from "../../illustrations";
 import { WalletCard } from "../../readyToUse";
 
 export const Wallets = ({
-  wallets = [
-    {
-      name: "Orderbook Testing",
-      address: "5GC6vwNE8FdToic5iVKnrZrycMLnGJBJVSdXcnqrMbDs1LJC",
-    },
-    {
-      name: "Thea Testing",
-      address: "5Toic5iVKnrZryToic5iVKnrZrycMLnGJBJVSdXcnVKnrZry",
-    },
-  ],
+  wallets,
+  action,
+}: {
+  wallets: ExtensionAccount[];
+  action: (v: ExtensionAccount) => void;
 }) => {
   const hasWallet = !!wallets?.length;
   return (
@@ -47,7 +44,12 @@ export const Wallets = ({
             </Typography.Text>
             <div className="flex flex-col px-3 max-h-[20rem] overflow-hidden hover:overflow-auto">
               {wallets.map((value, i) => (
-                <WalletCard key={i} name={value.name} address={value.address} />
+                <WalletCard
+                  key={i}
+                  name={value.name}
+                  address={value.address}
+                  onClick={() => action(value)}
+                />
               ))}
             </div>
           </div>

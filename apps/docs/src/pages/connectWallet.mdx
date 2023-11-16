@@ -8,7 +8,7 @@ Re-usable components built using Radix UI and Tailwind CSS.
 ### Walletss
 <Tabs items={['Preview', 'Code']}>
   <Tabs.Tab>
-    <div className="flex items-start gap-5">
+    <div className="flex flex-wrap items-start gap-5">
       <ConnectWallet.Wallets wallets={[]} />
       <ConnectWallet.Wallets />
     </div>
@@ -27,7 +27,7 @@ Re-usable components built using Radix UI and Tailwind CSS.
 ### Authorization
 <Tabs items={['Preview', 'Code']}>
   <Tabs.Tab>
-    <div className="flex items-start gap-5">
+    <div className="flex flex-wrap items-start gap-5">
       <ConnectWallet.Authorization logo="POLKADOTJS"/>
       <ConnectWallet.Authorization logo="POLKADOTJS" error loading={false}/>
     </div>
@@ -45,7 +45,7 @@ Re-usable components built using Radix UI and Tailwind CSS.
 ### Connect wallet
 <Tabs items={['Preview', 'Code']}>
   <Tabs.Tab>
-    <ConnectWallet/>
+    <ConnectWallet onBack={() => {}}/>
   </Tabs.Tab>
   <Tabs.Tab>
   ````mdx 

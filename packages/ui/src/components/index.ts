@@ -14,3 +14,4 @@ export * from "./input";
 export * from "./tooltip";
 export * from "./copy";
 export * from "./icon";
+export * from "./separator";

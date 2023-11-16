@@ -6,12 +6,13 @@ import { ChainCard, ProviderCard } from "../../readyToUse";
 import { Authorization } from "./authorization";
 import { Wallets } from "./wallets";
 
-const ConnectWallet = ({ children }: PropsWithChildren) => {
+const ConnectWallet = ({
+  children,
+  onBack,
+}: PropsWithChildren<{ onBack: () => void }>) => {
   return (
     <Interaction>
-      <Interaction.Title onBack={() => window.alert("back")}>
-        Connect your wallet
-      </Interaction.Title>
+      <Interaction.Title onBack={onBack}>Connect your wallet</Interaction.Title>
       <Interaction.Content withPadding={false}>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-1">
