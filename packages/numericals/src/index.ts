@@ -1,6 +1,7 @@
-import { TrimFloatProps } from "./types";
 import BigNumber from "bignumber.js";
-import {minDecimalPlaces, planckToUnit} from "@polkadot-cloud/utils";
+import { minDecimalPlaces, planckToUnit } from "@polkadot-cloud/utils";
+
+import { TrimFloatProps } from "./types";
 
 /**
  * @summary - Removes the trailing zeros
@@ -31,7 +32,9 @@ export const trimFloat = ({
       0,
       decimalIndex + digitsAfterDecimal + 1
     );
-    return rmTrailingZeros(parseFloat(numberPart).toFixed(digitsAfterDecimal as number));
+    return rmTrailingZeros(
+      parseFloat(numberPart).toFixed(digitsAfterDecimal as number)
+    );
   }
 
   return rmTrailingZeros(valueString);
@@ -69,7 +72,7 @@ export const rmCommas = (value: string | number): string => {
  * Check if number contains only zeros (i.e. 0.000000)
  */
 export const hasOnlyZeros = (floatString: string): boolean => {
-  const strippedFloatString = cleanNumberLike(floatString).toString()
+  const strippedFloatString = cleanNumberLike(floatString).toString();
   const floatValue = parseFloat(strippedFloatString);
   const integerValue = parseInt(strippedFloatString, 10);
 
@@ -83,10 +86,13 @@ export const hasOnlyZeros = (floatString: string): boolean => {
  * Converts a balance in token unit to an equivalent value in planck by applying the chain decimals
  * point. (1 token = 10^units planck).
  */
-export const toUnit = (val: BigNumber | string | number, units: number): BigNumber => {
+export const toUnit = (
+  val: BigNumber | string | number,
+  units: number
+): BigNumber => {
   const num = new BigNumber(cleanNumberLike(val));
   return planckToUnit(num, units);
-}
+};
 
 /**
  * @param val
@@ -94,26 +100,34 @@ export const toUnit = (val: BigNumber | string | number, units: number): BigNumb
  * Converts an on chain balance value in BigNumber planck to a decimal value in token unit. (1 token
  * = 10^units planck).
  */
-export const toPlank = (val: BigNumber | string | number, units: number): BigNumber => {
-  const num = new BigNumber(cleanNumberLike(val))
-    return planckToUnit(num, units);
-}
+export const toPlank = (
+  val: BigNumber | string | number,
+  units: number
+): BigNumber => {
+  const num = new BigNumber(cleanNumberLike(val));
+  return planckToUnit(num, units);
+};
 
 /**
  * @param val
  * @summary Cleans the number like string and converts it to a BigNumber
  */
-export const cleanNumberLike = (val: string | number | BigNumber): BigNumber => {
-  let cleanedVal =  typeof val === "string" ? rmCommas(val) : val;
-  return new BigNumber(cleanedVal)
-}
+export const cleanNumberLike = (
+  val: string | number | BigNumber
+): BigNumber => {
+  const cleanedVal = typeof val === "string" ? rmCommas(val) : val;
+  return new BigNumber(cleanedVal);
+};
 
 /**
  * @param val
  * @param minDecimals
  * @summary Forces a number to have at least the provided decimal places.
  */
-export const withMinDecimals = (val: string | number | BigNumber, minDecimals: number): string => {
-    const num = cleanNumberLike(val);
-    return minDecimalPlaces(num.toString(), minDecimals)
-}
+export const withMinDecimals = (
+  val: string | number | BigNumber,
+  minDecimals: number
+): string => {
+  const num = cleanNumberLike(val);
+  return minDecimalPlaces(num.toString(), minDecimals);
+};
