@@ -127,11 +127,16 @@ const Content = ({
     </div>
   );
 };
+
+interface InteractionProps extends ComponentProps<"div"> {
+  withAnimation?: boolean;
+}
 const Interaction = ({
   children,
   className,
+  withAnimation = true,
   ...props
-}: PropsWithChildren<ComponentProps<"div">>) => {
+}: PropsWithChildren<InteractionProps>) => {
   const [TitleCompontent] = isValidComponent(children, Title);
   const [ContentCompontent] = isValidComponent(children, Content);
   const [FooterCompontent] = isValidComponent(children, Footer);
@@ -141,7 +146,8 @@ const Interaction = ({
       className={twMerge(
         classNames(
           "flex flex-col gap-5 pt-7 pb-10 sm:w-full md:w-[23rem]",
-          "bg-backgroundBase border border-primary rounded-lg"
+          "bg-backgroundBase border border-primary rounded-lg",
+          withAnimation && "animate-in slide-in-from-bottom-48 duration-300"
         ),
         className
       )}

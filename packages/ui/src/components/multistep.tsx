@@ -66,12 +66,7 @@ const Content = ({
     <>
       {withTrigger ? (
         <Fragment>
-          <div
-            className={classNames(
-              "absolute bottom-0 w-full z-10",
-              "animate-in slide-in-from-bottom-48 duration-300"
-            )}
-          >
+          <div className={classNames("absolute bottom-0 w-full z-10")}>
             {RenderComponent}
           </div>
           <div className="absolute w-full h-full bottom-0 left-0 bg-overlay-1" />
