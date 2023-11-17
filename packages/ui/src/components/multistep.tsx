@@ -46,11 +46,11 @@ export const Multistep = ({
       })
     ).filter(isValidElement) as ReactElement<PropsWithChildren<Actions>>[];
 
-    RenderComponent = (child?.props?.children as ReactNode[])?.[current];
+    const childrenCollection = child?.props?.children as ReactNode[];
+    RenderComponent = childrenCollection?.[current] ?? childrenCollection;
   } else {
     const allElements = Children.toArray(children).filter(isValidElement);
     RenderComponent = allElements[current] ?? <div>MultiStep error</div>;
   }
-
   return <>{RenderComponent}</>;
 };
