@@ -1,4 +1,9 @@
-import {cleanNumberLike, decimalPlaces, rmTrailingZeros, trimFloat} from "../index";
+import {
+  cleanNumberLike,
+  decimalPlaces,
+  rmTrailingZeros,
+  trimFloat,
+} from "../index";
 
 // rmTrailingZeros function testing
 describe("Utils function testing <> rmTrailingZeros", () => {
@@ -57,10 +62,10 @@ describe("Utils function testing <> decimalPlaces", () => {
   });
 });
 
-describe('test number conversions', () => {
+describe("test number conversions", () => {
   it("Should clean and return valid big number", () => {
-    const value = "1,232.00"
-    const res = cleanNumberLike(value)
-    expect(res).toBe("1232.00")
-  })
+    const value = "1,232.00";
+    const res = cleanNumberLike(value);
+    expect(res).toBe("1232.00");
+  });
 });
