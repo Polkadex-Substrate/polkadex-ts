@@ -14,7 +14,7 @@
     "react-dom": "^18.2.0",
     "@polkadex/react-providers": "*",
     "@polkadot-cloud/react": "^0.1.127",
-    "ui": "*"
+    "@polkadex/ux": "*"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.19",
