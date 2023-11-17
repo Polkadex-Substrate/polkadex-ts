@@ -33,10 +33,14 @@ const Footer = ({
 
 const Content = ({
   children,
+  asChild = true,
   ...props
 }: PropsWithChildren<AlertDialog.DialogDescriptionProps>) => {
+  console.log(children);
   return (
-    <AlertDialog.Description {...props}>{children}</AlertDialog.Description>
+    <AlertDialog.Description {...props} asChild={asChild}>
+      {children}
+    </AlertDialog.Description>
   );
 };
 
