@@ -54,7 +54,7 @@ const Base = ({
         classNames(
           "transition-colors duration-300 font-medium",
           "flex items-center justify-center",
-          "disabled:pointer-events-none disabled:opacity-50",
+          "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-disabled",
           withIcon ? variants.iconSize[size] : variants.size[size],
           variants.variant[variant],
           rounded && "rounded-full",
