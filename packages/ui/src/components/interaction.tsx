@@ -37,7 +37,7 @@ const Title = ({
       {...props}
     >
       {hasBack && (
-        <Button.Icon onClick={onClose} variant="ghost" rounded>
+        <Button.Icon onClick={onBack} variant="ghost" rounded>
           <ArrowLeftIcon className="text-secondary group-hover:text-textBase duration-300 transition-colors" />
         </Button.Icon>
       )}
