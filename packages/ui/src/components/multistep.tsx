@@ -1,5 +1,6 @@
 import {
   Children,
+  Fragment,
   Key,
   PropsWithChildren,
   ReactElement,
@@ -8,6 +9,9 @@ import {
   useState,
 } from "react";
 import { usePrevious } from "react-use";
+import classNames from "classnames";
+
+import { isValidComponent } from "../helpers";
 
 export type Actions = {
   onBack: () => void;
@@ -16,11 +20,15 @@ export type Actions = {
   current: number;
 };
 
-export const Multistep = ({
+const Content = ({
   defaultIndex = 0,
+  active = true,
+  withTrigger = false,
   children,
 }: {
+  active?: boolean;
   defaultIndex?: number;
+  withTrigger?: boolean;
   children: ((value?: Actions) => ReactNode) | ReactNode;
 }) => {
   const [current, setCurrent] = useState(defaultIndex);
@@ -52,5 +60,46 @@ export const Multistep = ({
     const allElements = Children.toArray(children).filter(isValidElement);
     RenderComponent = allElements[current] ?? <div>MultiStep error</div>;
   }
-  return <>{RenderComponent}</>;
+  if (!active) return null;
+
+  return (
+    <>
+      {withTrigger ? (
+        <Fragment>
+          <div
+            className={classNames(
+              "absolute bottom-0 w-full z-10",
+              "animate-in slide-in-from-bottom-48 duration-300"
+            )}
+          >
+            {RenderComponent}
+          </div>
+          <div className="absolute w-full h-full bottom-0 left-0 bg-overlay-1" />
+        </Fragment>
+      ) : (
+        RenderComponent
+      )}
+    </>
+  );
 };
+
+export const Trigger = ({ children }: PropsWithChildren) => children;
+
+const Interactive = ({
+  children,
+}: PropsWithChildren<{
+  active?: boolean;
+  defaultIndex?: number;
+}>) => {
+  const [TriggerComponent] = isValidComponent(children, Trigger);
+  const [ContentComponent] = isValidComponent(children, Content);
+
+  return (
+    <div className="relative">
+      {TriggerComponent}
+      {ContentComponent}
+    </div>
+  );
+};
+
+export const Multistep = { Trigger, Content, Interactive };

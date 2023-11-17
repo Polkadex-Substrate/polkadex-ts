@@ -34,12 +34,8 @@ const Footer = ({
 const Content = ({
   children,
   ...props
-}: PropsWithChildren<AlertDialog.DialogDescriptionProps>) => {
-  return (
-    <AlertDialog.AlertDialogContent {...props}>
-      {children}
-    </AlertDialog.AlertDialogContent>
-  );
+}: PropsWithChildren<ComponentProps<"div">>) => {
+  return <div {...props}>{children}</div>;
 };
 
 type ModalProps = {
