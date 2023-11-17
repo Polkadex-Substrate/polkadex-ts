@@ -1,21 +1,47 @@
 {
-  "name": "ui",
-  "version": "0.0.0",
-  "main": "./index.tsx",
-  "types": "./index.tsx",
+  "name": "@polkadex/ux",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
-    "lint": "eslint .",
-    "generate:component": "turbo gen react-component"
+    "dev": "tsup index.ts --format esm,cjs --watch --dts",
+    "build": "tsup index.ts --format esm,cjs --dts",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "lint": "eslint ./src"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@turbo/gen": "^1.10.12",
     "@types/node": "^20.5.2",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "eslint-config-custom": "*",
-    "react": "^18.2.0",
+    "autoprefixer": "^10.4.16",
+    "classnames": "^2.3.2",
+    "@polkadex-ts/eslint-config": "*",
+    "postcss": "^8.4.31",
+    "tailwind-merge": "^2.0.0",
     "tsconfig": "*",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "tsup": "^7.2.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.0.18",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "tailwindcss": "^3.3.5",
+    "react-use": "^17.4.0"
   }
 }

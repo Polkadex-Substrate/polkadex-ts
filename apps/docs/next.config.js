@@ -1,4 +1,4 @@
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ["ui", "react-providers"],
+  transpilePackages: ["@polkadex/ux", "react-providers"],
 };
