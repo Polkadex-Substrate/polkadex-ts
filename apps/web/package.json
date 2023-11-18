@@ -1,7 +1,6 @@
 {
   "name": "web",
   "version": "1.0.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -24,5 +23,9 @@
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "typescript": "^4.5.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
