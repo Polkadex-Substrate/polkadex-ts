@@ -6,6 +6,7 @@ import {
   KeyboardEvent,
   MouseEvent,
   PropsWithChildren,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -111,9 +112,15 @@ const Vertical = ({
 interface PasscodeProps
   extends Pick<InputHTMLAttributes<HTMLInputElement>, "className" | "type"> {
   length?: number;
+  focusOnInit?: boolean;
 }
 
-const Passcode = ({ type, length = 5, className }: PasscodeProps) => {
+const Passcode = ({
+  type,
+  length = 5,
+  focusOnInit,
+  className,
+}: PasscodeProps) => {
   const inputsRef = useRef<Array<HTMLInputElement> | []>([]);
 
   const [values, setValues] = useState<(string | number)[]>(
@@ -183,6 +190,11 @@ const Passcode = ({ type, length = 5, className }: PasscodeProps) => {
     setCurrentValue(index);
     e.target.focus();
   };
+
+  useEffect(() => {
+    if (focusOnInit && inputsRef && inputsRef.current)
+      inputsRef.current[0].focus();
+  }, []);
 
   return (
     <div className="flex items-center gap-2">
