@@ -10,7 +10,7 @@ export const Loading = ({
 
   return (
     <div className="relative flex-1">
-      <div className="flex items-center justify-center absolute w-full h-full bg-overlay-1">
+      <div className="z-50 flex items-center justify-center absolute w-full h-full bg-overlay-1">
         <Spinner.Keyboard className="w-5 h-5" />
       </div>
       {children}

@@ -14,7 +14,7 @@ export interface ButtonProps extends ComponentProps<"button"> {
 const variants = {
   size: {
     xs: "h-3 px-1 py-2 text-xs rounded-sm",
-    sm: "h-6 px-1 py-2 text-xs rounded-sm",
+    sm: "h-6 px-2 py-1 text-xs rounded-sm",
     default: "h6 px-4 py-2 text-sm rounded-md",
     md: "h-10 px-4 py-2 text-sm rounded-md",
     lg: "h-14 px-8 py-4 text-md rounded-md",
