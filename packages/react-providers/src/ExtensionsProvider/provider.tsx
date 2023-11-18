@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useRef, useState } from "react";
 import { Extensions, ExtensionsArray } from "@polkadot-cloud/assets/extensions";
-import { setStateWithRef, AnyJson } from "@polkadex-ts/utils";
+import { setStateWithRef, AnyJson } from "@polkadex/utils";
 
 import {
   ExtensionFeature,

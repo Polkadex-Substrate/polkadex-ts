@@ -21,7 +21,7 @@
   "dependencies": {
     "@polkadex/react-hooks": "*",
     "@chainsafe/metamask-polkadot-adapter": "^0.5.1",
-    "@polkadex-ts/utils": "*",
+    "@polkadex/utils": "*",
     "@polkadot-cloud/assets": "^0.1.34",
     "@polkadot/keyring": "^12.5.1",
     "eslint": "workspace:*",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@chainsafe/metamask-polkadot-types": "^0.6.0",
-    "@polkadex-ts/eslint-config": "*",
+    "@polkadex/eslint-config": "*",
     "tsup": "^7.2.0"
   }
 }
