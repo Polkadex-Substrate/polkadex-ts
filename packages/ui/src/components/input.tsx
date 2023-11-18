@@ -194,7 +194,7 @@ const Passcode = ({
   useEffect(() => {
     if (focusOnInit && inputsRef && inputsRef.current)
       inputsRef.current[0].focus();
-  }, []);
+  }, [focusOnInit]);
 
   return (
     <div className="flex items-center gap-2">
