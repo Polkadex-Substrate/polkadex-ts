@@ -89,9 +89,9 @@ interface ActionProps extends ButtonProps, ComponentProps<"button"> {}
 
 const Action = ({ children, ...props }: PropsWithChildren<ActionProps>) => {
   return (
-    <Button.Primary size="md" {...props}>
+    <Button.Solid size="md" {...props}>
       {children}
-    </Button.Primary>
+    </Button.Solid>
   );
 };
 

@@ -101,9 +101,9 @@ const Vertical = ({
         {...props}
       />
       {action && (
-        <Button.Secondary size="sm" onClick={action}>
+        <Button.Solid appearance="secondary" size="sm" onClick={action}>
           {actionTitle}
-        </Button.Secondary>
+        </Button.Solid>
       )}
     </div>
   </div>
