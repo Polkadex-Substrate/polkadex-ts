@@ -1,5 +1,5 @@
 import Keyring from "@polkadot/keyring";
-import { localStorageOrDefault } from "@polkadex-ts/utils";
+import { localStorageOrDefault } from "@polkadex/utils";
 
 // Gets local `active_acount` for a network.
 export const getActiveAccountLocal = (network: string, ss58: number) => {

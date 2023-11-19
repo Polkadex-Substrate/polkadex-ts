@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { MaybeAddress } from "@polkadex-ts/utils";
+import { MaybeAddress } from "@polkadex/utils";
 
 import { ExtensionAccount } from "../ExtensionsProvider";
 
