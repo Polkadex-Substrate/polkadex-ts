@@ -7,3 +7,5 @@ export * from "./noData";
 export * from "./noResultFound";
 export * from "./happy";
 export * from "./newUser";
+export * from "./successfull";
+export * from "./mnemonic";

@@ -86,11 +86,11 @@ const Item = ({
     <DropdownMenu.Item
       className={twMerge(
         classNames(
-          "p-2 m-1 flex justify-between gap-4 outline-none cursor-default",
+          "p-2 m-1 text-xs flex justify-between gap-4 outline-none cursor-default",
           "transition-colors duration-300 focus:bg-level-3 rounded-md",
-          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
-          className
-        )
+          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
+        ),
+        className
       )}
       {...props}
     >
@@ -191,7 +191,7 @@ const Label = ({
     <DropdownMenu.Label
       className={twMerge(
         classNames(
-          " text-actionInput text-sm font-semibold",
+          "text-actionInput text-sm font-semibold",
           "p-2 border-b border-primary",
           className
         )
