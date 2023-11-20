@@ -18,3 +18,4 @@ export * from "./separator";
 export * from "./loading";
 export * from "./checkbox";
 export * from "./switch";
+export * from "./accordion";
