@@ -4,7 +4,7 @@ import {
   setStateWithRef,
   AnyJson,
   localStorageOrDefault,
-} from "@polkadex-ts/utils";
+} from "@polkadex/utils";
 import { SnapNetworks } from "@chainsafe/metamask-polkadot-types";
 import { useEffectIgnoreInitial } from "@polkadex/react-hooks";
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { AnyFunction, AnyJson } from "@polkadex-ts/utils";
+import { AnyFunction, AnyJson } from "@polkadex/utils";
 
 export const useEffectIgnoreInitial = (fn: AnyFunction, deps: AnyJson[]) => {
   const isInitial = useRef<boolean>(true);

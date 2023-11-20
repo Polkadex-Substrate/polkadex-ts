@@ -1,5 +1,5 @@
 import { SnapRpcMethodRequest } from "@chainsafe/metamask-polkadot-types";
-import { AnyJson, withTimeout } from "@polkadex-ts/utils";
+import { AnyJson, withTimeout } from "@polkadex/utils";
 import { GetSnapsResponse } from "@chainsafe/metamask-polkadot-adapter/build/utils";
 
 export function hasMetaMask(): boolean {

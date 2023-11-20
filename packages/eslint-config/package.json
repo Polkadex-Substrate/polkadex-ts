@@ -1,5 +1,5 @@
 {
-  "name": "@polkadex-ts/eslint-config",
+  "name": "@polkadex/eslint-config",
   "license": "MIT",
   "version": "0.0.0",
   "main": "index.js",

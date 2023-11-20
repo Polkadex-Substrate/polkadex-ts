@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ["@polkadex-ts/eslint-config"],
+  extends: ["@polkadex/eslint-config"],
   settings: {
     next: {
       rootDir: ["apps/*/**", "packages/*/**"],
