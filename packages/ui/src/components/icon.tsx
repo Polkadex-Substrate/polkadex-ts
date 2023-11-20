@@ -7,10 +7,11 @@ interface Props extends ComponentProps<"svg"> {
 }
 export const Icon = ({ name, ...props }: Props) => {
   const iconUppercase = name.toUpperCase();
-  const iconTicker = (
-    iconUppercase in Icons ? iconUppercase : "Wallet"
-  ) as keyof typeof Icons;
+  const iconTicker =
+    Object.keys(Icons).find(
+      (iconName) => iconName.toUpperCase() === iconUppercase
+    ) || "Unknown";
 
-  const IconComponent = Icons[iconTicker];
+  const IconComponent = Icons[iconTicker as keyof typeof Icons];
   return <IconComponent {...props} />;
 };
