@@ -16,7 +16,7 @@ const Trigger = forwardRef<
   return (
     <AccordionRadix.Header className="flex">
       <AccordionRadix.Trigger
-        className="flex items-center justify-between gap-5 [&[data-state=open]>svg]:rotate-180"
+        className="flex flex-1 items-center justify-between gap-5 [&[data-state=open]>svg]:rotate-180"
         ref={ref}
         {...props}
       >
@@ -69,7 +69,7 @@ const Item = ({
 
   return (
     <AccordionRadix.Item
-      className={twMerge(classNames("flex flex-col gap-2"), className)}
+      className={twMerge(classNames("flex flex-col gap-3"), className)}
       {...props}
     >
       {TriggerComponent}
