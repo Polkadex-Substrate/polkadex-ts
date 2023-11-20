@@ -44,6 +44,8 @@ export const themeConfig = {
             rgba(255, 255, 255, 0.14) 75%,
             rgba(255, 255, 255, 0.1) 100%
           )`,
+        grayscale: `linear-gradient(272.45deg, rgba(139, 161, 190, 0.1) -0.85%, rgba(139, 161, 190, 0) 81.69%);
+          `,
       },
       colors: {
         ...commom,

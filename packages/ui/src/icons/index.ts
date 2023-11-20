@@ -28,3 +28,5 @@ export * from "./exchange";
 export * from "./export";
 export * from "./free";
 export * from "./download";
+export * from "./plus";
+export * from "./recover";

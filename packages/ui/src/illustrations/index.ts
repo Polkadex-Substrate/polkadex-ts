@@ -9,3 +9,4 @@ export * from "./happy";
 export * from "./newUser";
 export * from "./successfull";
 export * from "./mnemonic";
+export * from "./existingUserKey";
