@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
 
-export function InsufficientBalance(props: ComponentProps<"svg">) {
+export function Error(props: ComponentProps<"svg">) {
   return (
     <svg
       viewBox="0 0 119 116"

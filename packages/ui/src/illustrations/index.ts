@@ -1,5 +1,5 @@
 export * from "./walletNotFound";
-export * from "./insufficientBalance";
+export * from "./error";
 export * from "./centralizedExchange";
 export * from "./decentralizedBridge";
 export * from "./connectAccount";

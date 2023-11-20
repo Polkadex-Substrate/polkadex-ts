@@ -33,7 +33,7 @@ const variants = {
   iconSize: {
     xs: "h-4 w-4 p-1 rounded-md",
     sm: "h-6 w-6 p-1 rounded-md",
-    default: "h-8 w-8 p-1.5 rounded-md",
+    default: "h-8 w-8 p-2 rounded-md",
     md: "h-10 w-10 p-3 rounded-md",
     lg: "h-12 w-12 p-3 rounded-md",
   },
