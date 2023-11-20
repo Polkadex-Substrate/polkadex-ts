@@ -2,9 +2,11 @@ import { ComponentProps } from "react";
 
 import * as Icons from "../icons";
 
+export type IconsProps = keyof typeof Icons;
 interface Props extends ComponentProps<"svg"> {
-  name: string;
+  name: keyof typeof Icons;
 }
+
 export const Icon = ({ name, ...props }: Props) => {
   const iconUppercase = name.toUpperCase();
   const iconTicker =

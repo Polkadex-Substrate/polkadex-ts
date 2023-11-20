@@ -84,9 +84,6 @@ const Base = ({
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
-  console.log("appearance", appearance);
-  console.log("variant", variant);
-
   const Rendercomponent: ElementType = asChild ? Slot : "button";
   return (
     <Rendercomponent
