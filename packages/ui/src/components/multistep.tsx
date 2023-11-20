@@ -78,7 +78,9 @@ const Content = ({
   );
 };
 
-export const Trigger = ({ children }: PropsWithChildren) => children;
+export const Trigger = ({ children }: PropsWithChildren) => (
+  <Fragment>{children}</Fragment>
+);
 
 const Interactive = ({
   children,
