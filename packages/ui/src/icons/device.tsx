@@ -35,7 +35,7 @@ export function Device(props: ComponentProps<"svg">) {
         d="M19.833 6.61506C19.5726 6.58381 19.2705 6.56299 18.9476 6.56299H14.4893C12.2601 6.56299 11.5205 7.30261 11.5205 9.53178V18.4484C11.5205 20.6776 12.2601 21.4172 14.4893 21.4172H18.9476C21.1768 21.4172 21.9164 20.6776 21.9164 18.4484V9.53178C21.9164 7.62553 21.3747 6.81298 19.833 6.61506Z"
         stroke="currentcolor"
         strokeWidth="0.9375"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

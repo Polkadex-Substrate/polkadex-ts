@@ -219,8 +219,8 @@ export function ExistingUserKey(props: ComponentProps<"svg">) {
           y2="-47.9918"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1C1C26" />
-          <stop offset="1" stop-color="#2F313B" />
+          <stop stopColor="#1C1C26" />
+          <stop offset="1" stopColor="#2F313B" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_98_6178"
@@ -230,8 +230,8 @@ export function ExistingUserKey(props: ComponentProps<"svg">) {
           y2="-65.0807"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1C1C26" />
-          <stop offset="1" stop-color="#2F313B" />
+          <stop stopColor="#1C1C26" />
+          <stop offset="1" stopColor="#2F313B" />
         </linearGradient>
       </defs>
     </svg>

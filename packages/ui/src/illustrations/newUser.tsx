@@ -128,7 +128,7 @@ export function NewUser(props: ComponentProps<"svg">) {
       <path
         d="M120.576 37.4873L120.577 71.4959M133.726 37.1641L133.727 71.4966"
         stroke="black"
-        stroke-width="3"
+        strokeWidth="3"
       />
       <rect
         x="116.812"
@@ -213,14 +213,14 @@ export function NewUser(props: ComponentProps<"svg">) {
         fill="white"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M314.647 114.893L309.622 124.915C309.603 124.953 309.597 124.995 309.605 125.036C309.613 125.076 309.634 125.114 309.666 125.142L323.236 137.49C323.274 137.525 323.326 137.545 323.379 137.545C323.433 137.545 323.484 137.525 323.522 137.49L337.092 125.143C337.124 125.114 337.145 125.077 337.153 125.036C337.161 124.995 337.155 124.953 337.136 124.916L332.112 114.894C332.095 114.86 332.069 114.832 332.037 114.812C332.004 114.792 331.965 114.781 331.927 114.781H314.833C314.794 114.781 314.756 114.791 314.723 114.811C314.689 114.831 314.663 114.859 314.647 114.893Z"
         fill="#50AF95"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M325.12 125.945C325.022 125.952 324.519 125.98 323.396 125.98C322.503 125.98 321.869 125.955 321.646 125.945C318.195 125.8 315.619 125.23 315.619 124.547C315.619 123.864 318.195 123.294 321.646 123.148V125.376C321.872 125.392 322.518 125.428 323.411 125.428C324.483 125.428 325.02 125.386 325.116 125.377V123.149C328.56 123.295 331.13 123.865 331.13 124.547C331.13 125.228 328.561 125.799 325.116 125.944L325.12 125.945ZM325.12 122.919V120.924H329.926V117.883H316.84V120.924H321.646V122.918C317.74 123.088 314.803 123.823 314.803 124.703C314.803 125.584 317.74 126.318 321.646 126.489V132.88H325.119V126.487C329.015 126.316 331.948 125.582 331.948 124.703C331.948 123.823 329.018 123.089 325.119 122.918L325.12 122.919Z"
         fill="white"
       />
@@ -232,9 +232,9 @@ export function NewUser(props: ComponentProps<"svg">) {
           width="174.079"
           height="98"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feGaussianBlur in="BackgroundImageFix" stdDeviation="7.5" />
           <feComposite
             in2="SourceAlpha"

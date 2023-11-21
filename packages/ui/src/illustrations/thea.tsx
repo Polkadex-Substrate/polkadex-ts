@@ -44,7 +44,7 @@ export function Thea(props: ComponentProps<"svg">) {
           height="45"
           rx="22.5"
           stroke="#8BA1BE"
-          stroke-opacity="0.1"
+          strokeOpacity="0.1"
         />
       </g>
       <defs>

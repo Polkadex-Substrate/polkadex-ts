@@ -17,12 +17,12 @@ export function Mnemonic(props: ComponentProps<"svg">) {
       <path
         d="M21.1667 30.4057L63.2968 14.1473C68.8114 12.0192 74.9109 11.9649 80.4625 13.9945L125.607 30.4993C130.953 32.454 134.509 37.5402 134.509 43.2327V85.2966C134.509 106.986 109.876 128.349 91.7071 141.156C80.2003 149.268 65.1013 149.344 53.6202 141.196C35.9878 128.683 12.4902 107.788 12.4902 85.2966V43.0542C12.4902 37.45 15.9383 32.4234 21.1667 30.4057Z"
         stroke="url(#paint1_linear_101_9278)"
-        stroke-width="1.35577"
+        strokeWidth="1.35577"
       />
       <path
         d="M11.6882 23.0549L63.0609 3.28417C68.5633 1.16661 74.6462 1.11259 80.1853 3.1321L135.086 23.1487C140.439 25.1001 144 30.1893 144 35.8862V85.7953C144 111.967 112.789 137.728 91.6246 152.187C80.0284 160.11 65.0245 160.184 53.4414 152.242C32.8509 138.125 3 112.972 3 85.7953V35.7079C3 30.0991 6.45366 25.0694 11.6882 23.0549Z"
         stroke="url(#paint2_linear_101_9278)"
-        stroke-width="1.35577"
+        strokeWidth="1.35577"
       />
       <path
         d="M71.605 49.5277L18.4316 116.987L21.4358 135.801L41.5983 134.381L43.0556 131.588L52.4913 127.283L56.0343 115.074L66.5891 109.076L67.7848 97.772L78.5744 93.8151L80.3551 83.4543L95.3039 66.2286L71.605 49.5277Z"
@@ -45,9 +45,9 @@ export function Mnemonic(props: ComponentProps<"svg">) {
           width="146.327"
           height="156.235"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -81,8 +81,8 @@ export function Mnemonic(props: ComponentProps<"svg">) {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(34.499 57.5) rotate(36.1193) scale(91.6079 100.381)"
         >
-          <stop stop-color="#60607E" />
-          <stop offset="1" stop-color="#2F313B" />
+          <stop stopColor="#60607E" />
+          <stop offset="1" stopColor="#2F313B" />
         </radialGradient>
         <linearGradient
           id="paint1_linear_101_9278"
@@ -92,8 +92,8 @@ export function Mnemonic(props: ComponentProps<"svg">) {
           y2="28.7701"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1C1C26" />
-          <stop offset="1" stop-color="#2F313B" />
+          <stop stopColor="#1C1C26" />
+          <stop offset="1" stopColor="#2F313B" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_101_9278"
@@ -103,8 +103,8 @@ export function Mnemonic(props: ComponentProps<"svg">) {
           y2="20.6141"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1C1C26" />
-          <stop offset="1" stop-color="#2F313B" />
+          <stop stopColor="#1C1C26" />
+          <stop offset="1" stopColor="#2F313B" />
         </linearGradient>
       </defs>
     </svg>

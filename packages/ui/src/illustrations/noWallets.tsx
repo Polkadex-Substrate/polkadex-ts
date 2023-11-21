@@ -84,7 +84,7 @@ export function NoWallets(props: ComponentProps<"svg">) {
         stroke="#8BA1BE"
         strokeOpacity="0.15"
         strokeWidth="2.51872"
-        stroke-dasharray="7.56 5.88"
+        strokeDasharray="7.56 5.88"
       />
       <path
         opacity="0.7"
