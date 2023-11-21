@@ -38,7 +38,7 @@ const Title = ({
     >
       {hasBack && (
         <Button.Icon onClick={onBack} variant="ghost" rounded>
-          <ArrowLeftIcon className="text-secondary group-hover:text-textBase duration-300 transition-colors" />
+          <ArrowLeftIcon className="text-secondary group-hover:text-current duration-300 transition-colors" />
         </Button.Icon>
       )}
       <Typography.Heading type="h3" size="md">
@@ -46,7 +46,7 @@ const Title = ({
       </Typography.Heading>
       {hasClose && (
         <Button.Icon onClick={onClose} variant="ghost" rounded>
-          <XMarkIcon className="text-secondary group-hover:text-textBase duration-300 transition-colors" />
+          <XMarkIcon className="text-secondary group-hover:text-current duration-300 transition-colors" />
         </Button.Icon>
       )}
     </div>

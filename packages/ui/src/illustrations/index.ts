@@ -10,3 +10,4 @@ export * from "./newUser";
 export * from "./successfull";
 export * from "./mnemonic";
 export * from "./existingUserKey";
+export * from "./noWallets";

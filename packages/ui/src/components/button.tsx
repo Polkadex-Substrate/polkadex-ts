@@ -15,7 +15,7 @@ export interface ButtonProps extends ComponentProps<"button"> {
 const reusableColors = {
   primary: "hover:bg-primary-hover active:bg-primary-pressed",
   secondary:
-    "text-primary hover:text-textBase hover:bg-secondary-hover active:bg-secondary-pressed",
+    "text-primary hover:text-current hover:bg-secondary-hover active:bg-secondary-pressed",
   danger: "hover:bg-danger-hover active:bg-danger-pressed",
   success: "hover:bg-success-hover active:bg-success-pressed",
   attention: "hover:bg-attention-hover active:bg-attention-pressed",

@@ -69,7 +69,7 @@ const Search = (props: InputHTMLAttributes<HTMLInputElement>) => (
     <MagnifyingGlassIcon className="w-4 h-4 text-primary" />
     <input
       type="search"
-      className="flex-1 bg-transparent text-textBase outline-none"
+      className="flex-1 bg-transparent text-current outline-none"
       {...props}
     />
   </div>

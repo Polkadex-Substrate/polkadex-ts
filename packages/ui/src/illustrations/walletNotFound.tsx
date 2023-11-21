@@ -15,42 +15,42 @@ export function WalletNotFound(props: ComponentProps<"svg">) {
       <path
         d="M170.134 0.5H36.8663C16.7817 0.5 0.5 16.7817 0.5 36.8663C0.5 56.9509 16.7817 73.2326 36.8663 73.2326H170.134C190.218 73.2326 206.5 56.9509 206.5 36.8663C206.5 16.7817 190.218 0.5 170.134 0.5Z"
         stroke="#8BA1BE"
-        stroke-opacity="0.2"
+        strokeOpacity="0.2"
       />
       <path
         d="M43.7165 11.2593H42.877C28.7347 11.2593 17.27 22.7239 17.27 36.8662C17.27 51.0086 28.7347 62.4732 42.877 62.4732H43.7165C57.8589 62.4732 69.3235 51.0086 69.3235 36.8662C69.3235 22.7239 57.8589 11.2593 43.7165 11.2593Z"
         stroke="#8BA1BE"
-        stroke-opacity="0.2"
-        stroke-width="2.51872"
-        stroke-dasharray="96 12"
+        strokeOpacity="0.2"
+        strokeWidth="2.51872"
+        strokeDasharray="96 12"
       />
       <path
         d="M105.792 29.9917H92.042"
         stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M126.417 34.5064V39.2273C126.417 40.4877 125.408 41.5189 124.125 41.5647H119.633C117.158 41.5647 114.89 39.7543 114.684 37.2793C114.546 35.8356 115.096 34.4835 116.058 33.5439C116.906 32.6731 118.075 32.1689 119.358 32.1689H124.125C125.408 32.2148 126.417 33.2459 126.417 34.5064Z"
         stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M116.058 33.5434C115.095 34.483 114.546 35.8351 114.683 37.2789C114.889 39.7539 117.158 41.5643 119.633 41.5643H124.125V44.8872C124.125 51.7622 119.541 56.3455 112.666 56.3455H92.041C85.166 56.3455 80.583 51.7622 80.583 44.8872V28.8455C80.583 22.6122 84.341 18.258 90.185 17.5247C90.781 17.433 91.4 17.3872 92.041 17.3872H112.666C113.262 17.3872 113.835 17.4101 114.385 17.5018C120.298 18.1893 124.125 22.5664 124.125 28.8455V32.1685H119.358C118.075 32.1685 116.906 32.6726 116.058 33.5434Z"
         stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M164.123 11.2593H163.283C149.141 11.2593 137.676 22.7239 137.676 36.8662C137.676 51.0086 149.141 62.4732 163.283 62.4732H164.123C178.265 62.4732 189.73 51.0086 189.73 36.8662C189.73 22.7239 178.265 11.2593 164.123 11.2593Z"
         stroke="#8BA1BE"
-        stroke-opacity="0.2"
-        stroke-width="2.51872"
-        stroke-dasharray="96 12"
+        strokeOpacity="0.2"
+        strokeWidth="2.51872"
+        strokeDasharray="96 12"
       />
     </svg>
   );
