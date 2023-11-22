@@ -1,7 +1,7 @@
 {
   "name": "@polkadex/eslint-config",
   "license": "MIT",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.42.1",
