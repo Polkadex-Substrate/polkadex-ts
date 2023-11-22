@@ -37,23 +37,17 @@ const Title = ({
       {...props}
     >
       {hasBack && (
-        <button
-          className="w-8 h-8 p-1 hover:bg-level-3 rounded-full duration-300 transition-colors group"
-          onClick={onBack}
-        >
-          <ArrowLeftIcon className="text-secondary group-hover:text-textBase duration-300 transition-colors" />
-        </button>
+        <Button.Icon onClick={onBack} variant="ghost" rounded>
+          <ArrowLeftIcon className="text-secondary group-hover:text-current duration-300 transition-colors" />
+        </Button.Icon>
       )}
       <Typography.Heading type="h3" size="md">
         {children}
       </Typography.Heading>
       {hasClose && (
-        <button
-          className="w-8 h-8 p-1 hover:bg-level-3 rounded-full duration-300 transition-colors group"
-          onClick={onClose}
-        >
-          <XMarkIcon className="text-secondary group-hover:text-textBase duration-300 transition-colors" />
-        </button>
+        <Button.Icon onClick={onClose} variant="ghost" rounded>
+          <XMarkIcon className="text-secondary group-hover:text-current duration-300 transition-colors" />
+        </Button.Icon>
       )}
     </div>
   );
@@ -95,9 +89,9 @@ interface ActionProps extends ButtonProps, ComponentProps<"button"> {}
 
 const Action = ({ children, ...props }: PropsWithChildren<ActionProps>) => {
   return (
-    <Button.Primary size="md" {...props}>
+    <Button.Solid size="md" {...props}>
       {children}
-    </Button.Primary>
+    </Button.Solid>
   );
 };
 
@@ -133,11 +127,16 @@ const Content = ({
     </div>
   );
 };
+
+interface InteractionProps extends ComponentProps<"div"> {
+  withAnimation?: boolean;
+}
 const Interaction = ({
   children,
   className,
+  withAnimation = true,
   ...props
-}: PropsWithChildren<ComponentProps<"div">>) => {
+}: PropsWithChildren<InteractionProps>) => {
   const [TitleCompontent] = isValidComponent(children, Title);
   const [ContentCompontent] = isValidComponent(children, Content);
   const [FooterCompontent] = isValidComponent(children, Footer);
@@ -146,8 +145,9 @@ const Interaction = ({
     <div
       className={twMerge(
         classNames(
-          "flex flex-col gap-5 pt-7 pb-10 max-w-sm w-full",
-          "bg-level-1 border border-primary rounded-lg"
+          "flex flex-col gap-5 pt-7 pb-10 sm:w-full md:w-[23rem]",
+          "bg-backgroundBase border border-primary rounded-lg",
+          withAnimation && "animate-in slide-in-from-bottom-48 duration-300"
         ),
         className
       )}

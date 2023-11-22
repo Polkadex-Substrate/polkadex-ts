@@ -44,6 +44,8 @@ export const themeConfig = {
             rgba(255, 255, 255, 0.14) 75%,
             rgba(255, 255, 255, 0.1) 100%
           )`,
+        grayscale: `linear-gradient(272.45deg, rgba(139, 161, 190, 0.1) -0.85%, rgba(139, 161, 190, 0) 81.69%);
+          `,
       },
       colors: {
         ...commom,
@@ -94,23 +96,33 @@ export const themeConfig = {
         infiniteHorizontalScroll: "30s linear infinite infiniteHorizontal ",
         skeletonAnimation:
           "skeletonPulse 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite",
+        accordionDown: "accordionDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+        accordionUp: "accordionUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
       },
       keyframes: {
         infiniteHorizontal: {
-          "0%": {
+          from: {
             transform: "translate3d(0px, 0px, 0px)",
           },
-          "100%": {
+          to: {
             transform: "translate3d(-50%, 0px, 0px)",
           },
         },
         skeletonPulse: {
-          "0%": {
+          from: {
             backgroundPosition: "0% 0%",
           },
-          "100%": {
+          to: {
             backgroundPosition: "-135% 0%",
           },
+        },
+        accordionDown: {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        accordionUp: {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
     },

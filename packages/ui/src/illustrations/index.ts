@@ -1,5 +1,5 @@
 export * from "./walletNotFound";
-export * from "./insufficientBalance";
+export * from "./error";
 export * from "./centralizedExchange";
 export * from "./decentralizedBridge";
 export * from "./connectAccount";
@@ -7,3 +7,7 @@ export * from "./noData";
 export * from "./noResultFound";
 export * from "./happy";
 export * from "./newUser";
+export * from "./successfull";
+export * from "./mnemonic";
+export * from "./existingUserKey";
+export * from "./noWallets";

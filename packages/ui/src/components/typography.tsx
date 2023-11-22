@@ -47,9 +47,13 @@ interface ParagraphProps extends ComponentProps<"p"> {
 }
 
 const paragraphVariants = {
-  base: "text-textBase",
+  base: "text-current",
   primary: "text-primary",
   secondary: "text-secondary",
+  danger: "text-danger-base",
+  success: "text-success-base",
+  attention: "text-attention-base",
+  info: "text-info-base",
 };
 
 const paragraphSize = {
@@ -116,11 +120,9 @@ const Heading = ({
   const ElementRender = type as ElementType;
   return (
     <ElementRender
-      className={twMerge(
-        classNames("font-semibold"),
-        headingSizes[size],
-        className
-      )}
+      className={
+        (twMerge(classNames("font-semibold"), headingSizes[size]), className)
+      }
       {...props}
     >
       {children}

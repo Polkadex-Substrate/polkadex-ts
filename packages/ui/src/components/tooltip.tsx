@@ -28,7 +28,7 @@ const Content = ({
       sideOffset={sideOffset}
       className={twMerge(
         classNames(
-          "p-2 bg-level-1 rounded-md border border-primary min-w-[8rem]",
+          "p-2 bg-level-1 rounded-md border border-primary text-sm",
           "z-50 overflow-hidden shadow-md animate-in fade-in-0 zoom-in-95 ",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
