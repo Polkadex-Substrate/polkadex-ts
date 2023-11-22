@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { ComponentProps, Fragment, PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
-// import { twMerge } from "tailwind-merge"; // TODO: Merge is not working
 
 interface SkeletonProps extends ComponentProps<"div"> {
   loading?: boolean;
