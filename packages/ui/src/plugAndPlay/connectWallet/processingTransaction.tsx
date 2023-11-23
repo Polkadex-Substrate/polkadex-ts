@@ -1,11 +1,12 @@
+import { useCallback, useEffect } from "react";
+
 import {
   Icon,
   IconsProps,
   Interaction,
   Spinner,
   Typography,
-} from "@polkadex/ux";
-import { useCallback, useEffect } from "react";
+} from "../../components";
 
 export const ProcessingTransaction = ({
   logo,
