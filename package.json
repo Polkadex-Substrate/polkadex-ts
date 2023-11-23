@@ -1,4 +1,5 @@
 {
+  "name": "polkadex-ts",
   "private": true,
   "license": "GPL-3.0-only",
   "scripts": {
@@ -22,7 +23,6 @@
     "ts-jest": "^29.1.1",
     "@types/jest": "^29.5.7"
   },
-  "name": "polkadex-ts",
   "packageManager": "yarn@1.22.19",
   "workspaces": [
     "apps/*",
