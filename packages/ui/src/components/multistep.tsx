@@ -17,6 +17,7 @@ export type Actions = {
   onBack: () => void;
   onNext: () => void;
   onPage: (id: string) => void;
+  onReset: () => void;
   current: number;
 };
 
@@ -50,6 +51,7 @@ const Switch = ({
 
           setCurrent(childIndex >= 0 ? childIndex : 0);
         },
+        onReset: () => setCurrent(defaultIndex),
         current,
       })
     ).filter(isValidElement) as ReactElement<PropsWithChildren<Actions>>[];
@@ -111,6 +113,7 @@ const Interactive = ({
 
           setCurrent(childIndex >= 0 ? childIndex : 0);
         },
+        onReset: () => setCurrent(defaultIndex),
         current,
       })
     ).filter(isValidElement) as ReactElement<PropsWithChildren<Actions>>[];
