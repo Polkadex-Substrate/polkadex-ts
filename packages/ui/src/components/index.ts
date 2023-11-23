@@ -19,3 +19,4 @@ export * from "./loading";
 export * from "./checkbox";
 export * from "./switch";
 export * from "./accordion";
+export * from "./token";
