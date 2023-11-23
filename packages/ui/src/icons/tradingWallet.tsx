@@ -9,6 +9,7 @@ export function TradingWallet(props: ComponentProps<"svg">) {
         strokeWidth="0.73553"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill="none"
       />
       <path
         d="M1.07178 10.146V7.88634C1.07178 5.59393 2.45396 3.99262 4.60309 3.72293C4.82221 3.68922 5.04977 3.67236 5.28575 3.67236H12.8709C13.09 3.67236 13.3007 3.68078 13.503 3.71449C15.6774 3.96733 17.0849 5.57708 17.0849 7.88634V9.1084H15.3318C14.8599 9.1084 14.4301 9.29379 14.1182 9.61405C13.7642 9.9596 13.562 10.4569 13.6126 10.9878C13.6884 11.898 14.5228 12.5638 15.433 12.5638H17.0849V13.7859C17.0849 16.3143 15.3993 17.9999 12.8709 17.9999H9.71191"
@@ -16,16 +17,19 @@ export function TradingWallet(props: ComponentProps<"svg">) {
         strokeWidth="0.73553"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill="none"
       />
       <path
         d="M2.48389 11.8984L2.48389 17.6295"
         stroke="currentColor"
         strokeWidth="0.735904"
+        fill="none"
       />
       <path
         d="M5.87988 11.8984L5.87988 17.6295"
         stroke="currentColor"
         strokeWidth="0.735904"
+        fill="none"
       />
       <rect
         x="1.60796"
@@ -49,6 +53,7 @@ export function TradingWallet(props: ComponentProps<"svg">) {
         d="M4.67432 3.76105C4.67432 3.76105 8.26266 0.281642 10.3688 1.13462C11.8082 1.71758 12.121 3.76105 12.121 3.76105"
         stroke="currentColor"
         strokeWidth="0.735904"
+        fill="none"
       />
     </svg>
   );
