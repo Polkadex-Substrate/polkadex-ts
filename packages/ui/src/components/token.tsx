@@ -5,6 +5,9 @@ import * as Tokens from "../tokens";
 interface Props extends ComponentProps<"svg"> {
   name: string;
 }
+
+export type TokensProps = keyof typeof Tokens;
+
 export const Token = ({ name, ...props }: Props) => {
   const tokenUppercase = name.toUpperCase();
   const tokenTicker = (
