@@ -78,6 +78,7 @@ const Modal = ({
   const [FooterComponent] = isValidComponent(children, Footer);
   const containerRef = useRef<HTMLElement | null>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, forceRender] = useState(0);
   useEffect(() => {
     containerRef.current = document.body;
