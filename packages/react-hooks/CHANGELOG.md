@@ -1,5 +1,13 @@
 # @polkadex/react-hooks
 
+## 0.0.2
+
+### Patch Changes
+
+- 4046d3e: (ignore): add prepublish script
+- Updated dependencies [4046d3e]
+  - @polkadex/utils@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes
