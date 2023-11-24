@@ -105,7 +105,7 @@ const Modal = ({
         <AlertDialog.Content
           className={classNames(
             "fixed z-50 max-sm:w-full max-md:w-auto",
-            "duration-200 shadow-lg",
+            "duration-200 shadow-lg max-h-full overflow-y-auto",
             "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
             "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%]",
             modalPlace[placement],
