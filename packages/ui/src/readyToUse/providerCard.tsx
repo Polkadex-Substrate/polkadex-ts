@@ -1,21 +1,22 @@
 import classNames from "classnames";
-
-import { Button, Icon, Typography } from "../components";
-import type { IconsProps } from "../components";
+import { Button, Typography } from "@polkadex/ux";
+import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
+import { ElementType } from "react";
 
 export const ProviderCard = ({
   title,
-  icon,
   action,
   installed = true,
+  icon,
   href,
 }: {
   title: string;
   action: () => void;
-  icon: IconsProps;
+  icon: string;
   installed?: boolean;
   href?: string;
 }) => {
+  const IconComponent = getExtensionIcon(icon) as ElementType;
   return (
     <div
       className={classNames(
@@ -26,7 +27,9 @@ export const ProviderCard = ({
       onClick={installed ? action : undefined}
     >
       <div className="flex justify-between items-center gap-3">
-        <Icon name={icon} className="w-7 h-7" />
+        <div className="w-5 h-5">
+          <IconComponent />
+        </div>
         <Typography.Text variant={installed ? "base" : "secondary"}>
           {title}
         </Typography.Text>

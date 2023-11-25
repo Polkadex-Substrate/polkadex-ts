@@ -1,10 +1,9 @@
 import { PropsWithChildren } from "react";
 import { ExtensionStatus } from "@polkadex/react-providers";
+import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
 
 import { Interaction, Typography } from "../../components";
 import { ChainCard, ProviderCard } from "../../readyToUse";
-import { extensions } from "../../helpers";
-
 export const ConnectWallet = ({
   children,
   onBack,
@@ -36,20 +35,21 @@ export const ConnectWallet = ({
             <Typography.Text variant="secondary" size="xs" className="px-7">
               Wallets available on the Polkadot chain
             </Typography.Text>
-            <div className="flex flex-col px-3">
-              {extensions?.map(({ name, title, icon, url }) => {
-                const installed = !!installedExtensions?.[name];
-                return (
-                  <ProviderCard
-                    key={name}
-                    title={title}
-                    icon={icon}
-                    action={() => onConnectProvider(name)}
-                    href={url}
-                    installed={installed}
-                  />
-                );
-              })}
+            <div className="flex flex-col px-3 max-h-[15rem] overflow-auto">
+              {ExtensionsArray?.sort(
+                (a, b) =>
+                  Number(!!installedExtensions[b.id]) -
+                  Number(!!installedExtensions[a.id])
+              ).map(({ title, website, id }) => (
+                <ProviderCard
+                  key={title}
+                  title={title}
+                  icon={id}
+                  action={() => onConnectProvider(title)}
+                  href={website[0]}
+                  installed={!!installedExtensions?.[id]}
+                />
+              ))}
             </div>
           </div>
           {children}
