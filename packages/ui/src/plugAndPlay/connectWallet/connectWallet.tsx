@@ -47,7 +47,7 @@ export const ConnectWallet = ({
                   title={value.title}
                   icon={value.id}
                   action={() => onConnectProvider(value)}
-                  href={value.website[0]}
+                  href={(value.website as string) ?? value.website[0]}
                   installed={!!installedExtensions?.[value.id]}
                 />
               ))}
