@@ -1,5 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { useCallback, useEffect, useState } from "react";
+import { ElementType, useCallback, useEffect, useState } from "react";
+import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
 
 import {
   Icon,
@@ -22,9 +23,12 @@ export const Authorization = ({
   loading?: boolean;
   onRedirect: () => void;
   onAction: () => Promise<boolean>;
-  onClose: () => void;
+  onClose?: () => void;
 }) => {
   const [error, setError] = useState(false);
+  const IconComponent = getExtensionIcon(
+    extensionIcon as string
+  ) as ElementType;
 
   const callbackFn = useCallback(async () => {
     try {
@@ -48,7 +52,7 @@ export const Authorization = ({
           <>
             <div className="max-w-[13rem]">
               <div className="h-20 w-20 bg-level-2 rounded-full p-3 relative shadow-baseShadow">
-                {extensionIcon && <Icon name={extensionIcon as IconsProps} />}
+                {extensionIcon && <IconComponent />}
                 <div className="h-6 w-6 p-1 rounded-full bg-danger-base absolute bottom-0 right-0">
                   <XMarkIcon />
                 </div>

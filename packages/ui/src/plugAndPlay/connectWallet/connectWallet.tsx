@@ -4,6 +4,7 @@ import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
 
 import { Interaction, Typography } from "../../components";
 import { ChainCard, ProviderCard } from "../../readyToUse";
+
 export const ConnectWallet = ({
   children,
   onBack,
@@ -11,7 +12,7 @@ export const ConnectWallet = ({
   onConnectProvider,
 }: PropsWithChildren<{
   onBack: () => void;
-  onConnectProvider: (id: string) => void;
+  onConnectProvider: (value: (typeof ExtensionsArray)[0]) => void;
   installedExtensions: Record<string, ExtensionStatus>;
 }>) => {
   return (
@@ -40,14 +41,14 @@ export const ConnectWallet = ({
                 (a, b) =>
                   Number(!!installedExtensions[b.id]) -
                   Number(!!installedExtensions[a.id])
-              ).map(({ title, website, id }) => (
+              )?.map((value) => (
                 <ProviderCard
-                  key={title}
-                  title={title}
-                  icon={id}
-                  action={() => onConnectProvider(title)}
-                  href={website[0]}
-                  installed={!!installedExtensions?.[id]}
+                  key={value.id}
+                  title={value.title}
+                  icon={value.id}
+                  action={() => onConnectProvider(value)}
+                  href={value.website[0]}
+                  installed={!!installedExtensions?.[value.id]}
                 />
               ))}
             </div>
