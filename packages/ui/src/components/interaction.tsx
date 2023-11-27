@@ -30,7 +30,7 @@ const Title = ({
         classNames(
           hasClose && "justify-between",
           withPadding && "px-7",
-          "flex items-center gap-2 flex-1 px-7"
+          "flex items-center gap-2 flex-1"
         ),
         className
       )}

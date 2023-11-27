@@ -30,3 +30,4 @@ export * from "./free";
 export * from "./download";
 export * from "./plus";
 export * from "./recover";
+export * from "./tradingWallet";

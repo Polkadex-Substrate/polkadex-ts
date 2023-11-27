@@ -1,4 +1,10 @@
-import { ComponentProps, PropsWithChildren } from "react";
+import {
+  ComponentProps,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
@@ -45,15 +51,16 @@ type ModalProps = {
   AlertDialog.DialogContentProps;
 
 const modalPlace = {
-  center: "left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]",
-  "center left": "left-[1%] top-[50%] translate-y-[-50%]",
-  "center right": "right-[1%] top-[50%] translate-y-[-50%]",
-  "top center": "left-[50%] top-[1%] translate-x-[-50%]",
-  "top left": "left-[1%] top-[1%]",
-  "top right": "right-[1%] top-[1%]",
-  "bottom center": "left-[50%] bottom-[1%] translate-x-[-50%]",
-  "bottom left": "left-[1%] bottom-[1%]",
-  "bottom right": "right-[1%] bottom-[1%]",
+  center: "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
+  "center left": "top-1/2 left-[1%] transform -translate-y-1/2",
+  "center right":
+    "top-1/2 right-[1%] transform translate-x-1/2 -translate-y-1/2",
+  "top center": "top-[1%] left-1/2 transform -translate-x-1/2",
+  "top left": "top-[1%] left-[1%]",
+  "top right": "top-[1%] right-[1%]",
+  "bottom center": "bottom-[1%] left-1/2 transform -translate-x-1/2",
+  "bottom left": "bottom-[1%] left-[1%]",
+  "bottom right": "bottom-[1%] right-[1%]",
 };
 
 const Modal = ({
@@ -69,6 +76,14 @@ const Modal = ({
   const [TitleComponent] = isValidComponent(children, Title);
   const [ContentComponent] = isValidComponent(children, Content);
   const [FooterComponent] = isValidComponent(children, Footer);
+  const containerRef = useRef<HTMLElement | null>(null);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, forceRender] = useState(0);
+  useEffect(() => {
+    containerRef.current = document.body;
+    forceRender((prev) => prev + 1);
+  }, []);
 
   return (
     <AlertDialog.Root
@@ -77,17 +92,20 @@ const Modal = ({
       defaultOpen={defaultOpen}
       {...props}
     >
-      <AlertDialog.Portal>
+      <AlertDialog.Portal container={containerRef.current}>
         <AlertDialog.Overlay
-          className="backdrop-blur-primary inset-0 fixed"
+          className={classNames(
+            "backdrop-blur-primary inset-0 fixed",
+            "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+          )}
           onClick={
-            closeOnClickOutside ? () => onOpenChange?.(!open) : undefined
+            closeOnClickOutside ? () => onOpenChange?.(false) : undefined
           }
         />
         <AlertDialog.Content
           className={classNames(
             "fixed z-50 max-sm:w-full max-md:w-auto",
-            "duration-200 shadow-lg",
+            "duration-200 shadow-lg max-h-full overflow-y-auto",
             "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
             "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%]",
             modalPlace[placement],
