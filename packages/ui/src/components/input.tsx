@@ -1,11 +1,13 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import {
   ChangeEvent,
+  Dispatch,
   FocusEvent,
   InputHTMLAttributes,
   KeyboardEvent,
   MouseEvent,
   PropsWithChildren,
+  SetStateAction,
   useEffect,
   useRef,
   useState,
@@ -111,21 +113,20 @@ const Vertical = ({
 
 interface PasscodeProps
   extends Pick<InputHTMLAttributes<HTMLInputElement>, "className" | "type"> {
-  length?: number;
   focusOnInit?: boolean;
+  onValuesChange: Dispatch<SetStateAction<(string | number)[]>>;
+  values: (string | number)[];
 }
 
 const Passcode = ({
   type,
-  length = 5,
   focusOnInit,
   className,
+  values,
+  onValuesChange,
 }: PasscodeProps) => {
   const inputsRef = useRef<Array<HTMLInputElement> | []>([]);
 
-  const [values, setValues] = useState<(string | number)[]>(
-    Array(length).fill("")
-  );
   const [currentValue, setCurrentValue] = useState(0);
 
   const onKeyUp = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
@@ -138,7 +139,7 @@ const Passcode = ({
       if (hasRef) inputsRef.current[newIndex].focus();
     };
 
-    setValues((prev) => {
+    onValuesChange((prev) => {
       const newArray = [...prev];
 
       if (isBackspacePressed) {
@@ -179,7 +180,7 @@ const Passcode = ({
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>, index: number) =>
-    setValues((prev) => {
+    onValuesChange((prev) => {
       const newArray = [...prev];
       const inputValue = e.target.value;
       newArray[index] = parseInt(inputValue) || inputValue;
