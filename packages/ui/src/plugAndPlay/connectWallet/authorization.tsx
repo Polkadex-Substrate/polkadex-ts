@@ -33,7 +33,11 @@ export const Authorization = ({
   const callbackFn = useCallback(async () => {
     try {
       const success = await onAction();
-      if (!success) setError(true);
+      if (!success) {
+        setError(true);
+        return;
+      }
+
       onRedirect();
     } catch (error) {
       setError(true);
@@ -41,8 +45,8 @@ export const Authorization = ({
   }, [onAction, onRedirect]);
 
   useEffect(() => {
-    callbackFn();
-  }, [onRedirect, callbackFn]);
+    if (!error) callbackFn();
+  }, [onRedirect, callbackFn, error]);
 
   const errorMessage = `Please authorize your ${extensionName} wallet extension to connect to Orderbook App`;
   return (
