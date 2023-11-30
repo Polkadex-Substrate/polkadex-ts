@@ -15,7 +15,12 @@ import { usePrevious } from "react-use";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
-import { getChildren, isValidComponent } from "../helpers";
+import {
+  getChildren,
+  isValidComponent,
+  placements,
+  placementsStyles,
+} from "../helpers";
 export interface Actions {
   onBack: () => void;
   onNext: () => void;
@@ -91,25 +96,12 @@ export const Content = ({ children }: PropsWithChildren) => (
   <Fragment>{children}</Fragment>
 );
 
-const places = {
-  center: "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
-  "center left": "top-1/2 left-[1%] transform -translate-y-1/2",
-  "center right":
-    "top-1/2 right-[1%] transform translate-x-1/2 -translate-y-1/2",
-  "top center": "top-[1%] left-1/2 transform -translate-x-1/2",
-  "top left": "top-[1%] left-[1%]",
-  "top right": "top-[1%] right-[1%]",
-  "bottom center": "bottom-[1%] left-1/2 transform -translate-x-1/2",
-  "bottom left": "bottom-[1%] left-[1%]",
-  "bottom right": "bottom-[1%] right-[1%]",
-};
-
 type InteractiveProps = {
   defaultIndex?: number;
   defaultActive?: boolean;
   resetOnUnmount?: boolean;
   children: ((value?: InteractiveActions) => ReactNode) | ReactNode;
-  placement?: (typeof places)[number];
+  placement?: (typeof placements)[number];
 } & Pick<ComponentProps<"div">, "className">;
 
 const Interactive = ({
@@ -191,7 +183,7 @@ const Interactive = ({
         <Fragment>
           <div
             className={twMerge(
-              classNames("absolute w-full z-10", places[placement]),
+              classNames("absolute w-full z-10", placementsStyles[placement]),
               className
             )}
           >
