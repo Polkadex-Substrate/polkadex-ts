@@ -12,27 +12,17 @@ import {
 export const ProcessingTransaction = ({
   logo,
   onRedirect,
-  onAction,
-  onError,
+  shouldRedirect,
 }: {
   logo: string;
   onRedirect: () => void;
-  onAction: () => Promise<void>;
-  onError: () => void;
+  shouldRedirect: boolean;
 }) => {
   const IconComponent = getExtensionIcon(logo) as ElementType;
-  const callbackFn = useCallback(async () => {
-    try {
-      await onAction();
-      onRedirect();
-    } catch (e) {
-      onError();
-    }
-  }, [onAction, onRedirect, onError]);
 
   useEffect(() => {
-    callbackFn();
-  }, [onRedirect, callbackFn]);
+    if (shouldRedirect) onRedirect();
+  }, [onRedirect, shouldRedirect]);
 
   return (
     <Interaction className="gap-10 min-h-[30rem] h-full justify-center">

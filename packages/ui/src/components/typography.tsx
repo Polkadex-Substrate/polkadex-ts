@@ -19,7 +19,7 @@ const Text = ({
   children,
   className,
   variant = "base",
-  size = "sm",
+  size = "md",
   type = "span",
   bold,
   ...props
@@ -69,7 +69,7 @@ const Paragraph = ({
   children,
   className,
   variant = "base",
-  size = "md",
+  size = "base",
   ...props
 }: PropsWithChildren<ParagraphProps>) => {
   const isChildrenParagraph = Children.toArray(children).some((child) =>

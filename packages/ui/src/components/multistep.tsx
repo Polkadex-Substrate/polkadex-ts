@@ -1,32 +1,50 @@
 import {
   Children,
+  ComponentProps,
   Fragment,
   Key,
   PropsWithChildren,
   ReactElement,
   ReactNode,
   isValidElement,
+  useCallback,
+  useEffect,
   useState,
 } from "react";
 import { usePrevious } from "react-use";
 import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
-import { getChildren, isValidComponent } from "../helpers";
-
-export type Actions = {
+import {
+  getChildren,
+  isValidComponent,
+  placements,
+  placementsStyles,
+} from "../helpers";
+export interface Actions {
   onBack: () => void;
   onNext: () => void;
-  onPage: (id: string) => void;
   onReset: () => void;
   current: number;
-};
+}
+
+export interface SwitchActions extends Actions {
+  onPage: (key: Key) => void;
+}
+
+export interface InteractiveActions extends Actions {
+  onChangeInteraction: (value: boolean) => void;
+  onPage: (key: Key, activeInteraction?: boolean) => void;
+}
 
 const Switch = ({
   defaultIndex = 0,
   children,
+  resetOnUnmount = false,
 }: {
   defaultIndex?: number;
-  children: ((value?: Actions) => ReactNode) | ReactNode;
+  children: ((value?: SwitchActions) => ReactNode) | ReactNode;
+  resetOnUnmount?: boolean;
 }) => {
   const [current, setCurrent] = useState(defaultIndex);
   const prevCount = usePrevious(current);
@@ -63,6 +81,10 @@ const Switch = ({
     RenderComponent = allElements[current] ?? <div>MultiStep error</div>;
   }
 
+  useEffect(() => {
+    if (resetOnUnmount) return () => setCurrent(defaultIndex);
+  }, [defaultIndex, resetOnUnmount]);
+
   return <Fragment>{RenderComponent}</Fragment>;
 };
 
@@ -74,20 +96,34 @@ export const Content = ({ children }: PropsWithChildren) => (
   <Fragment>{children}</Fragment>
 );
 
+type InteractiveProps = {
+  defaultIndex?: number;
+  defaultActive?: boolean;
+  resetOnUnmount?: boolean;
+  children: ((value?: InteractiveActions) => ReactNode) | ReactNode;
+  placement?: (typeof placements)[number];
+} & Pick<ComponentProps<"div">, "className">;
+
 const Interactive = ({
   children,
   defaultIndex = 0,
-  active,
-}: {
-  active?: boolean;
-  defaultIndex?: number;
-  children: ((value?: Actions) => ReactNode) | ReactNode;
-}) => {
+  defaultActive = false,
+  resetOnUnmount = false,
+  placement = "bottom center",
+  className,
+}: InteractiveProps) => {
   const [current, setCurrent] = useState(defaultIndex);
+  const [active, setActive] = useState(defaultActive);
+
   const prevCount = usePrevious(current);
 
   let RenderComponent: ReactNode;
   let TriggerComponent: ReactNode;
+
+  const onReset = useCallback(() => {
+    setCurrent(defaultIndex);
+    setActive(defaultActive);
+  }, [defaultIndex, defaultActive]);
 
   if (typeof children === "function") {
     const [child] = Children.toArray(
@@ -102,7 +138,7 @@ const Interactive = ({
           setCurrent((e) => (e + 1) % childCount);
         },
         onBack: () => setCurrent(prevCount ?? 0),
-        onPage: (key: Key) => {
+        onPage: (key: Key, activeInteraction?: boolean) => {
           const childCollection = getChildren(child);
           const [ContentItems] = isValidComponent(childCollection, Content);
 
@@ -112,8 +148,10 @@ const Interactive = ({
           );
 
           setCurrent(childIndex >= 0 ? childIndex : 0);
+          if (activeInteraction) setActive(true);
         },
-        onReset: () => setCurrent(defaultIndex),
+        onReset,
+        onChangeInteraction: (value = false) => setActive(value),
         current,
       })
     ).filter(isValidElement) as ReactElement<PropsWithChildren<Actions>>[];
@@ -134,13 +172,20 @@ const Interactive = ({
     TriggerComponent = TriggerComp;
   }
 
+  useEffect(() => {
+    if (resetOnUnmount) return () => onReset();
+  }, [resetOnUnmount, onReset]);
+
   return (
     <div className="relative">
       {TriggerComponent}
       {active && (
         <Fragment>
           <div
-            className={classNames("absolute bottom-0 w-full z-10 max-h-full")}
+            className={twMerge(
+              classNames("absolute w-full z-10", placementsStyles[placement]),
+              className
+            )}
           >
             {RenderComponent}
           </div>

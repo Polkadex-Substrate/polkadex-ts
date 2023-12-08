@@ -9,7 +9,7 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
-import { isValidComponent, placements } from "../helpers";
+import { isValidComponent, placements, placementsStyles } from "../helpers";
 
 interface TitleProps extends AlertDialog.DialogTitleProps {
   onBack?: () => void;
@@ -49,19 +49,6 @@ type ModalProps = {
   placement?: (typeof placements)[number];
 } & Pick<AlertDialog.DialogProps, "defaultOpen" | "open" | "onOpenChange"> &
   AlertDialog.DialogContentProps;
-
-const modalPlace = {
-  center: "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
-  "center left": "top-1/2 left-[1%] transform -translate-y-1/2",
-  "center right":
-    "top-1/2 right-[1%] transform translate-x-1/2 -translate-y-1/2",
-  "top center": "top-[1%] left-1/2 transform -translate-x-1/2",
-  "top left": "top-[1%] left-[1%]",
-  "top right": "top-[1%] right-[1%]",
-  "bottom center": "bottom-[1%] left-1/2 transform -translate-x-1/2",
-  "bottom left": "bottom-[1%] left-[1%]",
-  "bottom right": "bottom-[1%] right-[1%]",
-};
 
 const Modal = ({
   children,
@@ -103,12 +90,14 @@ const Modal = ({
           }
         />
         <AlertDialog.Content
-          className={classNames(
-            "fixed z-50 max-sm:w-full max-md:w-auto",
-            "duration-200 shadow-lg max-h-full overflow-y-auto",
-            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
-            "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%]",
-            modalPlace[placement],
+          style={{ scrollbarGutter: "stable" }}
+          className={twMerge(
+            classNames(
+              "fixed z-50 max-sm:w-full max-md:w-auto h-auto overflow-hidden hover:overflow-auto max-h-screen duration-200 shadow-lg",
+              "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
+              "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%]",
+              placementsStyles[placement]
+            ),
             className
           )}
           {...props}

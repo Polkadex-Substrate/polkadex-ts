@@ -90,7 +90,7 @@ const Base = ({
       className={twMerge(
         classNames(
           "transition-colors duration-300 font-medium",
-          "flex items-center justify-center",
+          "flex items-center justify-center whitespace-nowrap",
           "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-disabled",
           withIcon ? variants.iconSize[size] : variants.size[size],
           rounded && "rounded-full",
