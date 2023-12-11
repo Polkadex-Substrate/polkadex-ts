@@ -19,7 +19,7 @@ const Text = ({
   children,
   className,
   variant = "base",
-  size = "md",
+  size = "sm",
   type = "span",
   bold,
   ...props
