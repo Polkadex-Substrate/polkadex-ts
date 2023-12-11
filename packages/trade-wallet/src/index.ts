@@ -1,2 +1,2 @@
-export * from "./tradeWallet"
-export * from "./types"
+export * from "./tradeWallet";
+export * from "./types";
