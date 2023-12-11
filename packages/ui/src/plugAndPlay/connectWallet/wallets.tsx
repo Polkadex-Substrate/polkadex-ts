@@ -30,7 +30,7 @@ export const Wallets = ({
   }, [loading, success, onRedirect]);
 
   return (
-    <Loading active={loading}>
+    <Loading.Spinner active={loading}>
       <Interaction withAnimation={!loading}>
         {hasWallet && (
           <Interaction.Title onClose={onClose}>
@@ -82,6 +82,6 @@ export const Wallets = ({
           </Interaction.Close>
         </Interaction.Footer>
       </Interaction>
-    </Loading>
+    </Loading.Spinner>
   );
 };
