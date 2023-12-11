@@ -59,7 +59,7 @@ export const Processing = ({
         {errorMessage ? (
           <div className="flex flex-col gap-5 w-full">
             <div className="flex flex-col gap-5 items-center text-center">
-              <div className=" h-12 w-12 rounded-full bg-danger-base p-2 shadow-baseShadow">
+              <div className="h-12 w-12 rounded-full bg-danger-base p-2 shadow-baseShadow">
                 <XMarkIcon />
               </div>
               <div className="flex flex-col gap-1">
@@ -77,7 +77,7 @@ export const Processing = ({
           </div>
         ) : (
           <div className="flex flex-col gap-5 items-center text-center w-full">
-            <div className="h-20 w-20 bg-level-2 rounded-full p-3 relative shadow-baseShadow">
+            <div className="h-20 w-20 bg-level-4 rounded-full p-3 relative shadow-baseShadow">
               {logo && <IconComponent />}
               <div className="absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <CustomSpinner.Loading />
