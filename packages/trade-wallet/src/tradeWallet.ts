@@ -3,9 +3,9 @@ import { KeyringPair, KeyringPair$Json } from "@polkadot/keyring/types";
 import { keyring } from "@polkadot/ui-keyring";
 import { cryptoWaitReady } from "@polkadot/util-crypto";
 
-import { TradingAccountExternalStorage, TradingAccountStore } from "./types";
+import { UserAccountExternalStorage, UserAccountStore } from "./types";
 
-export class TradeWallet implements TradingAccountStore {
+export class TradeWallet implements UserAccountStore {
   _keyring = keyring;
   private _isInit = false;
 
@@ -36,13 +36,13 @@ export class TradeWallet implements TradingAccountStore {
 
   public async addToExternalStorage(
     json: KeyringPair$Json,
-    store: TradingAccountExternalStorage
+    store: UserAccountExternalStorage
   ): Promise<void> {
     await store.add(json);
   }
 
   public async backupAllToExternalStorage(
-    store: TradingAccountExternalStorage
+    store: UserAccountExternalStorage
   ): Promise<void> {
     const accounts = this.getAll();
     const promises = accounts.map((pair) => {
@@ -75,5 +75,14 @@ export class TradeWallet implements TradingAccountStore {
       }
       cb(allAddress);
     });
+  }
+
+  isLocked(address: string): boolean {
+    return keyring.getPair(address)?.isLocked;
+  }
+
+  sign(address: string, data: Uint8Array | string): Uint8Array | undefined {
+    const pair = keyring.getPair(address);
+    return pair ? pair.sign(data) : undefined;
   }
 }
