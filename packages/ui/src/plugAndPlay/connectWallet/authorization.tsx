@@ -2,18 +2,12 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { ElementType, useCallback, useEffect, useState } from "react";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
 
-import {
-  Icon,
-  IconsProps,
-  Interaction,
-  Spinner,
-  Typography,
-} from "../../components";
+import { Interaction, Spinner, Typography } from "../../components";
 
 export const Authorization = ({
   extensionIcon,
   extensionName,
-  onRedirect,
+  onActionCallback,
   onAction,
   onClose,
 }: {
@@ -21,7 +15,7 @@ export const Authorization = ({
   extensionIcon?: string;
   loadingDescription?: string;
   loading?: boolean;
-  onRedirect: () => void;
+  onActionCallback: () => void;
   onAction: () => Promise<boolean>;
   onClose?: () => void;
 }) => {
@@ -38,15 +32,15 @@ export const Authorization = ({
         return;
       }
 
-      onRedirect();
+      onActionCallback();
     } catch (error) {
       setError(true);
     }
-  }, [onAction, onRedirect]);
+  }, [onAction, onActionCallback]);
 
   useEffect(() => {
     if (!error) callbackFn();
-  }, [onRedirect, callbackFn, error]);
+  }, [onActionCallback, callbackFn, error]);
 
   const errorMessage = `Please authorize your ${extensionName} wallet extension to connect to Orderbook App`;
   return (
@@ -75,7 +69,7 @@ export const Authorization = ({
         ) : (
           <>
             <div className="h-20 w-20 bg-level-2 rounded-full p-3 relative shadow-baseShadow">
-              <Icon name={extensionIcon as IconsProps} />
+              {extensionIcon && <IconComponent />}
               <div className="absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <Spinner.Loading />
               </div>
