@@ -30,4 +30,5 @@ export interface TradingAccountStore extends Base {
   backupAllToExternalStorage(
     store: TradingAccountExternalStorage
   ): Promise<void>;
+  subscribeAddresses(cb: (addresses: string[]) => void): void;
 }

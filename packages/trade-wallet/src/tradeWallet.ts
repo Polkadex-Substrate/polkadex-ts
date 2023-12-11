@@ -67,7 +67,7 @@ export class TradeWallet implements TradingAccountStore {
     return keyring.forgetAccount(address);
   }
 
-  public accountsSubscriber(cb: (pairs: string[]) => void): void {
+  public subscribeAddresses(cb: (addresses: string[]) => void): void {
     keyring.accounts.subject.subscribe((item) => {
       const allAddress: string[] = [];
       for (const key in item) {
