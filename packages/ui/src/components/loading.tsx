@@ -101,4 +101,5 @@ export const Processing = ({
 
 export const Loading = {
   Spinner,
+  Processing,
 };

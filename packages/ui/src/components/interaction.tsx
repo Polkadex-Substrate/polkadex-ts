@@ -146,7 +146,7 @@ const Interaction = ({
       className={twMerge(
         classNames(
           "flex flex-col gap-5 pt-7 pb-10 sm:w-full md:w-[23rem]",
-          "bg-level-2 border border-primary rounded-xl",
+          "bg-level-3 border border-primary rounded-xl",
           withAnimation && "animate-in slide-in-from-bottom-48 duration-300"
         ),
         className
