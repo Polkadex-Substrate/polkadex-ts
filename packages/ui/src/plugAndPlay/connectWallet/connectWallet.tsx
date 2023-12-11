@@ -10,10 +10,12 @@ export const ConnectWallet = ({
   onBack,
   installedExtensions,
   onConnectProvider,
+  onConnectCallback,
 }: PropsWithChildren<{
-  onBack: () => void;
   onConnectProvider: (value: (typeof ExtensionsArray)[0]) => void;
   installedExtensions: Record<string, ExtensionStatus>;
+  onBack: () => void;
+  onConnectCallback: () => void;
 }>) => {
   return (
     <Interaction withAnimation={false}>
@@ -36,7 +38,7 @@ export const ConnectWallet = ({
             <Typography.Text variant="secondary" size="xs" className="px-7">
               Wallets available on the Polkadot chain
             </Typography.Text>
-            <div className="flex flex-col px-3 max-h-[15rem] overflow-auto">
+            <div className="flex flex-col px-3 max-h-[16rem] overflow-auto">
               {ExtensionsArray?.sort(
                 (a, b) =>
                   Number(!!installedExtensions[b.id]) -
@@ -46,7 +48,10 @@ export const ConnectWallet = ({
                   key={value.id}
                   title={value.title}
                   icon={value.id}
-                  action={() => onConnectProvider(value)}
+                  action={() => {
+                    onConnectProvider(value);
+                    onConnectCallback();
+                  }}
                   href={(value.website as string) ?? value.website[0]}
                   installed={!!installedExtensions?.[value.id]}
                 />
