@@ -209,8 +209,8 @@ const Passcode = ({
           pattern="\d{1}"
           className={twMerge(
             classNames(
-              "h-8 w-7 bg-level-3 text-center rounded-md transition-colors duration-300 border-2 border-transparent",
-              "focus:ring-0 focus:ring-offset-0 focus:border-primary-base hover:border-level-4",
+              "h-8 w-7 bg-level-3 text-center rounded-md transition-colors duration-300",
+              "focus:ring-0 focus:ring-offset-0 focus:outline focus:outline-offset-1 focus:focus:outline-primary-base",
               values[i] && "bg-level-1"
             ),
             className

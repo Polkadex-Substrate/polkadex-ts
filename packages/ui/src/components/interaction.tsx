@@ -38,7 +38,7 @@ const Title = ({
     >
       {hasBack && (
         <Button.Icon onClick={onBack} variant="ghost" rounded>
-          <ArrowLeftIcon className="text-secondary group-hover:text-current duration-300 transition-colors" />
+          <ArrowLeftIcon className="text-secondary group-hover:text-current" />
         </Button.Icon>
       )}
       <Typography.Heading type="h3" size="md">
@@ -46,7 +46,7 @@ const Title = ({
       </Typography.Heading>
       {hasClose && (
         <Button.Icon onClick={onClose} variant="ghost" rounded>
-          <XMarkIcon className="text-secondary group-hover:text-current duration-300 transition-colors" />
+          <XMarkIcon className="text-secondary group-hover:text-current" />
         </Button.Icon>
       )}
     </div>
@@ -146,7 +146,7 @@ const Interaction = ({
       className={twMerge(
         classNames(
           "flex flex-col gap-5 pt-7 pb-10 sm:w-full md:w-[23rem]",
-          "bg-backgroundBase border border-primary rounded-lg",
+          "bg-level-2 border border-primary rounded-xl",
           withAnimation && "animate-in slide-in-from-bottom-48 duration-300"
         ),
         className
