@@ -1,5 +1,28 @@
 # @polkadex/ux
 
+## 2.1.0
+
+### Minor Changes
+
+- a4e9d17: - [x] Introduction of a common and border palette.
+  - [x] Implementation of a new appearance for tertiary buttons.
+  - [x] Addition of a new loading component specifically designed for processing transactions.
+  - [x] Correction of walletCard background.
+  - [x] Correction of providerCard background.
+  - [x] Correction of checkbox background.
+  - [x] Correction of interaction background.
+  - [x] Removal of button role from chainCard.
+  - [x] Improved styling for wallet interactions.
+  - [x] Enhancement of connect wallet interaction.
+  - [x] Replacement of the authorization Icon component, using now extension icon.
+  - [x] Removal of fill from folder and device icons.
+  - [x] Adjustment of Copy action stopPropagation.
+  - [x] Styling refinement for Input passcode.
+  - [x] Removal of interaction hover duration.
+  - [x] Adjustment of default Text size for Typography.
+  - [x] Elimination of placements margin.
+  - [x] Interaction overflow enhancements.
+
 ## 2.0.1
 
 ### Patch Changes

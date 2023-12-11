@@ -30,20 +30,17 @@ export const Wallets = ({
   }, [loading, success, onRedirect]);
 
   return (
-    <Loading active={loading}>
-      <Interaction withAnimation={!loading} className="gap-10">
+    <Loading.Spinner active={loading}>
+      <Interaction withAnimation={!loading}>
         {hasWallet && (
           <Interaction.Title onClose={onClose}>
             Select funding wallet
           </Interaction.Title>
         )}
-        <Interaction.Content
-          className="flex flex-col gap-1 flex-1"
-          withPadding={false}
-        >
+        <Interaction.Content withPadding={false}>
           {!hasWallet ? (
-            <div className="flex flex-col gap-10 items-center px-7">
-              <div className="max-w-[13rem]">
+            <div className="flex flex-col gap-5 items-center px-7 py-8">
+              <div className="max-w-[10rem]">
                 <WalletNotFound className="w-full text-disabled" />
               </div>
               <div className="flex flex-col items-center gap-1">
@@ -85,6 +82,6 @@ export const Wallets = ({
           </Interaction.Close>
         </Interaction.Footer>
       </Interaction>
-    </Loading>
+    </Loading.Spinner>
   );
 };

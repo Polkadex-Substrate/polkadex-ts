@@ -9,11 +9,13 @@ import {
   isValidElement,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { usePrevious } from "react-use";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
+import { useElementSize } from "usehooks-ts";
 
 import {
   getChildren,
@@ -112,6 +114,9 @@ const Interactive = ({
   placement = "bottom center",
   className,
 }: InteractiveProps) => {
+  const [ref, { height }] = useElementSize();
+  const [mainRef, { height: mainHeight }] = useElementSize();
+
   const [current, setCurrent] = useState(defaultIndex);
   const [active, setActive] = useState(defaultActive);
 
@@ -176,20 +181,33 @@ const Interactive = ({
     if (resetOnUnmount) return () => onReset();
   }, [resetOnUnmount, onReset]);
 
+  const place = useMemo(
+    () =>
+      height >= mainHeight
+        ? placementsStyles["top center"]
+        : placementsStyles[placement],
+    [height, mainHeight, placement]
+  );
+
   return (
-    <div className="relative">
+    <div
+      ref={mainRef}
+      className="relative"
+      style={{ minHeight: `${height}px` }}
+    >
       {TriggerComponent}
       {active && (
         <Fragment>
           <div
+            ref={ref}
             className={twMerge(
-              classNames("absolute w-full z-10", placementsStyles[placement]),
+              classNames("absolute w-full z-10", place),
               className
             )}
           >
             {RenderComponent}
           </div>
-          <div className="absolute w-full h-full bottom-0 left-0 bg-overlay-1" />
+          <div className="absolute w-full h-full bottom-0 left-0 bg-overlay-1 rounded-xl" />
         </Fragment>
       )}
     </div>
