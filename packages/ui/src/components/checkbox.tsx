@@ -51,7 +51,7 @@ const Solid = ({
   <Base
     className={twMerge(
       classNames(
-        "data-[state=unchecked]:bg-level-4 data-[state=unchecked]:group-hover:bg-level-2 border-none",
+        "data-[state=unchecked]:bg-level-5 data-[state=unchecked]:group-hover:bg-level-2 border-none",
         "data-[state=checked]:bg-primary-base data-[state=checked]:text-primary-foreground",
         className
       )
