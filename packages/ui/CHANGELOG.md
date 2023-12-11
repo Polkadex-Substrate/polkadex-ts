@@ -1,5 +1,14 @@
 # @polkadex/ux
 
+## 3.0.0
+
+### Major Changes
+
+- 6abcf3f: Fixes:
+  - [x] export loading processing component
+  - [x] change default interaction background
+  - [x] remove creditCard icon fill
+
 ## 2.1.0
 
 ### Minor Changes
