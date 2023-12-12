@@ -1,5 +1,11 @@
 # @polkadex/utils
 
+## 0.1.0
+
+### Minor Changes
+
+- 8099b1c: fix: remove eslint dependency from all packages
+
 ## 0.0.2
 
 ### Patch Changes
