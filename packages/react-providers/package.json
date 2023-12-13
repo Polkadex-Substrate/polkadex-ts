@@ -21,7 +21,6 @@
   "dependencies": {
     "@polkadex/react-hooks": "*",
     "@polkadex/trade-wallet": "*",
-    "@chainsafe/metamask-polkadot-adapter": "^0.5.1",
     "@polkadex/utils": "*",
     "@polkadot-cloud/assets": "^0.1.34",
     "@polkadot/keyring": "^12.5.1",
