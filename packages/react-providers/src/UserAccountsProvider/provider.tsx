@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { TradeWallet } from "@polkadex/trade-wallet/src";
+import { TradeWallet } from "@polkadex/trade-wallet";
 
 import {
   UserAccountsContextInterface,

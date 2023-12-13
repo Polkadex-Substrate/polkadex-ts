@@ -16,6 +16,8 @@ const reusableColors = {
   primary: "hover:bg-primary-hover active:bg-primary-pressed",
   secondary:
     "text-primary hover:text-current hover:bg-secondary-hover active:bg-secondary-pressed",
+  tertiary:
+    "text-primary hover:text-current hover:bg-tertiary-hover active:bg-tertiary-pressed",
   danger: "hover:bg-danger-hover active:bg-danger-pressed",
   success: "hover:bg-success-hover active:bg-success-pressed",
   attention: "hover:bg-attention-hover active:bg-attention-pressed",
@@ -41,6 +43,7 @@ const variants = {
     solid: {
       primary: `bg-primary-base ${reusableColors.primary}`,
       secondary: `bg-secondary-base ${reusableColors.secondary}`,
+      tertiary: `bg-tertiary-base ${reusableColors.tertiary}`,
       danger: `bg-danger-base ${reusableColors.danger}`,
       success: `bg-success-base ${reusableColors.success}`,
       attention: `bg-attention-base ${reusableColors.attention}`,
@@ -49,6 +52,7 @@ const variants = {
     ghost: {
       primary: reusableColors.primary,
       secondary: reusableColors.secondary,
+      tertiary: reusableColors.tertiary,
       danger: reusableColors.danger,
       success: reusableColors.success,
       attention: reusableColors.attention,
@@ -57,6 +61,7 @@ const variants = {
     outline: {
       primary: `border border-primary-base ${reusableColors.primary}`,
       secondary: `border border-secondary-base ${reusableColors.secondary}`,
+      tertiary: `border border-tertiary-base ${reusableColors.tertiary}`,
       danger: `border border-danger-base ${reusableColors.danger}`,
       success: `border border-success-base ${reusableColors.success}`,
       attention: `border border-attention-base ${reusableColors.attention}`,
@@ -65,6 +70,7 @@ const variants = {
     light: {
       primary: `text-primary-base hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.primary}`,
       secondary: `hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.secondary}`,
+      tertiary: `hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.tertiary}`,
       danger: `text-danger-base hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.danger}`,
       success: `text-success-base hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.success}`,
       attention: `text-attention-base hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.attention}`,

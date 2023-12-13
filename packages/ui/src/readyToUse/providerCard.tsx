@@ -21,7 +21,7 @@ export const ProviderCard = ({
     <div
       className={classNames(
         "flex justify-between items-center gap-3 p-4 rounded-md",
-        installed && "hover:bg-level-3 duration-300 transition-colors"
+        installed && "hover:bg-level-4 duration-300 transition-colors"
       )}
       role="button"
       onClick={installed ? action : undefined}

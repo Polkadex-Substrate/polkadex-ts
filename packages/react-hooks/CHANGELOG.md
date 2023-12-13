@@ -1,5 +1,16 @@
 # @polkadex/react-hooks
 
+## 0.1.0
+
+### Minor Changes
+
+- 8099b1c: fix: remove eslint dependency from all packages
+
+### Patch Changes
+
+- Updated dependencies [8099b1c]
+  - @polkadex/utils@0.1.0
+
 ## 0.0.2
 
 ### Patch Changes
