@@ -4,7 +4,9 @@ import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
 
 import { Interaction, Typography } from "../../components";
 import { ChainCard, ProviderCard } from "../../readyToUse";
-
+const ExtensionsArrayWhitelist = ExtensionsArray?.filter(
+  (item) => item.id !== "metamask-polkadot-snap"
+);
 export const ConnectWallet = ({
   children,
   onBack,
@@ -39,7 +41,7 @@ export const ConnectWallet = ({
               Wallets available on the Polkadot chain
             </Typography.Text>
             <div className="flex flex-col px-3 max-h-[16rem] overflow-auto">
-              {ExtensionsArray?.sort(
+              {ExtensionsArrayWhitelist?.sort(
                 (a, b) =>
                   Number(!!installedExtensions[b.id]) -
                   Number(!!installedExtensions[a.id])

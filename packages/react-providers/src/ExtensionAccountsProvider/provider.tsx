@@ -5,7 +5,6 @@ import {
   AnyJson,
   localStorageOrDefault,
 } from "@polkadex/utils";
-import { SnapNetworks } from "@chainsafe/metamask-polkadot-types";
 import { useEffectIgnoreInitial } from "@polkadex/react-hooks";
 
 import {
@@ -22,7 +21,6 @@ import {
 } from "./types";
 import { extensionIsLocal, removeFromLocalExtensions } from "./utils";
 import { defaultExtensionAccountsContext } from "./constants";
-import { initPolkadotSnap } from "./metamask-snap";
 
 export const ExtensionAccountsContext =
   createContext<ExtensionAccountsContextInterface>(
@@ -95,9 +93,6 @@ export const ExtensionAccountsProvider = ({
     const extensionKeys = Object.keys(extensionsStatus);
     // Exit if no installed extensions.
     if (!extensionKeys.length) return;
-
-    // Pre-connect: Inject extensions into `injectedWeb3` if not already injected.
-    await handleExtensionAdapters(extensionKeys);
 
     // Iterate extensions, `enable` and add accounts to state.
     const total = extensionKeys?.length ?? 0;
@@ -196,7 +191,6 @@ export const ExtensionAccountsProvider = ({
       );
     } else {
       // Pre-connect: Inject into `injectedWeb3` if the provided extension is not already injected.
-      await handleExtensionAdapters([id]);
 
       try {
         // Attempt to get extension `enable` property.
@@ -276,17 +270,6 @@ export const ExtensionAccountsProvider = ({
     }
     // mark extension as initialised
     updateInitialisedExtensions(id);
-  };
-
-  // Handle adaptors for extensions that are not supported by `injectedWeb3`.
-  const handleExtensionAdapters = async (extensionKeys: string[]) => {
-    // Connect to Metamask Polkadot Snap and inject into `injectedWeb3` if avaialble.
-    if (extensionKeys.find((id) => id === "metamask-polkadot-snap")) {
-      await initPolkadotSnap({
-        networkName: network as SnapNetworks,
-        addressPrefix: ss58,
-      });
-    }
   };
 
   // Handle forgetting of an imported extension account.
