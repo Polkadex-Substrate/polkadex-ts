@@ -12,13 +12,7 @@ export const ChainCard = ({
   icon: TokensProps;
 }) => {
   return (
-    <div
-      className={classNames(
-        "flex items-center gap-3 p-4 rounded-md",
-        "hover:bg-level-3 duration-300 transition-colors"
-      )}
-      role="button"
-    >
+    <div className={classNames("flex items-center gap-3 p-4 rounded-md")}>
       <Token name={icon} className="w-8 h-8" />
       <div className="flex flex-col gap-1">
         <Typography.Text bold>{title}</Typography.Text>

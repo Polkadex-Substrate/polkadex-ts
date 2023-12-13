@@ -33,7 +33,7 @@ const WalletCard = ({
       {...props}
       className={classNames(
         "flex-1 flex items-center gap-3 justify-between rounded-lg cursor-pointer",
-        hoverable && "p-3 hover:bg-level-2 duration-300 transition-colors"
+        hoverable && "p-3 hover:bg-level-4 duration-300 transition-colors"
       )}
     >
       <div className="flex justify-between items-center gap-1">

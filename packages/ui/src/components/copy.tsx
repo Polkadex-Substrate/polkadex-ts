@@ -22,6 +22,7 @@ export const Copy = ({
 
   const onCopy = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     if (!value) return;
     try {
       await navigator.clipboard.writeText(value.toString());

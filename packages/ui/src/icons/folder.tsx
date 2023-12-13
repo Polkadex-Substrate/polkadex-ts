@@ -8,6 +8,7 @@ export function Folder(props: ComponentProps<"svg">) {
         stroke="currentColor"
         strokeWidth="1.05"
         strokeMiterlimit="10"
+        fill="none"
       />
       <path
         d="M5.7334 0.833496H13.0834C14.7167 0.833496 15.5334 1.65016 15.5334 3.2835V4.4105"
@@ -16,6 +17,7 @@ export function Folder(props: ComponentProps<"svg">) {
         strokeMiterlimit="10"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill="none"
       />
     </svg>
   );
