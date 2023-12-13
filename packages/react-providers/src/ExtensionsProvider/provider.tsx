@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useEffect, useRef, useState } from "react";
-import { Extensions, ExtensionsArray } from "@polkadot-cloud/assets/extensions";
 import { setStateWithRef, AnyJson } from "@polkadex/utils";
 
 import {
@@ -42,7 +41,7 @@ export const ExtensionsProvider = ({ children }: { children: ReactNode }) => {
 
     if (hasInjectedWeb3 || snapAvailable)
       setStateWithRef(
-        getExtensionsStatus(snapAvailable),
+        await getExtensionsStatus(snapAvailable),
         setExtensionsStatus,
         extensionsStatusRef
       );
@@ -87,8 +86,11 @@ export const ExtensionsProvider = ({ children }: { children: ReactNode }) => {
   //
   // Loops through the supported extensios and checks if they are present in `injectedWeb3`. Adds
   // `installed` status to the extension if it is present.
-  const getExtensionsStatus = (snapAvailable: boolean) => {
+  const getExtensionsStatus = async (snapAvailable: boolean) => {
     const { injectedWeb3 }: AnyJson = window;
+    const { ExtensionsArray } = await import(
+      "@polkadot-cloud/assets/extensions"
+    );
 
     const newExtensionsStatus = { ...extensionsStatus };
     if (snapAvailable)
@@ -112,10 +114,12 @@ export const ExtensionsProvider = ({ children }: { children: ReactNode }) => {
     extensionInstalled(id) && extensionsStatus[id] !== "connected";
 
   // Checks whether an extension supports a feature.
-  const extensionHasFeature = (
+  const extensionHasFeature = async (
     id: string,
     feature: ExtensionFeature
-  ): boolean => {
+  ): Promise<boolean> => {
+    const { Extensions } = await import("@polkadot-cloud/assets/extensions");
+
     const features = Extensions[id].features;
     if (features === "*" || features.includes(feature)) return true;
     else return false;
