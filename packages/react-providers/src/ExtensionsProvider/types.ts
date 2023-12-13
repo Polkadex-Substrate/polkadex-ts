@@ -14,7 +14,10 @@ export interface ExtensionsContextInterface {
   removeExtensionStatus: (id: string) => void;
   extensionInstalled: (id: string) => boolean;
   extensionCanConnect: (id: string) => boolean;
-  extensionHasFeature: (id: string, feature: ExtensionFeature) => boolean;
+  extensionHasFeature: (
+    id: string,
+    feature: ExtensionFeature
+  ) => Promise<boolean>;
 }
 
 // Top level required properties the extension must expose via their `injectedWeb3` entry.
