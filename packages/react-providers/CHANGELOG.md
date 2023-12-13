@@ -1,5 +1,13 @@
 # @polkadex/react-providers
 
+## 0.3.0
+
+### Minor Changes
+
+- 75d7c2f: fix: dynamic import @polkadot-cloud/assets/extensions
+- 5b7d868: fix: removed @chainsafe/metamask-polkadot-adapter dependency
+  fix: metamask-polkadot-snap filtered from connect wallet
+
 ## 0.2.0
 
 ### Minor Changes
