@@ -1,5 +1,18 @@
 # @polkadex/ux
 
+## 3.1.0
+
+### Minor Changes
+
+- 5b7d868: fix: removed @chainsafe/metamask-polkadot-adapter dependency
+  fix: metamask-polkadot-snap filtered from connect wallet
+
+### Patch Changes
+
+- Updated dependencies [75d7c2f]
+- Updated dependencies [5b7d868]
+  - @polkadex/react-providers@0.3.0
+
 ## 3.0.0
 
 ### Major Changes
