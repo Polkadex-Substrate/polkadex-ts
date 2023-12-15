@@ -1,42 +1,44 @@
 import { createContext, useEffect, useState } from "react";
-import { TradeWallet } from "@polkadex/trade-wallet";
+import { BrowserWallet } from "@polkadex/local-wallets";
 
 import {
   UserAccountsContextInterface,
   UserAccountsProviderProps,
 } from "./types";
 
-const wallet = new TradeWallet();
-export const UserAccountsContext = createContext<UserAccountsContextInterface>({
-  wallet,
-  isReady: false,
-  userAddresses: [],
-});
+const wallet = new BrowserWallet();
+export const LocalAccountsContext = createContext<UserAccountsContextInterface>(
+  {
+    wallet,
+    isReady: false,
+    localAddresses: [],
+  }
+);
 
 export const UserAccountsProvider = ({
   children,
 }: UserAccountsProviderProps) => {
-  const [userAddresses, setUserAddresses] = useState<string[]>([]);
+  const [localAddresses, setLocalAddresses] = useState<string[]>([]);
 
   useEffect(() => {
     if (!wallet.isReady()) {
       wallet.init().then(() => {
         wallet.subscribeAddresses((addresses) => {
-          setUserAddresses(addresses);
+          setLocalAddresses(addresses);
         });
       });
     }
   });
 
   return (
-    <UserAccountsContext.Provider
+    <LocalAccountsContext.Provider
       value={{
         wallet,
         isReady: wallet.isReady(),
-        userAddresses,
+        localAddresses,
       }}
     >
       {children}
-    </UserAccountsContext.Provider>
+    </LocalAccountsContext.Provider>
   );
 };

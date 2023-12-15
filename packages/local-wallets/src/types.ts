@@ -5,7 +5,7 @@ interface Base {
   init: () => Promise<void>;
   isReady: () => boolean;
 }
-export interface UserAccountExternalStorage extends Base {
+export interface LocalAccountExternalStorage extends Base {
   id: string;
   getAll(): Promise<KeyringPair$Json[]>;
   get(address: string): Promise<KeyringPair$Json>;
@@ -13,7 +13,7 @@ export interface UserAccountExternalStorage extends Base {
   remove(address: string): Promise<void>;
 }
 
-export interface UserAccountStore extends Base {
+export interface LocalAccountStore extends Base {
   import(json: KeyringPair$Json, password: string): KeyringPair;
   remove(address: string): void;
   getAll(): KeyringPair[];
@@ -27,8 +27,8 @@ export interface UserAccountStore extends Base {
   ): CreateResult;
   addToExternalStorage(
     json: KeyringPair$Json,
-    store: UserAccountExternalStorage
+    store: LocalAccountExternalStorage
   ): Promise<void>;
-  backupAllToExternalStorage(store: UserAccountExternalStorage): Promise<void>;
+  backupAllToExternalStorage(store: LocalAccountExternalStorage): Promise<void>;
   subscribeAddresses(cb: (addresses: string[]) => void): void;
 }

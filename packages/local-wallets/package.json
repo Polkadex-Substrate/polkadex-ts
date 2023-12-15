@@ -1,5 +1,5 @@
 {
-  "name": "@polkadex/trade-wallet",
+  "name": "@polkadex/local-wallets",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

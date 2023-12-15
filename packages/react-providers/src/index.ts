@@ -1,3 +1,3 @@
 export * from "./ExtensionAccountsProvider";
 export * from "./ExtensionsProvider";
-export * from "./UserAccountsProvider";
+export * from "./LocalAccountsProvider";

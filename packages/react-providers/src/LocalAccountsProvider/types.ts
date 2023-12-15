@@ -1,10 +1,11 @@
-import { UserAccountStore } from "@polkadex/trade-wallet";
 import { ReactNode } from "react";
 
+import { LocalAccountStore } from "../../../local-wallets";
+
 export interface UserAccountsContextInterface {
-  wallet: UserAccountStore;
+  wallet: LocalAccountStore;
   isReady: boolean;
-  userAddresses: string[];
+  localAddresses: string[];
 }
 
 export interface UserAccountsProviderProps {
