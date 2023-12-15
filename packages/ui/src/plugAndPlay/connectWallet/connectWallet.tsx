@@ -4,6 +4,7 @@ import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
 
 import { Interaction, Typography } from "../../components";
 import { ChainCard, ProviderCard } from "../../readyToUse";
+import {ExtensionDetails} from "@polkadex/types/src/utils";
 const ExtensionsArrayWhitelist = ExtensionsArray?.filter(
   (item) => item.id !== "metamask-polkadot-snap"
 );
@@ -14,7 +15,7 @@ export const ConnectWallet = ({
   onConnectProvider,
   onConnectCallback,
 }: PropsWithChildren<{
-  onConnectProvider: (value: (typeof ExtensionsArray)[0]) => void;
+  onConnectProvider: (value: ExtensionDetails) => void;
   installedExtensions: Record<string, ExtensionStatus>;
   onBack: () => void;
   onConnectCallback: () => void;

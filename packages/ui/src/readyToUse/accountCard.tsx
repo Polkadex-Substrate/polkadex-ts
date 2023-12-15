@@ -13,7 +13,7 @@ type WalletCardProps = {
   present?: boolean;
 };
 
-const WalletCard = ({
+const AccountCard = ({
   name,
   address,
   onClick,
@@ -117,5 +117,5 @@ const Inverted = ({
   );
 };
 
-WalletCard.Inverted = Inverted;
-export { WalletCard };
+AccountCard.Inverted = Inverted;
+export { AccountCard };
