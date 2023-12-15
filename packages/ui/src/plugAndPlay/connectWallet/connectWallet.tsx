@@ -1,10 +1,10 @@
 import { PropsWithChildren } from "react";
 import { ExtensionStatus } from "@polkadex/react-providers";
 import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
+import { ExtensionDetails } from "@polkadex/types/src/utils";
 
 import { Interaction, Typography } from "../../components";
 import { ChainCard, ProviderCard } from "../../readyToUse";
-import {ExtensionDetails} from "@polkadex/types/src/utils";
 const ExtensionsArrayWhitelist = ExtensionsArray?.filter(
   (item) => item.id !== "metamask-polkadot-snap"
 );

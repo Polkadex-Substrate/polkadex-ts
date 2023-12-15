@@ -1,8 +1,8 @@
 import { ExtensionFeature } from "@polkadot-cloud/assets/types";
 
-export type ExtensionDetails = {
+export interface ExtensionDetails {
   title: string;
   website: string | [string, string];
   features: "*" | ExtensionFeature[];
   id: string;
-};
+}
