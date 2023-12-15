@@ -1,4 +1,4 @@
-import {ExtensionFeature} from "@polkadex/react-providers";
+import {ExtensionFeature} from "@polkadot-cloud/assets/types";
 
 export type ExtensionDetails =  {
     title: string;
