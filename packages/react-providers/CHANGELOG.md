@@ -1,5 +1,11 @@
 # @polkadex/react-providers
 
+## 1.1.0
+
+### Minor Changes
+
+- b66f916: Revert PR#52: Undo Client-Side Compatibility Fix in @polkadot-cloud/assets Package
+
 ## 1.0.0
 
 ### Major Changes
