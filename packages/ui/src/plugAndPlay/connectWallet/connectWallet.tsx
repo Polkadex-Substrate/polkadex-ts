@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import { ExtensionStatus } from "@polkadex/react-providers";
 import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
+import { ExtensionDetails } from "@polkadex/types/src/utils";
 
 import { Interaction, Typography } from "../../components";
 import { ChainCard, ProviderCard } from "../../readyToUse";
@@ -14,7 +15,7 @@ export const ConnectWallet = ({
   onConnectProvider,
   onConnectCallback,
 }: PropsWithChildren<{
-  onConnectProvider: (value: (typeof ExtensionsArray)[0]) => void;
+  onConnectProvider: (value: ExtensionDetails) => void;
   installedExtensions: Record<string, ExtensionStatus>;
   onBack: () => void;
   onConnectCallback: () => void;

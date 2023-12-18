@@ -3,9 +3,9 @@ import { KeyringPair, KeyringPair$Json } from "@polkadot/keyring/types";
 import { keyring } from "@polkadot/ui-keyring";
 import { cryptoWaitReady } from "@polkadot/util-crypto";
 
-import { UserAccountExternalStorage, UserAccountStore } from "./types";
+import { LocalAccountStore, LocalAccountExternalStorage } from "./types";
 
-export class TradeWallet implements UserAccountStore {
+export class BrowserWallet implements LocalAccountStore {
   _keyring = keyring;
   private _isInit = false;
 
@@ -36,13 +36,13 @@ export class TradeWallet implements UserAccountStore {
 
   public async addToExternalStorage(
     json: KeyringPair$Json,
-    store: UserAccountExternalStorage
+    store: LocalAccountExternalStorage
   ): Promise<void> {
     await store.add(json);
   }
 
   public async backupAllToExternalStorage(
-    store: UserAccountExternalStorage
+    store: LocalAccountExternalStorage
   ): Promise<void> {
     const accounts = this.getAll();
     const promises = accounts.map((pair) => {
