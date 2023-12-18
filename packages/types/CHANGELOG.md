@@ -1,5 +1,15 @@
 # @polkadex/types
 
+## 1.2.0
+
+### Minor Changes
+
+- b9e7513: refactor!: remove "wallet" naming convention.
+
+### Patch Changes
+
+- dc5b31c: imporve naming convention w.r.t wallets and accounts
+
 ## 1.1.0
 
 ### Minor Changes

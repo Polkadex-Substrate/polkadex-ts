@@ -1,5 +1,16 @@
 # @polkadex/react-providers
 
+## 1.0.0
+
+### Major Changes
+
+- dc5b31c: imporve naming convention w.r.t wallets and accounts
+
+### Patch Changes
+
+- Updated dependencies [dc5b31c]
+  - @polkadex/local-wallets@2.0.0
+
 ## 0.3.0
 
 ### Minor Changes
