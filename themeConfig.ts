@@ -85,6 +85,9 @@ export const themeConfig = {
         ...commom,
         ...commomBg,
       },
+      stroke: {
+        ...border,
+      },
       boxShadow: {
         baseShadow: "0px 20px 23px rgba(0, 0, 0, 0.05)",
       },
