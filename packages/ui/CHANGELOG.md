@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 4.3.0
+
+### Minor Changes
+
+- 737ec50: feat: Responsive Drawer Component
+
 ## 4.2.0
 
 ### Minor Changes
