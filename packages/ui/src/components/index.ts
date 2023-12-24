@@ -21,3 +21,4 @@ export * from "./switch";
 export * from "./accordion";
 export * from "./token";
 export * from "./toaster";
+export * from "./hoverCard";
