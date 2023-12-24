@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 4.1.0
+
+### Minor Changes
+
+- 5322c27: feat: Reusable Hover-Triggered Component
+
 ## 4.0.0
 
 ### Major Changes
