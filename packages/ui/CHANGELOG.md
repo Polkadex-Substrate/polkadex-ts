@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 4.2.0
+
+### Minor Changes
+
+- 4c2b41a: feat: toast component
+
 ## 4.1.0
 
 ### Minor Changes
