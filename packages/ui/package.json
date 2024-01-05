@@ -34,6 +34,7 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.26.4",
     "@heroicons/react": "^2.0.18",
     "@polkadex/react-providers": "*",
     "@polkadot-cloud/assets": "^0.1.35",

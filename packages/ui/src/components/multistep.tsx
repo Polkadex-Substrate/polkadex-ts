@@ -9,20 +9,20 @@ import {
   isValidElement,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import { usePrevious } from "react-use";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
-import { useElementSize } from "usehooks-ts";
-
 import {
-  getChildren,
-  isValidComponent,
-  placements,
-  placementsStyles,
-} from "../helpers";
+  autoUpdate,
+  flip,
+  offset,
+  shift,
+  useFloating,
+} from "@floating-ui/react";
+
+import { getChildren, isValidComponent } from "../helpers";
 export interface Actions {
   onBack: () => void;
   onNext: () => void;
@@ -103,7 +103,8 @@ type InteractiveProps = {
   defaultActive?: boolean;
   resetOnUnmount?: boolean;
   children: ((value?: InteractiveActions) => ReactNode) | ReactNode;
-  placement?: (typeof placements)[number];
+  closeOnClickOutside?: boolean;
+  onClickOutsideCallbackFn?: () => void;
 } & Pick<ComponentProps<"div">, "className">;
 
 const Interactive = ({
@@ -111,16 +112,30 @@ const Interactive = ({
   defaultIndex = 0,
   defaultActive = false,
   resetOnUnmount = false,
-  placement = "bottom center",
   className,
+  closeOnClickOutside = false,
+  onClickOutsideCallbackFn = undefined,
 }: InteractiveProps) => {
-  const [ref, { height }] = useElementSize();
-  const [mainRef, { height: mainHeight }] = useElementSize();
-
   const [current, setCurrent] = useState(defaultIndex);
   const [active, setActive] = useState(defaultActive);
 
   const prevCount = usePrevious(current);
+
+  const { refs, floatingStyles } = useFloating({
+    whileElementsMounted: autoUpdate,
+    middleware: [
+      flip(),
+      shift(),
+      offset(({ rects }) => {
+        const bottomPosition = -rects.reference.y - rects.floating.height;
+        const topPosition = -rects.reference.height;
+        return rects.floating.height >= rects.reference.height
+          ? topPosition
+          : bottomPosition;
+      }),
+    ],
+    strategy: "fixed",
+  });
 
   let RenderComponent: ReactNode;
   let TriggerComponent: ReactNode;
@@ -181,36 +196,38 @@ const Interactive = ({
     if (resetOnUnmount) return () => onReset();
   }, [resetOnUnmount, onReset]);
 
-  const place = useMemo(
-    () =>
-      height >= mainHeight
-        ? placementsStyles["top center"]
-        : placementsStyles[placement],
-    [height, mainHeight, placement]
-  );
+  const handleClick = useCallback(() => {
+    if (typeof onClickOutsideCallbackFn === "function")
+      onClickOutsideCallbackFn();
+    setActive(false);
+  }, [onClickOutsideCallbackFn]);
+
+  const portalProps = closeOnClickOutside
+    ? {
+        role: "button",
+        onClick: handleClick,
+      }
+    : {};
 
   return (
-    <div
-      ref={mainRef}
-      className="relative"
-      style={{ minHeight: `${height}px` }}
-    >
-      {TriggerComponent}
+    <>
+      <div ref={refs.setReference}>{TriggerComponent}</div>
       {active && (
         <Fragment>
           <div
-            ref={ref}
-            className={twMerge(
-              classNames("absolute w-full z-10", place),
-              className
-            )}
+            ref={refs.setFloating}
+            style={floatingStyles}
+            className={twMerge(classNames("w-full z-10"), className)}
           >
             {RenderComponent}
           </div>
-          <div className="absolute w-full h-full bottom-0 left-0 bg-overlay-1 rounded-xl" />
+          <div
+            {...portalProps}
+            className="absolute w-full h-full bottom-0 left-0 bg-overlay-1 rounded-xl mt-10"
+          />
         </Fragment>
       )}
-    </div>
+    </>
   );
 };
 
