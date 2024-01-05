@@ -223,7 +223,7 @@ const Interactive = ({
           </div>
           <div
             {...portalProps}
-            className="absolute w-full h-full bottom-0 left-0 bg-overlay-1 rounded-xl mt-10"
+            className="absolute w-full h-full bottom-0 left-0 bg-overlay-1 rounded-xl"
           />
         </Fragment>
       )}
