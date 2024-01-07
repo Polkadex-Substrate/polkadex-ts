@@ -9,6 +9,7 @@ import {
   isValidElement,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { usePrevious } from "react-use";
@@ -118,9 +119,10 @@ const Interactive = ({
 }: InteractiveProps) => {
   const [current, setCurrent] = useState(defaultIndex);
   const [active, setActive] = useState(defaultActive);
+  const initialIndex = useRef(defaultIndex).current;
+  const initialActive = useRef(defaultActive).current;
 
   const prevCount = usePrevious(current);
-
   const { refs, floatingStyles } = useFloating({
     whileElementsMounted: autoUpdate,
     middleware: [
@@ -201,6 +203,14 @@ const Interactive = ({
       onClickOutsideCallbackFn();
     setActive(false);
   }, [onClickOutsideCallbackFn]);
+
+  useEffect(() => {
+    if (defaultIndex !== initialIndex) setCurrent(defaultIndex);
+  }, [defaultIndex, defaultActive, initialIndex, initialActive]);
+
+  useEffect(() => {
+    if (defaultActive !== initialActive) setActive(defaultActive);
+  }, [defaultIndex, defaultActive, initialIndex, initialActive]);
 
   const portalProps = closeOnClickOutside
     ? {
