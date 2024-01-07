@@ -134,7 +134,7 @@ const Interactive = ({
           : bottomPosition;
       }),
     ],
-    strategy: "fixed",
+    strategy: "absolute",
   });
 
   let RenderComponent: ReactNode;
@@ -210,14 +210,14 @@ const Interactive = ({
     : {};
 
   return (
-    <>
+    <div className="relative w-fit">
       <div ref={refs.setReference}>{TriggerComponent}</div>
       {active && (
         <Fragment>
           <div
             ref={refs.setFloating}
             style={floatingStyles}
-            className={twMerge(classNames("w-full z-10"), className)}
+            className={twMerge(classNames("absolute w-full z-10"), className)}
           >
             {RenderComponent}
           </div>
@@ -227,7 +227,7 @@ const Interactive = ({
           />
         </Fragment>
       )}
-    </>
+    </div>
   );
 };
 
