@@ -1,5 +1,12 @@
 # @polkadex/ux
 
+## 4.4.0
+
+### Minor Changes
+
+- f4187a2: - fix: Automatic Positioning: Eliminates manual adjustments, preventing layout distortions.
+  - feat: Close Interaction on Click Outside (Optional props): Added a prop for closing interactions when clicking outside.
+
 ## 4.3.0
 
 ### Minor Changes
