@@ -23,3 +23,4 @@ export * from "./token";
 export * from "./drawer";
 export * from "./toaster";
 export * from "./hoverCard";
+export * from "./tabs";
