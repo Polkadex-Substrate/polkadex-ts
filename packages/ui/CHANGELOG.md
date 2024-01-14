@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 4.5.0
+
+### Minor Changes
+
+- 7bb7b55: feat: tabs component
+
 ## 4.4.0
 
 ### Minor Changes
