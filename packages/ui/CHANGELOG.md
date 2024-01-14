@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 4.6.0
+
+### Minor Changes
+
+- bf9c26a: feat: table component
+
 ## 4.5.0
 
 ### Minor Changes
