@@ -1,6 +1,6 @@
-import {Struct, Vec} from "@polkadot/types";
+import { Struct, Vec } from "@polkadot/types";
 import { BN } from "@polkadot/util";
-import {AccountId} from "@polkadot/types/interfaces";
+import { AccountId } from "@polkadot/types/interfaces";
 
 // blockchain account query result
 export interface SystemAccount extends Struct {
@@ -13,6 +13,6 @@ export interface SystemAccount extends Struct {
 }
 
 export interface PolkadexPrimitivesOcexAccountInfo extends Struct {
-  mainAccount: AccountId,
-  proxies: Vec<AccountId>
+  mainAccount: AccountId;
+  proxies: Vec<AccountId>;
 }
