@@ -1,4 +1,3 @@
-import { ApiPromise } from "@polkadot/api";
 import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
 import { PolkadexPrimitivesOcexAccountInfo } from "@polkadex/types";
 import { toPlank } from "@polkadex/numericals";
@@ -6,10 +5,6 @@ import { toPlank } from "@polkadex/numericals";
 import { BaseApi } from "../base-api";
 
 export class Ocex extends BaseApi {
-  constructor(api: ApiPromise) {
-    super(api);
-  }
-
   public async getProxies(mainAccount: string): Promise<string[]> {
     const info =
       await this.api.query.ocex.accounts<PolkadexPrimitivesOcexAccountInfo>(
