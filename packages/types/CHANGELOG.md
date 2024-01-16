@@ -1,5 +1,11 @@
 # @polkadex/types
 
+## 1.2.1
+
+### Patch Changes
+
+- da44b99: basic modules api for polkadex chain
+
 ## 1.2.0
 
 ### Minor Changes
