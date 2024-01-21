@@ -10,7 +10,13 @@ import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
 import { componentIsTypeof } from "../helpers";
-interface TextProps extends ParagraphProps {
+
+type Props = {
+  appearance?: keyof typeof appearanceVariants;
+  size?: keyof typeof fontSizes;
+};
+
+interface TextProps extends ComponentProps<"p">, Props {
   type?: "span" | "small" | "strong";
   bold?: boolean;
 }
@@ -18,7 +24,7 @@ interface TextProps extends ParagraphProps {
 const Text = ({
   children,
   className,
-  variant = "base",
+  appearance = "base",
   size = "sm",
   type = "span",
   bold,
@@ -30,8 +36,8 @@ const Text = ({
     <ElementRender
       className={twMerge(
         classNames(bold && "font-semibold"),
-        paragraphVariants[variant],
-        paragraphSize[size],
+        appearanceVariants[appearance],
+        fontSizes[size],
         className
       )}
       {...props}
@@ -41,34 +47,47 @@ const Text = ({
   );
 };
 
-interface ParagraphProps extends ComponentProps<"p"> {
-  variant?: keyof typeof paragraphVariants;
-  size?: keyof typeof paragraphSize;
-}
-
-const paragraphVariants = {
+const appearanceVariants = {
   base: "text-current",
   primary: "text-primary",
   secondary: "text-secondary",
+  tertiary: "text-tertiary-base",
+  placeholder: "text-placeholder",
+  actionInput: "text-actionInput",
+  disabled: "text-disabled",
   danger: "text-danger-base",
   success: "text-success-base",
   attention: "text-attention-base",
   info: "text-info-base",
 };
 
-const paragraphSize = {
+const fontSizes = {
+  "3xs": "text-3xs",
+  "2xs": "text-2xs",
   xs: "text-xs",
   sm: "text-sm",
   base: "text-base",
   md: "text-md",
   lg: "text-lg",
   xl: "text-xl",
+  "2xl": "text-2xl",
+  "3xl": "text-3xl",
+  "4xl": "text-4xl",
+  "5xl": "text-5xl",
+  "6xl": "text-6xl",
+  "7xl": "text-7xl",
+  "8xl": "text-8xl",
+  "9xl": "text-9xl",
+  "10xl": "text-10xl",
+  "11xl": "text-11xl",
 };
+
+type ParagraphProps = ComponentProps<"p"> & Props;
 
 const Paragraph = ({
   children,
   className,
-  variant = "base",
+  appearance = "base",
   size = "base",
   ...props
 }: PropsWithChildren<ParagraphProps>) => {
@@ -76,9 +95,7 @@ const Paragraph = ({
     componentIsTypeof(child, "p")
   );
   const customClassNames = twMerge(
-    paragraphVariants[variant],
-    paragraphSize[size],
-    classNames("leading-5"),
+    classNames("leading-5", appearanceVariants[appearance], fontSizes[size]),
     className
   );
   if (isChildrenParagraph) {
@@ -97,32 +114,31 @@ const Paragraph = ({
 
 interface HeadingProps extends ComponentProps<"h1"> {
   type?: (typeof headingTypes)[number];
-  size?: keyof typeof headingSizes;
+  size?: keyof typeof fontSizes;
+  appearance?: keyof typeof appearanceVariants;
 }
 
 const headingTypes = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
-const headingSizes = {
-  "2xl": "text-[2rem] leading-[2.25rem]",
-  xl: "text-[1.75rem] leading-[2rem]",
-  lg: "text-[1.5rem] leading-[1.75rem]",
-  md: "text-[1.25rem] leading-[1.5rem]",
-  sm: "text-[1.125rem] leading-[1.75rem]",
-  xs: "text-[1rem] leading-[1.25rem]",
-};
 
 const Heading = ({
   children,
   className,
   type = "h1",
   size = "xl",
+  appearance = "base",
   ...props
 }: PropsWithChildren<HeadingProps>) => {
   const ElementRender = type as ElementType;
   return (
     <ElementRender
-      className={
-        (twMerge(classNames("font-semibold"), headingSizes[size]), className)
-      }
+      className={twMerge(
+        classNames(
+          "font-semibold",
+          fontSizes[size],
+          appearanceVariants[appearance]
+        ),
+        className
+      )}
       {...props}
     >
       {children}
