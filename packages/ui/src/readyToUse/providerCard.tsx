@@ -1,7 +1,8 @@
 import classNames from "classnames";
-import { Button, Typography } from "@polkadex/ux";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
 import { ElementType } from "react";
+
+import { Button, Typography } from "../components";
 
 export const ProviderCard = ({
   title,
@@ -30,7 +31,7 @@ export const ProviderCard = ({
         <div className="w-5 h-5">
           <IconComponent />
         </div>
-        <Typography.Text variant={installed ? "base" : "secondary"}>
+        <Typography.Text appearance={installed ? "base" : "secondary"}>
           {title}
         </Typography.Text>
       </div>

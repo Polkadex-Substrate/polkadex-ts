@@ -1,13 +1,7 @@
-import { ElementType, useCallback, useEffect } from "react";
+import { ElementType, useEffect } from "react";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
 
-import {
-  Icon,
-  IconsProps,
-  Interaction,
-  Spinner,
-  Typography,
-} from "../../components";
+import { Interaction, Spinner, Typography } from "../../components";
 
 export const ProcessingTransaction = ({
   logo,
@@ -37,7 +31,7 @@ export const ProcessingTransaction = ({
           <Typography.Text bold size="xl">
             Processing transaction
           </Typography.Text>
-          <Typography.Text variant="primary">
+          <Typography.Text appearance="primary">
             Please wait, your transaction is being processed securely on the
             blockchain
           </Typography.Text>

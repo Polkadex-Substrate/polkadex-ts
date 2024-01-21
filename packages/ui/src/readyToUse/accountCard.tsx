@@ -47,7 +47,7 @@ const AccountCard = ({
             <Typography.Text bold>{name}</Typography.Text>
             <div className="flex items-center gap-1 text-primary">
               <Copy value={address} />
-              <Typography.Text variant="primary">
+              <Typography.Text appearance="primary">
                 {shortAddress}
               </Typography.Text>
             </div>
@@ -98,10 +98,10 @@ const Inverted = ({
               </Typography.Text>
             </div>
             {present ? (
-              <Typography.Text variant="primary">{name}</Typography.Text>
+              <Typography.Text appearance="primary">{name}</Typography.Text>
             ) : (
               <Typography.Text
-                variant="attention"
+                appearance="attention"
                 size="xs"
                 bold
                 className="px-1 py-0.5 rounded-md bg-attention-base bg-opacity-20 w-fit"
