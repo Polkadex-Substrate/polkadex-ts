@@ -1,10 +1,11 @@
-import { ComponentProps, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import * as CheckboxRadix from "@radix-ui/react-checkbox";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
 import { Check } from "../icons";
-import { appearanceVariants, fontSizes } from "../helpers";
+
+import { LabelProps, Label as LabelPolkadex } from "./label";
 
 const Base = ({
   className,
@@ -35,34 +36,13 @@ const Base = ({
   </div>
 );
 
-interface LabelProps extends ComponentProps<"label"> {
-  appearance?: keyof typeof appearanceVariants;
-  size?: keyof typeof fontSizes;
-}
 const Label = ({
-  children,
-  className,
   appearance = "base",
   size = "sm",
   ...props
-}: PropsWithChildren<LabelProps>) => {
-  const isChildrenString = typeof children === "string";
-  return isChildrenString ? (
-    <label
-      className={twMerge(
-        classNames("cursor-pointer"),
-        appearanceVariants[appearance],
-        fontSizes[size],
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </label>
-  ) : (
-    children
-  );
-};
+}: PropsWithChildren<LabelProps>) => (
+  <LabelPolkadex appearance={appearance} size={size} {...props} />
+);
 
 const Solid = ({
   className,
@@ -72,9 +52,9 @@ const Solid = ({
     className={twMerge(
       classNames(
         "data-[state=unchecked]:bg-level-5 data-[state=unchecked]:group-hover:bg-level-2 border-none",
-        "data-[state=checked]:bg-primary-base data-[state=checked]:text-primary-foreground",
-        className
-      )
+        "data-[state=checked]:bg-primary-base data-[state=checked]:text-primary-foreground"
+      ),
+      className
     )}
     {...props}
   />
@@ -88,9 +68,9 @@ const Outline = ({
     className={twMerge(
       classNames(
         "border-2 border-primary data-[state=unchecked]:group-hover:border-current",
-        "data-[state=checked]:border-primary-base data-[state=checked]:text-primary-base data-[state=checked]:border",
-        className
-      )
+        "data-[state=checked]:border-primary-base data-[state=checked]:text-primary-base data-[state=checked]:border"
+      ),
+      className
     )}
     {...props}
   />
