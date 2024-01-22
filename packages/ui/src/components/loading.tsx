@@ -66,7 +66,7 @@ export const Processing = ({
                 <Typography.Text bold size="xl">
                   {errorTitle}
                 </Typography.Text>
-                <Typography.Paragraph variant="primary">
+                <Typography.Paragraph appearance="primary">
                   {errorMessage}
                 </Typography.Paragraph>
               </div>
@@ -87,7 +87,7 @@ export const Processing = ({
               <Typography.Text bold size="xl">
                 {loadingTitle}
               </Typography.Text>
-              <Typography.Text variant="primary">
+              <Typography.Text appearance="primary">
                 {loadingMessage}
               </Typography.Text>
             </div>

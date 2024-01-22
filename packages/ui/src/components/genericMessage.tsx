@@ -4,6 +4,8 @@ import { twMerge } from "tailwind-merge";
 
 import * as Vectors from "../illustrations";
 
+import { Typography } from "./typography";
+
 interface GenericMessageProps extends ComponentProps<"div"> {
   title: string;
   illustration: keyof typeof Vectors;
@@ -25,7 +27,7 @@ export const GenericMessage = ({
     <div
       className={twMerge(
         classNames(
-          "flex flex-col flex-1 gap-5 items-center justify-center text-center bg-level-1 px-3 py-10"
+          "flex-1 h-full flex flex-col gap-5 items-center justify-center text-center bg-level-1 px-3 py-10"
         ),
         className
       )}
@@ -40,7 +42,7 @@ export const GenericMessage = ({
         <IllustrationComponent
           className={twMerge(classNames("w-25"), imageProps?.className)}
         />
-        <p className="text-primary">{title}</p>
+        <Typography.Text appearance="primary">{title}</Typography.Text>
       </div>
       {children}
     </div>

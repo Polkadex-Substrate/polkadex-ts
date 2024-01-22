@@ -35,9 +35,11 @@ const Text = ({
   return (
     <ElementRender
       className={twMerge(
-        classNames(bold && "font-semibold"),
-        appearanceVariants[appearance],
-        fontSizes[size],
+        classNames(
+          bold && "font-semibold",
+          appearanceVariants[appearance],
+          fontSizes[size]
+        ),
         className
       )}
       {...props}
