@@ -19,12 +19,14 @@ const Trigger = ({
 
 interface ContentProps extends HoverCardRadix.HoverCardContentProps {
   withArrow?: boolean;
+  arrowProps?: HoverCardRadix.HoverCardArrowProps;
 }
 const Content = ({
   children,
   className,
   sideOffset = 12,
   withArrow = true,
+  arrowProps,
   ...props
 }: PropsWithChildren<ContentProps>) => {
   return (
@@ -44,7 +46,13 @@ const Content = ({
       <Fragment>
         {children}
         {withArrow && (
-          <HoverCardRadix.Arrow className="fill-level-1 stroke-primary stroke-2" />
+          <HoverCardRadix.Arrow
+            className={twMerge(
+              classNames("fill-level-1"),
+              arrowProps?.className
+            )}
+            {...arrowProps}
+          />
         )}
       </Fragment>
     </HoverCardRadix.Content>
