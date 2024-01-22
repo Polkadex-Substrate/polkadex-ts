@@ -6,8 +6,9 @@ import {
   useState,
 } from "react";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
-import { Button, Typography } from "@polkadex/ux";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+
+import { Button, Typography } from "../components";
 
 import { Spinner as CustomSpinner } from "./spinner";
 const Spinner = ({

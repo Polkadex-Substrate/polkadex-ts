@@ -2,6 +2,7 @@ import * as PopoverRadix from "@radix-ui/react-popover";
 import { PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
+import { Slot } from "@radix-ui/react-slot";
 
 import { isValidComponent } from "../helpers";
 
@@ -12,7 +13,7 @@ const Close = ({
 }: PropsWithChildren<PopoverRadix.PopoverCloseProps>) => {
   return (
     <PopoverRadix.Close asChild={asChild} {...props}>
-      {asChild ? <div className="flex-1">{children}</div> : children}
+      {asChild ? <Slot className="flex-1">{children}</Slot> : children}
     </PopoverRadix.Close>
   );
 };

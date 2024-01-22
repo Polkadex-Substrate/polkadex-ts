@@ -2,6 +2,7 @@ import * as HoverCardRadix from "@radix-ui/react-hover-card";
 import { Fragment, PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
+import { Slot } from "@radix-ui/react-slot";
 
 import { isValidComponent } from "../helpers";
 
@@ -12,7 +13,7 @@ const Trigger = ({
 }: PropsWithChildren<HoverCardRadix.HoverCardTriggerProps>) => {
   return (
     <HoverCardRadix.Trigger asChild={asChild} {...props}>
-      {asChild ? <div>{children}</div> : children}
+      {asChild ? <Slot>{children}</Slot> : children}
     </HoverCardRadix.Trigger>
   );
 };
@@ -29,6 +30,8 @@ const Content = ({
   arrowProps,
   ...props
 }: PropsWithChildren<ContentProps>) => {
+  const { className: arrowClassname, ...restProps } = arrowProps || {};
+
   return (
     <HoverCardRadix.Content
       sideOffset={sideOffset}
@@ -47,11 +50,8 @@ const Content = ({
         {children}
         {withArrow && (
           <HoverCardRadix.Arrow
-            className={twMerge(
-              classNames("fill-level-1"),
-              arrowProps?.className
-            )}
-            {...arrowProps}
+            className={twMerge(classNames("fill-level-1"), arrowClassname)}
+            {...restProps}
           />
         )}
       </Fragment>
