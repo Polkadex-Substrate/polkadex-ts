@@ -20,7 +20,7 @@ const sizesVariants = {
   lg: "h-10 w-10 p-1",
   xl: "h-12 w-12 p-1",
   "2xl": "h-14 w-14 p-1",
-  "3xl": "h-16 w-16 p-2",
+  "3xl": "h-16 w-16 p-1.5",
 };
 
 export const Token = ({

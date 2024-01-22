@@ -56,3 +56,13 @@ export const fontSizes = {
   "10xl": "text-10xl",
   "11xl": "text-11xl",
 };
+
+export const tokenAppearance = {
+  PHA: "bg-black",
+  USDT: "bg-usdt",
+  PDEX: "bg-transparent",
+  GLMR: "bg-transparent",
+  DOT: "bg-dot",
+  ASTR: "bg-transparent",
+  IBTC: "bg-white",
+};
