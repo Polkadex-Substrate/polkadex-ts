@@ -1,11 +1,10 @@
-import { PropsWithChildren } from "react";
+import { ComponentProps, PropsWithChildren } from "react";
 import * as CheckboxRadix from "@radix-ui/react-checkbox";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
 import { Check } from "../icons";
-
-import { Typography } from "./typography";
+import { appearanceVariants, fontSizes } from "../helpers";
 
 const Base = ({
   className,
@@ -13,34 +12,55 @@ const Base = ({
   disabled,
   id,
   ...props
-}: PropsWithChildren<CheckboxRadix.CheckboxProps>) => {
+}: PropsWithChildren<CheckboxRadix.CheckboxProps>) => (
+  <div className={"flex items-center gap-2 group"}>
+    <CheckboxRadix.Root
+      id={id}
+      disabled={disabled}
+      className={twMerge(
+        classNames(
+          "h-4 w-4 rounded border duration-300 transition-colors",
+          "data-[state=unchecked]:group-hover:border-current",
+          disabled && "data-[state=unchecked]:cursor-not-allowed"
+        ),
+        className
+      )}
+      {...props}
+    >
+      <CheckboxRadix.Indicator className="flex items-center justify-center">
+        <Check className="h-[10px] w-[10px]" />
+      </CheckboxRadix.Indicator>
+    </CheckboxRadix.Root>
+    {children}
+  </div>
+);
+
+interface LabelProps extends ComponentProps<"label"> {
+  appearance?: keyof typeof appearanceVariants;
+  size?: keyof typeof fontSizes;
+}
+const Label = ({
+  children,
+  className,
+  appearance = "base",
+  size = "sm",
+  ...props
+}: PropsWithChildren<LabelProps>) => {
   const isChildrenString = typeof children === "string";
-  return (
-    <label htmlFor={id} className={"flex items-center gap-2 group"}>
-      <CheckboxRadix.Root
-        id={id}
-        disabled={disabled}
-        className={twMerge(
-          classNames(
-            "h-4 w-4 rounded border duration-300 transition-colors",
-            "data-[state=unchecked]:group-hover:border-current",
-            disabled && "data-[state=unchecked]:cursor-not-allowed"
-          ),
-          className
-        )}
-        {...props}
-      >
-        <CheckboxRadix.Indicator className="flex items-center justify-center">
-          <Check className="h-[10px] w-[10px]" />
-        </CheckboxRadix.Indicator>
-      </CheckboxRadix.Root>
-      {children &&
-        (isChildrenString ? (
-          <Typography.Text bold>{children}</Typography.Text>
-        ) : (
-          children
-        ))}
+  return isChildrenString ? (
+    <label
+      className={twMerge(
+        classNames("cursor-pointer"),
+        appearanceVariants[appearance],
+        fontSizes[size],
+        className
+      )}
+      {...props}
+    >
+      {children}
     </label>
+  ) : (
+    children
   );
 };
 
@@ -78,4 +98,5 @@ const Outline = ({
 export const Checkbox = {
   Solid,
   Outline,
+  Label,
 };

@@ -9,14 +9,14 @@ import {
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
-import { componentIsTypeof } from "../helpers";
+import { appearanceVariants, componentIsTypeof, fontSizes } from "../helpers";
 
 type Props = {
   appearance?: keyof typeof appearanceVariants;
   size?: keyof typeof fontSizes;
 };
 
-interface TextProps extends ComponentProps<"p">, Props {
+interface TextProps extends ComponentProps<"span">, Props {
   type?: "span" | "small" | "strong";
   bold?: boolean;
 }
@@ -45,41 +45,6 @@ const Text = ({
       {children}
     </ElementRender>
   );
-};
-
-const appearanceVariants = {
-  base: "text-current",
-  primary: "text-primary",
-  secondary: "text-secondary",
-  tertiary: "text-tertiary-base",
-  placeholder: "text-placeholder",
-  actionInput: "text-actionInput",
-  disabled: "text-disabled",
-  danger: "text-danger-base",
-  success: "text-success-base",
-  attention: "text-attention-base",
-  info: "text-info-base",
-};
-
-const fontSizes = {
-  "3xs": "text-3xs",
-  "2xs": "text-2xs",
-  xs: "text-xs",
-  sm: "text-sm",
-  base: "text-base",
-  md: "text-md",
-  lg: "text-lg",
-  xl: "text-xl",
-  "2xl": "text-2xl",
-  "3xl": "text-3xl",
-  "4xl": "text-4xl",
-  "5xl": "text-5xl",
-  "6xl": "text-6xl",
-  "7xl": "text-7xl",
-  "8xl": "text-8xl",
-  "9xl": "text-9xl",
-  "10xl": "text-10xl",
-  "11xl": "text-11xl",
 };
 
 type ParagraphProps = ComponentProps<"p"> & Props;
