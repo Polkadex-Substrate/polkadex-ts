@@ -66,13 +66,23 @@ export const ConnectWallet = ({
       </Interaction.Content>
       <Interaction.Footer>
         <Typography.Paragraph size="xs" className="text-center">
-          By connecting your wallet, you agree to our
-          <a href="/" target="_blank" className="text-primary-base">
+          By using the application, you agree to our
+          <a
+            href="https://github.com/Polkadex-Substrate/Docs/blob/master/Polkadex_Terms_of_Use.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary-base"
+          >
             {" "}
             Terms of Service{" "}
           </a>
           and our{" "}
-          <a href="/" target="_blank" className="text-primary-base">
+          <a
+            href="https://github.com/Polkadex-Substrate/Docs/blob/master/Polkadex_Privacy_Policy.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary-base"
+          >
             Privacy Policy
           </a>
           .
