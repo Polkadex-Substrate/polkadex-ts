@@ -45,7 +45,16 @@ const border = {
   tertiary: "#343A46",
 };
 
+export const tokenBackground = {
+  usdt: "#009393",
+  dot: "#E6007A",
+};
+
+const convertBg = (prefix: string, items: { [e: string]: string }) =>
+  Object.keys(items).map((key) => `bg-${key}`);
+
 export const themeConfig = {
+  safelist: [...convertBg("bg", tokenBackground)],
   theme: {
     extend: {
       backgroundImage: {
@@ -65,7 +74,6 @@ export const themeConfig = {
       },
       colors: {
         ...commom,
-        textBase: "#FFFFFF",
         primary: "#8B909A",
         secondary: "#575A60",
         placeholder: "#FFFFFF7F",
@@ -77,9 +85,13 @@ export const themeConfig = {
         ...commomBg,
         backgroundBase: "#06070A",
         ...overlay,
+        ...tokenBackground,
       },
       backgroundSize: {
         skeletonSize: "400% 400%",
+      },
+      height: {
+        "13": "3.125rem",
       },
       fill: {
         ...commom,
@@ -104,9 +116,12 @@ export const themeConfig = {
         "8xl": "90rem",
       },
       fontSize: {
+        "3xs": "0.5rem",
+        "2xs": "0.625rem",
         heading: "0.95rem",
         md: "0.9rem",
-        base: "0.80rem",
+        "10xl": "10rem",
+        "11xl": "12rem",
       },
       animation: {
         infiniteHorizontalScroll: "30s linear infinite infiniteHorizontal ",

@@ -2,6 +2,7 @@ import * as TooltipRadix from "@radix-ui/react-tooltip";
 import { PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
+import { Slot } from "@radix-ui/react-slot";
 
 import { isValidComponent } from "../helpers";
 
@@ -12,7 +13,7 @@ const Trigger = ({
 }: PropsWithChildren<TooltipRadix.TooltipTriggerProps>) => {
   return (
     <TooltipRadix.Trigger asChild={asChild} {...props}>
-      {asChild ? <div>{children}</div> : children}
+      {asChild ? <Slot>{children}</Slot> : children}
     </TooltipRadix.Trigger>
   );
 };

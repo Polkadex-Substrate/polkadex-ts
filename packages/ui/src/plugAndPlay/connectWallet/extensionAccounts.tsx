@@ -47,14 +47,18 @@ export const ExtensionAccounts = ({
                 <Typography.Text bold size="xl">
                   No wallets found
                 </Typography.Text>
-                <Typography.Text variant="primary">
+                <Typography.Text appearance="primary">
                   Oops, it looks like you don&apos;t have any wallet.
                 </Typography.Text>
               </div>
             </div>
           ) : (
             <div className="min-h-[15rem]">
-              <Typography.Text variant="secondary" size="xs" className="px-7">
+              <Typography.Text
+                appearance="secondary"
+                size="xs"
+                className="px-7"
+              >
                 Available wallets
               </Typography.Text>
               <div className="flex flex-col px-3 max-h-[20rem] overflow-hidden hover:overflow-auto">

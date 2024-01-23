@@ -26,7 +26,7 @@ export const ConnectWallet = ({
       <Interaction.Content withPadding={false}>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-1">
-            <Typography.Text variant="secondary" size="xs" className="px-7">
+            <Typography.Text appearance="secondary" size="xs" className="px-7">
               Chain
             </Typography.Text>
             <div className="px-3">
@@ -38,7 +38,7 @@ export const ConnectWallet = ({
             </div>
           </div>
           <div className="flex flex-col gap-1">
-            <Typography.Text variant="secondary" size="xs" className="px-7">
+            <Typography.Text appearance="secondary" size="xs" className="px-7">
               Wallets available on the Polkadot chain
             </Typography.Text>
             <div className="flex flex-col px-3 max-h-[16rem] overflow-auto">

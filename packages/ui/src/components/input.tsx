@@ -1,13 +1,21 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import {
+  MagnifyingGlassIcon,
+  MinusIcon,
+  PlusIcon,
+} from "@heroicons/react/24/solid";
 import {
   ChangeEvent,
+  ComponentProps,
+  ComponentPropsWithoutRef,
   Dispatch,
+  ElementRef,
   FocusEvent,
   InputHTMLAttributes,
   KeyboardEvent,
   MouseEvent,
   PropsWithChildren,
   SetStateAction,
+  forwardRef,
   useEffect,
   useRef,
   useState,
@@ -15,69 +23,114 @@ import {
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
-import { Button } from "./button";
+import { isValidComponent } from "../helpers";
+
+import { Button as PolkadexButton } from "./button";
 import { Typography } from "./typography";
+import { LabelProps, Label as LabelPolkadex } from "./label";
 
-interface PrimaryInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  increase: () => void;
-  decrease: () => void;
-  ticker: string;
-  label: string;
-}
-
-const Primary = ({
-  label,
-  increase,
-  decrease,
-  ticker,
-  ...props
-}: PropsWithChildren<PrimaryInputProps>) => {
-  const ref = useRef<HTMLInputElement>(null);
-  return (
-    <div
-      className="flex items-center bg-level-3 h-10 rounded"
-      onClick={() => ref?.current?.focus()}
-    >
-      <span className="p-2 text-primary w-16">{label}</span>
+const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
+  ({ className, ...props }, ref) => {
+    return (
       <input
         ref={ref}
+        size={props.placeholder?.length}
         type="text"
-        className="flex-1 bg-transparent font-semibold outline-none"
+        className={twMerge(
+          classNames(
+            "flex-1 bg-transparent text-current placeholder:text-primary text-sm outline-none",
+            className
+          )
+        )}
         {...props}
       />
-      <div className="flex items-center gap-2">
-        <small className="text-primary text-xs">{ticker}</small>
-        <div className="flex flex-col gap-0.5">
-          <button
-            onClick={increase}
-            className="rounded-tr px-3 bg-level-4 hover:bg-level-2 duration-300 transition-colors ease-out"
-          >
-            +
-          </button>
-          <button
-            onClick={decrease}
-            className="rounded-br px-3 bg-level-4 hover:bg-level-2 duration-300 transition-colors ease-out"
-          >
-            -
-          </button>
+    );
+  }
+);
+
+Base.displayName = "Base";
+
+const Primary = forwardRef<
+  ElementRef<"input">,
+  PropsWithChildren<ComponentPropsWithoutRef<"input">>
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+>(({ children, ...props }, _) => {
+  const ref = useRef<HTMLInputElement>(null);
+  const ButtonComponents = isValidComponent(children, Button);
+  const LabelComponent = isValidComponent(children, Label);
+  const TickerComponent = isValidComponent(children, Ticker);
+
+  return (
+    <div
+      className="flex justify-between items-center gap-2 bg-level-3 h-[45px] rounded"
+      onClick={() => ref?.current?.focus()}
+    >
+      <div className="flex flex-1 items-center justify-between gap-2 pl-3 pr-2">
+        <div className="flex items-center gap-2">
+          {LabelComponent}
+          <Base ref={ref} {...props} />
         </div>
+        {TickerComponent}
       </div>
+      {!!ButtonComponents?.length && (
+        <div className="flex h-full flex-col gap-0.5">{ButtonComponents}</div>
+      )}
     </div>
+  );
+});
+
+Primary.displayName = "Primary";
+
+interface ButtonProps extends ComponentProps<"button"> {
+  variant: "increase" | "decrease";
+}
+
+const Button = ({ variant, ...props }: ButtonProps) => {
+  return (
+    <button
+      className="rounded-tr  flex-auto px-3 bg-level-4 hover:bg-level-2 duration-300 transition-colors ease-out"
+      {...props}
+    >
+      {variant === "increase" ? (
+        <PlusIcon className="w-3 h-3" />
+      ) : (
+        <MinusIcon className="w-3 h-3" />
+      )}
+    </button>
   );
 };
 
-const Search = (props: InputHTMLAttributes<HTMLInputElement>) => (
-  <div className="flex items-center gap-2 p-2 flex-1">
-    <MagnifyingGlassIcon className="w-4 h-4 text-primary" />
-    <input
-      type="search"
-      className="flex-1 bg-transparent text-current outline-none"
-      {...props}
-    />
-  </div>
+const Ticker = ({
+  children,
+  ...props
+}: PropsWithChildren<ComponentProps<"span">>) => (
+  <Typography.Text size="sm" {...props}>
+    {children}
+  </Typography.Text>
 );
 
-interface VerticalProps extends InputHTMLAttributes<HTMLInputElement> {
+const Label = ({
+  appearance = "primary",
+  size = "sm",
+  ...props
+}: PropsWithChildren<LabelProps>) => (
+  <LabelPolkadex appearance={appearance} size={size} {...props} />
+);
+
+const Search = forwardRef<
+  ElementRef<"input">,
+  ComponentPropsWithoutRef<"input">
+>((props, ref) => {
+  return (
+    <div className="flex flex-1 items-center gap-2">
+      <MagnifyingGlassIcon className="w-4 h-4 text-primary" />
+      <Base ref={ref} {...props} />
+    </div>
+  );
+});
+Search.displayName = "Search";
+
+interface VerticalProps extends ComponentProps<"input"> {
   label: string;
   optional?: boolean;
   action?: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -92,7 +145,7 @@ const Vertical = ({
   ...props
 }: VerticalProps) => (
   <div className="flex flex-col gap-2 flex-1">
-    <Typography.Text variant="primary" size="xs">
+    <Typography.Text appearance="primary" size="xs">
       {label} {optional && <span className="opacity-50">(Optional)</span>}
     </Typography.Text>
     <div className="flex items-center justify-between gap-2 flex-1">
@@ -103,9 +156,9 @@ const Vertical = ({
         {...props}
       />
       {action && (
-        <Button.Solid appearance="secondary" size="sm" onClick={action}>
+        <PolkadexButton.Solid appearance="secondary" size="sm" onClick={action}>
           {actionTitle}
-        </Button.Solid>
+        </PolkadexButton.Solid>
       )}
     </div>
   </div>
@@ -231,4 +284,7 @@ export const Input = {
   Search,
   Vertical,
   Passcode,
+  Button,
+  Label,
+  Ticker,
 };

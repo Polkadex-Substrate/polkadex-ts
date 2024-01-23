@@ -15,7 +15,7 @@ export interface ButtonProps extends ComponentProps<"button"> {
 const reusableColors = {
   primary: "hover:bg-primary-hover active:bg-primary-pressed",
   secondary:
-    "text-primary hover:text-current hover:bg-secondary-hover active:bg-secondary-pressed",
+    "text-current hover:text-current hover:bg-secondary-hover active:bg-secondary-pressed",
   tertiary:
     "text-primary hover:text-current hover:bg-tertiary-hover active:bg-tertiary-pressed",
   danger: "hover:bg-danger-hover active:bg-danger-pressed",
@@ -26,18 +26,20 @@ const reusableColors = {
 
 const variants = {
   size: {
-    xs: "h-3 px-1 py-2 text-xs rounded-sm",
-    sm: "h-6 px-2 py-1 text-xs rounded-sm",
-    default: "h-9 px-4 py-2 text-base rounded-md",
-    md: "h-10 px-4 py-2 text-sm rounded-md",
-    lg: "h-14 px-8 py-4 text-md rounded-md",
+    "2xs": "h-5 px-1 text-2xs",
+    xs: "h-6 px-1 text-xs",
+    sm: "h-8 px-2 text-sm",
+    default: "h-9 px-4 py-2 text-base",
+    md: "h-10 px-4 py-2 text-sm",
+    lg: "h-13 px-8 py-4 text-base",
   },
   iconSize: {
-    xs: "h-4 w-4 p-1 rounded-md",
-    sm: "h-6 w-6 p-1 rounded-md",
-    default: "h-8 w-8 p-2 rounded-md",
-    md: "h-10 w-10 p-3 rounded-md",
-    lg: "h-12 w-12 p-3 rounded-md",
+    "2xs": "h-4 w-4 p-1",
+    xs: "h-5 w-5 p-1",
+    sm: "h-6 w-6 p-1.5",
+    default: "h-8 w-8 p-2",
+    md: "h-10 w-10 p-2.5",
+    lg: "h-12 w-12 p-3",
   },
   color: {
     solid: {
@@ -59,22 +61,41 @@ const variants = {
       info: reusableColors.info,
     },
     outline: {
-      primary: `border border-primary-base ${reusableColors.primary}`,
-      secondary: `border border-secondary-base ${reusableColors.secondary}`,
-      tertiary: `border border-tertiary-base ${reusableColors.tertiary}`,
-      danger: `border border-danger-base ${reusableColors.danger}`,
-      success: `border border-success-base ${reusableColors.success}`,
-      attention: `border border-attention-base ${reusableColors.attention}`,
-      info: `border border-info-base ${reusableColors.info}`,
+      primary: `border border-primary-base text-primary-base hover:text-current ${reusableColors.primary}`,
+      secondary: `border border-secondary-base text-secondary-base hover:text-current ${reusableColors.secondary}`,
+      tertiary: `border border-tertiary-base text-tertiary-base hover:text-current ${reusableColors.tertiary}`,
+      danger: `border border-danger-base text-danger-base hover:text-current ${reusableColors.danger}`,
+      success: `border border-success-base text-success-base hover:text-current ${reusableColors.success}`,
+      attention: `border border-attention-base text-attention-base hover:text-current ${reusableColors.attention}`,
+      info: `border border-info-base text-info-base hover:text-current ${reusableColors.info}`,
+    },
+    underline: {
+      primary:
+        "hover:underline text-primary-base hover:text-primary-hover active:text-primary-pressed",
+      secondary: "hover:underline text-primary active:text-secondary-pressed",
+      tertiary: "hover:underline text-primary active:text-tertiary-pressed",
+      danger:
+        "hover:underline text-danger-base hover:text-danger-hover active:text-danger-pressed",
+      success:
+        "hover:underline text-success-base hover:text-success-hover active:text-success-pressed",
+      attention:
+        "hover:underline text-attention-base hover:text-attention-hover active:text-attention-pressed",
+      info: "hover:underline text-info-base hover:text-info-hover active:text-info-pressed",
     },
     light: {
-      primary: `text-primary-base hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.primary}`,
-      secondary: `hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.secondary}`,
-      tertiary: `hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.tertiary}`,
-      danger: `text-danger-base hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.danger}`,
-      success: `text-success-base hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.success}`,
-      attention: `text-attention-base hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.attention}`,
-      info: `text-info-base hover:bg-opacity-20 active:bg-opacity-60 ${reusableColors.info}`,
+      primary:
+        "text-primary-base bg-opacity-10 hover:bg-opacity-20 bg-primary-base active:bg-opacity-30",
+      secondary:
+        "text-primary bg-opacity-10 hover:bg-opacity-30 bg-secondary-base active:bg-opacity-60",
+      tertiary:
+        "text-primary bg-opacity-10 hover:bg-opacity-30 bg-tertiary-base active:bg-opacity-60",
+      danger:
+        "text-danger-base bg-opacity-10 hover:bg-opacity-20 bg-danger-base active:bg-opacity-30",
+      success:
+        "text-success-base bg-opacity-10 hover:bg-opacity-20 bg-success-base active:bg-opacity-30",
+      attention:
+        "text-attention-base bg-opacity-10 hover:bg-opacity-20 bg-attention-base active:bg-opacity-30",
+      info: "text-info-base bg-opacity-10 hover:bg-opacity-20 bg-info-base active:bg-opacity-30",
     },
   },
 };
@@ -95,11 +116,11 @@ const Base = ({
     <Rendercomponent
       className={twMerge(
         classNames(
-          "transition-colors duration-300 font-medium",
+          "transition-colors duration-300",
           "flex items-center justify-center whitespace-nowrap",
           "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-disabled",
           withIcon ? variants.iconSize[size] : variants.size[size],
-          rounded && "rounded-full",
+          rounded ? "rounded-full" : "rounded-sm",
           withIcon && "group",
           variants.color[variant][appearance]
         ),
@@ -127,6 +148,10 @@ const Outline = (
   props: PropsWithChildren<Omit<ButtonProps, "variant" | "withIcon">>
 ) => <Base variant="outline" {...props} />;
 
+const Underline = (
+  props: PropsWithChildren<Omit<ButtonProps, "variant" | "withIcon">>
+) => <Base variant="underline" {...props} />;
+
 const Light = (
   props: PropsWithChildren<Omit<ButtonProps, "variant" | "withIcon">>
 ) => <Base variant="light" {...props} />;
@@ -143,6 +168,7 @@ export const Button = {
   Solid,
   Ghost,
   Outline,
+  Underline,
   Light,
   Icon,
 };

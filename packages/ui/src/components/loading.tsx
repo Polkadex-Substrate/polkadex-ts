@@ -6,8 +6,9 @@ import {
   useState,
 } from "react";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
-import { Button, Typography } from "@polkadex/ux";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+
+import { Button, Typography } from "../components";
 
 import { Spinner as CustomSpinner } from "./spinner";
 const Spinner = ({
@@ -66,7 +67,7 @@ export const Processing = ({
                 <Typography.Text bold size="xl">
                   {errorTitle}
                 </Typography.Text>
-                <Typography.Paragraph variant="primary">
+                <Typography.Paragraph appearance="primary">
                   {errorMessage}
                 </Typography.Paragraph>
               </div>
@@ -87,7 +88,7 @@ export const Processing = ({
               <Typography.Text bold size="xl">
                 {loadingTitle}
               </Typography.Text>
-              <Typography.Text variant="primary">
+              <Typography.Text appearance="primary">
                 {loadingMessage}
               </Typography.Text>
             </div>

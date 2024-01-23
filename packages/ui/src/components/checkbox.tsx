@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 
 import { Check } from "../icons";
 
-import { Typography } from "./typography";
+import { LabelProps, Label as LabelPolkadex } from "./label";
 
 const Base = ({
   className,
@@ -13,36 +13,36 @@ const Base = ({
   disabled,
   id,
   ...props
-}: PropsWithChildren<CheckboxRadix.CheckboxProps>) => {
-  const isChildrenString = typeof children === "string";
-  return (
-    <label htmlFor={id} className={"flex items-center gap-2 group"}>
-      <CheckboxRadix.Root
-        id={id}
-        disabled={disabled}
-        className={twMerge(
-          classNames(
-            "h-4 w-4 rounded border duration-300 transition-colors",
-            "data-[state=unchecked]:group-hover:border-current",
-            disabled && "data-[state=unchecked]:cursor-not-allowed"
-          ),
-          className
-        )}
-        {...props}
-      >
-        <CheckboxRadix.Indicator className="flex items-center justify-center">
-          <Check className="h-[10px] w-[10px]" />
-        </CheckboxRadix.Indicator>
-      </CheckboxRadix.Root>
-      {children &&
-        (isChildrenString ? (
-          <Typography.Text bold>{children}</Typography.Text>
-        ) : (
-          children
-        ))}
-    </label>
-  );
-};
+}: PropsWithChildren<CheckboxRadix.CheckboxProps>) => (
+  <div className={"flex items-center gap-2 group"}>
+    <CheckboxRadix.Root
+      id={id}
+      disabled={disabled}
+      className={twMerge(
+        classNames(
+          "h-4 w-4 rounded border duration-300 transition-colors",
+          "data-[state=unchecked]:group-hover:border-current",
+          disabled && "data-[state=unchecked]:cursor-not-allowed"
+        ),
+        className
+      )}
+      {...props}
+    >
+      <CheckboxRadix.Indicator className="flex items-center justify-center">
+        <Check className="h-[10px] w-[10px]" />
+      </CheckboxRadix.Indicator>
+    </CheckboxRadix.Root>
+    {children}
+  </div>
+);
+
+const Label = ({
+  appearance = "base",
+  size = "sm",
+  ...props
+}: PropsWithChildren<LabelProps>) => (
+  <LabelPolkadex appearance={appearance} size={size} {...props} />
+);
 
 const Solid = ({
   className,
@@ -52,9 +52,9 @@ const Solid = ({
     className={twMerge(
       classNames(
         "data-[state=unchecked]:bg-level-5 data-[state=unchecked]:group-hover:bg-level-2 border-none",
-        "data-[state=checked]:bg-primary-base data-[state=checked]:text-primary-foreground",
-        className
-      )
+        "data-[state=checked]:bg-primary-base data-[state=checked]:text-primary-foreground"
+      ),
+      className
     )}
     {...props}
   />
@@ -68,9 +68,9 @@ const Outline = ({
     className={twMerge(
       classNames(
         "border-2 border-primary data-[state=unchecked]:group-hover:border-current",
-        "data-[state=checked]:border-primary-base data-[state=checked]:text-primary-base data-[state=checked]:border",
-        className
-      )
+        "data-[state=checked]:border-primary-base data-[state=checked]:text-primary-base data-[state=checked]:border"
+      ),
+      className
     )}
     {...props}
   />
@@ -78,4 +78,5 @@ const Outline = ({
 export const Checkbox = {
   Solid,
   Outline,
+  Label,
 };

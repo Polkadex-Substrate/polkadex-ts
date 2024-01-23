@@ -60,7 +60,7 @@ export const Authorization = ({
               <Typography.Text bold size="xl">
                 Wallet permission issue
               </Typography.Text>
-              <Typography.Text variant="primary">
+              <Typography.Text appearance="primary">
                 Access not granted. Please open the extension, allow access for
                 the Orderbook app, and then try again.
               </Typography.Text>
@@ -78,7 +78,7 @@ export const Authorization = ({
               <Typography.Text bold size="xl">
                 Waiting for authorization
               </Typography.Text>
-              <Typography.Text variant="primary">
+              <Typography.Text appearance="primary">
                 {errorMessage}
               </Typography.Text>
             </div>
