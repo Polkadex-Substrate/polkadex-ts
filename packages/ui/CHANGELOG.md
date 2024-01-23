@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 5.1.0
+
+### Minor Changes
+
+- 28292b8: This PR aims to fix the dead links of privacy policy and terms of use
+
 ## 5.0.0
 
 ### Major Changes
