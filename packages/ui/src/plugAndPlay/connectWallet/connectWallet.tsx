@@ -66,7 +66,7 @@ export const ConnectWallet = ({
       </Interaction.Content>
       <Interaction.Footer>
         <Typography.Paragraph size="xs" className="text-center">
-          By using our application, you agree to our
+          By using the application, you agree to our
           <a
             href="https://github.com/Polkadex-Substrate/Docs/blob/master/Polkadex_Terms_of_Use.pdf"
             target="_blank"
