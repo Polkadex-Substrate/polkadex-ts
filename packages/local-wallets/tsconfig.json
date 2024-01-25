@@ -1,3 +1,13 @@
 {
-  "extends": "../tsconfig/base.json"
+  "extends": "../tsconfig/base.json",
+  "compilerOptions": {
+    "lib": [
+      "DOM"
+    ],
+    "types": [
+      "gapi",
+      "gapi.client.drive-v3",
+      "google.accounts",
+    ]
+  }
 }
