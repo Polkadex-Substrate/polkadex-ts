@@ -4,6 +4,8 @@ import { ComponentProps, PropsWithChildren } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
+import { typeofChildren } from "../helpers";
+
 import { Typography } from "./typography";
 
 const Caption = ({
@@ -34,7 +36,7 @@ const Cell = ({
   align = "left",
   ...props
 }: PropsWithChildren<CellProps>) => {
-  const isString = typeof children === "string";
+  const isString = typeofChildren(children);
   return (
     <td
       className={twMerge(
@@ -73,7 +75,7 @@ const Head = ({
   align = "left",
   ...props
 }: PropsWithChildren<HeadProps>) => {
-  const isString = typeof children === "string";
+  const isString = typeofChildren(children);
   return (
     <th
       className={twMerge(

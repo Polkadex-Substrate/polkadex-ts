@@ -10,7 +10,7 @@ import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 import { Slot } from "@radix-ui/react-slot";
 
-import { isValidComponent } from "../helpers";
+import { isValidComponent, typeofChildren } from "../helpers";
 
 import { Typography } from "./typography";
 
@@ -32,7 +32,7 @@ const ItemRadio = ({
   active,
   ...props
 }: PropsWithChildren<ItemRadioProps>) => {
-  const isString = typeof children === "string";
+  const isString = typeofChildren(children);
 
   return (
     <DropdownMenu.RadioItem
@@ -63,7 +63,7 @@ const ItemCheckbox = ({
   checked,
   ...props
 }: PropsWithChildren<DropdownMenu.MenuCheckboxItemProps>) => {
-  const isString = typeof children === "string";
+  const isString = typeofChildren(children);
 
   return (
     <DropdownMenu.CheckboxItem
@@ -97,7 +97,7 @@ const Item = ({
   className,
   ...props
 }: PropsWithChildren<ItemProps>) => {
-  const isString = typeof children === "string";
+  const isString = typeofChildren(children);
 
   return (
     <DropdownMenu.Item
@@ -130,7 +130,7 @@ const Trigger = ({
   className,
   ...props
 }: PropsWithChildren<TriggerProps>) => {
-  const isString = typeof children === "string";
+  const isString = typeofChildren(children);
   const { className: arrowClassname, ...restProps } = arrowProps || {};
   return (
     <DropdownMenu.Trigger
@@ -241,7 +241,7 @@ const Label = ({
   className,
   ...props
 }: PropsWithChildren<DropdownMenu.MenuLabelProps>) => {
-  const isString = typeof children === "string";
+  const isString = typeofChildren(children);
 
   return (
     <DropdownMenu.Label
