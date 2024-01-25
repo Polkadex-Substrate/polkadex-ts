@@ -1,6 +1,7 @@
 import {
   Children,
   ComponentProps,
+  ComponentPropsWithoutRef,
   ElementType,
   PropsWithChildren,
   ReactElement,
@@ -8,15 +9,17 @@ import {
 } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
+import { Slot } from "@radix-ui/react-slot";
 
 import { appearanceVariants, componentIsTypeof, fontSizes } from "../helpers";
 
 type Props = {
   appearance?: keyof typeof appearanceVariants;
   size?: keyof typeof fontSizes;
+  asChild?: boolean;
 };
 
-interface TextProps extends ComponentProps<"span">, Props {
+interface TextProps extends ComponentPropsWithoutRef<"span">, Props {
   type?: "span" | "small" | "strong";
   bold?: boolean;
 }
@@ -28,9 +31,10 @@ const Text = ({
   size = "sm",
   type = "span",
   bold,
+  asChild,
   ...props
 }: PropsWithChildren<TextProps>) => {
-  const ElementRender = type;
+  const ElementRender = asChild ? Slot : type;
 
   return (
     <ElementRender
