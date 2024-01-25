@@ -54,7 +54,7 @@ const convertBg = (prefix: string, items: { [e: string]: string }) =>
   Object.keys(items).map((key) => `bg-${key}`);
 
 export const themeConfig = {
-  safelist: [...convertBg("bg", tokenBackground)],
+  safelist: [{ pattern: /text-./ }, ...convertBg("bg", tokenBackground)],
   theme: {
     extend: {
       backgroundImage: {
