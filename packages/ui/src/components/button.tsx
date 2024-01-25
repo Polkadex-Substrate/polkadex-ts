@@ -27,9 +27,10 @@ const reusableColors = {
 const variants = {
   size: {
     "2xs": "h-5 px-1 text-2xs",
-    xs: "h-6 px-1 text-xs",
-    sm: "h-8 px-2 text-sm",
-    default: "h-9 px-4 py-2 text-base",
+    xs: "h-6 px-1.5 text-xs",
+    sm: "h-7 px-2 text-sm",
+    "2sm": "h-8 px-2 text-sm",
+    default: "h-9 px-4 py-2 text-sm",
     md: "h-10 px-4 py-2 text-sm",
     lg: "h-13 px-8 py-4 text-base",
   },
@@ -37,6 +38,7 @@ const variants = {
     "2xs": "h-4 w-4 p-1",
     xs: "h-5 w-5 p-1",
     sm: "h-6 w-6 p-1.5",
+    "2sm": "h-7 w-7 p-1.5",
     default: "h-8 w-8 p-2",
     md: "h-10 w-10 p-2.5",
     lg: "h-12 w-12 p-3",

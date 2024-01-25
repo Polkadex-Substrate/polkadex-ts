@@ -1,17 +1,28 @@
 import { ElementType, useEffect } from "react";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
+import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
-import { Interaction, Spinner, Typography } from "../../components";
+import {
+  Interaction,
+  InteractionProps,
+  Spinner,
+  Typography,
+} from "../../components";
+
+interface ProcessingTransactionProps extends InteractionProps {
+  logo: string;
+  onRedirect: () => void;
+  shouldRedirect: boolean;
+}
 
 export const ProcessingTransaction = ({
   logo,
   onRedirect,
   shouldRedirect,
-}: {
-  logo: string;
-  onRedirect: () => void;
-  shouldRedirect: boolean;
-}) => {
+  className,
+  ...props
+}: ProcessingTransactionProps) => {
   const IconComponent = getExtensionIcon(logo) as ElementType;
 
   useEffect(() => {
@@ -19,7 +30,13 @@ export const ProcessingTransaction = ({
   }, [onRedirect, shouldRedirect]);
 
   return (
-    <Interaction className="gap-10 min-h-[30rem] h-full justify-center">
+    <Interaction
+      className={twMerge(
+        classNames("gap-10 min-h-[30rem] h-full justify-center"),
+        className
+      )}
+      {...props}
+    >
       <Interaction.Content className="flex flex-col gap-5 items-center text-center">
         <div className="h-20 w-20 bg-level-2 rounded-full p-3 relative shadow-baseShadow">
           <IconComponent />

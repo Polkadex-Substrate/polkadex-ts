@@ -1,8 +1,15 @@
 "use client";
 
-import { ComponentProps, PropsWithChildren } from "react";
+import {
+  ComponentProps,
+  ComponentPropsWithoutRef,
+  PropsWithChildren,
+} from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+
+import { typeofChildren } from "../helpers";
 
 import { Typography } from "./typography";
 
@@ -34,7 +41,7 @@ const Cell = ({
   align = "left",
   ...props
 }: PropsWithChildren<CellProps>) => {
-  const isString = typeof children === "string";
+  const isString = typeofChildren(children);
   return (
     <td
       className={twMerge(
@@ -66,20 +73,29 @@ type AlignProps = {
   align?: "left" | "center" | "right";
 };
 
-type HeadProps = ComponentProps<"th"> & AlignProps;
+type HeadProps = {
+  withArrow?: boolean;
+  arrowProps?: ComponentPropsWithoutRef<"svg">;
+} & ComponentProps<"th"> &
+  AlignProps;
+
 const Head = ({
   children,
   className,
   align = "left",
+  withArrow = false,
+  arrowProps,
   ...props
 }: PropsWithChildren<HeadProps>) => {
-  const isString = typeof children === "string";
+  const isString = typeofChildren(children);
+  const { className: arrowClassName, ...restProps } = arrowProps ?? {};
   return (
     <th
       className={twMerge(
         classNames(
           "[&:has([role=checkbox])]:pr-0 p-2 ",
           `text-${align}`,
+
           !isString && className
         )
       )}
@@ -89,13 +105,38 @@ const Head = ({
         <Typography.Text
           appearance="primary"
           size="xs"
-          className={twMerge(classNames("font-normal"), className)}
+          className={twMerge(
+            classNames("font-normal", withArrow && "flex items-center gap-1"),
+            className
+          )}
           {...props}
         >
           {children}
+          {withArrow && (
+            <ChevronUpDownIcon
+              className={twMerge(
+                classNames("w-3 h-3 text-primary"),
+                arrowClassName
+              )}
+              {...restProps}
+            />
+          )}
         </Typography.Text>
       ) : (
-        children
+        <>
+          {children}
+          {withArrow && (
+            <ChevronUpDownIcon
+              className={twMerge(
+                classNames(
+                  "w-3 h-3 text-primary inline-block ml-1 align-middle"
+                ),
+                arrowClassName
+              )}
+              {...restProps}
+            />
+          )}
+        </>
       )}
     </th>
   );

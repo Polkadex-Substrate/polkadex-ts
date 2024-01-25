@@ -1,3 +1,5 @@
+import { fontFamily } from "tailwindcss/defaultTheme";
+
 export const commom = {
   "primary-base": "#E6007A",
   "primary-hover": "#EA268E",
@@ -54,9 +56,12 @@ const convertBg = (prefix: string, items: { [e: string]: string }) =>
   Object.keys(items).map((key) => `bg-${key}`);
 
 export const themeConfig = {
-  safelist: [...convertBg("bg", tokenBackground)],
+  safelist: [{ pattern: /text-./ }, ...convertBg("bg", tokenBackground)],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

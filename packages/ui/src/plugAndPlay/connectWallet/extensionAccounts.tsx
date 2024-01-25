@@ -1,9 +1,25 @@
 import { ExtensionAccount } from "@polkadex/react-providers";
 import { useEffect } from "react";
 
-import { Interaction, Typography, Loading } from "../../components";
+import {
+  Interaction,
+  Typography,
+  Loading,
+  InteractionProps,
+} from "../../components";
 import { AccountCard } from "../../readyToUse";
 import { WalletNotFound } from "../../illustrations";
+
+interface ExtensionAccountsProps extends InteractionProps {
+  extensionAccounts: ExtensionAccount[];
+  onSelectExtensionAccount: (v: ExtensionAccount) => void;
+  onClose?: () => void;
+  onTryAgain: () => void;
+  onRefresh: () => Promise<boolean>;
+  onRedirect: () => void;
+  loading: boolean;
+  success: boolean;
+}
 export const ExtensionAccounts = ({
   extensionAccounts,
   onSelectExtensionAccount,
@@ -13,16 +29,8 @@ export const ExtensionAccounts = ({
   onRedirect,
   loading,
   success,
-}: {
-  extensionAccounts: ExtensionAccount[];
-  onSelectExtensionAccount: (v: ExtensionAccount) => void;
-  onClose?: () => void;
-  onTryAgain: () => void;
-  onRefresh: () => Promise<boolean>;
-  onRedirect: () => void;
-  loading: boolean;
-  success: boolean;
-}) => {
+  ...props
+}: ExtensionAccountsProps) => {
   const hasExtensionAccounts = !!extensionAccounts?.length;
 
   useEffect(() => {
@@ -31,7 +39,7 @@ export const ExtensionAccounts = ({
 
   return (
     <Loading.Spinner active={loading}>
-      <Interaction withAnimation={!loading}>
+      <Interaction withAnimation={!loading} {...props}>
         {hasExtensionAccounts && (
           <Interaction.Title onClose={onClose}>
             Select funding wallet

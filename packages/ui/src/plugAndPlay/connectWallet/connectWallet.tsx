@@ -3,25 +3,27 @@ import { ExtensionStatus } from "@polkadex/react-providers";
 import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
 import { ExtensionDetails } from "@polkadex/types/src/utils";
 
-import { Interaction, Typography } from "../../components";
+import { Interaction, InteractionProps, Typography } from "../../components";
 import { ChainCard, ProviderCard } from "../../readyToUse";
 const ExtensionsArrayWhitelist = ExtensionsArray?.filter(
   (item) => item.id !== "metamask-polkadot-snap"
 );
+interface ConnectWalletProps extends InteractionProps {
+  onConnectProvider: (value: ExtensionDetails) => void;
+  installedExtensions: Record<string, ExtensionStatus>;
+  onBack: () => void;
+  onConnectCallback: () => void;
+}
 export const ConnectWallet = ({
   children,
   onBack,
   installedExtensions,
   onConnectProvider,
   onConnectCallback,
-}: PropsWithChildren<{
-  onConnectProvider: (value: ExtensionDetails) => void;
-  installedExtensions: Record<string, ExtensionStatus>;
-  onBack: () => void;
-  onConnectCallback: () => void;
-}>) => {
+  ...props
+}: PropsWithChildren<ConnectWalletProps>) => {
   return (
-    <Interaction withAnimation={false}>
+    <Interaction withAnimation={false} {...props}>
       <Interaction.Title onBack={onBack}>Connect your wallet</Interaction.Title>
       <Interaction.Content withPadding={false}>
         <div className="flex flex-col gap-6">
@@ -70,7 +72,7 @@ export const ConnectWallet = ({
           <a
             href="https://github.com/Polkadex-Substrate/Docs/blob/master/Polkadex_Terms_of_Use.pdf"
             target="_blank"
-            rel="noreferrer"
+            rel="noreferrer noopener"
             className="text-primary-base"
           >
             {" "}
@@ -80,7 +82,7 @@ export const ConnectWallet = ({
           <a
             href="https://github.com/Polkadex-Substrate/Docs/blob/master/Polkadex_Privacy_Policy.pdf"
             target="_blank"
-            rel="noreferrer"
+            rel="noreferrer noopener"
             className="text-primary-base"
           >
             Privacy Policy

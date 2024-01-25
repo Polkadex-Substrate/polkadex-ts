@@ -1,16 +1,17 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { ElementType, useCallback, useEffect, useState } from "react";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
+import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
-import { Interaction, Spinner, Typography } from "../../components";
+import {
+  Interaction,
+  InteractionProps,
+  Spinner,
+  Typography,
+} from "../../components";
 
-export const Authorization = ({
-  extensionIcon,
-  extensionName,
-  onActionCallback,
-  onAction,
-  onClose,
-}: {
+interface AuthorizationProps extends InteractionProps {
   extensionName?: string;
   extensionIcon?: string;
   loadingDescription?: string;
@@ -18,7 +19,16 @@ export const Authorization = ({
   onActionCallback: () => void;
   onAction: () => Promise<boolean>;
   onClose?: () => void;
-}) => {
+}
+export const Authorization = ({
+  extensionIcon,
+  extensionName,
+  onActionCallback,
+  onAction,
+  onClose,
+  className,
+  ...props
+}: AuthorizationProps) => {
   const [error, setError] = useState(false);
   const IconComponent = getExtensionIcon(
     extensionIcon as string
@@ -44,7 +54,10 @@ export const Authorization = ({
 
   const errorMessage = `Please authorize your ${extensionName} wallet extension to connect to Orderbook App`;
   return (
-    <Interaction className="gap-10">
+    <Interaction
+      className={twMerge(classNames("gap-10", className))}
+      {...props}
+    >
       <Interaction.Content className="flex flex-col gap-5 items-center text-center">
         {error ? (
           <>

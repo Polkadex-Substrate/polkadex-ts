@@ -1,10 +1,10 @@
 import * as PopoverRadix from "@radix-ui/react-popover";
-import { PropsWithChildren } from "react";
+import { Fragment, PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 import { Slot } from "@radix-ui/react-slot";
 
-import { isValidComponent } from "../helpers";
+import { isValidComponent, typeofChildren } from "../helpers";
 
 const Close = ({
   children,
@@ -21,11 +21,17 @@ const Close = ({
 const Trigger = ({
   children,
   asChild,
+  className,
   ...props
 }: PropsWithChildren<PopoverRadix.PopoverTriggerProps>) => {
+  const isString = typeofChildren(children);
   return (
-    <PopoverRadix.Trigger asChild={asChild} {...props}>
-      {asChild ? <div>{children}</div> : children}
+    <PopoverRadix.Trigger
+      asChild={asChild}
+      className={twMerge(classNames(isString && "text-sm"), className)}
+      {...props}
+    >
+      {asChild ? <Slot>{children}</Slot> : children}
     </PopoverRadix.Trigger>
   );
 };
@@ -52,17 +58,28 @@ const Content = ({
   );
 };
 
+interface PopoverProps extends PopoverRadix.PopoverProps {
+  withOverlay?: boolean;
+}
 const Popover = ({
   children,
+  withOverlay,
   ...props
-}: PropsWithChildren<PopoverRadix.PopoverProps>) => {
+}: PropsWithChildren<PopoverProps>) => {
   const [TriggerComponent] = isValidComponent(children, Trigger);
   const [ContentComponent] = isValidComponent(children, Content);
 
   return (
     <PopoverRadix.Root {...props}>
       {TriggerComponent}
-      <PopoverRadix.Portal>{ContentComponent}</PopoverRadix.Portal>
+      <PopoverRadix.Portal>
+        <Fragment>
+          {withOverlay && (
+            <div className="w-screen h-screen bg-overlay-3 inset-0 fixed animate-in" />
+          )}
+          {ContentComponent}
+        </Fragment>
+      </PopoverRadix.Portal>
     </PopoverRadix.Root>
   );
 };
