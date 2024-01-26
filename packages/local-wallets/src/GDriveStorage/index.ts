@@ -1,5 +1,6 @@
 import { KeyringPair$Json } from "@polkadot/keyring/types";
-import { LocalAccountExternalStorage } from "@polkadex/local-wallets";
+
+import { LocalAccountExternalStorage } from "../types";
 
 import { GDriveStorage } from "./GDrive/drive";
 import { GoogleDriveAccount } from "./types";
