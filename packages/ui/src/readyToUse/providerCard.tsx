@@ -36,7 +36,7 @@ export const ProviderCard = ({
         </Typography.Text>
       </div>
       {!installed && (
-        <Button.Light asChild size="sm">
+        <Button.Light asChild size="xs">
           <a href={`//${href}`} target="_blank" rel="noreferrer">
             Setup wallet
           </a>

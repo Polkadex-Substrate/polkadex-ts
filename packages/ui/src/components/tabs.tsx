@@ -33,7 +33,9 @@ const Content = ({
 }: PropsWithChildren<TabsRadix.TabsContentProps>) => {
   return (
     <TabsRadix.Content
-      className={twMerge(classNames("flex-1 h-full", className))}
+      className={twMerge(
+        classNames("flex-1 h-full data-[state=inactive]:hidden", className)
+      )}
       {...props}
     >
       {children}

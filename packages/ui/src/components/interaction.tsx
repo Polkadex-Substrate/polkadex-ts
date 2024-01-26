@@ -128,7 +128,7 @@ const Content = ({
   );
 };
 
-interface InteractionProps extends ComponentProps<"div"> {
+export interface InteractionProps extends ComponentProps<"div"> {
   withAnimation?: boolean;
 }
 const Interaction = ({

@@ -131,38 +131,42 @@ const Search = forwardRef<
 Search.displayName = "Search";
 
 interface VerticalProps extends ComponentProps<"input"> {
-  label: string;
-  optional?: boolean;
   action?: (e: MouseEvent<HTMLButtonElement>) => void;
   actionTitle?: string;
 }
+
 const Vertical = ({
-  label,
-  optional,
   action,
   actionTitle,
   id,
+  children,
   ...props
-}: VerticalProps) => (
-  <div className="flex flex-col gap-2 flex-1">
-    <Typography.Text appearance="primary" size="xs">
-      {label} {optional && <span className="opacity-50">(Optional)</span>}
-    </Typography.Text>
-    <div className="flex items-center justify-between gap-2 flex-1">
-      <input
-        id={id}
-        type="text"
-        className="flex-1 bg-transparent text-lg outline-none font-semibold"
-        {...props}
-      />
-      {action && (
-        <PolkadexButton.Solid appearance="secondary" size="sm" onClick={action}>
-          {actionTitle}
-        </PolkadexButton.Solid>
-      )}
+}: PropsWithChildren<VerticalProps>) => {
+  const LabelComponent = isValidComponent(children, Label);
+
+  return (
+    <div className="flex flex-col gap-2 flex-1">
+      {LabelComponent}
+      <div className="flex items-center justify-between gap-2 flex-1">
+        <input
+          id={id}
+          type="text"
+          className="flex-1 bg-transparent text-lg outline-none font-medium"
+          {...props}
+        />
+        {action && (
+          <PolkadexButton.Solid
+            appearance="secondary"
+            size="xs"
+            onClick={action}
+          >
+            {actionTitle}
+          </PolkadexButton.Solid>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 interface PasscodeProps
   extends Pick<InputHTMLAttributes<HTMLInputElement>, "className" | "type"> {
