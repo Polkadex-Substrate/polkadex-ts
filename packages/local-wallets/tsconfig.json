@@ -1,9 +1,6 @@
 {
-  "extends": "../tsconfig/base.json",
+  "extends": "../tsconfig/react-library.json",
   "compilerOptions": {
-    "lib": [
-      "DOM"
-    ],
     "types": [
       "gapi",
       "gapi.client.drive-v3",
