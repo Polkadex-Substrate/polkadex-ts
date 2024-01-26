@@ -24,6 +24,9 @@
   },
   "devDependencies": {
     "@polkadex/eslint-config": "*",
+    "@types/gapi": "^0.0.47",
+    "@types/gapi.client.drive-v3": "^0.0.4",
+    "@types/google.accounts": "^0.0.11",
     "tsup": "^7.2.0"
   },
   "publishConfig": {

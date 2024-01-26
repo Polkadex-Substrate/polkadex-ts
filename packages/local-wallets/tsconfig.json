@@ -1,3 +1,10 @@
 {
-  "extends": "../tsconfig/base.json"
+  "extends": "../tsconfig/react-library.json",
+  "compilerOptions": {
+    "types": [
+      "gapi",
+      "gapi.client.drive-v3",
+      "google.accounts",
+    ]
+  }
 }
