@@ -26,7 +26,11 @@ export class BrowserWallet implements LocalAccountStore {
     return this._isInit;
   }
 
-  public add(
+  add(pair: KeyringPair, password: string): CreateResult {
+    return this._keyring.addPair(pair, password);
+  }
+
+  public addFromMnemonic(
     mnemonic: string,
     name: string,
     password: string | undefined
@@ -38,7 +42,7 @@ export class BrowserWallet implements LocalAccountStore {
     json: KeyringPair$Json,
     store: LocalAccountExternalStorage
   ): Promise<void> {
-    await store.add(json);
+    await store.addFromJson(json);
   }
 
   public async backupAllToExternalStorage(
