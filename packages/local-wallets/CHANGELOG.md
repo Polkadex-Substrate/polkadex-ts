@@ -1,5 +1,11 @@
 # @polkadex/local-wallets
 
+## 2.0.2
+
+### Patch Changes
+
+- 6d21227: feat: add pair feature
+
 ## 2.0.1
 
 ### Patch Changes
