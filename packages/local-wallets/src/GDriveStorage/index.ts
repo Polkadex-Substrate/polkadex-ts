@@ -66,7 +66,7 @@ export class GDriveExternalAccountStore implements LocalAccountExternalStorage {
     }
   }
 
-  async add(json: KeyringPair$Json): Promise<void> {
+  async addPair(json: KeyringPair$Json): Promise<void> {
     await this.createAccount(this.ACCOUNT_PREFIX + json.address, json);
   }
 

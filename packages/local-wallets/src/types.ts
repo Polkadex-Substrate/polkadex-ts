@@ -9,7 +9,7 @@ export interface LocalAccountExternalStorage extends Base {
   id: string;
   getAll(): Promise<KeyringPair$Json[]>;
   get(address: string): Promise<KeyringPair$Json>;
-  add(json: KeyringPair$Json): Promise<void>;
+  addPair(json: KeyringPair$Json, password?: string): Promise<void>;
   remove(address: string): Promise<void>;
 }
 

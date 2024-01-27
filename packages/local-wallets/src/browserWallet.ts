@@ -34,11 +34,15 @@ export class BrowserWallet implements LocalAccountStore {
     return keyring.addUri(mnemonic, password, { name });
   }
 
+  public async addPair(pair: KeyringPair$Json, password = ""): Promise<void> {
+    this._keyring.restoreAccount(pair, password);
+  }
+
   public async addToExternalStorage(
     json: KeyringPair$Json,
     store: LocalAccountExternalStorage
   ): Promise<void> {
-    await store.add(json);
+    await store.addPair(json);
   }
 
   public async backupAllToExternalStorage(
