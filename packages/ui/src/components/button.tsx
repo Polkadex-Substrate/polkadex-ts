@@ -1,4 +1,10 @@
-import { ComponentProps, ElementType, PropsWithChildren } from "react";
+import {
+  ComponentProps,
+  ElementType,
+  PropsWithChildren,
+  PropsWithoutRef,
+  forwardRef,
+} from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 import { Slot } from "@radix-ui/react-slot";
@@ -102,69 +108,94 @@ const variants = {
   },
 };
 
-const Base = ({
-  className,
-  asChild = false,
-  size = "default",
-  appearance = "primary",
-  variant = "solid",
-  withIcon = false,
-  rounded = false,
-  children,
-  ...props
-}: PropsWithChildren<ButtonProps>) => {
-  const Rendercomponent: ElementType = asChild ? Slot : "button";
-  return (
-    <Rendercomponent
-      className={twMerge(
-        classNames(
-          "transition-colors duration-300",
-          "flex items-center justify-center whitespace-nowrap",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-disabled",
-          withIcon ? variants.iconSize[size] : variants.size[size],
-          rounded ? "rounded-full" : "rounded-sm",
-          withIcon && "group",
-          variants.color[variant][appearance]
-        ),
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </Rendercomponent>
-  );
-};
-
-const Solid = (props: PropsWithChildren<Omit<ButtonProps, "variant">>) => (
-  <Base variant="solid" {...props} />
+export const Base = forwardRef<
+  HTMLButtonElement | null,
+  PropsWithChildren<ButtonProps>
+>(
+  (
+    {
+      className,
+      asChild = false,
+      size = "default",
+      appearance = "primary",
+      variant = "solid",
+      withIcon = false,
+      rounded = false,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const Rendercomponent: ElementType = asChild ? Slot : "button";
+    return (
+      <Rendercomponent
+        ref={ref}
+        className={twMerge(
+          classNames(
+            "transition-colors duration-300",
+            "flex items-center justify-center whitespace-nowrap",
+            "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-disabled",
+            withIcon ? variants.iconSize[size] : variants.size[size],
+            rounded ? "rounded-full" : "rounded-sm",
+            withIcon && "group",
+            variants.color[variant][appearance]
+          ),
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </Rendercomponent>
+    );
+  }
 );
+Base.displayName = "Base";
 
-const Ghost = ({
-  appearance = "secondary",
-  ...props
-}: PropsWithChildren<Omit<ButtonProps, "variant" | "withIcon">>) => (
-  <Base appearance={appearance} variant="ghost" {...props} />
-);
+const Solid = forwardRef<
+  HTMLButtonElement,
+  PropsWithoutRef<Omit<ButtonProps, "variant">>
+>((props, ref) => <Base ref={ref} variant="solid" {...props} />);
+Solid.displayName = "Solid";
 
-const Outline = (
-  props: PropsWithChildren<Omit<ButtonProps, "variant" | "withIcon">>
-) => <Base variant="outline" {...props} />;
+const Ghost = forwardRef<
+  HTMLButtonElement,
+  PropsWithoutRef<Omit<ButtonProps, "variant" | "withIcon">>
+>(({ appearance = "secondary", ...props }, ref) => (
+  <Base ref={ref} appearance={appearance} variant="ghost" {...props} />
+));
+Ghost.displayName = "Ghost";
 
-const Underline = (
-  props: PropsWithChildren<Omit<ButtonProps, "variant" | "withIcon">>
-) => <Base variant="underline" {...props} />;
+const Outline = forwardRef<
+  HTMLButtonElement,
+  PropsWithoutRef<Omit<ButtonProps, "variant" | "withIcon">>
+>((props, ref) => <Base ref={ref} variant="outline" {...props} />);
+Outline.displayName = "Outline";
 
-const Light = (
-  props: PropsWithChildren<Omit<ButtonProps, "variant" | "withIcon">>
-) => <Base variant="light" {...props} />;
+const Underline = forwardRef<
+  HTMLButtonElement,
+  PropsWithoutRef<Omit<ButtonProps, "variant" | "withIcon">>
+>((props, ref) => <Base ref={ref} variant="underline" {...props} />);
+Underline.displayName = "Underline";
 
-const Icon = ({
-  variant = "solid",
-  appearance = "secondary",
-  ...props
-}: PropsWithChildren<Omit<ButtonProps, "withIcon">>) => (
-  <Base variant={variant} appearance={appearance} withIcon {...props} />
-);
+const Light = forwardRef<
+  HTMLButtonElement,
+  PropsWithoutRef<Omit<ButtonProps, "variant" | "withIcon">>
+>((props, ref) => <Base ref={ref} variant="light" {...props} />);
+Light.displayName = "Light";
+
+const Icon = forwardRef<
+  HTMLButtonElement,
+  PropsWithoutRef<Omit<ButtonProps, "withIcon">>
+>(({ variant = "solid", appearance = "secondary", ...props }, ref) => (
+  <Base
+    ref={ref}
+    variant={variant}
+    appearance={appearance}
+    withIcon
+    {...props}
+  />
+));
+Icon.displayName = "Icon";
 
 export const Button = {
   Solid,
