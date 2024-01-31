@@ -1,4 +1,4 @@
-import { ComponentProps, PropsWithChildren } from "react";
+import { ComponentProps, PropsWithChildren, PropsWithoutRef } from "react";
 import classNames from "classnames";
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
@@ -85,11 +85,15 @@ const Footer = ({
   );
 };
 
-interface ActionProps extends ButtonProps, ComponentProps<"button"> {}
+type ActionProps = ButtonProps & ButtonProps;
 
-const Action = ({ children, ...props }: PropsWithChildren<ActionProps>) => {
+const Action = ({
+  children,
+  size = "md",
+  ...props
+}: PropsWithoutRef<ActionProps>) => {
   return (
-    <Button.Solid size="md" {...props}>
+    <Button.Solid size={size} {...props}>
       {children}
     </Button.Solid>
   );
@@ -97,10 +101,11 @@ const Action = ({ children, ...props }: PropsWithChildren<ActionProps>) => {
 
 const Close = ({
   children,
+  size = "md",
   ...props
-}: PropsWithChildren<ComponentProps<"button">>) => {
+}: PropsWithoutRef<ButtonProps>) => {
   return (
-    <Button.Ghost size="md" {...props}>
+    <Button.Ghost size={size} {...props}>
       {children}
     </Button.Ghost>
   );

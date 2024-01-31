@@ -1,9 +1,13 @@
 import classNames from "classnames";
-import { ComponentProps, PropsWithChildren } from "react";
+import { ComponentProps, PropsWithChildren, PropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
 import * as Icons from "@heroicons/react/24/solid";
 
-import { Button as PolkadexButton, Typography } from "../components";
+import {
+  Button as PolkadexButton,
+  ButtonProps as PolkadexButtonProps,
+  Typography,
+} from "../components";
 
 interface PageProps extends ComponentProps<typeof Typography.Text> {
   currentPage: number;
@@ -36,20 +40,22 @@ const Ellipsis = ({
   );
 };
 
-interface ItemProps extends ComponentProps<"button"> {
+interface ItemProps extends PolkadexButtonProps {
   active?: boolean;
 }
 const Item = ({
   className,
   children = "Previous",
   active,
+  size = "sm",
+  appearance = "secondary",
   ...props
-}: PropsWithChildren<ItemProps>) => {
+}: PropsWithoutRef<ItemProps>) => {
   return (
     <PolkadexButton.Ghost
-      size="sm"
+      size={size}
       className={classNames(active && "bg-secondary-base", className)}
-      appearance="secondary"
+      appearance={appearance}
       {...props}
     >
       {children}
@@ -72,7 +78,7 @@ const Content = ({
   );
 };
 
-interface ButtonProps extends ComponentProps<"button"> {
+interface ButtonProps extends PolkadexButtonProps {
   arrowSide?: "left" | "right" | null;
   arrowType?: "double" | "single";
 }
@@ -82,8 +88,10 @@ const Button = ({
   children,
   arrowSide = null,
   arrowType = "single",
+  size = "sm",
+  appearance = "tertiary",
   ...props
-}: PropsWithChildren<ButtonProps>) => {
+}: PropsWithoutRef<ButtonProps>) => {
   const IconComponent =
     Icons[arrowType === "single" ? "ChevronLeftIcon" : "ChevronDoubleLeftIcon"];
 
@@ -91,9 +99,9 @@ const Button = ({
     <>
       {children ? (
         <PolkadexButton.Ghost
-          size="sm"
+          size={size}
           className={classNames("gap-1", className)}
-          appearance="tertiary"
+          appearance={appearance}
           {...props}
         >
           {arrowSide === "left" && (

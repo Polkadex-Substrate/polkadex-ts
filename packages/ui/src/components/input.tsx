@@ -26,7 +26,7 @@ import { twMerge } from "tailwind-merge";
 import { isValidComponent } from "../helpers";
 
 import { Button as PolkadexButton } from "./button";
-import { Typography } from "./typography";
+import { TextProps, Typography } from "./typography";
 import { LabelProps, Label as LabelPolkadex } from "./label";
 
 const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
@@ -102,9 +102,10 @@ const Button = ({ variant, ...props }: ButtonProps) => {
 
 const Ticker = ({
   children,
+  size = "sm",
   ...props
-}: PropsWithChildren<ComponentProps<"span">>) => (
-  <Typography.Text size="sm" {...props}>
+}: PropsWithChildren<TextProps>) => (
+  <Typography.Text size={size} {...props}>
     {children}
   </Typography.Text>
 );
