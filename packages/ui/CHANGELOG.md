@@ -1,5 +1,13 @@
 # @polkadex/ux
 
+## 5.3.0
+
+### Minor Changes
+
+- e6a1500: - [x] feat: new PopConfirm component.
+  - [x] fix: Some elements like buttons or text need a ref to be used within a popover
+  - [x] fix: The type checking of components has been removed to reuse the popover
+
 ## 5.2.0
 
 ### Minor Changes
