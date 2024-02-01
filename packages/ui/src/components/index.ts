@@ -27,3 +27,4 @@ export * from "./table";
 export * from "./tabs";
 export * from "./label";
 export * from "./pagination";
+export * from "./popconfirm";

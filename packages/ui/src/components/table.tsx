@@ -52,13 +52,12 @@ const Cell = ({
         ),
         className
       )}
-      {...(!isString && props)}
+      {...props}
     >
       {isString ? (
         <Typography.Text
           size="sm"
           className={twMerge(classNames("font-normal"), className)}
-          {...props}
         >
           {children}
         </Typography.Text>
@@ -99,7 +98,7 @@ const Head = ({
           !isString && className
         )
       )}
-      {...(!isString && props)}
+      {...props}
     >
       {isString ? (
         <Typography.Text
@@ -109,7 +108,6 @@ const Head = ({
             classNames("font-normal", withArrow && "flex items-center gap-1"),
             className
           )}
-          {...props}
         >
           {children}
           {withArrow && (
