@@ -4,7 +4,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 
-import { isValidComponent } from "../helpers";
+import { isValidComponent, isValidComponentWithoutTarget } from "../helpers";
 
 import { Typography } from "./typography";
 
@@ -34,7 +34,7 @@ interface TriggerProps
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
   ({ className, iconRotationAnimation = true, children, ...props }, ref) => {
     const isStringType = typeof children === "string";
-    const [IconComponent, RemaininigComponents] = isValidComponent(
+    const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
       children,
       Icon
     );

@@ -10,7 +10,7 @@ import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 
-import { isValidComponent, typeofChildren } from "../helpers";
+import { isValidComponentWithoutTarget, typeofChildren } from "../helpers";
 
 import { Typography } from "./typography";
 
@@ -100,7 +100,7 @@ const Head = ({
 
   ...props
 }: PropsWithChildren<HeadProps>) => {
-  const [IconComponent, RemaininigComponents] = isValidComponent(
+  const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
     children,
     Icon
   );
