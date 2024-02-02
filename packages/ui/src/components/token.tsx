@@ -3,25 +3,19 @@ import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 
 import * as Tokens from "../tokens";
-import { tokenAppearance } from "../helpers";
+import {
+  SizesVariants,
+  TokenAppearance,
+  sizesVariants,
+  tokenAppearance,
+} from "../helpers";
 
 export type TokensProps = keyof typeof Tokens;
 interface Props extends ComponentProps<"svg"> {
   name: string;
-  appearance?: keyof typeof tokenAppearance;
-  size?: keyof typeof sizesVariants;
+  appearance?: TokenAppearance;
+  size?: SizesVariants;
 }
-
-const sizesVariants = {
-  "2xs": "h-5 w-5 p",
-  xs: "h-6 w-6 p-0.5",
-  sm: "h-7 w-7 p-1",
-  md: "h-8 w-8 p-1",
-  lg: "h-10 w-10 p-1",
-  xl: "h-12 w-12 p-1",
-  "2xl": "h-14 w-14 p-1",
-  "3xl": "h-16 w-16 p-1.5",
-};
 
 export const Token = ({
   name,
