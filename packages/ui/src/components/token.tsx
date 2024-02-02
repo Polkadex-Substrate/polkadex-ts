@@ -30,7 +30,7 @@ export const Token = ({
   className,
   ...props
 }: Props) => {
-  const tokenUppercase = name.toUpperCase();
+  const tokenUppercase = name?.toUpperCase();
   const tokenTicker = (
     tokenUppercase in Tokens ? tokenUppercase : "UNKN"
   ) as keyof typeof Tokens;
