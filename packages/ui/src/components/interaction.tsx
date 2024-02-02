@@ -1,7 +1,13 @@
-import { ComponentProps, PropsWithChildren, PropsWithoutRef } from "react";
+import {
+  ComponentProps,
+  Fragment,
+  PropsWithChildren,
+  PropsWithoutRef,
+} from "react";
 import classNames from "classnames";
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
+import { Transition } from "@headlessui/react";
 
 import { isValidComponent, typeofChildren } from "../helpers";
 
@@ -147,7 +153,6 @@ export interface InteractionProps extends ComponentProps<"div"> {
 const Interaction = ({
   children,
   className,
-  withAnimation = true,
   ...props
 }: PropsWithChildren<InteractionProps>) => {
   const [TitleCompontent] = isValidComponent(children, Title);
@@ -155,21 +160,32 @@ const Interaction = ({
   const [FooterCompontent] = isValidComponent(children, Footer);
 
   return (
-    <div
-      className={twMerge(
-        classNames(
-          "flex flex-col gap-5 pt-7 pb-10 sm:w-full md:w-[23rem]",
-          "bg-level-3 border border-primary rounded-xl",
-          withAnimation && "animate-in slide-in-from-bottom-48 duration-300"
-        ),
-        className
-      )}
-      {...props}
+    <Transition
+      appear
+      show
+      enter="transition ease duration-500 transform"
+      enterFrom="opacity-0 translate-y-12"
+      enterTo="opacity-100 translate-y-0"
+      leave="transition ease duration-300 transform"
+      leaveFrom="opacity-100 translate-y-0"
+      leaveTo="opacity-0 translate-y-12"
+      as={Fragment}
     >
-      {TitleCompontent}
-      {ContentCompontent}
-      {FooterCompontent}
-    </div>
+      <div
+        className={twMerge(
+          classNames(
+            "flex flex-col gap-5 pt-7 pb-10 w-full",
+            "bg-level-3 border border-primary rounded-xl"
+          ),
+          className
+        )}
+        {...props}
+      >
+        {TitleCompontent}
+        {ContentCompontent}
+        {FooterCompontent}
+      </div>
+    </Transition>
   );
 };
 
