@@ -12,10 +12,11 @@ import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 import { Slot } from "@radix-ui/react-slot";
 
+import type { AppearanceVariants } from "../helpers";
 import { appearanceVariants, componentIsTypeof, fontSizes } from "../helpers";
 
 type Props = {
-  appearance?: keyof typeof appearanceVariants;
+  appearance?: AppearanceVariants;
   size?: keyof typeof fontSizes;
   asChild?: boolean;
 };
@@ -98,7 +99,7 @@ Paragraph.displayName = "Paragraph";
 interface HeadingProps extends ComponentProps<"h1"> {
   type?: (typeof headingTypes)[number];
   size?: keyof typeof fontSizes;
-  appearance?: keyof typeof appearanceVariants;
+  appearance?: AppearanceVariants;
 }
 
 const headingTypes = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;

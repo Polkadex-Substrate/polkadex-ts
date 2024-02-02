@@ -35,6 +35,7 @@ export const appearanceVariants = {
   attention: "text-attention-base",
   info: "text-info-base",
 };
+export type AppearanceVariants = keyof typeof appearanceVariants;
 
 export const fontSizes = {
   "3xs": "text-3xs",
