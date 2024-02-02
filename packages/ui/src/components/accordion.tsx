@@ -16,14 +16,17 @@ const Trigger = forwardRef<
   return (
     <AccordionRadix.Header className="flex">
       <AccordionRadix.Trigger
-        className="flex flex-1 items-center justify-between gap-5 [&[data-state=open]>svg]:rotate-180"
+        className={twMerge(
+          classNames(
+            "flex flex-1 items-center justify-between gap-5 [&[data-state=open]>svg]:rotate-180"
+          ),
+          className
+        )}
         ref={ref}
         {...props}
       >
         {isStringType ? (
-          <Typography.Text className={className} bold>
-            {children}
-          </Typography.Text>
+          <Typography.Text bold>{children}</Typography.Text>
         ) : (
           children
         )}
@@ -33,7 +36,6 @@ const Trigger = forwardRef<
     </AccordionRadix.Header>
   );
 });
-
 Trigger.displayName = "Trigger";
 
 const Content = forwardRef<
@@ -44,7 +46,7 @@ const Content = forwardRef<
     <AccordionRadix.Content
       className={twMerge(
         classNames(
-          "overflow-hidden transition-transform",
+          "overflow-hidden transition-all",
           "data-[state=closed]:animate-accordionUp data-[state=open]:animate-accordionDown"
         ),
         className
@@ -59,24 +61,21 @@ const Content = forwardRef<
 
 Content.displayName = "Content";
 
-const Item = ({
-  className,
-  children,
-  ...props
-}: PropsWithChildren<AccordionRadix.AccordionItemProps>) => {
+const Item = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<AccordionRadix.AccordionItemProps>
+>(({ children, ...props }, ref) => {
   const [TriggerComponent] = isValidComponent(children, Trigger);
   const [ContentComponent] = isValidComponent(children, Content);
 
   return (
-    <AccordionRadix.Item
-      className={twMerge(classNames("flex flex-col gap-3"), className)}
-      {...props}
-    >
+    <AccordionRadix.Item ref={ref} {...props}>
       {TriggerComponent}
       {ContentComponent}
     </AccordionRadix.Item>
   );
-};
+});
+Item.displayName = "Item";
 
 const Accordion = ({
   children,
