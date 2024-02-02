@@ -52,8 +52,8 @@ export const tokenBackground = {
   dot: "#E6007A",
 };
 
-const convertBg = (prefix: string, items: { [e: string]: string }) =>
-  Object.keys(items).map((key) => `bg-${key}`);
+export const convertBg = (prefix: string, items: { [e: string]: string }) =>
+  Object.keys(items).map((key) => `${prefix}-${key}`);
 
 export const themeConfig = {
   safelist: [{ pattern: /text-./ }, ...convertBg("bg", tokenBackground)],
@@ -132,8 +132,8 @@ export const themeConfig = {
         infiniteHorizontalScroll: "30s linear infinite infiniteHorizontal ",
         skeletonAnimation:
           "skeletonPulse 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite",
-        accordionDown: "accordionDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
-        accordionUp: "accordionUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+        accordionDown: "accordionDown 0.2s ease-out",
+        accordionUp: "accordionUp 300ms 0.2s ease-out",
       },
       keyframes: {
         infiniteHorizontal: {
