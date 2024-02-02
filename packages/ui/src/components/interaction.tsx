@@ -3,15 +3,16 @@ import classNames from "classnames";
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 
-import { isValidComponent } from "../helpers";
+import { isValidComponent, typeofChildren } from "../helpers";
 
-import { Typography } from "./typography";
+import { Typography, TextProps } from "./typography";
 import { Button, ButtonProps } from "./button";
 
 interface TitleProps extends ComponentProps<"div"> {
   onBack?: () => void;
   onClose?: () => void;
   withPadding?: boolean;
+  size?: TextProps["size"];
 }
 const Title = ({
   children,
@@ -19,11 +20,13 @@ const Title = ({
   onBack,
   onClose,
   className,
+  size = "md",
   ...props
 }: PropsWithChildren<TitleProps>) => {
   const hasBack = typeof onBack === "function";
   const hasClose = typeof onClose === "function";
 
+  const isString = typeofChildren(children);
   return (
     <div
       className={twMerge(
@@ -41,9 +44,14 @@ const Title = ({
           <ArrowLeftIcon className="text-secondary group-hover:text-current" />
         </Button.Icon>
       )}
-      <Typography.Heading type="h3" size="md">
-        {children}
-      </Typography.Heading>
+      {isString ? (
+        <Typography.Heading type="h3" size={size}>
+          {children}
+        </Typography.Heading>
+      ) : (
+        children
+      )}
+
       {hasClose && (
         <Button.Icon onClick={onClose} variant="ghost" rounded>
           <XMarkIcon className="text-secondary group-hover:text-current" />
