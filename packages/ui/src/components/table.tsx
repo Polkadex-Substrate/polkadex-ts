@@ -3,13 +3,14 @@
 import {
   ComponentProps,
   ComponentPropsWithoutRef,
+  Fragment,
   PropsWithChildren,
 } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 
-import { typeofChildren } from "../helpers";
+import { isValidComponent, typeofChildren } from "../helpers";
 
 import { Typography } from "./typography";
 
@@ -72,30 +73,46 @@ type AlignProps = {
   align?: "left" | "center" | "right";
 };
 
-type HeadProps = {
-  withArrow?: boolean;
-  arrowProps?: ComponentPropsWithoutRef<"svg">;
-} & ComponentProps<"th"> &
-  AlignProps;
+const Icon = ({
+  className,
+  children,
+  ...props
+}: PropsWithChildren<ComponentPropsWithoutRef<"svg">>) => {
+  return (
+    children ?? (
+      <ChevronUpDownIcon
+        className={twMerge(
+          classNames("w-3 h-3 text-primary inline-block align-middle ml-1"),
+          className
+        )}
+        {...props}
+      />
+    )
+  );
+};
+
+type HeadProps = ComponentProps<"th"> & AlignProps;
 
 const Head = ({
   children,
   className,
   align = "left",
-  withArrow = false,
-  arrowProps,
+
   ...props
 }: PropsWithChildren<HeadProps>) => {
-  const isString = typeofChildren(children);
-  const { className: arrowClassName, ...restProps } = arrowProps ?? {};
+  const [IconComponent, RemaininigComponents] = isValidComponent(
+    children,
+    Icon
+  );
+  const isString = typeofChildren(RemaininigComponents);
   return (
     <th
       className={twMerge(
         classNames(
-          "[&:has([role=checkbox])]:pr-0 p-2 ",
+          "[&:has([role=checkbox])]:pr-0 p-2 font-normal",
           `text-${align}`,
-
-          !isString && className
+          !isString ? className : "group",
+          IconComponent && "cursor-pointer"
         )
       )}
       {...props}
@@ -105,36 +122,21 @@ const Head = ({
           appearance="primary"
           size="xs"
           className={twMerge(
-            classNames("font-normal", withArrow && "flex items-center gap-1"),
+            classNames(
+              IconComponent &&
+                "group-hover:text-current duration-300 transition-colors"
+            ),
             className
           )}
         >
-          {children}
-          {withArrow && (
-            <ChevronUpDownIcon
-              className={twMerge(
-                classNames("w-3 h-3 text-primary"),
-                arrowClassName
-              )}
-              {...restProps}
-            />
-          )}
+          {RemaininigComponents}
+          {IconComponent}
         </Typography.Text>
       ) : (
-        <>
-          {children}
-          {withArrow && (
-            <ChevronUpDownIcon
-              className={twMerge(
-                classNames(
-                  "w-3 h-3 text-primary inline-block ml-1 align-middle"
-                ),
-                arrowClassName
-              )}
-              {...restProps}
-            />
-          )}
-        </>
+        <Fragment>
+          {RemaininigComponents}
+          {IconComponent}
+        </Fragment>
       )}
     </th>
   );
@@ -187,7 +189,7 @@ interface TableProps extends ComponentProps<"table"> {
 }
 
 const variantsStyles = {
-  line: "[&_tr:not(:last-child)]:border-b [&_tr]:border-primary [&_th]:border-b [&_th]:border-secondary",
+  line: "[&_tr:not(:last-child)]:border-b [&_tr]:border-primary [&_th]:border-b [&_th]:border-primary",
   modern:
     "[&_th]:bg-level-0 [&_th:first-child]:rounded-l-lg [&_th:last-child]:rounded-r-lg",
 };
@@ -223,5 +225,6 @@ Table.Row = Row;
 Table.Head = Head;
 Table.Cell = Cell;
 Table.Caption = Caption;
+Table.Icon = Icon;
 
 export { Table };
