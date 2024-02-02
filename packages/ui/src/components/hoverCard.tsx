@@ -2,20 +2,14 @@ import * as HoverCardRadix from "@radix-ui/react-hover-card";
 import { Fragment, PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
-import { Slot } from "@radix-ui/react-slot";
 
 import { isValidComponent } from "../helpers";
 
 const Trigger = ({
   children,
-  asChild = true,
   ...props
 }: PropsWithChildren<HoverCardRadix.HoverCardTriggerProps>) => {
-  return (
-    <HoverCardRadix.Trigger asChild={asChild} {...props}>
-      {asChild ? <Slot>{children}</Slot> : children}
-    </HoverCardRadix.Trigger>
-  );
+  return <HoverCardRadix.Trigger {...props}>{children}</HoverCardRadix.Trigger>;
 };
 
 interface ContentProps extends HoverCardRadix.HoverCardContentProps {

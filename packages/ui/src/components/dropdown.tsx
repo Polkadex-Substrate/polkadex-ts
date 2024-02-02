@@ -8,7 +8,6 @@ import {
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
-import { Slot } from "@radix-ui/react-slot";
 
 import { isValidComponent, typeofChildren } from "../helpers";
 
@@ -145,7 +144,7 @@ const Trigger = ({
       {...props}
     >
       {asChild ? (
-        <Slot>{children}</Slot>
+        children
       ) : (
         <>
           {(isString && <Typography.Text>{children}</Typography.Text>) ||
