@@ -1,4 +1,4 @@
-import { PropsWithChildren, forwardRef } from "react";
+import { ComponentPropsWithoutRef, PropsWithChildren, forwardRef } from "react";
 import * as AccordionRadix from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
@@ -8,34 +8,61 @@ import { isValidComponent } from "../helpers";
 
 import { Typography } from "./typography";
 
-const Trigger = forwardRef<
-  HTMLButtonElement,
-  PropsWithChildren<AccordionRadix.AccordionTriggerProps>
+const Icon = forwardRef<
+  SVGSVGElement,
+  PropsWithChildren<ComponentPropsWithoutRef<"svg">>
 >(({ className, children, ...props }, ref) => {
-  const isStringType = typeof children === "string";
   return (
-    <AccordionRadix.Header className="flex">
-      <AccordionRadix.Trigger
+    children ?? (
+      <ChevronDownIcon
+        ref={ref}
         className={twMerge(
-          classNames(
-            "flex flex-1 items-center justify-between gap-5 [&[data-state=open]>svg]:rotate-180"
-          ),
+          classNames("h-4 w-4 transition-transform duration-300 text-primary"),
           className
         )}
-        ref={ref}
         {...props}
-      >
-        {isStringType ? (
-          <Typography.Text bold>{children}</Typography.Text>
-        ) : (
-          children
-        )}
-
-        <ChevronDownIcon className="h-4 w-4 transition-transform duration-300 text-primary" />
-      </AccordionRadix.Trigger>
-    </AccordionRadix.Header>
+      />
+    )
   );
 });
+Icon.displayName = "Icon";
+
+interface TriggerProps
+  extends PropsWithChildren<AccordionRadix.AccordionTriggerProps> {
+  iconRotationAnimation?: boolean;
+}
+const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
+  ({ className, iconRotationAnimation = true, children, ...props }, ref) => {
+    const isStringType = typeof children === "string";
+    const [IconComponent, RemaininigComponents] = isValidComponent(
+      children,
+      Icon
+    );
+
+    return (
+      <AccordionRadix.Header className="flex">
+        <AccordionRadix.Trigger
+          className={twMerge(
+            classNames(
+              "flex flex-1 items-center justify-between gap-5 ",
+              iconRotationAnimation && "[&[data-state=open]>svg]:rotate-180"
+            ),
+            className
+          )}
+          ref={ref}
+          {...props}
+        >
+          {isStringType ? (
+            <Typography.Text bold>{RemaininigComponents}</Typography.Text>
+          ) : (
+            RemaininigComponents
+          )}
+          {IconComponent}
+        </AccordionRadix.Trigger>
+      </AccordionRadix.Header>
+    );
+  }
+);
 Trigger.displayName = "Trigger";
 
 const Content = forwardRef<
@@ -95,5 +122,6 @@ const Accordion = ({
 Accordion.Item = Item;
 Accordion.Trigger = Trigger;
 Accordion.Content = Content;
+Accordion.Icon = Icon;
 
 export { Accordion };
