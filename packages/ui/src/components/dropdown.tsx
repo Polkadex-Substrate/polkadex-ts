@@ -6,13 +6,37 @@ import {
   PropsWithChildren,
   forwardRef,
 } from "react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/outline";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
-import { isValidComponent, typeofChildren } from "../helpers";
+import {
+  isValidComponent,
+  isValidComponentWithoutTarget,
+  typeofChildren,
+} from "../helpers";
 
 import { Typography } from "./typography";
+
+const Icon = forwardRef<
+  SVGSVGElement,
+  PropsWithChildren<ComponentPropsWithoutRef<"svg">>
+>(({ className, children, ...props }, ref) => {
+  return (
+    children ?? (
+      <ChevronDownIcon
+        ref={ref}
+        className={twMerge(
+          classNames("h-4 w-4 transition-transform duration-300 text-primary"),
+          className
+        )}
+        {...props}
+      />
+    )
+  );
+});
+Icon.displayName = "Icon";
 
 const Radio = forwardRef<
   HTMLDivElement,
@@ -126,49 +150,39 @@ const Item = forwardRef<HTMLDivElement, PropsWithChildren<ItemProps>>(
 );
 Item.displayName = "Item";
 
-interface TriggerProps extends DropdownMenu.DropdownMenuTriggerProps {
-  withArrow?: boolean;
-  arrowProps?: ComponentPropsWithoutRef<"svg">;
-}
+const Trigger = forwardRef<
+  HTMLButtonElement,
+  PropsWithChildren<DropdownMenu.DropdownMenuTriggerProps>
+>(({ children, className, ...props }, ref) => {
+  const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
+    children,
+    Icon
+  );
+  const isString = typeofChildren(RemaininigComponents);
 
-const Trigger = forwardRef<HTMLButtonElement, PropsWithChildren<TriggerProps>>(
-  ({ children, asChild, withArrow, arrowProps, className, ...props }, ref) => {
-    const isString = typeofChildren(children);
-    const { className: arrowClassname, ...restProps } = arrowProps || {};
-    return (
-      <DropdownMenu.Trigger
-        ref={ref}
-        asChild={asChild}
-        className={twMerge(
-          classNames(
-            "flex items-center",
-            withArrow && "justify-between",
-            className
-          )
-        )}
-        {...props}
-      >
-        {asChild ? (
-          children
+  return (
+    <DropdownMenu.Trigger
+      ref={ref}
+      className={twMerge(
+        classNames(
+          "flex items-center gap-3 focus:outline-none",
+          !!IconComponent && "justify-between",
+          className
+        )
+      )}
+      {...props}
+    >
+      <Fragment>
+        {isString ? (
+          <Typography.Text>{RemaininigComponents}</Typography.Text>
         ) : (
-          <>
-            {(isString && <Typography.Text>{children}</Typography.Text>) ||
-              children}
-            {withArrow && (
-              <ChevronUpDownIcon
-                className={twMerge(
-                  classNames("w-4 h-4 ml-2 text-primary"),
-                  arrowClassname
-                )}
-                {...restProps}
-              />
-            )}
-          </>
+          RemaininigComponents
         )}
-      </DropdownMenu.Trigger>
-    );
-  }
-);
+        {IconComponent}
+      </Fragment>
+    </DropdownMenu.Trigger>
+  );
+});
 Trigger.displayName = "Trigger";
 
 const Content = forwardRef<
@@ -313,5 +327,7 @@ Dropdown.ItemCheckbox = ItemCheckbox;
 
 Dropdown.Radio = Radio;
 Dropdown.ItemRadio = ItemRadio;
+Dropdown.Icon = Icon;
+Dropdown.Overlay = Overlay;
 
 export { Dropdown };

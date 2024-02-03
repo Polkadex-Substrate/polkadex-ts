@@ -1,10 +1,22 @@
-import { ComponentPropsWithoutRef, PropsWithChildren, forwardRef } from "react";
+import {
+  ComponentProps,
+  ComponentPropsWithoutRef,
+  Fragment,
+  PropsWithChildren,
+  ReactElement,
+  forwardRef,
+} from "react";
 import * as AccordionRadix from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
+import { Slot } from "@radix-ui/react-slot";
 
-import { isValidComponent, isValidComponentWithoutTarget } from "../helpers";
+import {
+  isValidComponent,
+  isValidComponentWithoutTarget,
+  typeofChildren,
+} from "../helpers";
 
 import { Typography } from "./typography";
 
@@ -32,32 +44,45 @@ interface TriggerProps
   iconRotationAnimation?: boolean;
 }
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
-  ({ className, iconRotationAnimation = true, children, ...props }, ref) => {
-    const isStringType = typeof children === "string";
+  (
+    { className, iconRotationAnimation = true, asChild, children, ...props },
+    ref
+  ) => {
     const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
       children,
       Icon
     );
 
+    const isString = typeofChildren(RemaininigComponents);
+
+    const Comp = asChild ? "div" : Slot;
     return (
       <AccordionRadix.Header className="flex">
         <AccordionRadix.Trigger
           className={twMerge(
             classNames(
-              "flex flex-1 items-center justify-between gap-5 ",
-              iconRotationAnimation && "[&[data-state=open]>svg]:rotate-180"
+              "flex flex-1 items-center justify-between gap-5 cursor-pointer",
+              IconComponent &&
+                iconRotationAnimation &&
+                "[&[data-state=open]>svg]:rotate-180"
             ),
             className
           )}
           ref={ref}
           {...props}
         >
-          {isStringType ? (
-            <Typography.Text bold>{RemaininigComponents}</Typography.Text>
+          {!IconComponent ? (
+            children
           ) : (
-            RemaininigComponents
+            <Fragment>
+              {isString ? (
+                <Typography.Text>{RemaininigComponents}</Typography.Text>
+              ) : (
+                RemaininigComponents
+              )}
+              {IconComponent}
+            </Fragment>
           )}
-          {IconComponent}
         </AccordionRadix.Trigger>
       </AccordionRadix.Header>
     );
