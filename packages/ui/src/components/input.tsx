@@ -198,7 +198,7 @@ const Passcode = ({
   const [currentValue, setCurrentValue] = useState(0);
 
   const values: (string | number)[] = useMemo(() => {
-    const splitValues = [...value.split("").map(String)];
+    const splitValues = [...value.split(" ").map(String)];
     return [...splitValues, ...Array(inputNumb - splitValues.length).fill("")];
   }, [value, inputNumb]);
 
@@ -223,9 +223,7 @@ const Passcode = ({
         updateCurrentValue(index + 1);
       }
     }
-
-    // console.log("index", index, newArray);
-    // onValuesChange(newArray.join(""));
+    onValuesChange(newArray.join(" "));
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
@@ -234,7 +232,6 @@ const Passcode = ({
     const isRightArrowPressed = e.key === "ArrowRight";
     const isLeftArrowPressed = e.key === "ArrowLeft";
     const isTabPressed = e.key === "Tab";
-
     const validNumber = !(keyCode >= 0 && keyCode <= 9);
     const isPastePressed = !(e.metaKey && e.key === "v");
 
@@ -255,9 +252,7 @@ const Passcode = ({
     const newArray: (string | number)[] = [...values];
     const inputValue = e.target.value;
     newArray[index] = parseInt(inputValue) || inputValue;
-
-    console.log("Aqui...");
-    onValuesChange(newArray.join(""));
+    onValuesChange(newArray.join(" "));
   };
 
   const onFocus = (e: FocusEvent<HTMLInputElement>, index: number) => {
@@ -267,40 +262,45 @@ const Passcode = ({
 
   useEffect(() => {
     if (focusOnInit && inputsRef && inputsRef.current)
-      inputsRef.current[0].focus();
+      inputsRef.current[0]?.focus();
   }, [focusOnInit]);
 
   return (
-    <div className="flex items-center gap-2">
-      {new Array(inputNumb).fill("").map((_, i) => {
-        const v = values[i];
-        return (
-          <input
-            key={i}
-            ref={(element) => element && (inputsRef.current[i] = element)}
-            type={type}
-            maxLength={1}
-            inputMode="numeric"
-            pattern="\d{1}"
-            className={twMerge(
-              classNames(
-                "h-8 w-7 bg-level-3 text-center rounded-md transition-colors duration-300",
-                "focus:ring-0 focus:ring-offset-0 focus:outline focus:outline-offset-1 focus:focus:outline-primary-base",
-                values[i] && "bg-level-1",
-                error && "bg-danger-base"
-              ),
-              className
-            )}
-            value={v ?? ""}
-            onChange={(e) => onChange(e, i)}
-            onKeyUp={(e) => onKeyUp(e, i)}
-            onKeyDown={(e) => onKeyDown(e, i)}
-            onFocus={(e) => onFocus(e, i)}
-            {...props}
-          />
-        );
-      })}
-    </div>
+    <>
+      <p>Values: {values?.toString()}</p>
+      <p>currentIndex: {currentValue}</p>
+
+      <div className="flex items-center gap-2">
+        {new Array(inputNumb).fill("").map((_, i) => {
+          const v = values[i];
+          return (
+            <input
+              key={i}
+              ref={(element) => element && (inputsRef.current[i] = element)}
+              type={type}
+              maxLength={1}
+              inputMode="numeric"
+              pattern="\d{1}"
+              className={twMerge(
+                classNames(
+                  "h-8 w-7 bg-level-3 text-center rounded-md transition-colors duration-300",
+                  "focus:ring-0 focus:ring-offset-0 focus:outline focus:outline-offset-1 focus:focus:outline-primary-base",
+                  values[i] && "bg-level-1",
+                  error && "bg-danger-base"
+                ),
+                className
+              )}
+              value={v ?? ""}
+              onChange={(e) => onChange(e, i)}
+              onKeyUp={(e) => onKeyUp(e, i)}
+              onKeyDown={(e) => onKeyDown(e, i)}
+              onFocus={(e) => onFocus(e, i)}
+              {...props}
+            />
+          );
+        })}
+      </div>
+    </>
   );
 };
 
