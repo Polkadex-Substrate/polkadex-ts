@@ -1,9 +1,15 @@
-import { PropsWithChildren, PropsWithoutRef } from "react";
+import { Fragment, PropsWithChildren, PropsWithoutRef } from "react";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
+import * as PopoverRadix from "@radix-ui/react-popover";
 
-import { isValidComponent, typeofChildren } from "../helpers";
+import {
+  isValidComponent,
+  isValidComponentWithoutTarget,
+  typeofChildren,
+} from "../helpers";
+import { getRemainingComponents } from "../helpers/getRemainingComponents";
 
 import { Popover, PopoverContentProps, PopoverProps } from "./popover";
 import { TextProps, Typography } from "./typography";
@@ -129,13 +135,14 @@ const PopConfirm = ({
   children,
   ...props
 }: PropsWithChildren<PopoverProps>) => {
-  const [TriggerComponent] = isValidComponent(children, Popover.Trigger);
-  const [ContentComponent] = isValidComponent(children, Content);
+  const [TriggerComponent, RemaininigComponents] =
+    isValidComponentWithoutTarget(children, Popover.Trigger);
+  const renderComponent = getRemainingComponents(RemaininigComponents);
 
   return (
     <Popover {...props}>
       {TriggerComponent}
-      {ContentComponent}
+      {renderComponent}
     </Popover>
   );
 };
@@ -146,5 +153,6 @@ PopConfirm.Button = Button;
 PopConfirm.Title = Title;
 PopConfirm.Description = Description;
 PopConfirm.Close = Close;
+PopConfirm.Overlay = Popover.Overlay;
 
 export { PopConfirm };

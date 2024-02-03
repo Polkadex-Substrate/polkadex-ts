@@ -11,6 +11,7 @@ import { twMerge } from "tailwind-merge";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 
 import { isValidComponentWithoutTarget, typeofChildren } from "../helpers";
+import { getRemainingComponents } from "../helpers/getRemainingComponents";
 
 import { Typography } from "./typography";
 
@@ -105,6 +106,8 @@ const Head = ({
     Icon
   );
   const isString = typeofChildren(RemaininigComponents);
+  const renderComponent = getRemainingComponents(RemaininigComponents);
+
   return (
     <th
       className={twMerge(
@@ -112,7 +115,7 @@ const Head = ({
           "[&:has([role=checkbox])]:pr-0 p-2 font-normal",
           `text-${align}`,
           !isString ? className : "group",
-          IconComponent && "cursor-pointer"
+          !!IconComponent?.length && "cursor-pointer"
         )
       )}
       {...props}
@@ -123,18 +126,18 @@ const Head = ({
           size="xs"
           className={twMerge(
             classNames(
-              IconComponent &&
+              !!IconComponent?.length &&
                 "group-hover:text-current duration-300 transition-colors"
             ),
             className
           )}
         >
-          {RemaininigComponents}
+          {renderComponent}
           {IconComponent}
         </Typography.Text>
       ) : (
         <Fragment>
-          {RemaininigComponents}
+          {renderComponent}
           {IconComponent}
         </Fragment>
       )}

@@ -3,7 +3,7 @@ import { Children, ElementType, ReactNode, isValidElement } from "react";
 export const isValidComponentWithoutTarget = <T = ReactNode>(
   children: T,
   targetChild: ElementType
-): [T[] | undefined, T | undefined] => {
+): [T[] | undefined, T | undefined | T[]] => {
   const target: T[] = [];
 
   const withoutTargetChildren = Children.map(children, (item) => {

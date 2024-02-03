@@ -14,6 +14,7 @@ import {
   isValidComponentWithoutTarget,
   typeofChildren,
 } from "../helpers";
+import { getRemainingComponents } from "../helpers/getRemainingComponents";
 
 import { Typography } from "./typography";
 
@@ -51,6 +52,7 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
     );
 
     const isString = typeofChildren(RemaininigComponents);
+    const renderComponent = getRemainingComponents(RemaininigComponents);
 
     return (
       <AccordionRadix.Header className="flex">
@@ -58,7 +60,7 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
           className={twMerge(
             classNames(
               "flex-1 flex justify-between align-center cursor-pointer",
-              !!IconComponent &&
+              !!IconComponent?.length &&
                 iconRotationAnimation &&
                 "[&[data-state=open]>svg]:rotate-180"
             ),
@@ -72,9 +74,9 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
           ) : (
             <Fragment>
               {isString ? (
-                <Typography.Text>{RemaininigComponents}</Typography.Text>
+                <Typography.Text>{renderComponent}</Typography.Text>
               ) : (
-                RemaininigComponents
+                renderComponent
               )}
               {IconComponent}
             </Fragment>

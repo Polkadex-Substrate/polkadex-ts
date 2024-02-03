@@ -18,6 +18,7 @@ import {
   isValidComponentWithoutTarget,
   typeofChildren,
 } from "../helpers";
+import { getRemainingComponents } from "../helpers/getRemainingComponents";
 
 import { Typography } from "./typography";
 
@@ -203,6 +204,7 @@ const Trigger = forwardRef<
       Icon
     );
     const isString = typeofChildren(RemaininigComponents);
+    const renderComponent = getRemainingComponents(RemaininigComponents);
 
     return (
       <DropdownMenu.Trigger
@@ -211,8 +213,8 @@ const Trigger = forwardRef<
         className={twMerge(
           classNames(
             "flex items-center gap-3 focus:outline-none",
-            !!IconComponent && "justify-between",
-            !!IconComponent &&
+            !!IconComponent?.length && "justify-between",
+            !!IconComponent?.length &&
               iconRotationAnimation &&
               "[&[data-state=open]>svg]:rotate-180",
             superpositionTrigger && "data-[state=open]:z-20",
@@ -226,9 +228,9 @@ const Trigger = forwardRef<
         ) : (
           <Fragment>
             {isString ? (
-              <Typography.Text>{RemaininigComponents}</Typography.Text>
+              <Typography.Text>{renderComponent}</Typography.Text>
             ) : (
-              RemaininigComponents
+              renderComponent
             )}
             {IconComponent}
           </Fragment>
