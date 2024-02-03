@@ -62,12 +62,17 @@ const Icon = forwardRef<
 });
 Icon.displayName = "Icon";
 
-const Close = ({
-  children,
-  ...props
-}: PropsWithChildren<PopoverRadix.PopoverCloseProps>) => {
-  return <PopoverRadix.Close {...props}>{children}</PopoverRadix.Close>;
-};
+const Close = forwardRef<
+  HTMLButtonElement,
+  PropsWithChildren<PopoverRadix.PopoverCloseProps>
+>(({ children, ...props }, ref) => {
+  return (
+    <PopoverRadix.Close ref={ref} {...props}>
+      {children}
+    </PopoverRadix.Close>
+  );
+});
+Close.displayName = "Close";
 
 export interface PopoverTriggerProps
   extends PropsWithChildren<PopoverRadix.PopoverTriggerProps> {
@@ -75,53 +80,60 @@ export interface PopoverTriggerProps
   iconRotationAnimation?: boolean;
 }
 
-const Trigger = ({
-  children,
-  className,
-  iconRotationAnimation = true,
-  superpositionTrigger,
-  asChild,
-  ...props
-}: PopoverTriggerProps) => {
-  const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
-    children,
-    Icon
-  );
+const Trigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(
+  (
+    {
+      children,
+      className,
+      iconRotationAnimation = true,
+      superpositionTrigger,
+      asChild,
+      ...props
+    },
+    ref
+  ) => {
+    const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
+      children,
+      Icon
+    );
 
-  const isString = typeofChildren(RemaininigComponents);
+    const isString = typeofChildren(RemaininigComponents);
 
-  return (
-    <PopoverRadix.Trigger
-      asChild={asChild}
-      className={twMerge(
-        classNames(
-          "flex items-center gap-3 focus:outline-none",
-          isString && "text-sm",
-          !!IconComponent?.length && "justify-between",
-          !!IconComponent?.length &&
-            iconRotationAnimation &&
-            "[&[data-state=open]>svg]:rotate-180",
-          superpositionTrigger && "data-[state=open]:z-20"
-        ),
-        className
-      )}
-      {...props}
-    >
-      {asChild ? (
-        children
-      ) : (
-        <Fragment>
-          {isString ? (
-            <Typography.Text>{RemaininigComponents}</Typography.Text>
-          ) : (
-            RemaininigComponents
-          )}
-          {IconComponent}
-        </Fragment>
-      )}
-    </PopoverRadix.Trigger>
-  );
-};
+    return (
+      <PopoverRadix.Trigger
+        ref={ref}
+        asChild={asChild}
+        className={twMerge(
+          classNames(
+            "flex items-center gap-3 focus:outline-none",
+            isString && "text-sm",
+            !!IconComponent?.length && "justify-between",
+            !!IconComponent?.length &&
+              iconRotationAnimation &&
+              "[&[data-state=open]>svg]:rotate-180",
+            superpositionTrigger && "data-[state=open]:z-20"
+          ),
+          className
+        )}
+        {...props}
+      >
+        {asChild ? (
+          children
+        ) : (
+          <Fragment>
+            {isString ? (
+              <Typography.Text>{RemaininigComponents}</Typography.Text>
+            ) : (
+              RemaininigComponents
+            )}
+            {IconComponent}
+          </Fragment>
+        )}
+      </PopoverRadix.Trigger>
+    );
+  }
+);
+Trigger.displayName = "Trigger";
 
 export interface PopoverContentProps
   extends PropsWithChildren<PopoverRadix.PopoverContentProps> {
@@ -129,39 +141,38 @@ export interface PopoverContentProps
   arrowProps?: PopoverRadix.PopoverArrowProps;
 }
 
-const Content = ({
-  children,
-  className,
-  withArrow = false,
-  arrowProps,
-  ...props
-}: PopoverContentProps) => {
-  const { className: arrowClassname, ...restProps } = arrowProps || {};
+const Content = forwardRef<HTMLDivElement, PopoverContentProps>(
+  ({ children, className, withArrow = false, arrowProps, ...props }, ref) => {
+    const { className: arrowClassname, ...restProps } = arrowProps || {};
 
-  return (
-    <PopoverRadix.Content
-      className={twMerge(
-        classNames(
-          "z-50 shadow-md bg-level-1 rounded-md border border-primary min-w-[8rem]",
-          "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
-          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
-        ),
-        className
-      )}
-      {...props}
-    >
-      <Fragment>
-        {children}
-        {withArrow && (
-          <PopoverRadix.Arrow
-            className={twMerge(classNames("fill-level-1"), arrowClassname)}
-            {...restProps}
-          />
+    return (
+      <PopoverRadix.Content
+        ref={ref}
+        className={twMerge(
+          classNames(
+            "z-50 shadow-md bg-level-1 rounded-md border border-primary min-w-[8rem]",
+            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+            "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
+          ),
+          className
         )}
-      </Fragment>
-    </PopoverRadix.Content>
-  );
-};
+        {...props}
+      >
+        <Fragment>
+          {children}
+          {withArrow && (
+            <PopoverRadix.Arrow
+              className={twMerge(classNames("fill-level-1"), arrowClassname)}
+              {...restProps}
+            />
+          )}
+        </Fragment>
+      </PopoverRadix.Content>
+    );
+  }
+);
+Content.displayName = "Content";
+
 export type PopoverProps = PropsWithChildren<PopoverRadix.PopoverProps>;
 
 const Popover = ({ children, ...props }: PopoverProps) => {
