@@ -49,6 +49,7 @@ const Trigger = ({
   children,
   className,
   iconRotationAnimation = true,
+  asChild,
   ...props
 }: PopoverTriggerProps) => {
   const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
@@ -60,6 +61,7 @@ const Trigger = ({
 
   return (
     <PopoverRadix.Trigger
+      asChild={asChild}
       className={twMerge(
         classNames(
           "flex items-center gap-3 focus:outline-none",
@@ -73,14 +75,18 @@ const Trigger = ({
       )}
       {...props}
     >
-      <Fragment>
-        {isString ? (
-          <Typography.Text>{RemaininigComponents}</Typography.Text>
-        ) : (
-          RemaininigComponents
-        )}
-        {IconComponent}
-      </Fragment>
+      {asChild ? (
+        children
+      ) : (
+        <Fragment>
+          {isString ? (
+            <Typography.Text>{RemaininigComponents}</Typography.Text>
+          ) : (
+            RemaininigComponents
+          )}
+          {IconComponent}
+        </Fragment>
+      )}
     </PopoverRadix.Trigger>
   );
 };

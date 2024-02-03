@@ -193,6 +193,7 @@ const Trigger = forwardRef<
       className,
       superpositionTrigger,
       iconRotationAnimation = true,
+      asChild,
       ...props
     },
     ref
@@ -205,6 +206,7 @@ const Trigger = forwardRef<
 
     return (
       <DropdownMenu.Trigger
+        asChild={asChild}
         ref={ref}
         className={twMerge(
           classNames(
@@ -219,14 +221,18 @@ const Trigger = forwardRef<
         )}
         {...props}
       >
-        <Fragment>
-          {isString ? (
-            <Typography.Text>{RemaininigComponents}</Typography.Text>
-          ) : (
-            RemaininigComponents
-          )}
-          {IconComponent}
-        </Fragment>
+        {asChild ? (
+          children
+        ) : (
+          <Fragment>
+            {isString ? (
+              <Typography.Text>{RemaininigComponents}</Typography.Text>
+            ) : (
+              RemaininigComponents
+            )}
+            {IconComponent}
+          </Fragment>
+        )}
       </DropdownMenu.Trigger>
     );
   }
