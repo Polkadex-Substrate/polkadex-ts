@@ -1,9 +1,36 @@
 import * as PopoverRadix from "@radix-ui/react-popover";
-import { ComponentProps, Fragment, PropsWithChildren } from "react";
+import {
+  ComponentPropsWithoutRef,
+  Fragment,
+  PropsWithChildren,
+  forwardRef,
+} from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
-import { typeofChildren } from "../helpers";
+import { isValidComponentWithoutTarget, typeofChildren } from "../helpers";
+
+import { Typography } from "./typography";
+
+const Icon = forwardRef<
+  SVGSVGElement,
+  PropsWithChildren<ComponentPropsWithoutRef<"svg">>
+>(({ className, children, ...props }, ref) => {
+  return (
+    children ?? (
+      <ChevronDownIcon
+        ref={ref}
+        className={twMerge(
+          classNames("h-4 w-4 transition-transform duration-300 text-primary"),
+          className
+        )}
+        {...props}
+      />
+    )
+  );
+});
+Icon.displayName = "Icon";
 
 const Close = ({
   children,
@@ -12,16 +39,48 @@ const Close = ({
   return <PopoverRadix.Close {...props}>{children}</PopoverRadix.Close>;
 };
 
-export type PopoverTriggerProps =
-  PropsWithChildren<PopoverRadix.PopoverTriggerProps>;
-const Trigger = ({ children, className, ...props }: PopoverTriggerProps) => {
-  const isString = typeofChildren(children);
+export interface PopoverTriggerProps
+  extends PropsWithChildren<PopoverRadix.PopoverTriggerProps> {
+  superpositionTrigger?: boolean;
+  iconRotationAnimation?: boolean;
+}
+
+const Trigger = ({
+  children,
+  className,
+  iconRotationAnimation = true,
+  ...props
+}: PopoverTriggerProps) => {
+  const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
+    children,
+    Icon
+  );
+
+  const isString = typeofChildren(RemaininigComponents);
+
   return (
     <PopoverRadix.Trigger
-      className={twMerge(classNames(isString && "text-sm"), className)}
+      className={twMerge(
+        classNames(
+          "flex items-center gap-3 focus:outline-none",
+          isString && "text-sm",
+          !!IconComponent && "justify-between",
+          !!IconComponent &&
+            iconRotationAnimation &&
+            "[&[data-state=open]>svg]:rotate-180"
+        ),
+        className
+      )}
       {...props}
     >
-      {children}
+      <Fragment>
+        {isString ? (
+          <Typography.Text>{RemaininigComponents}</Typography.Text>
+        ) : (
+          RemaininigComponents
+        )}
+        {IconComponent}
+      </Fragment>
     </PopoverRadix.Trigger>
   );
 };
@@ -30,8 +89,6 @@ export interface PopoverContentProps
   extends PropsWithChildren<PopoverRadix.PopoverContentProps> {
   withArrow?: boolean;
   arrowProps?: PopoverRadix.PopoverArrowProps;
-  withOverlay?: boolean;
-  overlayProps?: ComponentProps<"div">;
 }
 
 const Content = ({
@@ -39,28 +96,13 @@ const Content = ({
   className,
   withArrow = false,
   arrowProps,
-  withOverlay,
-  overlayProps,
   ...props
 }: PopoverContentProps) => {
   const { className: arrowClassname, ...restProps } = arrowProps || {};
-  const { className: overlayClassName, ...restOverlayProps } =
-    overlayProps ?? {};
 
   return (
     <PopoverRadix.Portal>
       <Fragment>
-        {withOverlay && (
-          <div
-            className={twMerge(
-              classNames(
-                "w-screen h-screen bg-overlay-3 inset-0 fixed animate-in"
-              ),
-              overlayClassName
-            )}
-            {...restOverlayProps}
-          />
-        )}
         <PopoverRadix.Content
           className={twMerge(
             classNames(
@@ -95,5 +137,6 @@ const Popover = ({ children, ...props }: PopoverProps) => {
 Popover.Trigger = Trigger;
 Popover.Content = Content;
 Popover.Close = Close;
+Popover.Icon = Icon;
 
 export { Popover };

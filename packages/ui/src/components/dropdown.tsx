@@ -181,41 +181,56 @@ Item.displayName = "Item";
 
 interface DropdownTriggerProps extends DropdownMenu.DropdownMenuTriggerProps {
   superpositionTrigger?: boolean;
+  iconRotationAnimation?: boolean;
 }
 const Trigger = forwardRef<
   HTMLButtonElement,
   PropsWithChildren<DropdownTriggerProps>
->(({ children, className, superpositionTrigger, ...props }, ref) => {
-  const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
-    children,
-    Icon
-  );
-  const isString = typeofChildren(RemaininigComponents);
+>(
+  (
+    {
+      children,
+      className,
+      superpositionTrigger,
+      iconRotationAnimation = true,
+      ...props
+    },
+    ref
+  ) => {
+    const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
+      children,
+      Icon
+    );
+    const isString = typeofChildren(RemaininigComponents);
 
-  return (
-    <DropdownMenu.Trigger
-      ref={ref}
-      className={twMerge(
-        classNames(
-          "flex items-center gap-3 focus:outline-none",
-          !!IconComponent && "justify-between",
-          superpositionTrigger && "data-[state=open]:z-20",
-          className
-        )
-      )}
-      {...props}
-    >
-      <Fragment>
-        {isString ? (
-          <Typography.Text>{RemaininigComponents}</Typography.Text>
-        ) : (
-          RemaininigComponents
+    return (
+      <DropdownMenu.Trigger
+        ref={ref}
+        className={twMerge(
+          classNames(
+            "flex items-center gap-3 focus:outline-none",
+            !!IconComponent && "justify-between",
+            !!IconComponent &&
+              iconRotationAnimation &&
+              "[&[data-state=open]>svg]:rotate-180",
+            superpositionTrigger && "data-[state=open]:z-20",
+            className
+          )
         )}
-        {IconComponent}
-      </Fragment>
-    </DropdownMenu.Trigger>
-  );
-});
+        {...props}
+      >
+        <Fragment>
+          {isString ? (
+            <Typography.Text>{RemaininigComponents}</Typography.Text>
+          ) : (
+            RemaininigComponents
+          )}
+          {IconComponent}
+        </Fragment>
+      </DropdownMenu.Trigger>
+    );
+  }
+);
 Trigger.displayName = "Trigger";
 
 const Content = forwardRef<

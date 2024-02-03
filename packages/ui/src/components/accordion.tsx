@@ -40,6 +40,7 @@ Icon.displayName = "Icon";
 
 interface TriggerProps
   extends PropsWithChildren<AccordionRadix.AccordionTriggerProps> {
+  superpositionTrigger?: boolean;
   iconRotationAnimation?: boolean;
 }
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
@@ -57,7 +58,7 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
           className={twMerge(
             classNames(
               "flex-1 flex justify-between align-center cursor-pointer",
-              IconComponent &&
+              !!IconComponent &&
                 iconRotationAnimation &&
                 "[&[data-state=open]>svg]:rotate-180"
             ),
