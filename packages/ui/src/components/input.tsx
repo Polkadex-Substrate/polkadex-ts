@@ -10,8 +10,8 @@ import {
   ElementRef,
   FocusEvent,
   KeyboardEvent,
-  MouseEvent,
   PropsWithChildren,
+  PropsWithoutRef,
   forwardRef,
   useEffect,
   useMemo,
@@ -24,8 +24,25 @@ import { twMerge } from "tailwind-merge";
 import { isValidComponent } from "../helpers";
 
 import { Button as PolkadexButton } from "./button";
+import type { ButtonProps as PolkadexButtonProps } from "./button";
 import { TextProps, Typography } from "./typography";
 import { LabelProps, Label as LabelPolkadex } from "./label";
+
+const Action = forwardRef<
+  HTMLButtonElement,
+  PropsWithoutRef<PolkadexButtonProps>
+>(({ size = "xs", appearance = "secondary", children, ...props }, ref) => (
+  <PolkadexButton.Solid
+    ref={ref}
+    size={size}
+    appearance={appearance}
+    {...props}
+  >
+    {children}
+  </PolkadexButton.Solid>
+));
+
+Action.displayName = "Action";
 
 const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
   ({ className, ...props }, ref) => {
@@ -138,34 +155,20 @@ const Search = forwardRef<
 });
 Search.displayName = "Search";
 
-interface VerticalProps extends ComponentPropsWithoutRef<"input"> {
-  action?: (e: MouseEvent<HTMLButtonElement>) => void;
-  actionTitle?: string;
-}
-
 const Vertical = ({
-  action,
-  actionTitle,
   id,
   children,
   ...props
-}: PropsWithChildren<VerticalProps>) => {
+}: PropsWithChildren<ComponentPropsWithoutRef<"input">>) => {
   const LabelComponent = isValidComponent(children, Label);
+  const ButtonComponent = isValidComponent(children, Action);
 
   return (
     <div className="flex flex-col gap-2 w-full">
       {LabelComponent}
       <div className="flex items-center justify-between gap-2 flex-1">
         <Base id={id} className="text-lg font-medium" {...props} />
-        {action && (
-          <PolkadexButton.Solid
-            appearance="secondary"
-            size="xs"
-            onClick={action}
-          >
-            {actionTitle}
-          </PolkadexButton.Solid>
-        )}
+        {ButtonComponent}
       </div>
     </div>
   );
@@ -309,4 +312,5 @@ export const Input = {
   Button,
   Label,
   Ticker,
+  Action,
 };
