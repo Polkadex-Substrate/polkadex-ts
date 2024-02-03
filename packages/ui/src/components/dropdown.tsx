@@ -1,6 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import {
   Children,
+  ComponentPropsWithRef,
   ComponentPropsWithoutRef,
   Fragment,
   PropsWithChildren,
@@ -10,6 +11,7 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { Transition } from "@headlessui/react";
 
 import {
   isValidComponent,
@@ -18,6 +20,33 @@ import {
 } from "../helpers";
 
 import { Typography } from "./typography";
+
+const Overlay = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<ComponentPropsWithRef<"div">>
+>(({ className, ...props }, ref) => {
+  return (
+    <Transition
+      show
+      enter="duration-300 ease-out"
+      enter-from="opacity-0"
+      enter-to="opacity-100"
+      leave="duration-200 ease-in"
+      leave-from="opacity-100"
+      leave-to="opacity-0"
+    >
+      <div
+        ref={ref}
+        className={twMerge(
+          classNames("w-screen h-screen bg-overlay-3 inset-0 fixed animate-in"),
+          className
+        )}
+        {...props}
+      />
+    </Transition>
+  );
+});
+Overlay.displayName = "Overlay";
 
 const Icon = forwardRef<
   SVGSVGElement,
@@ -150,10 +179,13 @@ const Item = forwardRef<HTMLDivElement, PropsWithChildren<ItemProps>>(
 );
 Item.displayName = "Item";
 
+interface DropdownTriggerProps extends DropdownMenu.DropdownMenuTriggerProps {
+  superpositionTrigger?: boolean;
+}
 const Trigger = forwardRef<
   HTMLButtonElement,
-  PropsWithChildren<DropdownMenu.DropdownMenuTriggerProps>
->(({ children, className, ...props }, ref) => {
+  PropsWithChildren<DropdownTriggerProps>
+>(({ children, className, superpositionTrigger, ...props }, ref) => {
   const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
     children,
     Icon
@@ -167,6 +199,7 @@ const Trigger = forwardRef<
         classNames(
           "flex items-center gap-3 focus:outline-none",
           !!IconComponent && "justify-between",
+          superpositionTrigger && "data-[state=open]:z-20",
           className
         )
       )}
@@ -287,25 +320,18 @@ const Label = forwardRef<
 });
 Label.displayName = "Label";
 
-interface DropdownProps extends DropdownMenu.DropdownMenuProps {
-  withOverlay?: boolean;
-}
-const Dropdown = ({
-  children,
-  withOverlay,
-  ...props
-}: PropsWithChildren<DropdownProps>) => {
+type DropdownProps = DropdownMenu.DropdownMenuProps;
+const Dropdown = ({ children, ...props }: PropsWithChildren<DropdownProps>) => {
   const [TriggerComponent] = isValidComponent(children, Trigger);
   const [ContentComponent] = isValidComponent(children, Content);
+  const [OverlayComponent] = isValidComponent(children, Overlay);
 
   return (
     <DropdownMenu.Root {...props}>
       {TriggerComponent}
       <DropdownMenu.Portal>
         <Fragment>
-          {withOverlay && (
-            <div className="w-screen h-screen bg-overlay-3 inset-0 fixed animate-in" />
-          )}
+          {OverlayComponent}
           {ContentComponent}
         </Fragment>
       </DropdownMenu.Portal>

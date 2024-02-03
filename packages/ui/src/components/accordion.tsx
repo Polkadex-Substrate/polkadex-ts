@@ -1,16 +1,13 @@
 import {
-  ComponentProps,
   ComponentPropsWithoutRef,
   Fragment,
   PropsWithChildren,
-  ReactElement,
   forwardRef,
 } from "react";
 import * as AccordionRadix from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
-import { Slot } from "@radix-ui/react-slot";
 
 import {
   isValidComponent,
@@ -29,7 +26,9 @@ const Icon = forwardRef<
       <ChevronDownIcon
         ref={ref}
         className={twMerge(
-          classNames("h-4 w-4 transition-transform duration-300 text-primary"),
+          classNames(
+            "h-4 w-4 transition-transform duration-300 text-primary inline-block ml-2 align-middle"
+          ),
           className
         )}
         {...props}
@@ -44,10 +43,7 @@ interface TriggerProps
   iconRotationAnimation?: boolean;
 }
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
-  (
-    { className, iconRotationAnimation = true, asChild, children, ...props },
-    ref
-  ) => {
+  ({ className, iconRotationAnimation = true, children, ...props }, ref) => {
     const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
       children,
       Icon
@@ -55,13 +51,12 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
 
     const isString = typeofChildren(RemaininigComponents);
 
-    const Comp = asChild ? "div" : Slot;
     return (
       <AccordionRadix.Header className="flex">
         <AccordionRadix.Trigger
           className={twMerge(
             classNames(
-              "flex flex-1 items-center justify-between gap-5 cursor-pointer",
+              "flex-1 flex justify-between align-center cursor-pointer",
               IconComponent &&
                 iconRotationAnimation &&
                 "[&[data-state=open]>svg]:rotate-180"
@@ -131,6 +126,7 @@ Item.displayName = "Item";
 
 const Accordion = ({
   children,
+  className,
   ...props
 }: PropsWithChildren<
   AccordionRadix.AccordionSingleProps | AccordionRadix.AccordionMultipleProps
@@ -138,7 +134,10 @@ const Accordion = ({
   const items = isValidComponent(children, Item);
 
   return (
-    <AccordionRadix.Root {...props}>
+    <AccordionRadix.Root
+      className={twMerge(classNames("w-full"), className)}
+      {...props}
+    >
       {items?.map((renderComponent) => renderComponent)}
     </AccordionRadix.Root>
   );
