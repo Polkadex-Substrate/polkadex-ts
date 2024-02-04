@@ -16,6 +16,7 @@ export interface ButtonProps extends ComponentProps<"button"> {
   appearance?: keyof typeof variants.color.solid;
   withIcon?: boolean;
   rounded?: boolean;
+  bold?: boolean;
 }
 
 const reusableColors = {
@@ -121,6 +122,7 @@ export const Base = forwardRef<
       variant = "solid",
       withIcon = false,
       rounded = false,
+      bold = true,
       children,
       ...props
     },
@@ -138,7 +140,8 @@ export const Base = forwardRef<
             withIcon ? variants.iconSize[size] : variants.size[size],
             rounded ? "rounded-full" : "rounded-sm",
             withIcon && "group",
-            variants.color[variant][appearance]
+            variants.color[variant][appearance],
+            bold && "font-medium"
           ),
           className
         )}

@@ -35,6 +35,7 @@ export const appearanceVariants = {
   attention: "text-attention-base",
   info: "text-info-base",
 };
+export type AppearanceVariants = keyof typeof appearanceVariants;
 
 export const fontSizes = {
   "3xs": "text-3xs",
@@ -66,3 +67,18 @@ export const tokenAppearance = {
   ASTR: "bg-transparent",
   IBTC: "bg-white",
 };
+
+export type TokenAppearance = keyof typeof tokenAppearance;
+
+export const sizesVariants = {
+  "2xs": "h-5 w-5 p",
+  xs: "h-6 w-6 p-0.5",
+  sm: "h-7 w-7 p-1",
+  md: "h-8 w-8 p-1",
+  lg: "h-10 w-10 p-1",
+  xl: "h-12 w-12 p-1",
+  "2xl": "h-14 w-14 p-1",
+  "3xl": "h-16 w-16 p-1.5",
+};
+
+export type SizesVariants = keyof typeof sizesVariants;

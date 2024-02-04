@@ -7,16 +7,14 @@ import {
   ChangeEvent,
   ComponentProps,
   ComponentPropsWithoutRef,
-  Dispatch,
   ElementRef,
   FocusEvent,
-  InputHTMLAttributes,
   KeyboardEvent,
-  MouseEvent,
   PropsWithChildren,
-  SetStateAction,
+  PropsWithoutRef,
   forwardRef,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -26,8 +24,25 @@ import { twMerge } from "tailwind-merge";
 import { isValidComponent } from "../helpers";
 
 import { Button as PolkadexButton } from "./button";
+import type { ButtonProps as PolkadexButtonProps } from "./button";
 import { TextProps, Typography } from "./typography";
 import { LabelProps, Label as LabelPolkadex } from "./label";
+
+const Action = forwardRef<
+  HTMLButtonElement,
+  PropsWithoutRef<PolkadexButtonProps>
+>(({ size = "xs", appearance = "secondary", children, ...props }, ref) => (
+  <PolkadexButton.Solid
+    ref={ref}
+    size={size}
+    appearance={appearance}
+    {...props}
+  >
+    {children}
+  </PolkadexButton.Solid>
+));
+
+Action.displayName = "Action";
 
 const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
   ({ className, ...props }, ref) => {
@@ -38,9 +53,9 @@ const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
         type="text"
         className={twMerge(
           classNames(
-            "flex-1 bg-transparent text-current placeholder:text-primary text-sm outline-none",
-            className
-          )
+            "flex-1 bg-transparent text-current placeholder:text-primary outline-none"
+          ),
+          className
         )}
         {...props}
       />
@@ -53,22 +68,25 @@ Base.displayName = "Base";
 const Primary = forwardRef<
   ElementRef<"input">,
   PropsWithChildren<ComponentPropsWithoutRef<"input">>
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
->(({ children, ...props }, _) => {
+>(({ children, ...props }) => {
   const ref = useRef<HTMLInputElement>(null);
   const ButtonComponents = isValidComponent(children, Button);
-  const LabelComponent = isValidComponent(children, Label);
-  const TickerComponent = isValidComponent(children, Ticker);
+  const [LabelComponent] = isValidComponent(children, Label);
+  const [TickerComponent] = isValidComponent(children, Ticker);
 
   return (
     <div
       className="flex justify-between items-center gap-2 bg-level-3 h-[45px] rounded"
-      onClick={() => ref?.current?.focus()}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        ref?.current?.focus();
+      }}
     >
       <div className="flex flex-1 items-center justify-between gap-2 pl-3 pr-2">
         <div className="flex items-center gap-2">
           {LabelComponent}
-          <Base ref={ref} {...props} />
+          <Base ref={ref} className="text-sm" {...props} />
         </div>
         {TickerComponent}
       </div>
@@ -82,21 +100,27 @@ const Primary = forwardRef<
 Primary.displayName = "Primary";
 
 interface ButtonProps extends ComponentProps<"button"> {
-  variant: "increase" | "decrease";
+  variant?: "increase" | "decrease";
 }
 
-const Button = ({ variant, ...props }: ButtonProps) => {
+const Button = ({
+  variant,
+  children,
+  ...props
+}: PropsWithChildren<ButtonProps>) => {
   return (
-    <button
-      className="rounded-tr  flex-auto px-3 bg-level-4 hover:bg-level-2 duration-300 transition-colors ease-out"
-      {...props}
-    >
-      {variant === "increase" ? (
-        <PlusIcon className="w-3 h-3" />
-      ) : (
-        <MinusIcon className="w-3 h-3" />
-      )}
-    </button>
+    children ?? (
+      <button
+        className="rounded-tr flex-auto px-3 bg-level-4 hover:bg-level-2 duration-300 transition-colors ease-out"
+        {...props}
+      >
+        {variant === "increase" ? (
+          <PlusIcon className="w-3 h-3" />
+        ) : (
+          <MinusIcon className="w-3 h-3" />
+        )}
+      </button>
+    )
   );
 };
 
@@ -125,93 +149,85 @@ const Search = forwardRef<
   return (
     <div className="flex flex-1 items-center gap-2">
       <MagnifyingGlassIcon className="w-4 h-4 text-primary" />
-      <Base ref={ref} {...props} />
+      <Base ref={ref} className="text-sm" {...props} />
     </div>
   );
 });
 Search.displayName = "Search";
 
-interface VerticalProps extends ComponentProps<"input"> {
-  action?: (e: MouseEvent<HTMLButtonElement>) => void;
-  actionTitle?: string;
-}
-
 const Vertical = ({
-  action,
-  actionTitle,
   id,
   children,
   ...props
-}: PropsWithChildren<VerticalProps>) => {
+}: PropsWithChildren<ComponentPropsWithoutRef<"input">>) => {
   const LabelComponent = isValidComponent(children, Label);
+  const ButtonComponent = isValidComponent(children, Action);
 
   return (
-    <div className="flex flex-col gap-2 flex-1">
+    <div className="flex flex-col gap-2 w-full">
       {LabelComponent}
       <div className="flex items-center justify-between gap-2 flex-1">
-        <input
-          id={id}
-          type="text"
-          className="flex-1 bg-transparent text-lg outline-none font-medium"
-          {...props}
-        />
-        {action && (
-          <PolkadexButton.Solid
-            appearance="secondary"
-            size="xs"
-            onClick={action}
-          >
-            {actionTitle}
-          </PolkadexButton.Solid>
-        )}
+        <Base id={id} className="text-lg font-medium" {...props} />
+        {ButtonComponent}
       </div>
     </div>
   );
 };
 
 interface PasscodeProps
-  extends Pick<InputHTMLAttributes<HTMLInputElement>, "className" | "type"> {
+  extends Omit<ComponentProps<"input">, "value" | "onChange"> {
   focusOnInit?: boolean;
-  onValuesChange: Dispatch<SetStateAction<(string | number)[]>>;
-  values: (string | number)[];
+  onValuesChange: (value: string) => void;
+  value: string;
+  inputNumb?: number;
+  error?: boolean;
+  containerProps?: ComponentProps<"div">;
 }
 
 const Passcode = ({
   type,
   focusOnInit,
   className,
-  values,
+  value,
   onValuesChange,
+  inputNumb = 5,
+  error,
+  containerProps,
+  ...props
 }: PasscodeProps) => {
   const inputsRef = useRef<Array<HTMLInputElement> | []>([]);
 
+  const { className: containerClassName, ...remainingProps } =
+    containerProps ?? {};
   const [currentValue, setCurrentValue] = useState(0);
+
+  const values: (string | number)[] = useMemo(() => {
+    const splitValues = [...value.split(" ").map(String)];
+    return [...splitValues, ...Array(inputNumb - splitValues.length).fill("")];
+  }, [value, inputNumb]);
 
   const onKeyUp = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
     const isBackspacePressed = e.key === "Backspace";
     const hasRef = inputsRef && inputsRef?.current && index === currentValue;
-    const isValidNumber = !isNaN(parseInt(e.key)) && index <= values.length;
+    const isValidNumber = !isNaN(parseInt(e.key)) && index <= inputNumb;
 
     const updateCurrentValue = (newIndex: number) => {
       setCurrentValue(newIndex);
-      if (hasRef) inputsRef.current[newIndex].focus();
+      if (hasRef) inputsRef.current[newIndex]?.focus();
     };
 
-    onValuesChange((prev) => {
-      const newArray = [...prev];
+    const newArray = [...values];
 
-      if (isBackspacePressed) {
-        if (index > 0 && newArray[index] !== undefined)
-          updateCurrentValue(index - 1);
-      } else if (isValidNumber) {
-        newArray[index] = parseInt(e.key) || e.key;
-        if (index < values.length - 1) {
-          updateCurrentValue(index + 1);
-        }
+    if (isBackspacePressed) {
+      if (index > 0 && newArray[index] !== undefined)
+        updateCurrentValue(index - 1);
+    } else if (isValidNumber) {
+      newArray[index] = parseInt(e.key) || e.key;
+      if (index < inputNumb - 1) {
+        updateCurrentValue(index + 1);
       }
-
-      return newArray;
-    });
+    }
+    onValuesChange(newArray.join(" "));
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
@@ -220,14 +236,13 @@ const Passcode = ({
     const isRightArrowPressed = e.key === "ArrowRight";
     const isLeftArrowPressed = e.key === "ArrowLeft";
     const isTabPressed = e.key === "Tab";
-
     const validNumber = !(keyCode >= 0 && keyCode <= 9);
     const isPastePressed = !(e.metaKey && e.key === "v");
 
     if (validNumber && isNotBackspacePressed && isPastePressed) {
       e.preventDefault();
     }
-    if ((isRightArrowPressed || isTabPressed) && index < values.length - 1) {
+    if ((isRightArrowPressed || isTabPressed) && index < inputNumb - 1) {
       setCurrentValue(index + 1);
       inputsRef.current[index + 1].focus();
     }
@@ -237,13 +252,12 @@ const Passcode = ({
     }
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>, index: number) =>
-    onValuesChange((prev) => {
-      const newArray = [...prev];
-      const inputValue = e.target.value;
-      newArray[index] = parseInt(inputValue) || inputValue;
-      return newArray;
-    });
+  const onChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+    const newArray: (string | number)[] = [...values];
+    const inputValue = e.target.value;
+    newArray[index] = parseInt(inputValue) || inputValue;
+    onValuesChange(newArray.join(" "));
+  };
 
   const onFocus = (e: FocusEvent<HTMLInputElement>, index: number) => {
     setCurrentValue(index);
@@ -252,34 +266,45 @@ const Passcode = ({
 
   useEffect(() => {
     if (focusOnInit && inputsRef && inputsRef.current)
-      inputsRef.current[0].focus();
+      inputsRef.current[0]?.focus();
   }, [focusOnInit]);
 
   return (
-    <div className="flex items-center gap-2">
-      {values.map((v, i) => (
-        <input
-          key={i}
-          ref={(element) => element && (inputsRef.current[i] = element)}
-          type={type}
-          maxLength={1}
-          inputMode="numeric"
-          pattern="\d{1}"
-          className={twMerge(
-            classNames(
-              "h-8 w-7 bg-level-3 text-center rounded-md transition-colors duration-300",
-              "focus:ring-0 focus:ring-offset-0 focus:outline focus:outline-offset-1 focus:focus:outline-primary-base",
-              values[i] && "bg-level-1"
-            ),
-            className
-          )}
-          value={String(v)}
-          onChange={(e) => onChange(e, i)}
-          onKeyUp={(e) => onKeyUp(e, i)}
-          onKeyDown={(e) => onKeyDown(e, i)}
-          onFocus={(e) => onFocus(e, i)}
-        />
-      ))}
+    <div
+      className={twMerge(
+        classNames("flex items-center gap-2"),
+        containerClassName
+      )}
+      {...remainingProps}
+    >
+      {new Array(inputNumb).fill("").map((_, i) => {
+        const v = values[i];
+        return (
+          <input
+            key={i}
+            ref={(element) => element && (inputsRef.current[i] = element)}
+            type={type}
+            maxLength={1}
+            inputMode="numeric"
+            pattern="\d{1}"
+            className={twMerge(
+              classNames(
+                "h-8 w-7 bg-level-3 text-center rounded-md transition-colors duration-300",
+                "focus:ring-0 focus:ring-offset-0 focus:outline focus:outline-offset-1 focus:focus:outline-primary-base",
+                values[i] && "bg-level-1",
+                error && "bg-danger-base"
+              ),
+              className
+            )}
+            value={v ?? ""}
+            onChange={(e) => onChange(e, i)}
+            onKeyUp={(e) => onKeyUp(e, i)}
+            onKeyDown={(e) => onKeyDown(e, i)}
+            onFocus={(e) => onFocus(e, i)}
+            {...props}
+          />
+        );
+      })}
     </div>
   );
 };
@@ -292,4 +317,5 @@ export const Input = {
   Button,
   Label,
   Ticker,
+  Action,
 };

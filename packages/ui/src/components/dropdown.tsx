@@ -1,72 +1,132 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import {
   Children,
+  ComponentPropsWithRef,
   ComponentPropsWithoutRef,
   Fragment,
   PropsWithChildren,
+  forwardRef,
 } from "react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/outline";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
-import { Slot } from "@radix-ui/react-slot";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { Transition } from "@headlessui/react";
 
-import { isValidComponent, typeofChildren } from "../helpers";
+import {
+  isValidComponent,
+  isValidComponentWithoutTarget,
+  typeofChildren,
+} from "../helpers";
+import { getRemainingComponents } from "../helpers/getRemainingComponents";
 
 import { Typography } from "./typography";
 
-const Radio = ({
-  children,
-  ...props
-}: PropsWithChildren<DropdownMenu.MenuRadioGroupProps>) => {
+const Overlay = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<ComponentPropsWithRef<"div">>
+>(({ className, ...props }, ref) => {
+  return (
+    <Transition
+      show
+      enter="duration-300 ease-out"
+      enter-from="opacity-0"
+      enter-to="opacity-100"
+      leave="duration-200 ease-in"
+      leave-from="opacity-100"
+      leave-to="opacity-0"
+    >
+      <div
+        ref={ref}
+        className={twMerge(
+          classNames("w-screen h-screen bg-overlay-3 inset-0 fixed animate-in"),
+          className
+        )}
+        {...props}
+      />
+    </Transition>
+  );
+});
+Overlay.displayName = "Overlay";
+
+const Icon = forwardRef<
+  SVGSVGElement,
+  PropsWithChildren<ComponentPropsWithoutRef<"svg">>
+>(({ className, children, ...props }, ref) => {
+  return (
+    children ?? (
+      <ChevronDownIcon
+        ref={ref}
+        className={twMerge(
+          classNames("h-4 w-4 transition-transform duration-300 text-primary"),
+          className
+        )}
+        {...props}
+      />
+    )
+  );
+});
+Icon.displayName = "Icon";
+
+const Radio = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<DropdownMenu.MenuRadioGroupProps>
+>(({ children, ...props }, ref) => {
   const items = Children.toArray(children);
 
-  return <DropdownMenu.RadioGroup {...props}>{items}</DropdownMenu.RadioGroup>;
-};
+  return (
+    <DropdownMenu.RadioGroup ref={ref} {...props}>
+      {items}
+    </DropdownMenu.RadioGroup>
+  );
+});
+Radio.displayName = "Radio";
 interface ItemRadioProps extends DropdownMenu.MenuRadioItemProps {
   active?: boolean;
 }
 
-const ItemRadio = ({
-  children,
-  className,
-  active,
-  ...props
-}: PropsWithChildren<ItemRadioProps>) => {
-  const isString = typeofChildren(children);
+const ItemRadio = forwardRef<HTMLDivElement, PropsWithChildren<ItemRadioProps>>(
+  ({ children, className, active, ...props }, ref) => {
+    const isString = typeofChildren(children);
 
-  return (
-    <DropdownMenu.RadioItem
-      className={twMerge(
-        classNames(
-          "p-2 m-1 flex items-center gap-2 outline-none cursor-default",
-          "transition-colors duration-300 focus:bg-level-3 rounded-md",
-          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
-        ),
-        className
-      )}
-      {...props}
-    >
-      <div
-        className={classNames(
-          active ? "bg-primary-base" : "bg-level-4",
-          "w-1.5 h-1.5 rounded-full"
+    return (
+      <DropdownMenu.RadioItem
+        ref={ref}
+        className={twMerge(
+          classNames(
+            "p-2 m-1 flex items-center gap-2 outline-none cursor-default",
+            "transition-colors duration-300 focus:bg-level-3 rounded-md",
+            "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
+          ),
+          className
         )}
-      />
-      {(isString && <Typography.Text>{children}</Typography.Text>) || children}
-    </DropdownMenu.RadioItem>
-  );
-};
+        {...props}
+      >
+        <Fragment>
+          <div
+            className={classNames(
+              active ? "bg-primary-base" : "bg-level-4",
+              "w-1.5 h-1.5 rounded-full"
+            )}
+          />
+          {(isString && <Typography.Text>{children}</Typography.Text>) ||
+            children}
+        </Fragment>
+      </DropdownMenu.RadioItem>
+    );
+  }
+);
+ItemRadio.displayName = "ItemRadio";
 
-const ItemCheckbox = ({
-  children,
-  className,
-  checked,
-  ...props
-}: PropsWithChildren<DropdownMenu.MenuCheckboxItemProps>) => {
+const ItemCheckbox = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<DropdownMenu.MenuCheckboxItemProps>
+>(({ children, className, checked, ...props }, ref) => {
   const isString = typeofChildren(children);
 
   return (
     <DropdownMenu.CheckboxItem
+      ref={ref}
       className={twMerge(
         classNames(
           "p-2 m-1 flex items-center gap-2 outline-none cursor-default",
@@ -85,94 +145,109 @@ const ItemCheckbox = ({
       {(isString && <Typography.Text>{children}</Typography.Text>) || children}
     </DropdownMenu.CheckboxItem>
   );
-};
+});
+ItemCheckbox.displayName = "ItemCheckbox";
 
 interface ItemProps extends DropdownMenu.MenuItemProps {
   shortcut?: string;
 }
 
-const Item = ({
-  children,
-  shortcut,
-  className,
-  ...props
-}: PropsWithChildren<ItemProps>) => {
-  const isString = typeofChildren(children);
+const Item = forwardRef<HTMLDivElement, PropsWithChildren<ItemProps>>(
+  ({ children, shortcut, className, ...props }, ref) => {
+    const isString = typeofChildren(children);
 
-  return (
-    <DropdownMenu.Item
-      className={twMerge(
-        classNames(
-          "p-2 m-1 flex justify-between gap-4 outline-none cursor-default",
-          "transition-colors duration-300 focus:bg-level-3 rounded-md",
-          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
-        ),
-        className
-      )}
-      {...props}
-    >
-      {(isString && <Typography.Text>{children}</Typography.Text>) || children}
-      {shortcut && <span className="text-sm opacity-50">{shortcut}</span>}
-    </DropdownMenu.Item>
-  );
-};
-
-interface TriggerProps extends DropdownMenu.DropdownMenuTriggerProps {
-  withArrow?: boolean;
-  arrowProps?: ComponentPropsWithoutRef<"svg">;
-}
-
-const Trigger = ({
-  children,
-  asChild,
-  withArrow,
-  arrowProps,
-  className,
-  ...props
-}: PropsWithChildren<TriggerProps>) => {
-  const isString = typeofChildren(children);
-  const { className: arrowClassname, ...restProps } = arrowProps || {};
-  return (
-    <DropdownMenu.Trigger
-      asChild={asChild}
-      className={twMerge(
-        classNames(
-          "flex items-center",
-          withArrow && "justify-between",
+    return (
+      <DropdownMenu.Item
+        ref={ref}
+        className={twMerge(
+          classNames(
+            "p-2 m-1 flex justify-between gap-4 outline-none cursor-default",
+            "transition-colors duration-300 focus:bg-level-3 rounded-md",
+            "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
+          ),
           className
-        )
-      )}
-      {...props}
-    >
-      {asChild ? (
-        <Slot>{children}</Slot>
-      ) : (
-        <>
+        )}
+        {...props}
+      >
+        <Fragment>
           {(isString && <Typography.Text>{children}</Typography.Text>) ||
             children}
-          {withArrow && (
-            <ChevronUpDownIcon
-              className={twMerge(
-                classNames("w-4 h-4 ml-2 text-primary"),
-                arrowClassname
-              )}
-              {...restProps}
-            />
-          )}
-        </>
-      )}
-    </DropdownMenu.Trigger>
-  );
-};
+          {shortcut && <span className="text-sm opacity-50">{shortcut}</span>}
+        </Fragment>
+      </DropdownMenu.Item>
+    );
+  }
+);
+Item.displayName = "Item";
 
-const Content = ({
-  children,
-  className,
-  sideOffset = 10,
-  ...props
-}: PropsWithChildren<DropdownMenu.MenuContentProps>) => {
+interface DropdownTriggerProps extends DropdownMenu.DropdownMenuTriggerProps {
+  superpositionTrigger?: boolean;
+  iconRotationAnimation?: boolean;
+}
+const Trigger = forwardRef<
+  HTMLButtonElement,
+  PropsWithChildren<DropdownTriggerProps>
+>(
+  (
+    {
+      children,
+      className,
+      superpositionTrigger,
+      iconRotationAnimation = true,
+      asChild,
+      ...props
+    },
+    ref
+  ) => {
+    const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
+      children,
+      Icon
+    );
+    const isString = typeofChildren(RemaininigComponents);
+    const renderComponent = getRemainingComponents(RemaininigComponents);
+
+    return (
+      <DropdownMenu.Trigger
+        asChild={asChild}
+        ref={ref}
+        className={twMerge(
+          classNames(
+            "flex items-center gap-3 focus:outline-none",
+            !!IconComponent?.length && "justify-between",
+            !!IconComponent?.length &&
+              iconRotationAnimation &&
+              "[&[data-state=open]>svg]:rotate-180",
+            superpositionTrigger && "data-[state=open]:z-20",
+            className
+          )
+        )}
+        {...props}
+      >
+        {asChild ? (
+          children
+        ) : (
+          <Fragment>
+            {isString ? (
+              <Typography.Text>{renderComponent}</Typography.Text>
+            ) : (
+              renderComponent
+            )}
+            {IconComponent}
+          </Fragment>
+        )}
+      </DropdownMenu.Trigger>
+    );
+  }
+);
+Trigger.displayName = "Trigger";
+
+const Content = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<DropdownMenu.MenuContentProps>
+>(({ children, className, sideOffset = 10, ...props }, ref) => {
   return (
     <DropdownMenu.Content
+      ref={ref}
       className={twMerge(
         classNames(
           "bg-level-1 rounded-md border border-primary min-w-[8rem] z-50 overflow-hidden shadow-md",
@@ -187,7 +262,8 @@ const Content = ({
       {children}
     </DropdownMenu.Content>
   );
-};
+});
+Content.displayName = "Content";
 
 const Sub = ({
   children,
@@ -204,47 +280,55 @@ const Sub = ({
   );
 };
 
-const SubTrigger = ({
-  children,
-  ...props
-}: PropsWithChildren<DropdownMenu.MenuSubTriggerProps>) => {
+const SubTrigger = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<DropdownMenu.MenuSubTriggerProps>
+>(({ children, ...props }, ref) => {
   return (
-    <DropdownMenu.SubTrigger {...props}>{children}</DropdownMenu.SubTrigger>
+    <DropdownMenu.SubTrigger ref={ref} {...props}>
+      {children}
+    </DropdownMenu.SubTrigger>
   );
-};
+});
+SubTrigger.displayName = "SubTrigger";
 
-const SubContent = ({
-  children,
-  ...props
-}: PropsWithChildren<DropdownMenu.MenuSubContentProps>) => {
+const SubContent = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<DropdownMenu.MenuSubContentProps>
+>(({ children, ...props }, ref) => {
   return (
-    <DropdownMenu.SubContent {...props}>{children}</DropdownMenu.SubContent>
+    <DropdownMenu.SubContent ref={ref} {...props}>
+      {children}
+    </DropdownMenu.SubContent>
   );
-};
+});
+SubContent.displayName = "SubContent";
 
-const Separator = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<DropdownMenu.MenuSeparatorProps>) => {
+const Separator = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<DropdownMenu.MenuSeparatorProps>
+>(({ children, className, ...props }, ref) => {
   return (
     <DropdownMenu.Separator
+      ref={ref}
       className={twMerge(classNames("border-b border-primary", className))}
       {...props}
     >
       {children}
     </DropdownMenu.Separator>
   );
-};
-const Label = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<DropdownMenu.MenuLabelProps>) => {
+});
+Separator.displayName = "Separator";
+
+const Label = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<DropdownMenu.MenuLabelProps>
+>(({ children, className, ...props }, ref) => {
   const isString = typeofChildren(children);
 
   return (
     <DropdownMenu.Label
+      ref={ref}
       className={twMerge(classNames("p-2 border-b border-primary", className))}
       {...props}
     >
@@ -256,27 +340,21 @@ const Label = ({
         children}
     </DropdownMenu.Label>
   );
-};
+});
+Label.displayName = "Label";
 
-interface DropdownProps extends DropdownMenu.DropdownMenuProps {
-  withOverlay?: boolean;
-}
-const Dropdown = ({
-  children,
-  withOverlay,
-  ...props
-}: PropsWithChildren<DropdownProps>) => {
+type DropdownProps = DropdownMenu.DropdownMenuProps;
+const Dropdown = ({ children, ...props }: PropsWithChildren<DropdownProps>) => {
   const [TriggerComponent] = isValidComponent(children, Trigger);
   const [ContentComponent] = isValidComponent(children, Content);
+  const [OverlayComponent] = isValidComponent(children, Overlay);
 
   return (
     <DropdownMenu.Root {...props}>
       {TriggerComponent}
       <DropdownMenu.Portal>
         <Fragment>
-          {withOverlay && (
-            <div className="w-screen h-screen bg-overlay-3 inset-0 fixed animate-in" />
-          )}
+          {OverlayComponent}
           {ContentComponent}
         </Fragment>
       </DropdownMenu.Portal>
@@ -298,5 +376,7 @@ Dropdown.ItemCheckbox = ItemCheckbox;
 
 Dropdown.Radio = Radio;
 Dropdown.ItemRadio = ItemRadio;
+Dropdown.Icon = Icon;
+Dropdown.Overlay = Overlay;
 
 export { Dropdown };

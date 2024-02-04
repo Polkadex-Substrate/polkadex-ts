@@ -31,3 +31,6 @@ export * from "./download";
 export * from "./plus";
 export * from "./recover";
 export * from "./tradingWallet";
+export * from "./trading";
+export * from "./transferInverted";
+export * from "./bridge";
