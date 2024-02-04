@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { HomeIcon } from "@heroicons/react/24/solid";
 
 import { Button } from "./Button";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Example/Button",
+  title: "Components/Button",
   component: Button,
   parameters: {
     layout: "centered",
@@ -18,6 +19,14 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     children: "Button XS",
-    size: "xs",
+  },
+};
+
+export const Icon: Story = {
+  args: {
+    withIcon: true,
+    appearance: "secondary",
+    children: <HomeIcon className="w-full h-full" />,
+    size: "sm",
   },
 };
