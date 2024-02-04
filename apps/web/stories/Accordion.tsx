@@ -1,16 +1,6 @@
-import {
-  Button,
-  Accordion as PolkadexAccordion,
-  Typography,
-} from "@polkadex/ux";
-import { PropsWithChildren } from "react";
+import { Accordion as PolkadexAccordion, Typography } from "@polkadex/ux";
 
-export const Accordion = ({
-  children,
-  withIcon,
-}: PropsWithChildren<{
-  withIcon?: boolean;
-}>) => {
+export const Accordion = ({ withIcon }: { withIcon?: boolean }) => {
   return (
     <div style={{ width: 300 }}>
       <PolkadexAccordion type="multiple" className="flex flex-col gap-4">
