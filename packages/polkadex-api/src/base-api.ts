@@ -12,6 +12,6 @@ export abstract class BaseApi {
   }
 
   public async initApi() {
-    this.api = await this.api.isReadyOrError
+    this.api = await this.api.isReadyOrError;
   }
 }

@@ -6,7 +6,7 @@ import { BaseApi } from "../base-api";
 
 export class Ocex extends BaseApi {
   public async getProxies(mainAccount: string): Promise<string[]> {
-    await this.initApi()
+    await this.initApi();
     const info =
       await this.api.query.ocex.accounts<PolkadexPrimitivesOcexAccountInfo>(
         mainAccount
@@ -18,7 +18,7 @@ export class Ocex extends BaseApi {
     mainAccount: string,
     proxy: string
   ): Promise<SubmittableExtrinsic> {
-    await this.initApi()
+    await this.initApi();
     const accounts = await this.getProxies(mainAccount);
     if (accounts.length === 0) {
       return this.api.tx.ocex.registerMainAccount(proxy);
@@ -31,7 +31,7 @@ export class Ocex extends BaseApi {
     amount: number | string,
     asset: string
   ): Promise<SubmittableExtrinsic> {
-    await this.initApi()
+    await this.initApi();
     // transform amount decimals into usable form
     const decimals = this.chainDecimals;
     const amt = toPlank(amount, decimals);

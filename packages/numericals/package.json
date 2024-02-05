@@ -16,12 +16,15 @@
     "test": "jest"
   },
   "dependencies": {
-    "bignumber": "^1.1.0",
-    "typescript": "latest"
+    "bignumber": "^1.1.0"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "tsup": "^7.2.0",
-    "@polkadex/eslint-config": "*"
+    "@polkadex/eslint-config": "*",
+    "@types/jest": "^29.5.12",
+    "ts-jest": "^29.1.2",
+    "typescript": "latest"
   },
   "publishConfig": {
     "access": "public",
