@@ -1,5 +1,8 @@
 import {
   ComponentProps,
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
   PropsWithChildren,
   useEffect,
   useRef,
@@ -15,11 +18,10 @@ interface TitleProps extends AlertDialog.DialogTitleProps {
   onBack?: () => void;
 }
 
-const Title = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<TitleProps>) => {
+const Title = forwardRef<
+  ElementRef<typeof AlertDialog.Title>,
+  ComponentPropsWithoutRef<typeof AlertDialog.Title>
+>(({ children, className, ...props }: PropsWithChildren<TitleProps>) => {
   return (
     <AlertDialog.Title
       className={twMerge(classNames("flex items-center gap-2"), className)}
@@ -28,7 +30,8 @@ const Title = ({
       {children}
     </AlertDialog.Title>
   );
-};
+});
+Title.displayName = "Title";
 
 const Footer = ({
   children,
