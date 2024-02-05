@@ -1,27 +1,36 @@
 "use client";
 
 import * as TooltipRadix from "@radix-ui/react-tooltip";
-import { PropsWithChildren } from "react";
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+  PropsWithChildren,
+} from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 
 import { isValidComponent } from "../helpers";
 
-const Trigger = ({
-  children,
-  ...props
-}: PropsWithChildren<TooltipRadix.TooltipTriggerProps>) => {
-  return <TooltipRadix.Trigger {...props}>{children}</TooltipRadix.Trigger>;
-};
+const Trigger = forwardRef<
+  ElementRef<typeof TooltipRadix.Trigger>,
+  ComponentPropsWithoutRef<typeof TooltipRadix.Trigger>
+>(({ children, ...props }, ref) => {
+  return (
+    <TooltipRadix.Trigger ref={ref} {...props}>
+      {children}
+    </TooltipRadix.Trigger>
+  );
+});
+Trigger.displayName = "Trigger";
 
-const Content = ({
-  children,
-  className,
-  sideOffset = 12,
-  ...props
-}: PropsWithChildren<TooltipRadix.TooltipContentProps>) => {
+const Content = forwardRef<
+  ElementRef<typeof TooltipRadix.Content>,
+  ComponentPropsWithoutRef<typeof TooltipRadix.Content>
+>(({ children, className, sideOffset = 12, ...props }, ref) => {
   return (
     <TooltipRadix.Content
+      ref={ref}
       sideOffset={sideOffset}
       className={twMerge(
         classNames(
@@ -37,7 +46,8 @@ const Content = ({
       {children}
     </TooltipRadix.Content>
   );
-};
+});
+Content.displayName = "Content";
 
 const Tooltip = ({
   children,
