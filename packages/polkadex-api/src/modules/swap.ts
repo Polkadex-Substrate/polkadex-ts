@@ -135,16 +135,16 @@ export class SwapApi extends BaseApi {
   public async removeLiquidityTx(
     base: string,
     quote: string,
-    lpTokenBurnAmout: string,
-    amountBaseMinRecive: string,
-    amountQuoteMinrecive: string,
+    lpTokenBurnAmount: string,
+    amountBaseMinReceive: string,
+    amountQuoteMinReceive: string,
     withdrawTo: string
   ): Promise<SubmittableExtrinsic> {
     const asset1 = this.createAssetIdEnum(base);
     const asset2 = this.createAssetIdEnum(quote);
-    const lpTokenBurn = toPlank(lpTokenBurnAmout).toFixed();
-    const amount1Min = toPlank(amountBaseMinRecive).toFixed();
-    const amount2Min = toPlank(amountQuoteMinrecive).toFixed();
+    const lpTokenBurn = toPlank(lpTokenBurnAmount).toFixed();
+    const amount1Min = toPlank(amountBaseMinReceive).toFixed();
+    const amount2Min = toPlank(amountQuoteMinReceive).toFixed();
     return this.api.tx.assetConversion.removeLiquidity(
       asset1,
       asset2,
