@@ -28,7 +28,7 @@ describe("Swap queries <> check if pool types are correct", () => {
     const res = await swapApi.quotePriceExactTokensForTokens(
       "PDEX",
       "95930534000017180603917534864279132680",
-      100000000000000
+      100.2215
     );
     console.log(res);
     expect(res).toEqual(expect.any(Number));
@@ -38,7 +38,7 @@ describe("Swap queries <> check if pool types are correct", () => {
     const res = await swapApi.quotePriceTokensForExactTokens(
       "PDEX",
       "95930534000017180603917534864279132680",
-      1000000000000000
+      100
     );
     console.log(res);
     expect(res).toEqual(expect.any(Number));
