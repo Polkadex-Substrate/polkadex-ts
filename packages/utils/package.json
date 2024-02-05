@@ -15,8 +15,8 @@
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "dependencies": {
-    "@polkadot/keyring": "^12.5.1",
-    "@polkadot/util": "^12.5.1",
+    "@polkadot/keyring": "latest",
+    "@polkadot/util": "latest",
     "typescript": "latest"
   },
   "devDependencies": {
