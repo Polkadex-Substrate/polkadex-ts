@@ -29,3 +29,4 @@ export * from "./label";
 export * from "./pagination";
 export * from "./popconfirm";
 export * from "./processing";
+export * from "./searcheable";
