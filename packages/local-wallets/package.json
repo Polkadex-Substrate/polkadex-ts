@@ -16,9 +16,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@polkadot/keyring": "^12.6.1",
-    "@polkadot/ui-keyring": "^3.6.4",
-    "@polkadot/util-crypto": "^12.6.1",
+    "@polkadot/keyring": "latest",
+    "@polkadot/ui-keyring": "latest",
+    "@polkadot/util-crypto": "latest",
     "bignumber": "^1.1.0",
     "typescript": "latest"
   },
