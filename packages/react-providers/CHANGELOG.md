@@ -1,5 +1,14 @@
 # @polkadex/react-providers
 
+## 1.1.1
+
+### Patch Changes
+
+- 6696360: feat: Swap api
+- Updated dependencies [6696360]
+  - @polkadex/local-wallets@2.0.3
+  - @polkadex/utils@0.1.1
+
 ## 1.1.0
 
 ### Minor Changes

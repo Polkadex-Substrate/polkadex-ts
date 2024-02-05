@@ -1,5 +1,11 @@
 # @polkadex/types
 
+## 1.2.2
+
+### Patch Changes
+
+- 6696360: feat: Swap api
+
 ## 1.2.1
 
 ### Patch Changes

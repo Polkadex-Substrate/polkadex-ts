@@ -3,7 +3,7 @@ import {
   decimalPlaces,
   rmTrailingZeros,
   trimFloat,
-} from "../index";
+} from "./index";
 
 // rmTrailingZeros function testing
 describe("Utils function testing <> rmTrailingZeros", () => {
