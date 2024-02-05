@@ -1,17 +1,22 @@
 "use client";
 
 import * as TabsRadix from "@radix-ui/react-tabs";
-import { PropsWithChildren } from "react";
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+  PropsWithChildren,
+} from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
-const Trigger = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<TabsRadix.TabsTriggerProps>) => {
+const Trigger = forwardRef<
+  ElementRef<typeof TabsRadix.Trigger>,
+  ComponentPropsWithoutRef<typeof TabsRadix.Trigger>
+>(({ children, className, ...props }, ref) => {
   return (
     <TabsRadix.Trigger
+      ref={ref}
       className={twMerge(
         classNames(
           "data-[state=active]:text-primary-base hover:text-secondary text-primary data-[disabled]:text-secondary data-[disabled]:cursor-not-allowed",
@@ -24,15 +29,16 @@ const Trigger = ({
       {children}
     </TabsRadix.Trigger>
   );
-};
+});
+Trigger.displayName = "Trigger";
 
-const Content = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<TabsRadix.TabsContentProps>) => {
+const Content = forwardRef<
+  ElementRef<typeof TabsRadix.Content>,
+  ComponentPropsWithoutRef<typeof TabsRadix.Content>
+>(({ children, className, ...props }, ref) => {
   return (
     <TabsRadix.Content
+      ref={ref}
       className={twMerge(
         classNames("flex-1 h-full data-[state=inactive]:hidden", className)
       )}
@@ -41,15 +47,16 @@ const Content = ({
       {children}
     </TabsRadix.Content>
   );
-};
+});
+Content.displayName = "Content";
 
-const List = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<TabsRadix.TabsListProps>) => {
+const List = forwardRef<
+  ElementRef<typeof TabsRadix.List>,
+  ComponentPropsWithoutRef<typeof TabsRadix.List>
+>(({ children, className, ...props }, ref) => {
   return (
     <TabsRadix.List
+      ref={ref}
       className={twMerge(
         classNames("flex items-center flex-shrink-0 gap-3", className)
       )}
@@ -58,7 +65,8 @@ const List = ({
       {children}
     </TabsRadix.List>
   );
-};
+});
+List.displayName = "List";
 
 const Tabs = ({
   children,
