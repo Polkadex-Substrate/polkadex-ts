@@ -93,10 +93,7 @@ export class SwapApi extends BaseApi {
     if (!!id && typeof id === "object") {
       return id;
     }
-    if (
-      typeof id === "string" &&
-      (id.toUpperCase() === "POLKADEX" || id.toUpperCase() === "PDEX")
-    ) {
+    if (id.toUpperCase() === "POLKADEX" || id.toUpperCase() === "PDEX") {
       return { polkadex: null };
     }
     return { asset: id };
