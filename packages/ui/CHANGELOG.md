@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.2.0
+
+### Minor Changes
+
+- ae62a54: feat: new Searchable component
+
 ## 6.1.0
 
 ### Minor Changes
