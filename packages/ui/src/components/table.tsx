@@ -78,17 +78,17 @@ const Icon = ({
   className,
   children,
   ...props
-}: PropsWithChildren<ComponentPropsWithoutRef<"svg">>) => {
-  return (
-    children ?? (
-      <ChevronUpDownIcon
-        className={twMerge(
-          classNames("w-3 h-3 text-primary inline-block align-middle ml-1"),
-          className
-        )}
-        {...props}
-      />
-    )
+}: ComponentPropsWithoutRef<"svg">) => {
+  return children ? (
+    <Fragment>{children} </Fragment>
+  ) : (
+    <ChevronUpDownIcon
+      className={twMerge(
+        classNames("w-3 h-3 text-primary inline-block align-middle ml-1"),
+        className
+      )}
+      {...props}
+    />
   );
 };
 
