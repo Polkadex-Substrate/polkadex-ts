@@ -30,7 +30,6 @@ describe("Swap queries <> check if pool types are correct", () => {
       "95930534000017180603917534864279132680",
       100.2215
     );
-    console.log(res);
     expect(res).toEqual(expect.any(Number));
   });
 
@@ -40,7 +39,6 @@ describe("Swap queries <> check if pool types are correct", () => {
       "95930534000017180603917534864279132680",
       100
     );
-    console.log(res);
     expect(res).toEqual(expect.any(Number));
   });
 
