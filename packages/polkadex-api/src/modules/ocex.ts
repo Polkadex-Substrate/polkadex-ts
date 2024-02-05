@@ -4,7 +4,7 @@ import { toPlanck } from "@polkadex/numericals";
 
 import { BaseApi } from "../base-api";
 
-export class Ocex extends BaseApi {
+export class OcexApi extends BaseApi {
   public async getProxies(mainAccount: string): Promise<string[]> {
     await this.initApi();
     const info =
