@@ -1,3 +1,5 @@
+"use client";
+
 import {
   MagnifyingGlassIcon,
   MinusIcon,
@@ -17,6 +19,7 @@ import {
   useMemo,
   useRef,
   useState,
+  Fragment,
 } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
@@ -67,7 +70,7 @@ Base.displayName = "Base";
 
 const Primary = forwardRef<
   ElementRef<"input">,
-  PropsWithChildren<ComponentPropsWithoutRef<"input">>
+  ComponentPropsWithoutRef<"input">
 >(({ children, ...props }) => {
   const ref = useRef<HTMLInputElement>(null);
   const ButtonComponents = isValidComponent(children, Button);
@@ -108,19 +111,19 @@ const Button = ({
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
-  return (
-    children ?? (
-      <button
-        className="rounded-tr flex-auto px-3 bg-level-4 hover:bg-level-2 duration-300 transition-colors ease-out"
-        {...props}
-      >
-        {variant === "increase" ? (
-          <PlusIcon className="w-3 h-3" />
-        ) : (
-          <MinusIcon className="w-3 h-3" />
-        )}
-      </button>
-    )
+  return children ? (
+    <Fragment>{children} </Fragment>
+  ) : (
+    <button
+      className="rounded-tr flex-auto px-3 bg-level-4 hover:bg-level-2 duration-300 transition-colors ease-out"
+      {...props}
+    >
+      {variant === "increase" ? (
+        <PlusIcon className="w-3 h-3" />
+      ) : (
+        <MinusIcon className="w-3 h-3" />
+      )}
+    </button>
   );
 };
 
@@ -159,7 +162,7 @@ const Vertical = ({
   id,
   children,
   ...props
-}: PropsWithChildren<ComponentPropsWithoutRef<"input">>) => {
+}: ComponentPropsWithoutRef<"input">) => {
   const LabelComponent = isValidComponent(children, Label);
   const ButtonComponent = isValidComponent(children, Action);
 

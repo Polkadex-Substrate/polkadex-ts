@@ -1,4 +1,5 @@
 "use client";
+
 import { Transition } from "@headlessui/react";
 import { PropsWithChildren, ComponentProps, ReactNode } from "react";
 import classNames from "classnames";
@@ -15,11 +16,7 @@ const Trigger = ({ children }: { children: ReactNode }) => {
   return <Slot>{children}</Slot>;
 };
 
-const Content = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<ComponentProps<"div">>) => {
+const Content = ({ children, className, ...props }: ComponentProps<"div">) => {
   return (
     <div
       className={twMerge(
