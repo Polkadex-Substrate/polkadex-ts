@@ -39,7 +39,6 @@ export class SwapApi extends BaseApi {
     if (!!asset && "asset" in asset) {
       return cleanNumberLike(asset.asset as string).toFixed();
     }
-    console.log(typeof asset);
     throw new Error(`cannot parse asset ${asset}`);
   }
 
@@ -181,7 +180,6 @@ export class SwapApi extends BaseApi {
   ): Promise<SubmittableExtrinsic> {
     const assetPath = path.map((asset) => this.createAssetIdEnum(asset));
     const amtIn = toPlanck(amountIn, this.chainDecimals).toFixed();
-    console.log("amountIn", amtIn);
     const amtOut = toPlanck(amountOutMin, this.chainDecimals).toFixed();
     return this.api.tx.assetConversion.swapExactTokensForTokens(
       assetPath,
