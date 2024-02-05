@@ -1,5 +1,14 @@
 # @polkadex/ux
 
+## 6.1.0
+
+### Minor Changes
+
+- 31918f8: Fixes
+  - [x] fix: typeScript errors
+  - [x] fix: forward refs
+  - [x] fix: client components
+
 ## 6.0.0
 
 ### Major Changes
