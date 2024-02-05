@@ -19,7 +19,7 @@ const Caption = ({
   children,
   className,
   ...props
-}: PropsWithChildren<ComponentProps<"caption">>) => {
+}: ComponentProps<"caption">) => {
   return (
     <caption
       className={twMerge(
@@ -145,11 +145,7 @@ const Head = ({
   );
 };
 
-const Row = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<ComponentProps<"tr">>) => {
+const Row = ({ children, className, ...props }: ComponentProps<"tr">) => {
   return (
     <tr
       className={twMerge(
@@ -165,24 +161,15 @@ const Row = ({
   );
 };
 
-const Body = ({
-  children,
-  ...props
-}: PropsWithChildren<ComponentProps<"tbody">>) => {
+const Body = ({ children, ...props }: ComponentProps<"tbody">) => {
   return <tbody {...props}>{children}</tbody>;
 };
 
-const Header = ({
-  children,
-  ...props
-}: PropsWithChildren<ComponentProps<"thead">>) => {
+const Header = ({ children, ...props }: ComponentProps<"thead">) => {
   return <thead {...props}>{children}</thead>;
 };
 
-const Footer = ({
-  children,
-  ...props
-}: PropsWithChildren<ComponentProps<"tfoot">>) => {
+const Footer = ({ children, ...props }: ComponentProps<"tfoot">) => {
   return <tfoot {...props}>{children}</tfoot>;
 };
 

@@ -19,31 +19,32 @@ import { getRemainingComponents } from "../helpers/getRemainingComponents";
 
 import { Typography } from "./typography";
 
-const Overlay = forwardRef<
-  HTMLDivElement,
-  PropsWithChildren<ComponentPropsWithRef<"div">>
->(({ className, ...props }, ref) => {
-  return (
-    <Transition
-      show
-      enter="duration-300 ease-out"
-      enter-from="opacity-0"
-      enter-to="opacity-100"
-      leave="duration-200 ease-in"
-      leave-from="opacity-100"
-      leave-to="opacity-0"
-    >
-      <div
-        ref={ref}
-        className={twMerge(
-          classNames("w-screen h-screen bg-overlay-3 inset-0 fixed animate-in"),
-          className
-        )}
-        {...props}
-      />
-    </Transition>
-  );
-});
+const Overlay = forwardRef<HTMLDivElement, ComponentPropsWithRef<"div">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <Transition
+        show
+        enter="duration-300 ease-out"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="duration-200 ease-in"
+        leave-from="opacity-100"
+        leave-to="opacity-0"
+      >
+        <div
+          ref={ref}
+          className={twMerge(
+            classNames(
+              "w-screen h-screen bg-overlay-3 inset-0 fixed animate-in"
+            ),
+            className
+          )}
+          {...props}
+        />
+      </Transition>
+    );
+  }
+);
 Overlay.displayName = "Overlay";
 
 const Icon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
