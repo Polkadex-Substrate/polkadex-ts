@@ -24,12 +24,23 @@ describe("Swap queries <> check if pool types are correct", () => {
   //   expect(res[0].lpToken).toEqual(expect.any(String));
   // });
 
-  test("quote exact tokens", async () => {
+  test("quote exact tokens for tokens", async () => {
     const res = await swapApi.quotePriceExactTokensForTokens(
       "PDEX",
       "95930534000017180603917534864279132680",
-      1000
+      100000000000000
     );
+    console.log(res);
+    expect(res).toEqual(expect.any(Number));
+  });
+
+  test("quote tokens for exact tokens", async () => {
+    const res = await swapApi.quotePriceTokensForExactTokens(
+      "PDEX",
+      "95930534000017180603917534864279132680",
+      1000000000000000
+    );
+    console.log(res);
     expect(res).toEqual(expect.any(Number));
   });
 });

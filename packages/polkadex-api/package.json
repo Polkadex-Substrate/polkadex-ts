@@ -23,6 +23,7 @@
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@polkadex/eslint-config": "*",
+    "@polkadot/types": "latest",
     "@polkadex/types": "*",
     "@types/jest": "^29.5.12",
     "@polkadot/util": "latest",

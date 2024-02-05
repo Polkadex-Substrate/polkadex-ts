@@ -1,4 +1,5 @@
-import { cleanNumberLike } from "@polkadex/numericals";
+import { cleanNumberLike, toPlank, toUnit } from "@polkadex/numericals";
+import { Option, u128 } from "@polkadot/types";
 
 import { BaseApi } from "../base-api";
 
@@ -48,16 +49,19 @@ export class SwapApi extends BaseApi {
     includeFee = false
   ): Promise<number> {
     await this.initApi();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const result = await this.api.rpc.tx.quotePriceExactTokensForTokens(
-      base,
-      quote,
-      amount,
-      includeFee
-    );
-    console.log(result);
-    return 0;
+    if (base.toUpperCase() === "POLKADEX") base = "PDEX";
+    if (quote.toUpperCase() === "POLKADEX") quote = "PDEX";
+    amount = Number(toPlank(amount, this.chainDecimals).toFixed());
+    const result: Option<u128> =
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      await this.api.rpc.tx.quotePriceExactTokensForTokens<Option<u128>>(
+        base,
+        quote,
+        Number(amount),
+        includeFee
+      );
+    return toUnit(result.unwrap().toString(), this.chainDecimals).toNumber();
   }
 
   public async quotePriceTokensForExactTokens(
@@ -67,15 +71,18 @@ export class SwapApi extends BaseApi {
     includeFee = false
   ): Promise<number> {
     await this.initApi();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const result = await this.api.rpc.tx.quotePriceTokensForExactTokens(
-      base,
-      quote,
-      amount,
-      includeFee
-    );
-    console.log(result);
-    return 0;
+    if (base.toUpperCase() === "POLKADEX") base = "PDEX";
+    if (quote.toUpperCase() === "POLKADEX") quote = "PDEX";
+    amount = Number(toPlank(amount, this.chainDecimals).toFixed());
+    const result: Option<u128> =
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      await this.api.rpc.tx.quotePriceTokensForExactTokens(
+        base,
+        quote,
+        amount,
+        includeFee
+      );
+    return toUnit(result.unwrap().toString(), this.chainDecimals).toNumber();
   }
 }
