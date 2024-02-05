@@ -1,5 +1,11 @@
 # @polkadex/local-wallets
 
+## 2.0.3
+
+### Patch Changes
+
+- 6696360: feat: Swap api
+
 ## 2.0.2
 
 ### Patch Changes
