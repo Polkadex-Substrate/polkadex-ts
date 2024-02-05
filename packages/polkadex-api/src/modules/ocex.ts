@@ -1,6 +1,6 @@
 import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
 import { PolkadexPrimitivesOcexAccountInfo } from "@polkadex/types";
-import { toPlank } from "@polkadex/numericals";
+import { toPlanck } from "@polkadex/numericals";
 
 import { BaseApi } from "../base-api";
 
@@ -34,7 +34,7 @@ export class Ocex extends BaseApi {
     await this.initApi();
     // transform amount decimals into usable form
     const decimals = this.chainDecimals;
-    const amt = toPlank(amount, decimals);
+    const amt = toPlanck(amount, decimals);
     return this.api.tx.ocex.deposit(amt.toFixed(0), asset);
   }
 }
