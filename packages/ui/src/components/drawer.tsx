@@ -1,5 +1,4 @@
-// shouldScaleBackground Requires vaul-drawer-wrapper data-attr
-
+"use client";
 import {
   ComponentProps,
   PropsWithChildren,
@@ -33,17 +32,11 @@ const Title = ({
   );
 };
 
-const Footer = ({
-  children,
-  ...props
-}: PropsWithChildren<ComponentProps<"div">>) => {
+const Footer = ({ children, ...props }: ComponentProps<"div">) => {
   return <div {...props}>{children}</div>;
 };
 
-const Content = ({
-  children,
-  ...props
-}: PropsWithChildren<ComponentProps<"div">>) => {
+const Content = ({ children, ...props }: ComponentProps<"div">) => {
   return <div {...props}>{children}</div>;
 };
 

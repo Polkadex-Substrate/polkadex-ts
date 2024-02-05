@@ -1,18 +1,18 @@
-import { PropsWithChildren } from "react";
+"use client";
+
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 import * as SwitchRadix from "@radix-ui/react-switch";
 
-export const Switch = ({
-  children,
-  id,
-  className,
-  disabled,
-  ...props
-}: PropsWithChildren<SwitchRadix.SwitchProps>) => {
+export const Switch = forwardRef<
+  ElementRef<typeof SwitchRadix.Root>,
+  ComponentPropsWithoutRef<typeof SwitchRadix.Root>
+>(({ children, id, className, disabled, ...props }, ref) => {
   return (
     <div className="flex items-center gap-2 group">
       <SwitchRadix.Root
+        ref={ref}
         disabled={disabled}
         className={twMerge(
           classNames(
@@ -41,4 +41,5 @@ export const Switch = ({
       )}
     </div>
   );
-};
+});
+Switch.displayName = "Switch";

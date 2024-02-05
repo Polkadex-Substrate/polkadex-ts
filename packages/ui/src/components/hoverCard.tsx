@@ -1,57 +1,81 @@
+"use client";
+
 import * as HoverCardRadix from "@radix-ui/react-hover-card";
-import { Fragment, PropsWithChildren } from "react";
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+  Fragment,
+  PropsWithChildren,
+} from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 
 import { isValidComponent } from "../helpers";
 
-const Trigger = ({
-  children,
-  ...props
-}: PropsWithChildren<HoverCardRadix.HoverCardTriggerProps>) => {
-  return <HoverCardRadix.Trigger {...props}>{children}</HoverCardRadix.Trigger>;
-};
+const Trigger = forwardRef<
+  ElementRef<typeof HoverCardRadix.Trigger>,
+  ComponentPropsWithoutRef<typeof HoverCardRadix.Trigger>
+>(({ children, ...props }, ref) => {
+  return (
+    <HoverCardRadix.Trigger ref={ref} {...props}>
+      {children}
+    </HoverCardRadix.Trigger>
+  );
+});
+Trigger.displayName = "Trigger";
 
-interface ContentProps extends HoverCardRadix.HoverCardContentProps {
+interface ContentProps
+  extends ComponentPropsWithoutRef<typeof HoverCardRadix.Content> {
   withArrow?: boolean;
   arrowProps?: HoverCardRadix.HoverCardArrowProps;
 }
-const Content = ({
-  children,
-  className,
-  sideOffset = 12,
-  withArrow = true,
-  arrowProps,
-  ...props
-}: PropsWithChildren<ContentProps>) => {
-  const { className: arrowClassname, ...restProps } = arrowProps || {};
 
-  return (
-    <HoverCardRadix.Content
-      sideOffset={sideOffset}
-      className={twMerge(
-        classNames(
-          "p-2 bg-level-1 rounded-md border border-primary text-sm",
-          "z-50 overflow-hidden shadow-md animate-in fade-in-0 zoom-in-95 ",
-          "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
-          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
-        ),
-        className
-      )}
-      {...props}
-    >
-      <Fragment>
-        {children}
-        {withArrow && (
-          <HoverCardRadix.Arrow
-            className={twMerge(classNames("fill-level-1"), arrowClassname)}
-            {...restProps}
-          />
+const Content = forwardRef<
+  ElementRef<typeof HoverCardRadix.Content>,
+  ContentProps
+>(
+  (
+    {
+      children,
+      className,
+      sideOffset = 12,
+      withArrow = true,
+      arrowProps,
+      ...props
+    },
+    ref
+  ) => {
+    const { className: arrowClassname, ...restProps } = arrowProps || {};
+    return (
+      <HoverCardRadix.Content
+        ref={ref}
+        sideOffset={sideOffset}
+        className={twMerge(
+          classNames(
+            "p-2 bg-level-1 rounded-md border border-primary text-sm",
+            "z-50 overflow-hidden shadow-md animate-in fade-in-0 zoom-in-95 ",
+            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+            "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
+          ),
+          className
         )}
-      </Fragment>
-    </HoverCardRadix.Content>
-  );
-};
+        {...props}
+      >
+        <Fragment>
+          {children}
+          {withArrow && (
+            <HoverCardRadix.Arrow
+              className={twMerge(classNames("fill-level-1"), arrowClassname)}
+              {...restProps}
+            />
+          )}
+        </Fragment>
+      </HoverCardRadix.Content>
+    );
+  }
+);
+Content.displayName = "Content";
 
 const HoverCard = ({
   children,

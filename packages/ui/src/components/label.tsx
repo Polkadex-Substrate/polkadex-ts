@@ -1,4 +1,6 @@
-import { ComponentProps, PropsWithChildren } from "react";
+"use client";
+
+import { ComponentProps } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
@@ -15,7 +17,7 @@ export const Label = ({
   appearance = "primary",
   size = "sm",
   ...props
-}: PropsWithChildren<LabelProps>) => (
+}: LabelProps) => (
   <label
     className={twMerge(
       classNames(
