@@ -5,6 +5,7 @@ import {
   Fragment,
   PropsWithChildren,
   forwardRef,
+  ElementRef,
 } from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
@@ -43,12 +44,11 @@ const Overlay = forwardRef<
 });
 Overlay.displayName = "Overlay";
 
-const Icon = forwardRef<
-  SVGSVGElement,
-  PropsWithChildren<ComponentPropsWithoutRef<"svg">>
->(({ className, children, ...props }, ref) => {
-  return (
-    children ?? (
+const Icon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
+  ({ className, children, ...props }, ref) => {
+    return children ? (
+      <Fragment>{children} </Fragment>
+    ) : (
       <ChevronDownIcon
         ref={ref}
         className={twMerge(
@@ -57,14 +57,14 @@ const Icon = forwardRef<
         )}
         {...props}
       />
-    )
-  );
-});
+    );
+  }
+);
 Icon.displayName = "Icon";
 
 const Close = forwardRef<
-  HTMLButtonElement,
-  PropsWithChildren<PopoverRadix.PopoverCloseProps>
+  ElementRef<typeof PopoverRadix.Close>,
+  ComponentPropsWithoutRef<typeof PopoverRadix.Close>
 >(({ children, ...props }, ref) => {
   return (
     <PopoverRadix.Close ref={ref} {...props}>
@@ -75,12 +75,15 @@ const Close = forwardRef<
 Close.displayName = "Close";
 
 export interface PopoverTriggerProps
-  extends PropsWithChildren<PopoverRadix.PopoverTriggerProps> {
+  extends ComponentPropsWithoutRef<typeof PopoverRadix.Trigger> {
   superpositionTrigger?: boolean;
   iconRotationAnimation?: boolean;
 }
 
-const Trigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(
+const Trigger = forwardRef<
+  ElementRef<typeof PopoverRadix.Trigger>,
+  PopoverTriggerProps
+>(
   (
     {
       children,
@@ -136,41 +139,42 @@ const Trigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(
 Trigger.displayName = "Trigger";
 
 export interface PopoverContentProps
-  extends PropsWithChildren<PopoverRadix.PopoverContentProps> {
+  extends ComponentPropsWithoutRef<typeof PopoverRadix.Content> {
   withArrow?: boolean;
   arrowProps?: PopoverRadix.PopoverArrowProps;
 }
 
-const Content = forwardRef<HTMLDivElement, PopoverContentProps>(
-  ({ children, className, withArrow = false, arrowProps, ...props }, ref) => {
-    const { className: arrowClassname, ...restProps } = arrowProps || {};
+const Content = forwardRef<
+  ElementRef<typeof PopoverRadix.Content>,
+  PopoverContentProps
+>(({ children, className, withArrow = false, arrowProps, ...props }, ref) => {
+  const { className: arrowClassname, ...restProps } = arrowProps || {};
 
-    return (
-      <PopoverRadix.Content
-        ref={ref}
-        className={twMerge(
-          classNames(
-            "z-50 shadow-md bg-level-1 rounded-md border border-primary min-w-[8rem]",
-            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
-            "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
-          ),
-          className
+  return (
+    <PopoverRadix.Content
+      ref={ref}
+      className={twMerge(
+        classNames(
+          "z-50 shadow-md bg-level-1 rounded-md border border-primary min-w-[8rem]",
+          "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
+        ),
+        className
+      )}
+      {...props}
+    >
+      <Fragment>
+        {children}
+        {withArrow && (
+          <PopoverRadix.Arrow
+            className={twMerge(classNames("fill-level-1"), arrowClassname)}
+            {...restProps}
+          />
         )}
-        {...props}
-      >
-        <Fragment>
-          {children}
-          {withArrow && (
-            <PopoverRadix.Arrow
-              className={twMerge(classNames("fill-level-1"), arrowClassname)}
-              {...restProps}
-            />
-          )}
-        </Fragment>
-      </PopoverRadix.Content>
-    );
-  }
-);
+      </Fragment>
+    </PopoverRadix.Content>
+  );
+});
 Content.displayName = "Content";
 
 export type PopoverProps = PropsWithChildren<PopoverRadix.PopoverProps>;
