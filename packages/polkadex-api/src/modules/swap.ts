@@ -87,11 +87,16 @@ export class SwapApi extends BaseApi {
     return toUnit(result.unwrap().toString(), this.chainDecimals).toNumber();
   }
 
-  createAssetIdEnum(id: string | object): Record<string, null | string> {
+  createAssetIdEnum(
+    id: string | Record<string, null | string>
+  ): Record<string, null | string> {
     if (!!id && typeof id === "object") {
       return id;
     }
-    if (id.toUpperCase() === "POLKADEX" || id.toUpperCase() === "PDEX") {
+    if (
+      typeof id === "string" &&
+      (id.toUpperCase() === "POLKADEX" || id.toUpperCase() === "PDEX")
+    ) {
       return { polkadex: null };
     }
     return { asset: id };
@@ -108,10 +113,16 @@ export class SwapApi extends BaseApi {
   ): Promise<SubmittableExtrinsic> {
     const asset1 = this.createAssetIdEnum(base);
     const asset2 = this.createAssetIdEnum(quote);
-    const amount1Desired = toPlank(amountBaseDesired).toFixed();
-    const amount2Desired = toPlank(amountQuoteDesired).toFixed();
-    const amount1Min = toPlank(amountBaseMin).toFixed();
-    const amount2Min = toPlank(amountQuoteMin).toFixed();
+    const amount1Desired = toPlank(
+      amountBaseDesired,
+      this.chainDecimals
+    ).toFixed();
+    const amount2Desired = toPlank(
+      amountQuoteDesired,
+      this.chainDecimals
+    ).toFixed();
+    const amount1Min = toPlank(amountBaseMin, this.chainDecimals).toFixed();
+    const amount2Min = toPlank(amountQuoteMin, this.chainDecimals).toFixed();
     return this.api.tx.assetConversion.addLiquidity(
       asset1,
       asset2,
@@ -142,9 +153,18 @@ export class SwapApi extends BaseApi {
   ): Promise<SubmittableExtrinsic> {
     const asset1 = this.createAssetIdEnum(base);
     const asset2 = this.createAssetIdEnum(quote);
-    const lpTokenBurn = toPlank(lpTokenBurnAmount).toFixed();
-    const amount1Min = toPlank(amountBaseMinReceive).toFixed();
-    const amount2Min = toPlank(amountQuoteMinReceive).toFixed();
+    const lpTokenBurn = toPlank(
+      lpTokenBurnAmount,
+      this.chainDecimals
+    ).toFixed();
+    const amount1Min = toPlank(
+      amountBaseMinReceive,
+      this.chainDecimals
+    ).toFixed();
+    const amount2Min = toPlank(
+      amountQuoteMinReceive,
+      this.chainDecimals
+    ).toFixed();
     return this.api.tx.assetConversion.removeLiquidity(
       asset1,
       asset2,
@@ -165,7 +185,7 @@ export class SwapApi extends BaseApi {
     const assetPath = path.map((asset) => this.createAssetIdEnum(asset));
     const amtIn = toPlank(amountIn, this.chainDecimals).toFixed();
     const amtOut = toPlank(amountOutMin, this.chainDecimals).toFixed();
-    return this.api.tx.swapExactTokensForTokens(
+    return this.api.tx.assetConversion.swapExactTokensForTokens(
       assetPath,
       amtIn,
       amtOut,
@@ -184,7 +204,7 @@ export class SwapApi extends BaseApi {
     const assetPath = path.map((asset) => this.createAssetIdEnum(asset));
     const amtOut = toPlank(amountOut, this.chainDecimals).toFixed();
     const amtIn = toPlank(amountInMax, this.chainDecimals).toFixed();
-    return this.api.tx.swapExactTokensForTokens(
+    return this.api.tx.assetConversion.swapExactTokensForTokens(
       assetPath,
       amtOut,
       amtIn,
