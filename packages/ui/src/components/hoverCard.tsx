@@ -1,3 +1,5 @@
+"use client";
+
 import * as HoverCardRadix from "@radix-ui/react-hover-card";
 import {
   ComponentPropsWithoutRef,

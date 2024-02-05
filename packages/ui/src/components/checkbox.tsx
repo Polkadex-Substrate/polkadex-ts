@@ -1,3 +1,5 @@
+"use client";
+
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import * as CheckboxRadix from "@radix-ui/react-checkbox";
 import classNames from "classnames";

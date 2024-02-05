@@ -1,5 +1,4 @@
-// shouldScaleBackground Requires vaul-drawer-wrapper data-attr
-
+"use client";
 import {
   ComponentProps,
   PropsWithChildren,

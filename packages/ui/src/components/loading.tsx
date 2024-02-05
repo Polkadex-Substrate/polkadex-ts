@@ -1,3 +1,5 @@
+"use client";
+
 import { Fragment, PropsWithChildren } from "react";
 
 import { Spinner as CustomSpinner } from "./spinner";

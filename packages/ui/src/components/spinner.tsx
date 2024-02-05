@@ -1,3 +1,5 @@
+"use client";
+
 import { ComponentProps } from "react";
 
 const Keyboard = (props: ComponentProps<"svg">) => {

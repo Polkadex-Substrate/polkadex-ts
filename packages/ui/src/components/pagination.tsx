@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 import { ComponentProps, PropsWithChildren, PropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";

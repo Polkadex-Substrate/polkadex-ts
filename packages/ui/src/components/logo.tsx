@@ -1,3 +1,5 @@
+"use client";
+
 import { ComponentProps } from "react";
 
 const Thea = (props: ComponentProps<"svg">) => (
