@@ -1,5 +1,9 @@
 import BigNumber from "bignumber.js";
-import { minDecimalPlaces, planckToUnit } from "@polkadot-cloud/utils";
+import {
+  minDecimalPlaces,
+  planckToUnit,
+  unitToPlanck,
+} from "@polkadot-cloud/utils";
 
 import { TrimFloatProps } from "./types";
 
@@ -100,12 +104,12 @@ export const toUnit = (
  * Converts an on chain balance value in BigNumber planck to a decimal value in token unit. (1 token
  * = 10^units planck).
  */
-export const toPlank = (
+export const toPlanck = (
   val: BigNumber | string | number,
   units: number
 ): BigNumber => {
   const num = new BigNumber(cleanNumberLike(val));
-  return planckToUnit(num, units);
+  return unitToPlanck(num.toString(), units);
 };
 
 /**

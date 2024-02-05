@@ -1,5 +1,5 @@
 import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
-import { cleanNumberLike, toPlank, toUnit } from "@polkadex/numericals";
+import { cleanNumberLike, toPlanck, toUnit } from "@polkadex/numericals";
 import { Option, u128 } from "@polkadot/types";
 
 import { BaseApi } from "../base-api";
@@ -52,7 +52,7 @@ export class SwapApi extends BaseApi {
     await this.initApi();
     if (base.toUpperCase() === "POLKADEX") base = "PDEX";
     if (quote.toUpperCase() === "POLKADEX") quote = "PDEX";
-    amount = Number(toPlank(amount, this.chainDecimals).toFixed());
+    amount = Number(toPlanck(amount, this.chainDecimals).toFixed());
     const result: Option<u128> =
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -74,7 +74,7 @@ export class SwapApi extends BaseApi {
     await this.initApi();
     if (base.toUpperCase() === "POLKADEX") base = "PDEX";
     if (quote.toUpperCase() === "POLKADEX") quote = "PDEX";
-    amount = Number(toPlank(amount, this.chainDecimals).toFixed());
+    amount = Number(toPlanck(amount, this.chainDecimals).toFixed());
     const result: Option<u128> =
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -110,16 +110,16 @@ export class SwapApi extends BaseApi {
   ): Promise<SubmittableExtrinsic> {
     const asset1 = this.createAssetIdEnum(base);
     const asset2 = this.createAssetIdEnum(quote);
-    const amount1Desired = toPlank(
+    const amount1Desired = toPlanck(
       amountBaseDesired,
       this.chainDecimals
     ).toFixed();
-    const amount2Desired = toPlank(
+    const amount2Desired = toPlanck(
       amountQuoteDesired,
       this.chainDecimals
     ).toFixed();
-    const amount1Min = toPlank(amountBaseMin, this.chainDecimals).toFixed();
-    const amount2Min = toPlank(amountQuoteMin, this.chainDecimals).toFixed();
+    const amount1Min = toPlanck(amountBaseMin, this.chainDecimals).toFixed();
+    const amount2Min = toPlanck(amountQuoteMin, this.chainDecimals).toFixed();
     return this.api.tx.assetConversion.addLiquidity(
       asset1,
       asset2,
@@ -150,15 +150,15 @@ export class SwapApi extends BaseApi {
   ): Promise<SubmittableExtrinsic> {
     const asset1 = this.createAssetIdEnum(base);
     const asset2 = this.createAssetIdEnum(quote);
-    const lpTokenBurn = toPlank(
+    const lpTokenBurn = toPlanck(
       lpTokenBurnAmount,
       this.chainDecimals
     ).toFixed();
-    const amount1Min = toPlank(
+    const amount1Min = toPlanck(
       amountBaseMinReceive,
       this.chainDecimals
     ).toFixed();
-    const amount2Min = toPlank(
+    const amount2Min = toPlanck(
       amountQuoteMinReceive,
       this.chainDecimals
     ).toFixed();
@@ -180,8 +180,9 @@ export class SwapApi extends BaseApi {
     keepAlive = true
   ): Promise<SubmittableExtrinsic> {
     const assetPath = path.map((asset) => this.createAssetIdEnum(asset));
-    const amtIn = toPlank(amountIn, this.chainDecimals).toFixed();
-    const amtOut = toPlank(amountOutMin, this.chainDecimals).toFixed();
+    const amtIn = toPlanck(amountIn, this.chainDecimals).toFixed();
+    console.log("amountIn", amtIn);
+    const amtOut = toPlanck(amountOutMin, this.chainDecimals).toFixed();
     return this.api.tx.assetConversion.swapExactTokensForTokens(
       assetPath,
       amtIn,
@@ -199,8 +200,8 @@ export class SwapApi extends BaseApi {
     keepAlive = true
   ): Promise<SubmittableExtrinsic> {
     const assetPath = path.map((asset) => this.createAssetIdEnum(asset));
-    const amtOut = toPlank(amountOut, this.chainDecimals).toFixed();
-    const amtIn = toPlank(amountInMax, this.chainDecimals).toFixed();
+    const amtOut = toPlanck(amountOut, this.chainDecimals).toFixed();
+    const amtIn = toPlanck(amountInMax, this.chainDecimals).toFixed();
     return this.api.tx.assetConversion.swapExactTokensForTokens(
       assetPath,
       amtOut,
