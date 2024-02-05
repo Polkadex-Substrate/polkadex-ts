@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import classNames from "classnames";
@@ -11,7 +11,7 @@ import {
 } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { Illustrations } from "../../dist";
+import { NoResultFound } from "../illustrations";
 
 const Separator = forwardRef<
   ElementRef<typeof Command.Separator>,
@@ -106,7 +106,7 @@ const Empty = forwardRef<
       {...props}
     >
       <Fragment>
-        <Illustrations.NoResultFound className="w-10 h-10" />
+        <NoResultFound className="w-10 h-10" />
         {children}
       </Fragment>
     </Command.Empty>
