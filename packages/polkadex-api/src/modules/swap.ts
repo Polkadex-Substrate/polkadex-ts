@@ -16,7 +16,7 @@ export class SwapApi extends BaseApi {
       const pair = poolKeys[0] as Record<string, null>[];
       const base = this.parseAsset(pair[0]);
       const quote = this.parseAsset(pair[1]);
-      const valueJson: { lpToken: string } = value.toJSON();
+      const valueJson = value.toJSON() as { lpToken: string };
       return {
         base,
         quote,
@@ -39,5 +39,43 @@ export class SwapApi extends BaseApi {
     }
     console.log(typeof asset);
     throw new Error(`cannot parse asset ${asset}`);
+  }
+
+  public async quotePriceExactTokensForTokens(
+    base: string,
+    quote: string,
+    amount: number,
+    includeFee = false
+  ): Promise<number> {
+    await this.initApi();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = await this.api.rpc.tx.quotePriceExactTokensForTokens(
+      base,
+      quote,
+      amount,
+      includeFee
+    );
+    console.log(result);
+    return 0;
+  }
+
+  public async quotePriceTokensForExactTokens(
+    base: string,
+    quote: string,
+    amount: number,
+    includeFee = false
+  ): Promise<number> {
+    await this.initApi();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = await this.api.rpc.tx.quotePriceTokensForExactTokens(
+      base,
+      quote,
+      amount,
+      includeFee
+    );
+    console.log(result);
+    return 0;
   }
 }
