@@ -1,8 +1,16 @@
-import { Fragment, PropsWithChildren, PropsWithoutRef } from "react";
+"use client";
+
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+  Fragment,
+  PropsWithChildren,
+  PropsWithoutRef,
+} from "react";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
-import * as PopoverRadix from "@radix-ui/react-popover";
 
 import {
   isValidComponent,
@@ -11,7 +19,7 @@ import {
 } from "../helpers";
 import { getRemainingComponents } from "../helpers/getRemainingComponents";
 
-import { Popover, PopoverContentProps, PopoverProps } from "./popover";
+import { Popover, PopoverProps } from "./popover";
 import { TextProps, Typography } from "./typography";
 import { Base, ButtonProps } from "./button";
 
@@ -71,7 +79,7 @@ const Description = ({
       {children}
     </Typography.Text>
   ) : (
-    children
+    <Fragment>{children}</Fragment>
   );
 };
 
@@ -87,49 +95,48 @@ const Title = ({
       {children}
     </Typography.Text>
   ) : (
-    children
+    <Fragment>{children}</Fragment>
   );
 };
 
-interface ContentProps extends PopoverContentProps {
+interface ContentProps
+  extends ComponentPropsWithoutRef<typeof Popover.Content> {
   withIcon?: boolean;
 }
 
-const Content = ({
-  children,
-  withIcon,
-  withArrow = true,
-  className,
-  ...props
-}: ContentProps) => {
-  const [TitleComponent] = isValidComponent(children, Title);
-  const [DescriptionComponent] = isValidComponent(children, Description);
-  const [ButtonComponent] = isValidComponent(children, Button);
-  const [CloseComponent] = isValidComponent(children, Close);
+const Content = forwardRef<ElementRef<typeof Popover.Content>, ContentProps>(
+  ({ children, withIcon, withArrow = true, className, ...props }, ref) => {
+    const [TitleComponent] = isValidComponent(children, Title);
+    const [DescriptionComponent] = isValidComponent(children, Description);
+    const [ButtonComponent] = isValidComponent(children, Button);
+    const [CloseComponent] = isValidComponent(children, Close);
 
-  return (
-    <Popover.Content
-      className={twMerge(classNames("flex gap-2 p-4"), className)}
-      withArrow={withArrow}
-      {...props}
-    >
-      {withIcon && (
-        <InformationCircleIcon className="w-4 h-4 mt-1 text-attention-base" />
-      )}
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col">
-          {TitleComponent}
-          {DescriptionComponent}
-        </div>
+    return (
+      <Popover.Content
+        ref={ref}
+        className={twMerge(classNames("flex gap-2 p-4"), className)}
+        withArrow={withArrow}
+        {...props}
+      >
+        {withIcon && (
+          <InformationCircleIcon className="w-4 h-4 mt-1 text-attention-base" />
+        )}
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
+            {TitleComponent}
+            {DescriptionComponent}
+          </div>
 
-        <div className="flex-1 flex items-center justify-end gap-2 w-full">
-          {CloseComponent}
-          {ButtonComponent}
+          <div className="flex-1 flex items-center justify-end gap-2 w-full">
+            {CloseComponent}
+            {ButtonComponent}
+          </div>
         </div>
-      </div>
-    </Popover.Content>
-  );
-};
+      </Popover.Content>
+    );
+  }
+);
+Content.displayName = "Content";
 
 const PopConfirm = ({
   children,

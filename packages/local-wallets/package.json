@@ -4,7 +4,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "license": "GPL-3.0-only",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "files": [
     "dist/**"
   ],
@@ -16,9 +16,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@polkadot/keyring": "^12.6.1",
-    "@polkadot/ui-keyring": "^3.6.4",
-    "@polkadot/util-crypto": "^12.6.1",
+    "@polkadot/keyring": "latest",
+    "@polkadot/ui-keyring": "latest",
+    "@polkadot/util-crypto": "latest",
     "bignumber": "^1.1.0",
     "typescript": "latest"
   },

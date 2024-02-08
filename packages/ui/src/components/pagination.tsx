@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 import { ComponentProps, PropsWithChildren, PropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
@@ -63,11 +65,7 @@ const Item = ({
   );
 };
 
-const Content = ({
-  className,
-  children,
-  ...props
-}: PropsWithChildren<ComponentProps<"div">>) => {
+const Content = ({ className, children, ...props }: ComponentProps<"div">) => {
   return (
     <div
       className={classNames("flex gap-1 items-center", className)}
@@ -129,7 +127,7 @@ const Pagination = ({
   className,
   children,
   ...props
-}: PropsWithChildren<ComponentProps<"nav">>) => {
+}: ComponentProps<"nav">) => {
   return (
     <nav
       role="navigation"

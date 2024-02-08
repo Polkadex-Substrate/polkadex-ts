@@ -1,21 +1,21 @@
-import { PropsWithChildren } from "react";
+"use client";
+
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import * as CheckboxRadix from "@radix-ui/react-checkbox";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
 import { Check } from "../icons";
 
-import { LabelProps, Label as LabelPolkadex } from "./label";
+import { Label as LabelPolkadex } from "./label";
 
-const Base = ({
-  className,
-  children,
-  disabled,
-  id,
-  ...props
-}: PropsWithChildren<CheckboxRadix.CheckboxProps>) => (
+const Base = forwardRef<
+  ElementRef<typeof CheckboxRadix.Root>,
+  ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
+>(({ className, children, disabled, id, ...props }, ref) => (
   <div className={"flex items-center gap-2 group"}>
     <CheckboxRadix.Root
+      ref={ref}
       id={id}
       disabled={disabled}
       className={twMerge(
@@ -34,21 +34,23 @@ const Base = ({
     </CheckboxRadix.Root>
     {children}
   </div>
-);
+));
+Base.displayName = "Base";
 
-const Label = ({
-  appearance = "base",
-  size = "sm",
-  ...props
-}: PropsWithChildren<LabelProps>) => (
-  <LabelPolkadex appearance={appearance} size={size} {...props} />
-);
+const Label = forwardRef<
+  ElementRef<typeof LabelPolkadex>,
+  ComponentPropsWithoutRef<typeof LabelPolkadex>
+>(({ appearance = "base", size = "sm", ...props }, ref) => (
+  <LabelPolkadex ref={ref} appearance={appearance} size={size} {...props} />
+));
+Label.displayName = "Label";
 
-const Solid = ({
-  className,
-  ...props
-}: PropsWithChildren<CheckboxRadix.CheckboxProps>) => (
+const Solid = forwardRef<
+  ElementRef<typeof CheckboxRadix.Root>,
+  ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
+>(({ className, ...props }, ref) => (
   <Base
+    ref={ref}
     className={twMerge(
       classNames(
         "data-[state=unchecked]:bg-level-5 data-[state=unchecked]:group-hover:bg-level-2 border-none",
@@ -58,13 +60,15 @@ const Solid = ({
     )}
     {...props}
   />
-);
+));
+Solid.displayName = "Solid";
 
-const Outline = ({
-  className,
-  ...props
-}: PropsWithChildren<CheckboxRadix.CheckboxProps>) => (
+const Outline = forwardRef<
+  ElementRef<typeof CheckboxRadix.Root>,
+  ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
+>(({ className, ...props }, ref) => (
   <Base
+    ref={ref}
     className={twMerge(
       classNames(
         "border-2 border-primary data-[state=unchecked]:group-hover:border-current",
@@ -74,7 +78,9 @@ const Outline = ({
     )}
     {...props}
   />
-);
+));
+Outline.displayName = "Outline";
+
 export const Checkbox = {
   Solid,
   Outline,

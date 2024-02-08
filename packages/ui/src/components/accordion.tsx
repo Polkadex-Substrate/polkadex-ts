@@ -1,8 +1,10 @@
+"use client";
+
 import {
   ComponentPropsWithoutRef,
   Fragment,
-  PropsWithChildren,
   forwardRef,
+  ElementRef,
 } from "react";
 import * as AccordionRadix from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
@@ -18,12 +20,11 @@ import { getRemainingComponents } from "../helpers/getRemainingComponents";
 
 import { Typography } from "./typography";
 
-const Icon = forwardRef<
-  SVGSVGElement,
-  PropsWithChildren<ComponentPropsWithoutRef<"svg">>
->(({ className, children, ...props }, ref) => {
-  return (
-    children ?? (
+const Icon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
+  ({ className, children, ...props }, ref) => {
+    return children ? (
+      <Fragment>{children} </Fragment>
+    ) : (
       <ChevronDownIcon
         ref={ref}
         className={twMerge(
@@ -34,63 +35,64 @@ const Icon = forwardRef<
         )}
         {...props}
       />
-    )
-  );
-});
-Icon.displayName = "Icon";
-
-interface TriggerProps
-  extends PropsWithChildren<AccordionRadix.AccordionTriggerProps> {
-  superpositionTrigger?: boolean;
-  iconRotationAnimation?: boolean;
-}
-const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
-  ({ className, iconRotationAnimation = true, children, ...props }, ref) => {
-    const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
-      children,
-      Icon
-    );
-
-    const isString = typeofChildren(RemaininigComponents);
-    const renderComponent = getRemainingComponents(RemaininigComponents);
-
-    return (
-      <AccordionRadix.Header className="flex">
-        <AccordionRadix.Trigger
-          className={twMerge(
-            classNames(
-              "flex-1 flex justify-between align-center cursor-pointer",
-              !!IconComponent?.length &&
-                iconRotationAnimation &&
-                "[&[data-state=open]>svg]:rotate-180"
-            ),
-            className
-          )}
-          ref={ref}
-          {...props}
-        >
-          {!IconComponent ? (
-            children
-          ) : (
-            <Fragment>
-              {isString ? (
-                <Typography.Text>{renderComponent}</Typography.Text>
-              ) : (
-                renderComponent
-              )}
-              {IconComponent}
-            </Fragment>
-          )}
-        </AccordionRadix.Trigger>
-      </AccordionRadix.Header>
     );
   }
 );
+Icon.displayName = "Icon";
+
+interface TriggerProps
+  extends ComponentPropsWithoutRef<typeof AccordionRadix.Trigger> {
+  superpositionTrigger?: boolean;
+  iconRotationAnimation?: boolean;
+}
+const Trigger = forwardRef<
+  ElementRef<typeof AccordionRadix.Trigger>,
+  TriggerProps
+>(({ className, iconRotationAnimation = true, children, ...props }, ref) => {
+  const [IconComponent, RemaininigComponents] = isValidComponentWithoutTarget(
+    children,
+    Icon
+  );
+
+  const isString = typeofChildren(RemaininigComponents);
+  const renderComponent = getRemainingComponents(RemaininigComponents);
+
+  return (
+    <AccordionRadix.Header className="flex">
+      <AccordionRadix.Trigger
+        className={twMerge(
+          classNames(
+            "flex-1 flex justify-between align-center cursor-pointer",
+            !!IconComponent?.length &&
+              iconRotationAnimation &&
+              "[&[data-state=open]>svg]:rotate-180"
+          ),
+          className
+        )}
+        ref={ref}
+        {...props}
+      >
+        {!IconComponent ? (
+          children
+        ) : (
+          <Fragment>
+            {isString ? (
+              <Typography.Text>{renderComponent}</Typography.Text>
+            ) : (
+              renderComponent
+            )}
+            {IconComponent}
+          </Fragment>
+        )}
+      </AccordionRadix.Trigger>
+    </AccordionRadix.Header>
+  );
+});
 Trigger.displayName = "Trigger";
 
 const Content = forwardRef<
-  HTMLDivElement,
-  PropsWithChildren<AccordionRadix.AccordionContentProps>
+  ElementRef<typeof AccordionRadix.Content>,
+  ComponentPropsWithoutRef<typeof AccordionRadix.Content>
 >(({ className, children, ...props }, ref) => {
   return (
     <AccordionRadix.Content
@@ -112,8 +114,8 @@ const Content = forwardRef<
 Content.displayName = "Content";
 
 const Item = forwardRef<
-  HTMLDivElement,
-  PropsWithChildren<AccordionRadix.AccordionItemProps>
+  ElementRef<typeof AccordionRadix.Item>,
+  ComponentPropsWithoutRef<typeof AccordionRadix.Item>
 >(({ children, ...props }, ref) => {
   const [TriggerComponent] = isValidComponent(children, Trigger);
   const [ContentComponent] = isValidComponent(children, Content);
@@ -131,9 +133,7 @@ const Accordion = ({
   children,
   className,
   ...props
-}: PropsWithChildren<
-  AccordionRadix.AccordionSingleProps | AccordionRadix.AccordionMultipleProps
->) => {
+}: ComponentPropsWithoutRef<typeof AccordionRadix.Root>) => {
   const items = isValidComponent(children, Item);
 
   return (

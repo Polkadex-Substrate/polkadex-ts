@@ -1,3 +1,5 @@
+"use client";
+
 import { ComponentProps, MouseEvent, PropsWithChildren, useState } from "react";
 import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
 import classNames from "classnames";
