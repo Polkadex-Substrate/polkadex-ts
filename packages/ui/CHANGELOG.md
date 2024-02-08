@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.3.0
+
+### Minor Changes
+
+- ee1d0ad: feat: filterGroup component
+
 ## 6.2.0
 
 ### Minor Changes
