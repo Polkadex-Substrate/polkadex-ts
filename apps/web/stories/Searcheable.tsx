@@ -2,7 +2,7 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import {
   AccountCard,
   Button,
-  Searcheable as PolkadexSearcheable,
+  Searchable as PolkadeSearchable,
   Popover,
 } from "@polkadex/ux";
 import { useMemo, useState } from "react";
@@ -49,15 +49,13 @@ export const Searcheable = () => {
         )}
       </Popover.Trigger>
       <Popover.Content>
-        <PolkadexSearcheable>
-          <PolkadexSearcheable.Input placeholder="Search item" />
-          <PolkadexSearcheable.List>
-            <PolkadexSearcheable.Empty>
-              No result found
-            </PolkadexSearcheable.Empty>
-            <PolkadexSearcheable.Group heading="Suggestions">
+        <PolkadeSearchable>
+          <PolkadeSearchable.Input placeholder="Search item" />
+          <PolkadeSearchable.List>
+            <PolkadeSearchable.Empty>No result found</PolkadeSearchable.Empty>
+            <PolkadeSearchable.Group heading="Suggestions">
               {accounts.map((curr) => (
-                <PolkadexSearcheable.Item
+                <PolkadeSearchable.Item
                   key={curr.name}
                   value={curr.name}
                   onSelect={(currentValue) => {
@@ -84,11 +82,11 @@ export const Searcheable = () => {
                       }`}
                     />
                   </div>
-                </PolkadexSearcheable.Item>
+                </PolkadeSearchable.Item>
               ))}
-            </PolkadexSearcheable.Group>
-          </PolkadexSearcheable.List>
-        </PolkadexSearcheable>
+            </PolkadeSearchable.Group>
+          </PolkadeSearchable.List>
+        </PolkadeSearchable>
       </Popover.Content>
     </Popover>
   );
