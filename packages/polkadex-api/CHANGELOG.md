@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.0.2
+
+### Patch Changes
+
+- 253ef03: feat: add get reserves call
+
 ## 3.0.1
 
 ### Patch Changes
