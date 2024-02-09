@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.0.1
+
+### Patch Changes
+
+- f391249: fix: swapTokensForExactTokens caller fix
+
 ## 3.0.0
 
 ### Major Changes
