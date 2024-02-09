@@ -208,4 +208,21 @@ export class SwapApi extends BaseApi {
       keepAlive
     );
   }
+
+  public async getReserves(
+    base: string,
+    quote: string
+  ): Promise<{ base: number; quote: number }> {
+    const asset1 = this.createAssetIdEnum(base);
+    const asset2 = this.createAssetIdEnum(quote);
+    const out = await this.api.call.assetConversionApi.getReserves(
+      asset1,
+      asset2
+    );
+    const result = out.toJSON() as Array<string>;
+    return {
+      base: toUnit(result[0], this.chainDecimals).toNumber(),
+      quote: toUnit(result[0], this.chainDecimals).toNumber(),
+    };
+  }
 }
