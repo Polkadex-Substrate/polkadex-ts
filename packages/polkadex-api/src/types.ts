@@ -1,3 +1,5 @@
+import { DefinitionsCall } from "@polkadot/types/types";
+
 export const orderbookTypes = {
   OrderPayload: {
     client_order_id: "H256",
@@ -33,6 +35,40 @@ export const orderbookTypes = {
     amount: "String",
     timestamp: "i64",
   },
+};
+
+export const types = {
+  ...orderbookTypes,
+  AssetId: {
+    _enum: {
+      Asset: "u128",
+      POLKADEX: null,
+    },
+  },
+};
+
+export const runtime: DefinitionsCall = {
+  AssetConversionApi: [
+    {
+      methods: {
+        get_reserves: {
+          description: "Get pool reserves",
+          params: [
+            {
+              name: "asset1",
+              type: "AssetId",
+            },
+            {
+              name: "asset2",
+              type: "AssetId",
+            },
+          ],
+          type: "Option<(Balance,Balance)>",
+        },
+      },
+      version: 1,
+    },
+  ],
 };
 
 export const rpc = {
@@ -83,3 +119,5 @@ export const rpc = {
     },
   },
 };
+
+export const apiTypes = { types, rpc, runtime };

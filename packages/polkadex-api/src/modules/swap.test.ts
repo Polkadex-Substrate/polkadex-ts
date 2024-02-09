@@ -1,6 +1,6 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
 
-import { rpc } from "../types";
+import { apiTypes } from "../types";
 
 import { SwapApi } from "./swap";
 
@@ -8,7 +8,7 @@ const provider = new WsProvider(
   "wss://polkadex.public.curie.radiumblock.co/ws"
 );
 
-const api = new ApiPromise({ provider, rpc });
+const api = new ApiPromise({ provider, ...apiTypes });
 const swapApi = new SwapApi(api);
 
 beforeAll(async () => {
@@ -62,6 +62,15 @@ describe("Swap queries <> check if pool types are correct", () => {
       "5DF4nDFCoS9EnU42oz4RjixxiCSse6np98FXXQVyY5J3X551"
     );
     expect(tx).toBeTruthy();
+  });
+
+  test("get reserved for a pools", async () => {
+    const res = await swapApi.getReserves(
+      "95930534000017180603917534864279132680",
+      "PDEX"
+    );
+    expect(res.base).toEqual(expect.any(Number));
+    expect(res.quote).toEqual(expect.any(Number));
   });
 });
 
