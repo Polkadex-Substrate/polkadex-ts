@@ -69,7 +69,6 @@ describe("Swap queries <> check if pool types are correct", () => {
       "95930534000017180603917534864279132680",
       "PDEX"
     );
-    console.log(res);
     expect(res.base).toEqual(expect.any(Number));
     expect(res.quote).toEqual(expect.any(Number));
   });

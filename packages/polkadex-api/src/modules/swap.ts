@@ -222,7 +222,7 @@ export class SwapApi extends BaseApi {
     const result = out.toJSON() as Array<string>;
     return {
       base: toUnit(result[0], this.chainDecimals).toNumber(),
-      quote: toUnit(result[0], this.chainDecimals).toNumber(),
+      quote: toUnit(result[1], this.chainDecimals).toNumber(),
     };
   }
 }
