@@ -1,5 +1,17 @@
 # @polkadex/ux
 
+## 6.4.0
+
+### Minor Changes
+
+- 2492db3: feat: toggleGroup component
+
+## 6.3.0
+
+### Minor Changes
+
+- ee1d0ad: feat: filterGroup component
+
 ## 6.2.0
 
 ### Minor Changes
