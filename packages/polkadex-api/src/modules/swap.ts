@@ -200,7 +200,7 @@ export class SwapApi extends BaseApi {
     const assetPath = path.map((asset) => this.createAssetIdEnum(asset));
     const amtOut = toPlanck(amountOut, this.chainDecimals).toFixed();
     const amtIn = toPlanck(amountInMax, this.chainDecimals).toFixed();
-    return this.api.tx.assetConversion.swapExactTokensForTokens(
+    return this.api.tx.assetConversion.swapTokensForExactTokens(
       assetPath,
       amtOut,
       amtIn,
