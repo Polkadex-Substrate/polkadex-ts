@@ -216,7 +216,8 @@ const Trigger = forwardRef<
             !!IconComponent?.length &&
               iconRotationAnimation &&
               "[&[data-state=open]>svg]:rotate-180",
-            superpositionTrigger && "data-[state=open]:z-20",
+            superpositionTrigger &&
+              "data-[state=open]:z-20 data-[state=open]:relative",
             className
           )
         )}
