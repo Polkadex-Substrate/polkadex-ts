@@ -19,7 +19,7 @@ export const Skeleton = ({
   return (
     <div
       className={twMerge(
-        classNames("w-full h-full bg-level-3 rounded-sm animate-pulse"),
+        classNames("flex-1 w-auto h-auto bg-level-3 rounded-sm animate-pulse"),
         className
       )}
       {...props}
