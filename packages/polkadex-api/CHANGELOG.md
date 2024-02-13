@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.0.3
+
+### Patch Changes
+
+- 141e2df: fix: handle pool not present
+
 ## 3.0.2
 
 ### Patch Changes
