@@ -72,6 +72,12 @@ describe("Swap queries <> check if pool types are correct", () => {
     expect(res.base).toEqual(expect.any(Number));
     expect(res.quote).toEqual(expect.any(Number));
   });
+
+  test("get reserved for a pools no present", async () => {
+    const res = await swapApi.getReserves("12345", "PDEX");
+    expect(res.base).toEqual(expect.any(Number));
+    expect(res.quote).toEqual(expect.any(Number));
+  });
 });
 
 afterAll(async () => {
