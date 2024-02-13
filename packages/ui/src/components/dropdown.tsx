@@ -211,7 +211,7 @@ const Trigger = forwardRef<
         ref={ref}
         className={twMerge(
           classNames(
-            "flex items-center gap-3 focus:outline-none",
+            "flex items-center gap-2 focus:outline-none",
             !!IconComponent?.length && "justify-between",
             !!IconComponent?.length &&
               iconRotationAnimation &&
