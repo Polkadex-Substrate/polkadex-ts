@@ -219,10 +219,11 @@ export class SwapApi extends BaseApi {
       asset1,
       asset2
     );
-    const result = out.toJSON() as Array<string>;
+    const result = out.toJSON() as Array<string> | null;
+    console.log("result ", result);
     return {
-      base: toUnit(result[0], this.chainDecimals).toNumber(),
-      quote: toUnit(result[1], this.chainDecimals).toNumber(),
+      base: toUnit(result?.[0] ?? 0, this.chainDecimals).toNumber(),
+      quote: toUnit(result?.[1] ?? 0, this.chainDecimals).toNumber(),
     };
   }
 }
