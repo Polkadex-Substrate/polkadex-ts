@@ -210,6 +210,8 @@ const Passcode = ({
   }, [value, inputNumb]);
 
   const onKeyUp = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
     const isBackspacePressed = e.key === "Backspace";
     const hasRef = inputsRef && inputsRef?.current && index === currentValue;
     const isValidNumber = !isNaN(parseInt(e.key)) && index <= inputNumb;
@@ -234,6 +236,8 @@ const Passcode = ({
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
     const keyCode = Number(e.key);
     const isNotBackspacePressed = e.key !== "Backspace";
     const isRightArrowPressed = e.key === "ArrowRight";
@@ -256,6 +260,8 @@ const Passcode = ({
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
     const newArray: (string | number)[] = [...values];
     const inputValue = e.target.value;
     newArray[index] = parseInt(inputValue) || inputValue;
@@ -263,14 +269,18 @@ const Passcode = ({
   };
 
   const onFocus = (e: FocusEvent<HTMLInputElement>, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
     setCurrentValue(index);
     e.target.focus();
   };
 
   useEffect(() => {
-    if (focusOnInit && inputsRef && inputsRef.current)
-      inputsRef.current[0]?.focus();
-  }, [focusOnInit]);
+    if (focusOnInit && !!inputsRef && !value.length) {
+      inputsRef.current[0].focus();
+      setCurrentValue(0);
+    }
+  }, [focusOnInit, value]);
 
   return (
     <div
@@ -293,7 +303,7 @@ const Passcode = ({
             className={twMerge(
               classNames(
                 "h-8 w-7 bg-level-3 text-center rounded-md transition-colors duration-300",
-                "focus:ring-0 focus:ring-offset-0 focus:outline focus:outline-offset-1 focus:focus:outline-primary-base",
+                "focus:ring-0 focus:ring-offset-0 focus:outline focus:outline-offset-1 focus:outline-primary-base",
                 values[i] && "bg-level-1",
                 error && "bg-danger-base"
               ),
