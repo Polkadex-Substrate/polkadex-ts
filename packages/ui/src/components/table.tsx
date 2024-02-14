@@ -127,7 +127,7 @@ const Head = ({
           className={twMerge(
             classNames(
               !!IconComponent?.length &&
-                "group-hover:text-current duration-300 transition-colors"
+                "group-hover:text-white duration-300 transition-colors"
             ),
             className
           )}

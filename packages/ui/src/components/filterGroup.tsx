@@ -34,7 +34,7 @@ const Icon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
       <PlusCircleIcon
         ref={ref}
         className={twMerge(
-          classNames("h-5 w-5 transition-transform duration-300 text-current"),
+          classNames("h-5 w-5 transition-transform duration-300 text-white"),
           className
         )}
         {...props}

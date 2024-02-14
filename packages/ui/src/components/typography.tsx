@@ -15,11 +15,15 @@ import { twMerge } from "tailwind-merge";
 import { Slot } from "@radix-ui/react-slot";
 
 import type { AppearanceVariants } from "../helpers";
-import { appearanceVariants, componentIsTypeof, fontSizes } from "../helpers";
+import {
+  appearanceVariantsClasses,
+  componentIsTypeof,
+  fontSizeClasses,
+} from "../helpers";
 
 type Props = {
   appearance?: AppearanceVariants;
-  size?: keyof typeof fontSizes;
+  size?: keyof typeof fontSizeClasses;
   asChild?: boolean;
 };
 
@@ -49,9 +53,10 @@ const Text = forwardRef<HTMLSpanElement, PropsWithChildren<TextProps>>(
         ref={ref}
         className={twMerge(
           classNames(
+            "text-white",
             bold && "font-semibold",
-            appearanceVariants[appearance],
-            fontSizes[size]
+            appearanceVariantsClasses[appearance],
+            fontSizeClasses[size]
           ),
           className
         )}
@@ -78,7 +83,11 @@ const Paragraph = forwardRef<
       componentIsTypeof(child, "p")
     );
     const customClassNames = twMerge(
-      classNames("leading-5", appearanceVariants[appearance], fontSizes[size]),
+      classNames(
+        "leading-5 text-white",
+        appearanceVariantsClasses[appearance],
+        fontSizeClasses[size]
+      ),
       className
     );
     if (isChildrenParagraph) {
@@ -100,7 +109,7 @@ Paragraph.displayName = "Paragraph";
 
 interface HeadingProps extends ComponentProps<"h1"> {
   type?: (typeof headingTypes)[number];
-  size?: keyof typeof fontSizes;
+  size?: keyof typeof fontSizeClasses;
   appearance?: AppearanceVariants;
 }
 
@@ -124,9 +133,9 @@ const Heading = forwardRef<HTMLElement, PropsWithChildren<HeadingProps>>(
         ref={ref}
         className={twMerge(
           classNames(
-            "font-semibold",
-            fontSizes[size],
-            appearanceVariants[appearance]
+            "font-semibold text-white",
+            fontSizeClasses[size],
+            appearanceVariantsClasses[appearance]
           ),
           className
         )}
