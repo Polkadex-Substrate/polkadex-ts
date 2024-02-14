@@ -25,6 +25,7 @@ export interface ButtonProps extends ComponentProps<"button"> {
     | "info";
   withIcon?: boolean;
   rounded?: boolean;
+  bold?: boolean;
 }
 
 const buttonStyleClasses: Record<
@@ -140,6 +141,7 @@ export const Base = forwardRef<
       variant = "solid",
       withIcon = false,
       rounded = false,
+      bold = true,
       children,
       ...props
     },
@@ -153,10 +155,11 @@ export const Base = forwardRef<
           classNames(
             "transition-colors duration-300",
             "flex items-center justify-center whitespace-nowrap",
-            "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-disable font-medium",
+            "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-disabled",
             withIcon ? iconSizeClasses[size] : buttonSizeClasses[size],
             rounded ? "rounded-full" : "rounded-sm",
             withIcon && "group",
+            bold && "font-medium",
             buttonStyleClasses[variant][appearance]
           ),
           className
