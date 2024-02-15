@@ -62,7 +62,7 @@ const Input = forwardRef<
       <Command.Input
         className={twMerge(
           classNames(
-            "text-sm flex-1 bg-transparent text-current placeholder:text-primary outline-none"
+            "text-sm flex-1 bg-transparent text-white placeholder:text-primary outline-none"
           ),
           className
         )}
@@ -123,7 +123,7 @@ const Group = forwardRef<
       ref={ref}
       className={twMerge(
         classNames(
-          "overflow-hidden text-current",
+          "overflow-hidden text-white",
           "[&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:text-actionInput"
         ),
         className

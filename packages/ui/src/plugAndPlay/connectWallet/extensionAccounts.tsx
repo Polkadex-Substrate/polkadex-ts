@@ -1,3 +1,5 @@
+"use client";
+
 import { ExtensionAccount } from "@polkadex/react-providers";
 import { useEffect } from "react";
 

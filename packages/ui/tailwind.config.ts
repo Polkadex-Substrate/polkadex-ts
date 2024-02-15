@@ -11,6 +11,7 @@ export const config = {
     "./src/tokens/*.{js,ts,jsx,tsx,mdx,md}",
     "./src/plugAndPlay/**/*.{js,ts,jsx,tsx,mdx,md}",
     "./src/readyToUse/**/*.{js,ts,jsx,tsx,mdx,md}",
+    "./src/helpers/*.{js,ts,jsx,tsx,mdx,md}",
   ],
   plugins: [require("tailwindcss-animate")],
 };

@@ -54,7 +54,7 @@ const Solid = forwardRef<
     className={twMerge(
       classNames(
         "data-[state=unchecked]:bg-level-5 data-[state=unchecked]:group-hover:bg-level-2 border-none",
-        "data-[state=checked]:bg-primary-base data-[state=checked]:text-primary-foreground"
+        "data-[state=checked]:bg-primary-base data-[state=checked]:text-white"
       ),
       className
     )}

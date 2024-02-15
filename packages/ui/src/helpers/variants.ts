@@ -22,8 +22,9 @@ export const placementsStyles = {
   "bottom right": "bottom-0 right-0",
 };
 
-export const appearanceVariants = {
-  base: "text-current",
+export const appearanceVariantsClasses = {
+  base: "text-white",
+  "primary-base": "text-primary-base",
   primary: "text-primary",
   secondary: "text-secondary",
   tertiary: "text-tertiary-base",
@@ -35,9 +36,9 @@ export const appearanceVariants = {
   attention: "text-attention-base",
   info: "text-info-base",
 };
-export type AppearanceVariants = keyof typeof appearanceVariants;
+export type AppearanceVariants = keyof typeof appearanceVariantsClasses;
 
-export const fontSizes = {
+export const fontSizeClasses = {
   "3xs": "text-3xs",
   "2xs": "text-2xs",
   xs: "text-xs",

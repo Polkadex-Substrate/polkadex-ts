@@ -56,7 +56,7 @@ const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
         type="text"
         className={twMerge(
           classNames(
-            "flex-1 bg-transparent text-current placeholder:text-primary outline-none"
+            "flex-1 bg-transparent text-white placeholder:text-primary outline-none"
           ),
           className
         )}
