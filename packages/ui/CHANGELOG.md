@@ -1,5 +1,13 @@
 # @polkadex/ux
 
+## 6.6.0
+
+### Minor Changes
+
+- 8313eca: - [x] fix: Adjusted default colors for ghost buttons.
+  - [x] fix:Enhanced button props to better manage color attributes.
+  - [x] fix: use of client tags for client-side components.
+
 ## 6.5.0
 
 ### Minor Changes
