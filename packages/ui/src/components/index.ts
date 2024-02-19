@@ -32,4 +32,3 @@ export * from "./processing";
 export * from "./searchable";
 export * from "./toggleGroup";
 export * from "./filterGroup";
-export * from "./scrollArea";
