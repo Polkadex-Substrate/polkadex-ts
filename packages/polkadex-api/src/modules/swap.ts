@@ -200,12 +200,29 @@ export class SwapApi extends BaseApi {
     const assetPath = path.map((asset) => this.createAssetIdEnum(asset));
     const amtOut = toPlanck(amountOut, this.chainDecimals).toFixed();
     const amtIn = toPlanck(amountInMax, this.chainDecimals).toFixed();
-    return this.api.tx.assetConversion.swapExactTokensForTokens(
+    return this.api.tx.assetConversion.swapTokensForExactTokens(
       assetPath,
       amtOut,
       amtIn,
       toAddress,
       keepAlive
     );
+  }
+
+  public async getReserves(
+    base: string,
+    quote: string
+  ): Promise<{ base: number; quote: number }> {
+    const asset1 = this.createAssetIdEnum(base);
+    const asset2 = this.createAssetIdEnum(quote);
+    const out = await this.api.call.assetConversionApi.getReserves(
+      asset1,
+      asset2
+    );
+    const result = out.toJSON() as Array<string> | null;
+    return {
+      base: toUnit(result?.[0] ?? 0, this.chainDecimals).toNumber(),
+      quote: toUnit(result?.[1] ?? 0, this.chainDecimals).toNumber(),
+    };
   }
 }

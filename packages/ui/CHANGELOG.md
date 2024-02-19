@@ -1,5 +1,23 @@
 # @polkadex/ux
 
+## 6.6.0
+
+### Minor Changes
+
+- 8313eca: - [x] fix: Adjusted default colors for ghost buttons.
+  - [x] fix:Enhanced button props to better manage color attributes.
+  - [x] fix: use of client tags for client-side components.
+
+## 6.5.0
+
+### Minor Changes
+
+- aade468: fix: Input.Passcode to clear the last entered value upon reset and focus on the first position for improved usability.
+  fix: styles of Toast components by removing inappropriate opacity styles to ensure a consistent and visually appealing user experience.
+  fix: Functionality of the Width and Height properties in the Skeleton component.
+  fix: Optimized Dropdown.Trigger reduced gap space.
+  fix: superposition feature in Dropdown.Trigger.
+
 ## 6.4.0
 
 ### Minor Changes

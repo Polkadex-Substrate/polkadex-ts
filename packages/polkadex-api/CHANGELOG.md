@@ -1,5 +1,23 @@
 # @polkadex/polkadex-api
 
+## 3.0.3
+
+### Patch Changes
+
+- 141e2df: fix: handle pool not present
+
+## 3.0.2
+
+### Patch Changes
+
+- 253ef03: feat: add get reserves call
+
+## 3.0.1
+
+### Patch Changes
+
+- f391249: fix: swapTokensForExactTokens caller fix
+
 ## 3.0.0
 
 ### Major Changes

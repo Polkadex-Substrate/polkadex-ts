@@ -20,7 +20,7 @@ const Item = forwardRef<
       className={twMerge(
         classNames(
           "inline-flex items-center justify-center disabled:pointer-events-none disabled:opacity-50shadow-sm duration-300 transition-colors ",
-          "px-3 py-1 rounded-sm hover:bg-level-3 text-primary hover:text-current data-[state=on]:bg-level-2 data-[state=on]:text-current"
+          "px-3 py-1 rounded-sm hover:bg-level-3 text-primary hover:text-white data-[state=on]:bg-level-2 data-[state=on]:text-white"
         ),
         className
       )}

@@ -49,7 +49,7 @@ const Title = ({
     >
       {hasBack && (
         <Button.Icon onClick={onBack} variant="ghost" rounded>
-          <ArrowLeftIcon className="text-secondary group-hover:text-current" />
+          <ArrowLeftIcon className="text-secondary group-hover:text-white" />
         </Button.Icon>
       )}
       {isString ? (
@@ -62,7 +62,7 @@ const Title = ({
 
       {hasClose && (
         <Button.Icon onClick={onClose} variant="ghost" rounded>
-          <XMarkIcon className="text-secondary group-hover:text-current" />
+          <XMarkIcon className="text-secondary group-hover:text-white" />
         </Button.Icon>
       )}
     </div>

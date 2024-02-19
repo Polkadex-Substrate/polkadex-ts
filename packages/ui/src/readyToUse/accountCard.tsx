@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 import { PropsWithChildren } from "react";
 
@@ -104,7 +106,7 @@ const Inverted = ({
                 appearance="attention"
                 size="xs"
                 bold
-                className="px-1 py-0.5 rounded-md bg-attention-base bg-opacity-20 w-fit"
+                className="px-1 py-0.5 rounded-md bg-attention-base/20 w-fit"
               >
                 Not present
               </Typography.Text>

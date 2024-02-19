@@ -4,11 +4,11 @@ import { ComponentProps } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
-import { appearanceVariants, fontSizes } from "../helpers";
+import { appearanceVariantsClasses, fontSizeClasses } from "../helpers";
 
 export interface LabelProps extends ComponentProps<"label"> {
-  appearance?: keyof typeof appearanceVariants;
-  size?: keyof typeof fontSizes;
+  appearance?: keyof typeof appearanceVariantsClasses;
+  size?: keyof typeof fontSizeClasses;
 }
 
 export const Label = ({
@@ -22,8 +22,8 @@ export const Label = ({
     className={twMerge(
       classNames(
         "cursor-pointer",
-        appearanceVariants[appearance],
-        fontSizes[size]
+        appearanceVariantsClasses[appearance],
+        fontSizeClasses[size]
       ),
       className
     )}
