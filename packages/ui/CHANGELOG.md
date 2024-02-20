@@ -1,5 +1,12 @@
 # @polkadex/ux
 
+## 6.7.0
+
+### Minor Changes
+
+- 02b8dac: feat: ScrollArea component
+- fe3cc67: feat: resizable component
+
 ## 6.6.0
 
 ### Minor Changes
