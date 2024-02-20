@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useEffect, useRef, useState } from "react";
 import {
   AnyFunction,

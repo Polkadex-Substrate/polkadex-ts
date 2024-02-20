@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useEffect, useState } from "react";
 import { BrowserWallet } from "@polkadex/local-wallets";
 
