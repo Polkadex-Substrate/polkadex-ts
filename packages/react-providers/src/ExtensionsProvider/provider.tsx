@@ -17,7 +17,7 @@ import {
   ExtensionStatus,
 } from "./types";
 import { defaultExtensionsContext } from "./constants";
-import { polkadotSnapAvailable } from "./utils";
+import { polkadexSnapAvailable } from "./utils";
 
 export const ExtensionsContext = createContext<ExtensionsContextInterface>(
   defaultExtensionsContext
@@ -40,9 +40,8 @@ export const ExtensionsProvider = ({ children }: { children: ReactNode }) => {
   >({});
   const extensionsStatusRef = useRef(extensionsStatus);
 
-  // Listen for window.injectedWeb3 with an interval.
-  const injectedWeb3Interval = useRef<NodeJS.Timeout | null>(null);
-  const injectCounter = 0;
+  // counter for listening inject with an interval.
+  const injectCounter = useRef<number>(0);
 
   // Setter for an extension status.
   const setExtensionStatus = (id: string, status: ExtensionStatus) => {
@@ -78,7 +77,7 @@ export const ExtensionsProvider = ({ children }: { children: ReactNode }) => {
 
       const newExtensionsStatus = { ...extensionsStatus };
       if (snapAvailable)
-        newExtensionsStatus["metamask-polkadot-snap"] = "installed";
+        newExtensionsStatus["metamask-polkadex-snap"] = "installed";
 
       ExtensionsArray.forEach((e) => {
         if (injectedWeb3[e.id] !== undefined) {
@@ -95,7 +94,7 @@ export const ExtensionsProvider = ({ children }: { children: ReactNode }) => {
   // `injectedWeb3` syncing process.
   const handleSnapInjection = useCallback(
     async (hasInjectedWeb3: boolean) => {
-      const snapAvailable = await polkadotSnapAvailable();
+      const snapAvailable = await polkadexSnapAvailable();
 
       if (hasInjectedWeb3 || snapAvailable)
         setStateWithRef(
@@ -113,9 +112,8 @@ export const ExtensionsProvider = ({ children }: { children: ReactNode }) => {
   //
   // Clear interval and move on to checking for Metamask Polkadot Snap.
   const handleClearInterval = useCallback(
-    (hasInjectedWeb3: boolean) => {
-      if (injectedWeb3Interval.current)
-        clearInterval(injectedWeb3Interval.current);
+    (interval: ReturnType<typeof setInterval>, hasInjectedWeb3: boolean) => {
+      clearInterval(interval);
       // Check if Metamask Polkadot Snap is available.
       handleSnapInjection(hasInjectedWeb3);
     },
@@ -148,24 +146,25 @@ export const ExtensionsProvider = ({ children }: { children: ReactNode }) => {
   // Total interval iterations.
   const totalChecks = 10;
   useEffect(() => {
+    let injectedWeb3Interval: ReturnType<typeof setInterval>;
     if (!intervalInitialisedRef.current) {
       intervalInitialisedRef.current = true;
 
-      injectedWeb3Interval.current = setInterval(() => {
-        if (injectCounter + 1 === totalChecks) handleClearInterval(false);
+      injectedWeb3Interval = setInterval(() => {
+        injectCounter.current++;
+        if (injectCounter.current === totalChecks)
+          handleClearInterval(injectedWeb3Interval, false);
         else {
           // if injected is present
           const injectedWeb3 = (window as AnyJson)?.injectedWeb3 || null;
-          if (injectedWeb3 !== null) handleClearInterval(true);
+          if (injectedWeb3 !== null)
+            handleClearInterval(injectedWeb3Interval, true);
         }
       }, checkEveryMs);
     }
 
     return () => {
-      if (injectedWeb3Interval.current) {
-        clearInterval(injectedWeb3Interval.current);
-        injectedWeb3Interval.current = null;
-      }
+      clearInterval(injectedWeb3Interval);
     };
   }, [handleClearInterval]);
 
