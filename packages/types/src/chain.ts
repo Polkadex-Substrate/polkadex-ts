@@ -1,6 +1,6 @@
 import { BTreeMap, Enum, Struct, u128, Vec } from "@polkadot/types";
 import { BN } from "@polkadot/util";
-import { AccountId, AssetId } from "@polkadot/types/interfaces";
+import { AccountId } from "@polkadot/types/interfaces";
 
 // blockchain account query result
 export interface SystemAccount extends Struct {
