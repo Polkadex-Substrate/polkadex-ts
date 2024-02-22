@@ -12,6 +12,11 @@ export interface SystemAccount extends Struct {
   };
 }
 
+export interface PalletAssetsAssetAccount extends Struct {
+  balance: BN;
+  status: string;
+  reason: string;
+}
 export interface PolkadexPrimitivesOcexAccountInfo extends Struct {
   mainAccount: AccountId;
   proxies: Vec<AccountId>;
