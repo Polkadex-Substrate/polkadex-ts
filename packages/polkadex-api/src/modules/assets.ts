@@ -13,6 +13,7 @@ type Asset = {
 };
 export class AssetsApi extends BaseApi {
   public async queryAllAssets(): Promise<Asset[]> {
+    await this.initApi();
     const [metadata] = await Promise.all([
       this.api.query.assets.metadata.entries(),
     ]);
@@ -34,6 +35,7 @@ export class AssetsApi extends BaseApi {
   }
 
   public async queryBalance(account: string, assetId: string): Promise<number> {
+    await this.initApi();
     const balances = await this.api.query.assets.account<
       Option<PalletAssetsAssetAccount>
     >(assetId, account);
