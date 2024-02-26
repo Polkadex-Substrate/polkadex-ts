@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.8.0
+
+### Minor Changes
+
+- 5179108: fix: Toaster Styles improved
+
 ## 6.7.0
 
 ### Minor Changes
