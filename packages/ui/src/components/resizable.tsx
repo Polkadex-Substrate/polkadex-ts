@@ -1,10 +1,11 @@
 "use client";
 
 import * as ResizablePanels from "react-resizable-panels";
-import { ComponentProps } from "react";
+import { ComponentProps, forwardRef } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
-import { Bars2Icon } from "@heroicons/react/24/solid";
+import { RiDraggable } from "@remixicon/react";
+import type { ImperativePanelHandle } from "react-resizable-panels";
 
 const Resizable = ({
   children,
@@ -26,12 +27,17 @@ const Resizable = ({
   );
 };
 
-const Panel = ({
-  children,
-  ...props
-}: ComponentProps<typeof ResizablePanels.Panel>) => {
-  return <ResizablePanels.Panel {...props}>{children}</ResizablePanels.Panel>;
-};
+const Panel = forwardRef<
+  ImperativePanelHandle,
+  ComponentProps<typeof ResizablePanels.Panel>
+>(({ children, ...props }, ref) => {
+  return (
+    <ResizablePanels.Panel ref={ref} {...props}>
+      {children}
+    </ResizablePanels.Panel>
+  );
+});
+Panel.displayName = "Panel";
 
 interface HandleProps
   extends ComponentProps<typeof ResizablePanels.PanelResizeHandle> {
@@ -52,7 +58,7 @@ const Handle = ({ className, withHandle, ...props }: HandleProps) => {
     >
       {withHandle && (
         <div className="z-10 flex h-4 w-3 items-center justify-center rounded-sm  bg-level-5 border border-secondary">
-          <Bars2Icon className="h-2.5 w-2.5 rotate-180" />
+          <RiDraggable className="h-2.5 w-2.5 rotate-180" />
         </div>
       )}
     </ResizablePanels.PanelResizeHandle>
@@ -61,4 +67,4 @@ const Handle = ({ className, withHandle, ...props }: HandleProps) => {
 
 Resizable.Handle = Handle;
 Resizable.Panel = Panel;
-export { Resizable };
+export { Resizable, ImperativePanelHandle };
