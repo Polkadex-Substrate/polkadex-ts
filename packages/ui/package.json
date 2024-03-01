@@ -36,7 +36,7 @@
   "dependencies": {
     "@floating-ui/react": "^0.26.4",
     "@headlessui/react": "^1.7.18",
-    "@heroicons/react": "^2.0.18",
+    "@remixicon/react": "^4.2.0",
     "@polkadex/react-providers": "*",
     "@polkadot-cloud/assets": "^0.1.35",
     "@radix-ui/react-accordion": "^1.1.2",

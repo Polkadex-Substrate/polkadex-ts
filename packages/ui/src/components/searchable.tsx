@@ -1,6 +1,5 @@
 "use client";
 
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import classNames from "classnames";
 import { Command } from "cmdk";
 import {
@@ -10,6 +9,7 @@ import {
   forwardRef,
 } from "react";
 import { twMerge } from "tailwind-merge";
+import { RiSearchLine } from "@remixicon/react";
 
 import { NoResultFound } from "../illustrations";
 
@@ -58,7 +58,7 @@ const Input = forwardRef<
       ref={ref}
       className="flex flex-1 border-b pb-2 border-primary items-center gap-2"
     >
-      <MagnifyingGlassIcon className="w-4 h-4 text-primary" />
+      <RiSearchLine className="w-4 h-4 text-primary" />
       <Command.Input
         className={twMerge(
           classNames(

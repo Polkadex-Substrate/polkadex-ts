@@ -7,9 +7,9 @@ import {
   PropsWithoutRef,
 } from "react";
 import classNames from "classnames";
-import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 import { Transition } from "@headlessui/react";
+import { RiArrowLeftLine, RiCloseLine } from "@remixicon/react";
 
 import { isValidComponent, typeofChildren } from "../helpers";
 
@@ -49,7 +49,7 @@ const Title = ({
     >
       {hasBack && (
         <Button.Icon onClick={onBack} variant="ghost" rounded>
-          <ArrowLeftIcon className="text-secondary group-hover:text-white" />
+          <RiArrowLeftLine className="w-full h-full text-secondary group-hover:text-white" />
         </Button.Icon>
       )}
       {isString ? (
@@ -62,7 +62,7 @@ const Title = ({
 
       {hasClose && (
         <Button.Icon onClick={onClose} variant="ghost" rounded>
-          <XMarkIcon className="text-secondary group-hover:text-white" />
+          <RiCloseLine className="w-full h-full text-secondary group-hover:text-white" />
         </Button.Icon>
       )}
     </div>

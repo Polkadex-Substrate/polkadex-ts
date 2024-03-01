@@ -1,11 +1,6 @@
 "use client";
 
 import {
-  MagnifyingGlassIcon,
-  MinusIcon,
-  PlusIcon,
-} from "@heroicons/react/24/solid";
-import {
   ChangeEvent,
   ComponentProps,
   ComponentPropsWithoutRef,
@@ -23,6 +18,7 @@ import {
 } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
+import { RiAddLine, RiSearchLine, RiSubtractLine } from "@remixicon/react";
 
 import { isValidComponent } from "../helpers";
 
@@ -119,9 +115,9 @@ const Button = ({
       {...props}
     >
       {variant === "increase" ? (
-        <PlusIcon className="w-3 h-3" />
+        <RiAddLine className="w-3 h-3" />
       ) : (
-        <MinusIcon className="w-3 h-3" />
+        <RiSubtractLine className="w-3 h-3" />
       )}
     </button>
   );
@@ -151,7 +147,7 @@ const Search = forwardRef<
 >((props, ref) => {
   return (
     <div className="flex flex-1 items-center gap-2">
-      <MagnifyingGlassIcon className="w-4 h-4 text-primary" />
+      <RiSearchLine className="w-4 h-4 text-primary" />
       <Base ref={ref} className="text-sm" {...props} />
     </div>
   );

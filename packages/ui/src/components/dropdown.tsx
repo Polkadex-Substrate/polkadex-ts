@@ -9,11 +9,10 @@ import {
   forwardRef,
   ElementRef,
 } from "react";
-import { CheckIcon } from "@heroicons/react/24/outline";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Transition } from "@headlessui/react";
+import { RiArrowDownSLine, RiCheckLine } from "@remixicon/react";
 
 import {
   isValidComponent,
@@ -57,7 +56,7 @@ const Icon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
     return children ? (
       <Fragment>{children} </Fragment>
     ) : (
-      <ChevronDownIcon
+      <RiArrowDownSLine
         ref={ref}
         className={twMerge(
           classNames("h-4 w-4 transition-transform duration-300 text-primary"),
@@ -140,7 +139,7 @@ const ItemCheckbox = forwardRef<
       {...props}
     >
       <DropdownMenu.ItemIndicator>
-        <CheckIcon className="w-3 h-3 text-primary-base [&_path]:stroke-[3px]" />
+        <RiCheckLine className="w-3 h-3 text-primary-base [&_path]:stroke-[3px]" />
       </DropdownMenu.ItemIndicator>
       {(isString && <Typography.Text>{children}</Typography.Text>) || children}
     </DropdownMenu.CheckboxItem>

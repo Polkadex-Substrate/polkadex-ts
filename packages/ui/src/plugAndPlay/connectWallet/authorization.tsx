@@ -1,10 +1,10 @@
 "use client";
 
-import { XMarkIcon } from "@heroicons/react/24/solid";
 import { ElementType, useCallback, useEffect, useState } from "react";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
+import { RiCloseLine } from "@remixicon/react";
 
 import {
   Interaction,
@@ -67,7 +67,7 @@ export const Authorization = ({
               <div className="h-20 w-20 bg-level-2 rounded-full p-3 relative shadow-baseShadow">
                 {extensionIcon && <IconComponent />}
                 <div className="h-6 w-6 p-1 rounded-full bg-danger-base absolute bottom-0 right-0">
-                  <XMarkIcon />
+                  <RiCloseLine className="w-full h-full" />
                 </div>
               </div>
             </div>
