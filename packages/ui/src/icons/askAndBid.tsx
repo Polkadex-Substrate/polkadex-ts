@@ -13,6 +13,7 @@ export function AskAndBid(props: ComponentProps<"svg">) {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill="none"
       />
       <path
         d="M2.20011 20L9.09998 20C10.6 20 11.2 19.36 11.2 17.77L11.2 13.73C11.2 12.14 10.6 11.5 9.09998 11.5L2.20012 11.5C0.700115 11.5 0.100115 12.14 0.100115 13.73L0.100115 17.77C0.100114 19.36 0.700115 20 2.20011 20Z"

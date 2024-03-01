@@ -1,10 +1,10 @@
 "use client";
 
 import { ComponentProps, MouseEvent, PropsWithChildren, useState } from "react";
-import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
 import classNames from "classnames";
 import { TooltipContentProps } from "@radix-ui/react-tooltip";
 import { twMerge } from "tailwind-merge";
+import { RiFileCopyLine } from "@remixicon/react";
 
 import { Tooltip } from "./tooltip";
 
@@ -40,7 +40,7 @@ export const Copy = ({
     <Tooltip onOpenChange={setOpen} open={open}>
       <Tooltip.Trigger onClick={onCopy} onMouseOut={onMouseOut}>
         {children ?? (
-          <DocumentDuplicateIcon
+          <RiFileCopyLine
             className={twMerge(classNames("w-3 h-3 text-secondary"), className)}
           />
         )}

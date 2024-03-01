@@ -1,5 +1,28 @@
 # @polkadex/ux
 
+## 6.9.0
+
+### Minor Changes
+
+- 6be628f: - [x] fix: Resizable Component ForwardRef Implementation
+  - [x] fix: Icon Library Upgrade - Heroicons to Remixicons:
+  - [x] fix: Overlay Z-Index Adjustment for Dropdown, Popover, and Modal
+  - [x] fix: Remove Fill from Three Icons - Ask, Bid, and AskAndBid
+  - [x] fix: New Input Component Prop - containerProps
+
+## 6.8.0
+
+### Minor Changes
+
+- 5179108: fix: Toaster Styles improved
+
+## 6.7.0
+
+### Minor Changes
+
+- 02b8dac: feat: ScrollArea component
+- fe3cc67: feat: resizable component
+
 ## 6.6.0
 
 ### Minor Changes
