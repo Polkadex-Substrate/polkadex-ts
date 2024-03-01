@@ -64,37 +64,44 @@ const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
 
 Base.displayName = "Base";
 
-const Primary = forwardRef<
-  ElementRef<"input">,
-  ComponentPropsWithoutRef<"input">
->(({ children, ...props }) => {
-  const ref = useRef<HTMLInputElement>(null);
-  const ButtonComponents = isValidComponent(children, Button);
-  const [LabelComponent] = isValidComponent(children, Label);
-  const [TickerComponent] = isValidComponent(children, Ticker);
+interface InputWithContainerProps extends ComponentPropsWithoutRef<"input"> {
+  contianerProps?: ComponentProps<"div">;
+}
+const Primary = forwardRef<ElementRef<"input">, InputWithContainerProps>(
+  ({ children, contianerProps, ...props }) => {
+    const ref = useRef<HTMLInputElement>(null);
+    const ButtonComponents = isValidComponent(children, Button);
+    const [LabelComponent] = isValidComponent(children, Label);
+    const [TickerComponent] = isValidComponent(children, Ticker);
 
-  return (
-    <div
-      className="flex justify-between items-center gap-2 bg-level-3 h-[45px] rounded"
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        ref?.current?.focus();
-      }}
-    >
-      <div className="flex flex-1 items-center justify-between gap-2 pl-3 pr-2">
-        <div className="flex items-center gap-2">
-          {LabelComponent}
-          <Base ref={ref} className="text-sm" {...props} />
+    const { className } = contianerProps ?? {};
+    return (
+      <div
+        className={classNames(
+          "flex justify-between items-center gap-2 bg-level-3 h-[45px] rounded",
+          className
+        )}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          ref?.current?.focus();
+        }}
+        {...contianerProps}
+      >
+        <div className="flex flex-1 items-center justify-between gap-2 pl-3 pr-2">
+          <div className="flex items-center gap-2">
+            {LabelComponent}
+            <Base ref={ref} className="text-sm" {...props} />
+          </div>
+          {TickerComponent}
         </div>
-        {TickerComponent}
+        {!!ButtonComponents?.length && (
+          <div className="flex h-full flex-col gap-0.5">{ButtonComponents}</div>
+        )}
       </div>
-      {!!ButtonComponents?.length && (
-        <div className="flex h-full flex-col gap-0.5">{ButtonComponents}</div>
-      )}
-    </div>
-  );
-});
+    );
+  }
+);
 
 Primary.displayName = "Primary";
 
@@ -141,29 +148,31 @@ const Label = ({
   <LabelPolkadex appearance={appearance} size={size} {...props} />
 );
 
-const Search = forwardRef<
-  ElementRef<"input">,
-  ComponentPropsWithoutRef<"input">
->((props, ref) => {
-  return (
-    <div className="flex flex-1 items-center gap-2">
-      <RiSearchLine className="w-4 h-4 text-primary" />
-      <Base ref={ref} className="text-sm" {...props} />
-    </div>
-  );
-});
+const Search = forwardRef<ElementRef<"input">, InputWithContainerProps>(
+  ({ contianerProps, ...props }, ref) => {
+    const { className } = contianerProps ?? {};
+    return (
+      <div className={classNames("flex flex-1 items-center gap-2", className)}>
+        <RiSearchLine className="w-4 h-4 text-primary" />
+        <Base ref={ref} className="text-sm" {...props} />
+      </div>
+    );
+  }
+);
 Search.displayName = "Search";
 
 const Vertical = ({
   id,
   children,
+  contianerProps,
   ...props
-}: ComponentPropsWithoutRef<"input">) => {
+}: InputWithContainerProps) => {
   const LabelComponent = isValidComponent(children, Label);
   const ButtonComponent = isValidComponent(children, Action);
 
+  const { className } = contianerProps ?? {};
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className={classNames("flex flex-col gap-2 w-full", className)}>
       {LabelComponent}
       <div className="flex items-center justify-between gap-2 flex-1">
         <Base id={id} className="text-lg font-medium" {...props} />
