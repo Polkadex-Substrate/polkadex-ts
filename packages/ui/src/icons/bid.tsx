@@ -13,6 +13,7 @@ export function Bid(props: ComponentProps<"svg">) {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill="none"
       />
     </svg>
   );
