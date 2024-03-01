@@ -3,7 +3,7 @@
 import classNames from "classnames";
 import { ComponentProps, PropsWithChildren, PropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
-import * as Icons from "@heroicons/react/24/solid";
+import * as Icons from "@remixicon/react";
 
 import {
   Button as PolkadexButton,
@@ -28,16 +28,10 @@ const Page = ({
   );
 };
 
-const Ellipsis = ({
-  className,
-  ...props
-}: PropsWithChildren<Omit<ComponentProps<"svg">, "ref">>) => {
+const Ellipsis = ({ className }: ComponentProps<"svg">) => {
   return (
     <div>
-      <Icons.EllipsisHorizontalIcon
-        className={classNames("w-4 h-4", className)}
-        {...props}
-      />
+      <Icons.RiMore2Line className={classNames("w-4 h-4", className)} />
     </div>
   );
 };
@@ -91,7 +85,9 @@ const Button = ({
   ...props
 }: PropsWithoutRef<ButtonProps>) => {
   const IconComponent =
-    Icons[arrowType === "single" ? "ChevronLeftIcon" : "ChevronDoubleLeftIcon"];
+    Icons[
+      arrowType === "single" ? "RiArrowLeftSLine" : "RiArrowLeftDoubleLine"
+    ];
 
   return (
     <>
