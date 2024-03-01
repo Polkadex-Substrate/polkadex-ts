@@ -35,7 +35,7 @@ const Overlay = forwardRef<HTMLDivElement, ComponentPropsWithRef<"div">>(
           ref={ref}
           className={twMerge(
             classNames(
-              "w-screen h-screen bg-overlay-3 inset-0 fixed animate-in z-[10]"
+              "w-screen h-screen bg-overlay-3 inset-0 fixed animate-in z-[15]"
             ),
             className
           )}
