@@ -11,8 +11,8 @@ import {
 } from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Transition } from "@headlessui/react";
+import { RiArrowDownSLine } from "@remixicon/react";
 
 import { isValidComponentWithoutTarget, typeofChildren } from "../helpers";
 import { getRemainingComponents } from "../helpers/getRemainingComponents";
@@ -35,7 +35,7 @@ const Overlay = forwardRef<HTMLDivElement, ComponentPropsWithRef<"div">>(
           ref={ref}
           className={twMerge(
             classNames(
-              "w-screen h-screen bg-overlay-3 inset-0 fixed animate-in"
+              "w-screen h-screen bg-overlay-3 inset-0 fixed animate-in z-[15]"
             ),
             className
           )}
@@ -52,7 +52,7 @@ const Icon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
     return children ? (
       <Fragment>{children} </Fragment>
     ) : (
-      <ChevronDownIcon
+      <RiArrowDownSLine
         ref={ref}
         className={twMerge(
           classNames("h-4 w-4 transition-transform duration-300 text-primary"),

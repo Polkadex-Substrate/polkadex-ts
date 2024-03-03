@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { ComponentProps, ElementType, PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { RiCloseLine } from "@remixicon/react";
 
 import { Button, Spinner, Typography } from "../components";
 
@@ -44,7 +44,7 @@ export const TransactionLoading = ({
         <div className="flex flex-col gap-5 w-full">
           <div className="flex flex-col gap-5 items-center text-center">
             <div className="h-12 w-12 rounded-full bg-danger-base p-2 shadow-baseShadow">
-              <XMarkIcon />
+              <RiCloseLine className="w-full h-full" />
             </div>
             <div className="flex flex-col gap-1">
               <Typography.Text bold size="xl">

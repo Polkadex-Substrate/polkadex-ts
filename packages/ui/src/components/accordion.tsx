@@ -7,9 +7,9 @@ import {
   ElementRef,
 } from "react";
 import * as AccordionRadix from "@radix-ui/react-accordion";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
+import { RiArrowDownSLine } from "@remixicon/react";
 
 import {
   isValidComponent,
@@ -25,7 +25,7 @@ const Icon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
     return children ? (
       <Fragment>{children} </Fragment>
     ) : (
-      <ChevronDownIcon
+      <RiArrowDownSLine
         ref={ref}
         className={twMerge(
           classNames(
