@@ -51,12 +51,17 @@ export interface Decimal extends Struct {
   mid: BN;
 }
 
+export interface LMPConfig extends Struct {
+  weightage: Decimal;
+  minFeesPaid: Decimal;
+  minMakerVolume: Decimal;
+  maxSpread: Decimal;
+  minDepth: Decimal;
+}
 export interface LMPEpochConfig extends Struct {
-  total_liquidity_mining_rewards: Decimal;
-  total_trading_rewards: Decimal;
-  market_weightage: BTreeMap<TradingPair, Decimal>;
-  min_fees_paid: BTreeMap<TradingPair, Decimal>;
-  min_maker_volume: BTreeMap<TradingPair, Decimal>;
-  max_accounts_rewarded: u16;
-  claim_safety_period: u16;
+  totalLiquidityMiningRewards: Decimal;
+  totalTradingRewards: Decimal;
+  config: BTreeMap<TradingPair, LMPConfig>;
+  maxAccountsRewarded: u16;
+  claimSafetyPeriod: u16;
 }
