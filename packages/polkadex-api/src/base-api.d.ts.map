@@ -1,0 +1,1 @@
+{"version":3,"file":"base-api.d.ts","sourceRoot":"","sources":["base-api.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,eAAe,CAAC;AAE3C,8BAAsB,OAAO;IAC3B,SAAS,CAAC,GAAG,EAAE,UAAU,CAAC;gBAEd,GAAG,EAAE,UAAU;IAI3B,IAAW,aAAa,WAEvB;IAEY,OAAO;CAGrB"}
