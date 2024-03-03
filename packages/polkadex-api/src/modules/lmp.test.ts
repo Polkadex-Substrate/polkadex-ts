@@ -1,5 +1,4 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
-import { afterAll, describe, expect, test } from "vitest";
 
 import { apiTypes } from "../types";
 
@@ -10,23 +9,18 @@ const provider = new WsProvider("wss://test.chain.polkadex.trade");
 const api = new ApiPromise({ provider, ...apiTypes });
 const lmp = new LmpApi(api);
 
+beforeAll(async () => {
+  await lmp.initApi();
+}, 15000);
+
 describe("lmp queries <> check if markets types are correct", () => {
-  afterAll(async () => {
-    await api.disconnect();
-  });
-
-  test("Get market entries for lmp", async () => {
-    const res = await lmp.queryAllMarkets(1);
+  test("Get market entries", async () => {
+    const res = await lmp.queryAllMarkets(32);
     expect(res.length > 0).toBe(true);
+    expect(res[0]).toEqual(expect.any(String));
   });
-
-  test("Score and rewards for an account for an epoch", async() => {
-
-  })
-  test("Query to get accounts for a given market", async() => {
-
-  })
-  test("Query to get a claimable epoch for an account and market", async() => {
-
-  })
 });
+
+afterAll(async () => {
+  await api.disconnect();
+}, 10000);

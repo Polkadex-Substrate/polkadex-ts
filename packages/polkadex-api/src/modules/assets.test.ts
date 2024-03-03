@@ -1,5 +1,4 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
-import { afterAll, describe, expect, test } from "vitest";
 
 import { apiTypes } from "../types";
 
@@ -12,16 +11,21 @@ const provider = new WsProvider(
 const api = new ApiPromise({ provider, ...apiTypes });
 const assetApi = new AssetsApi(api);
 
-describe("query all assets", () => {
-  afterAll(async () => {
-    await api.disconnect();
-  });
+beforeAll(async () => {
+  await assetApi.initApi();
+}, 15000);
 
+describe("query all assets", () => {
   test("query asset entries", async () => {
     const res = await assetApi.queryAllAssets();
+    console.log("result:", res);
     expect(res.length > 0).toBe(true);
     expect(res[0].name).toEqual(expect.any(String));
     expect(res[0].ticker).toEqual(expect.any(String));
     expect(res[0].id).toEqual(expect.any(String));
   });
 });
+
+afterAll(async () => {
+  await api.disconnect();
+}, 10000);

@@ -3,7 +3,6 @@ import { cleanNumberLike, toPlanck, toUnit } from "@polkadex/numericals";
 import { Option, u128 } from "@polkadot/types";
 
 import { BaseApi } from "../base-api";
-import { parseAsset } from "./helpers";
 
 export type SwapPool = {
   base: string;
@@ -17,8 +16,8 @@ export class SwapApi extends BaseApi {
     const promises = poolsMap.map(async ([key, value]) => {
       const poolKeys = key.args.map((i) => i.toJSON());
       const pair = poolKeys[0] as Record<string, null>[];
-      const base = parseAsset(pair[0]);
-      const quote = parseAsset(pair[1]);
+      const base = this.parseAsset(pair[0]);
+      const quote = this.parseAsset(pair[1]);
       const valueJson = value.toJSON() as { lpToken: string };
       return {
         base,
@@ -27,6 +26,20 @@ export class SwapApi extends BaseApi {
       };
     });
     return await Promise.all(promises);
+  }
+
+  parseAsset(asset: unknown): string {
+    if (typeof asset !== "object") {
+      throw new Error(`cannot parse asset ${asset}`);
+    }
+    if (!!asset && "polkadex" in asset) {
+      return "polkadex";
+    }
+
+    if (!!asset && "asset" in asset) {
+      return cleanNumberLike(asset.asset as string).toFixed();
+    }
+    throw new Error(`cannot parse asset ${asset}`);
   }
 
   public async quotePriceExactTokensForTokens(

@@ -1,5 +1,4 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
-import { afterAll, describe, expect, test } from "vitest";
 
 import { apiTypes } from "../types";
 
@@ -12,10 +11,11 @@ const provider = new WsProvider(
 const api = new ApiPromise({ provider, ...apiTypes });
 const swapApi = new SwapApi(api);
 
+beforeAll(async () => {
+  await swapApi.initApi();
+}, 15000);
+
 describe("Swap queries <> check if pool types are correct", () => {
-  afterAll(async () => {
-    await api.disconnect();
-  });
   test("Get pool entries", async () => {
     const res = await swapApi.queryPools();
     expect(res.length > 0).toBe(true);
@@ -79,3 +79,7 @@ describe("Swap queries <> check if pool types are correct", () => {
     expect(res.quote).toEqual(expect.any(Number));
   });
 });
+
+afterAll(async () => {
+  await api.disconnect();
+}, 10000);
