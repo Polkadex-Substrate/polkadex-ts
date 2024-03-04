@@ -1,18 +1,47 @@
 import { LMPEpochConfig } from "@polkadex/types";
-import { Bool, Option, u16, Vec } from "@polkadot/types";
-import { AccountId } from "@polkadot/types/interfaces";
+import { Bool, Option, u16, u32, Vec } from "@polkadot/types";
+import { AccountId, Extrinsic } from "@polkadot/types/interfaces";
 
 import { BalancesApi } from "./balances";
 import { parseAsset } from "./helpers";
+import { TIME_INTERVALS } from "./constants";
 
 type Market = { base: string; quote: string };
 
 type EligibleRewards = {
-  marketMaking: string;
-  trading: string;
+  marketMaking: number;
+  trading: number;
   isClaimable: boolean;
 };
 export class LmpApi extends BalancesApi {
+  /**
+   * @summary gets the current epoch
+   */
+  public async queryCurrentEpoch(): Promise<number> {
+    await this.initApi();
+    const response = await this.api.query.ocex.lmpEpoch<u16>();
+    return response.toNumber();
+  }
+
+  /**
+   * @summary get number of blocks to start of next epoch
+   */
+  public async blocksToNextEpoch(): Promise<number> {
+    await this.initApi();
+    const currBlock = await this.getLatestBlockNumber();
+    const startBlock = Math.floor(currBlock / TIME_INTERVALS.blocksInEpoch);
+    return startBlock + TIME_INTERVALS.blocksInEpoch;
+  }
+
+  /**
+   * @summary get block number in which you can claim rewards for an epoch
+   */
+  public async getClaimBlock(epoch: number): Promise<number> {
+    await this.initApi();
+    const response = await this.api.query.ocex.lmpClaimBlk<Option<u32>>(epoch);
+    return response.unwrapOrDefault().toNumber();
+  }
+
   /**
    * @summary gets all lmp enabled markets for a given epoch
    */
@@ -59,8 +88,8 @@ export class LmpApi extends BalancesApi {
 
   /**
    * @summary gets eligible rewards for an account given market and epoch
-   * @description returns the marketMaking and trading rewards in the quote asset of the
-   * market, also returns if these rewards are claimable
+   * @description returns the marketMaking and trading rewards in PDEX,
+   * also returns if these rewards are claimable
    */
   public async getEligibleRewards(
     epoch: number,
@@ -77,8 +106,8 @@ export class LmpApi extends BalancesApi {
     );
     const res = resp.toJSON();
     return {
-      marketMaking: res[0], // market making rewards in PDEX
-      trading: res[1], // trading rewards in PDEX
+      marketMaking: Number(res[0]), // market making rewards in PDEX
+      trading: Number(res[1]), // trading rewards in PDEX
       isClaimable: Boolean(res[2]),
     };
   }
@@ -138,5 +167,16 @@ export class LmpApi extends BalancesApi {
     );
 
     return Number(resp.toString());
+  }
+
+  /**
+   * @summary claim rewards for an epoch and market
+   */
+  public async claimRewardsTx(
+    epoch: number,
+    market: string
+  ): Promise<Extrinsic> {
+    await this.initApi();
+    return this.api.tx.lmp.claimLmpRewards(epoch, market);
   }
 }
