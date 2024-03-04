@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.0.5
+
+### Patch Changes
+
+- 6f05e14: feat: improve lmp api
+
 ## 3.0.4
 
 ### Patch Changes
