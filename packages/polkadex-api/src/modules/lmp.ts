@@ -1,5 +1,5 @@
 import { LMPEpochConfig } from "@polkadex/types";
-import { Option, Vec } from "@polkadot/types";
+import { Option, u16, Vec } from "@polkadot/types";
 import { AccountId } from "@polkadot/types/interfaces";
 
 import { BalancesApi } from "./balances";
@@ -70,8 +70,18 @@ export class LmpApi extends BalancesApi {
     };
   }
 
-  public async queryClaimableEpochs(account: string): Promise<number[]> {
-    console.log(`${account} logged`);
-    return [0];
+  public async listClaimableEpochs(
+    market: string,
+    account: string,
+    untilEpoch: number
+  ): Promise<number[]> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const resp: Vec<u16> = await this.api.rpc.lmp.listClaimableEpochs<Vec<u16>>(
+      market,
+      account,
+      untilEpoch
+    );
+    return resp.map((item) => item.toNumber());
   }
 }

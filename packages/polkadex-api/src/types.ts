@@ -215,7 +215,7 @@ export const rpc = {
           type: "u16",
         },
       ],
-      type: "String",
+      type: "Vec<u16>",
     },
   },
 };

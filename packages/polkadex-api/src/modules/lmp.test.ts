@@ -37,5 +37,13 @@ describe("lmp queries <> check if markets types are correct", () => {
     );
     console.log("top accounts", res);
   });
-  // test("Query to get a claimable epoch for an account and market", async () => {});
+
+  test("Query to get a claimable epoch for an account and market", async () => {
+    const res = await lmp.listClaimableEpochs(
+      "PDEX-3496813586714279103986568049643838918",
+      "esooMNcEcTMzLAzbTA1FKpgurqhzRmLro11MLRyLTJ8bewAq1",
+      10
+    );
+    console.log("claimable epochs", res);
+  });
 });
