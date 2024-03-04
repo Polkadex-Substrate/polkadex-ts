@@ -172,7 +172,7 @@ export const rpc = {
         },
         {
           name: "market",
-          type: "TradingPair",
+          type: "String",
         },
         {
           name: "main",
@@ -190,7 +190,7 @@ export const rpc = {
         },
         {
           name: "market",
-          type: "TradingPair",
+          type: "String",
         },
         {
           name: "main",

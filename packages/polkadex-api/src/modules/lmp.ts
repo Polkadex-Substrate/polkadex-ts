@@ -84,4 +84,36 @@ export class LmpApi extends BalancesApi {
     );
     return resp.map((item) => item.toNumber());
   }
+
+  public async getFeePaidByUserPerEpoch(
+    epoch: number,
+    market: string,
+    account: string
+  ): Promise<number> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const resp = await this.api.rpc.lmp.feesPaidByUserPerEpoch(
+      epoch,
+      market,
+      account
+    );
+
+    return Number(resp.toString());
+  }
+
+  public async getVolumeGeneratedByUserPerEpoch(
+    epoch: number,
+    market: string,
+    account: string
+  ): Promise<number> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const resp = await this.api.rpc.lmp.volumeGeneratedByUserPerEpoch(
+      epoch,
+      market,
+      account
+    );
+
+    return Number(resp.toString());
+  }
 }
