@@ -13,3 +13,15 @@ export function parseAsset(asset: unknown): string {
   }
   throw new Error(`cannot parse asset ${asset}`);
 }
+
+export function assetIdEnumFromString(
+  id: string | Record<string, null | string>
+): Record<string, null | string> {
+  if (!!id && typeof id === "object") {
+    return id;
+  }
+  if (id.toUpperCase() === "POLKADEX" || id.toUpperCase() === "PDEX") {
+    return { polkadex: null };
+  }
+  return { asset: id };
+}

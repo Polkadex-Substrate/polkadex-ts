@@ -1,5 +1,17 @@
 import { DefinitionsCall } from "@polkadot/types/types";
 
+export const runtimeTypes = {
+  AssetId: {
+    _enum: {
+      Asset: "u128",
+      Polkadex: null,
+    },
+  },
+  TradingPair: {
+    base: "AssetId",
+    quote: "AssetId",
+  },
+};
 export const orderbookTypes = {
   OrderPayload: {
     client_order_id: "H256",
@@ -14,10 +26,6 @@ export const orderbookTypes = {
     timestamp: "i64",
   },
   order_id: "H256",
-  TradingPair: {
-    base_asset: "AssetId",
-    quote_asset: "AssetId",
-  },
   OrderSide: {
     _enum: {
       Ask: null,
@@ -38,13 +46,8 @@ export const orderbookTypes = {
 };
 
 export const types = {
+  ...runtimeTypes,
   ...orderbookTypes,
-  AssetId: {
-    _enum: {
-      Asset: "u128",
-      POLKADEX: null,
-    },
-  },
 };
 
 export const runtime: DefinitionsCall = {
@@ -125,11 +128,11 @@ export const rpc = {
       params: [
         {
           name: "epoch",
-          type: "u32",
+          type: "u16",
         },
         {
           name: "market",
-          type: "TradingPair",
+          type: "String",
         },
         {
           name: "sorted_by_mm_score",
@@ -147,11 +150,11 @@ export const rpc = {
       params: [
         {
           name: "epoch",
-          type: "u32",
+          type: "u16",
         },
         {
           name: "market",
-          type: "TradingPair",
+          type: "String",
         },
         {
           name: "main",
@@ -165,7 +168,7 @@ export const rpc = {
       params: [
         {
           name: "epoch",
-          type: "u32",
+          type: "u16",
         },
         {
           name: "market",
@@ -183,7 +186,7 @@ export const rpc = {
       params: [
         {
           name: "epoch",
-          type: "u32",
+          type: "u16",
         },
         {
           name: "market",
@@ -201,7 +204,7 @@ export const rpc = {
       params: [
         {
           name: "market",
-          type: "TradingPair",
+          type: "String",
         },
         {
           name: "main",
@@ -209,7 +212,7 @@ export const rpc = {
         },
         {
           name: "until_epoch",
-          type: "u32",
+          type: "u16",
         },
       ],
       type: "String",

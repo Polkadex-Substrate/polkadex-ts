@@ -3,7 +3,8 @@ import { cleanNumberLike, toPlanck, toUnit } from "@polkadex/numericals";
 import { Option, u128 } from "@polkadot/types";
 
 import { BaseApi } from "../base-api";
-import { parseAsset } from "./helpers";
+
+import { assetIdEnumFromString, parseAsset } from "./helpers";
 
 export type SwapPool = {
   base: string;
@@ -73,18 +74,6 @@ export class SwapApi extends BaseApi {
     return toUnit(result.unwrap().toString(), this.chainDecimals).toNumber();
   }
 
-  createAssetIdEnum(
-    id: string | Record<string, null | string>
-  ): Record<string, null | string> {
-    if (!!id && typeof id === "object") {
-      return id;
-    }
-    if (id.toUpperCase() === "POLKADEX" || id.toUpperCase() === "PDEX") {
-      return { polkadex: null };
-    }
-    return { asset: id };
-  }
-
   public async addLiquidityTx(
     base: string,
     quote: string,
@@ -94,8 +83,8 @@ export class SwapApi extends BaseApi {
     amountQuoteMin: number,
     mintToAddress: string
   ): Promise<SubmittableExtrinsic> {
-    const asset1 = this.createAssetIdEnum(base);
-    const asset2 = this.createAssetIdEnum(quote);
+    const asset1 = assetIdEnumFromString(base);
+    const asset2 = assetIdEnumFromString(quote);
     const amount1Desired = toPlanck(
       amountBaseDesired,
       this.chainDecimals
@@ -121,8 +110,8 @@ export class SwapApi extends BaseApi {
     base: string,
     quote: string
   ): Promise<SubmittableExtrinsic> {
-    const asset1 = this.createAssetIdEnum(base);
-    const asset2 = this.createAssetIdEnum(quote);
+    const asset1 = assetIdEnumFromString(base);
+    const asset2 = assetIdEnumFromString(quote);
     return this.api.tx.assetConversion.createPool(asset1, asset2);
   }
 
@@ -134,8 +123,8 @@ export class SwapApi extends BaseApi {
     amountQuoteMinReceive: string,
     withdrawTo: string
   ): Promise<SubmittableExtrinsic> {
-    const asset1 = this.createAssetIdEnum(base);
-    const asset2 = this.createAssetIdEnum(quote);
+    const asset1 = assetIdEnumFromString(base);
+    const asset2 = assetIdEnumFromString(quote);
     const lpTokenBurn = toPlanck(
       lpTokenBurnAmount,
       this.chainDecimals
@@ -165,7 +154,7 @@ export class SwapApi extends BaseApi {
     toAddress: string,
     keepAlive = true
   ): Promise<SubmittableExtrinsic> {
-    const assetPath = path.map((asset) => this.createAssetIdEnum(asset));
+    const assetPath = path.map((asset) => assetIdEnumFromString(asset));
     const amtIn = toPlanck(amountIn, this.chainDecimals).toFixed();
     const amtOut = toPlanck(amountOutMin, this.chainDecimals).toFixed();
     return this.api.tx.assetConversion.swapExactTokensForTokens(
@@ -184,7 +173,7 @@ export class SwapApi extends BaseApi {
     toAddress: string,
     keepAlive = true
   ): Promise<SubmittableExtrinsic> {
-    const assetPath = path.map((asset) => this.createAssetIdEnum(asset));
+    const assetPath = path.map((asset) => assetIdEnumFromString(asset));
     const amtOut = toPlanck(amountOut, this.chainDecimals).toFixed();
     const amtIn = toPlanck(amountInMax, this.chainDecimals).toFixed();
     return this.api.tx.assetConversion.swapTokensForExactTokens(
@@ -200,8 +189,8 @@ export class SwapApi extends BaseApi {
     base: string,
     quote: string
   ): Promise<{ base: number; quote: number }> {
-    const asset1 = this.createAssetIdEnum(base);
-    const asset2 = this.createAssetIdEnum(quote);
+    const asset1 = assetIdEnumFromString(base);
+    const asset2 = assetIdEnumFromString(quote);
     const out = await this.api.call.assetConversionApi.getReserves(
       asset1,
       asset2
