@@ -1,10 +1,12 @@
 import { SystemAccount } from "@polkadex/types";
+import { toUnit } from "@polkadex/numericals";
 
-import { BaseApi } from "../base-api";
+import { AssetsApi } from "./assets";
 
-export class BalancesApi extends BaseApi {
-  public async getNativeBalance(address: string): Promise<SystemAccount> {
+export class BalancesApi extends AssetsApi {
+  public async getNativeBalance(address: string): Promise<number> {
     await this.initApi();
-    return this.api.query.system.account<SystemAccount>(address);
+    const result = await this.api.query.system.account<SystemAccount>(address);
+    return toUnit(result.data.free.toString(), this.chainDecimals).toNumber();
   }
 }
