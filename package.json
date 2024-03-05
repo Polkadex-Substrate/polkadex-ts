@@ -4,7 +4,7 @@
   "license": "GPL-3.0-only",
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --filter='@polkadex/web' --filter='@polkadex/ux'",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepublish": "turbo run build --filter='./packages/*'",
