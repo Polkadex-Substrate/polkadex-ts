@@ -218,7 +218,7 @@ export const rpc = {
       type: "Vec<u16>",
     },
     totalScore: {
-      description: "total scored for a market in an epoch",
+      description: "total score and fee for a market in an epoch",
       params: [
         {
           name: "market",
@@ -229,10 +229,11 @@ export const rpc = {
           type: "u16",
         },
       ],
-      type: "Vec<u16>",
+      type: "(String, String)",
     },
     traderMetrics: {
-      description: "gives the individual score",
+      description:
+        "gives the individual mm score, trading score and is claimable",
       params: [
         {
           name: "market",
@@ -247,7 +248,7 @@ export const rpc = {
           type: "u16",
         },
       ],
-      type: "Vec<u16>",
+      type: "(String, String, bool)",
     },
   },
 };

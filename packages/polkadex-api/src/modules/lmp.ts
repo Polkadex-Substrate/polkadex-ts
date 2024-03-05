@@ -179,4 +179,47 @@ export class LmpApi extends BalancesApi {
     await this.initApi();
     return this.api.tx.lmp.claimLmpRewards(epoch, market);
   }
+
+  /**
+   * @summary get total score and fee for a market in an epoch
+   */
+  public async getScoreAndFeeForMarket(
+    epoch: number,
+    market: string
+  ): Promise<{ score: number; totalFee: number }> {
+    await this.initApi();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const resp = await this.api.rpc.lmp.totalScore<[string, string]>(
+      epoch,
+      market
+    );
+    return {
+      score: Number(resp[0]),
+      totalFee: Number(resp[1]),
+    };
+  }
+
+  /**
+   * @summary get trader metrics (market making score and tradingScore)
+   * for an account in a market for an epoch
+   */
+  public async getTraderMetrics(
+    epoch: number,
+    market: string,
+    account: string
+  ): Promise<{ mmScore: number; tradingScore: number }> {
+    await this.initApi();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const resp = await this.api.rpc.lmp.traderMetrics<[string, string, Bool]>(
+      epoch,
+      market,
+      account
+    );
+    return {
+      mmScore: Number(resp[0]),
+      tradingScore: Number(resp[1]),
+    };
+  }
 }
