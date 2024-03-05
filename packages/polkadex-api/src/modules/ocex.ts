@@ -2,9 +2,9 @@ import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
 import { PolkadexPrimitivesOcexAccountInfo } from "@polkadex/types";
 import { toPlanck } from "@polkadex/numericals";
 
-import { BaseApi } from "../base-api";
+import { BalancesApi } from "./balances";
 
-export class OcexApi extends BaseApi {
+export class OcexApi extends BalancesApi {
   public async getProxies(mainAccount: string): Promise<string[]> {
     await this.initApi();
     const info =
