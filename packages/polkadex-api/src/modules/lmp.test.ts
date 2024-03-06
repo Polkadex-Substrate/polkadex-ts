@@ -28,7 +28,7 @@ describe("lmp queries <> check if markets types are correct", () => {
     );
     expectTypeOf(rewards.marketMaking).toBeNumber();
     expectTypeOf(rewards.trading).toBeNumber();
-    expectTypeOf(rewards.isClaimable).toBeBoolean();
+    expectTypeOf(rewards.isClaimed).toBeBoolean();
   });
 
   test("Query to get accounts for a given market", async () => {
@@ -84,5 +84,13 @@ describe("lmp queries <> check if markets types are correct", () => {
     // check if types are correct
     expectTypeOf(res.mmScore).toBeNumber();
     expectTypeOf(res.tradingScore).toBeNumber();
+  });
+
+  test("create extrinsic for claim rewards", async () => {
+    const res = await lmp.claimRewardsTx(
+      25,
+      "PDEX-3496813586714279103986568049643838918"
+    );
+    expectTypeOf(res).toBeObject();
   });
 });

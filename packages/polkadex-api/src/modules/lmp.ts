@@ -3,7 +3,7 @@ import { Bool, Option, u16, u32, Vec } from "@polkadot/types";
 import { AccountId, Extrinsic } from "@polkadot/types/interfaces";
 
 import { BalancesApi } from "./balances";
-import { parseAsset } from "./helpers";
+import { assetIdEnumFromString, parseAsset } from "./helpers";
 import { TIME_INTERVALS } from "./constants";
 
 type Market = { base: string; quote: string };
@@ -11,7 +11,7 @@ type Market = { base: string; quote: string };
 type EligibleRewards = {
   marketMaking: number;
   trading: number;
-  isClaimable: boolean;
+  isClaimed: boolean;
 };
 export class LmpApi extends BalancesApi {
   /**
@@ -108,7 +108,7 @@ export class LmpApi extends BalancesApi {
     return {
       marketMaking: Number(res[0]), // market making rewards in PDEX
       trading: Number(res[1]), // trading rewards in PDEX
-      isClaimable: Boolean(res[2]),
+      isClaimed: Boolean(res[2]),
     };
   }
 
@@ -177,7 +177,12 @@ export class LmpApi extends BalancesApi {
     market: string
   ): Promise<Extrinsic> {
     await this.initApi();
-    return this.api.tx.lmp.claimLmpRewards(epoch, market);
+    const [asset1, asset2] = market.split("-");
+    const pair = {
+      base: assetIdEnumFromString(asset1),
+      quote: assetIdEnumFromString(asset2),
+    };
+    return this.api.tx.ocex.claimLmpRewards(epoch, pair);
   }
 
   /**
