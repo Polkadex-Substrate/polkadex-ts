@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.0.7
+
+### Patch Changes
+
+- 3ed6b25: fix: make types and api public
+
 ## 3.0.6
 
 ### Patch Changes
