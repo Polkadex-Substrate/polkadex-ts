@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.10.0
+
+### Minor Changes
+
+- be60fb4: feat: carousel component
+
 ## 6.9.0
 
 ### Minor Changes
