@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.0.6
+
+### Patch Changes
+
+- ee100f6: feat: add scoring rpc typings
+
 ## 3.0.5
 
 ### Patch Changes
