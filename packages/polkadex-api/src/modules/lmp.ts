@@ -1,6 +1,6 @@
 import { LMPEpochConfig } from "@polkadex/types";
 import { Bool, Option, u16, u32, Vec } from "@polkadot/types";
-import { AccountId, Extrinsic } from "@polkadot/types/interfaces";
+import { AccountId32, Extrinsic } from "@polkadot/types/interfaces";
 
 import { BalancesApi } from "./balances";
 import { assetIdEnumFromString, parseAsset } from "./helpers";
@@ -77,7 +77,7 @@ export class LmpApi extends BalancesApi {
     await this.initApi();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const res = await this.api.rpc.lmp.accountsSorted<Vec<AccountId>>(
+    const res = await this.api.rpc.lmp.accountsSorted<Vec<AccountId32>>(
       epoch,
       market,
       sortedByMM,
