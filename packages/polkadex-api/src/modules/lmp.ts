@@ -26,11 +26,12 @@ export class LmpApi extends BalancesApi {
   /**
    * @summary get number of blocks to start of next epoch
    */
-  public async blocksToNextEpoch(): Promise<number> {
+  public async blocksToNextEpoch(blocksInEpoch?: number): Promise<number> {
     await this.initApi();
+    const BLOCKS_IN_EPOCH = blocksInEpoch || TIME_INTERVALS.blocksInEpoch;
     const currBlock = await this.getLatestBlockNumber();
-    const startBlock = Math.floor(currBlock / TIME_INTERVALS.blocksInEpoch);
-    return startBlock + TIME_INTERVALS.blocksInEpoch;
+    const blocksAfterPrevEpochStart = currBlock % BLOCKS_IN_EPOCH;
+    return BLOCKS_IN_EPOCH - blocksAfterPrevEpochStart;
   }
 
   /**
