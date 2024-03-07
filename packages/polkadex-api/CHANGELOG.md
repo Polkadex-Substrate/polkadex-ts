@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.0.8
+
+### Patch Changes
+
+- 71e9aaf: fix: logic for blocks to next epoch
+
 ## 3.0.7
 
 ### Patch Changes
