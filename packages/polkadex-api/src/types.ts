@@ -143,7 +143,7 @@ export const rpc = {
           type: "u16",
         },
       ],
-      type: "Vec<AccountId>>",
+      type: "Vec<AccountId32>",
     },
     eligibleRewards: {
       description: "eligible rewards for an account given market and epoch",
