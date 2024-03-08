@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.1.0
+
+### Minor Changes
+
+- e4f16d1: Logic fix for fetching top accounts
+
 ## 3.0.8
 
 ### Patch Changes
