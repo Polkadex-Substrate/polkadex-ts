@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.1.1
+
+### Patch Changes
+
+- 69d1b7c: feat: add cancel all payload types
+
 ## 3.1.0
 
 ### Minor Changes
