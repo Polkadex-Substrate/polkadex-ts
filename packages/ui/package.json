@@ -54,6 +54,7 @@
     "@remixicon/react": "^4.2.0",
     "cmdk": "^0.2.1",
     "embla-carousel-react": "^8.0.0",
+    "framer-motion": "^11.0.8",
     "react-resizable-panels": "^2.0.9",
     "react-use": "^17.4.0",
     "sonner": "^1.4.0",
