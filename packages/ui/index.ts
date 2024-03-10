@@ -5,6 +5,5 @@ import * as Tokens from "./src/tokens";
 export { Illustrations, Icons, Tokens };
 
 export * from "./src/components";
-export * from "./src/plugAndPlay";
 export * from "./src/readyToUse";
 export * from "./src/helpers";
