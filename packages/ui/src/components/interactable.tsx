@@ -122,10 +122,8 @@ const Card = ({
             dragElastic={0.1}
             transition={{
               type: "spring",
-              stiffness: 250,
-              damping: 18,
-              mass: 0.75,
-              duration: 0.25,
+              duration: 0.5,
+              bounce: 0.2,
             }}
             onDragEnd={(_, info) => {
               if (info.offset.y > 100) onReset();
@@ -270,19 +268,16 @@ export { Interactable };
 export const initialVariants: Record<string, Variants> = {
   sliderUp: {
     initial: {
-      y: 105,
+      y: 150,
       opacity: 0.5,
-      scale: 0.8,
     },
     animate: {
       y: 0,
       opacity: 1,
-      scale: 1,
     },
     exit: {
       opacity: 0.5,
       y: "100%",
-      scale: 0.8,
     },
   },
   sliderSide: {
