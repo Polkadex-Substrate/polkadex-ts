@@ -253,7 +253,10 @@ const Context = createContext<State>({
 
 export const useInteractableProvider = () => {
   const state = useContext(Context);
-  if (!Context) throw new Error("useInteractableProvider context is undefined");
+  if (!Context)
+    throw new Error(
+      "useInteractableProvider must be used within an Interactable component"
+    );
   return { ...state };
 };
 
