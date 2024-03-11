@@ -13,7 +13,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, AnimatePresence, Variants, Transition } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 
@@ -75,10 +75,12 @@ type CardProps = {
   show?: boolean;
   pageName: string;
   variants?: Variants;
+  transition?: Transition;
 } & Pick<ComponentProps<"div">, "className">;
 const Card = ({
   pageName,
   variants = initialVariants.sliderUp,
+  transition = initialTransitions.spring,
   className,
   children,
 }: PropsWithChildren<CardProps>) => {
@@ -120,11 +122,7 @@ const Card = ({
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={0.1}
-            transition={{
-              type: "spring",
-              duration: 0.5,
-              bounce: 0.2,
-            }}
+            transition={transition}
             onDragEnd={(_, info) => {
               if (info.offset.y > 100) onReset();
             }}
@@ -296,5 +294,13 @@ export const initialVariants: Record<string, Variants> = {
       x: "-100%",
       scale: 0.8,
     },
+  },
+};
+
+export const initialTransitions: Record<string, Transition> = {
+  spring: {
+    type: "spring",
+    duration: 0.5,
+    bounce: 0.2,
   },
 };
