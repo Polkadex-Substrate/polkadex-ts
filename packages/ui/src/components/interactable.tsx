@@ -46,8 +46,8 @@ const Trigger = ({ children, ...props }: ComponentProps<"div">) => {
       if (node) {
         triggerRef.current = node;
         setTriggerSize({
-          width: `${node.offsetHeight}px`,
-          height: `${node.offsetWidth}px`,
+          width: `${node.offsetWidth}px`,
+          height: `${node.offsetHeight}px`,
         });
       }
     },
