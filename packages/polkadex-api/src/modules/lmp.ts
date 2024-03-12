@@ -1,9 +1,9 @@
 import { LMPEpochConfig } from "@polkadex/types";
 import { Bool, Option, u16, u32, Vec } from "@polkadot/types";
-import { AccountId, Extrinsic } from "@polkadot/types/interfaces";
+import { AccountId32, Extrinsic } from "@polkadot/types/interfaces";
 
 import { BalancesApi } from "./balances";
-import { parseAsset } from "./helpers";
+import { assetIdEnumFromString, parseAsset } from "./helpers";
 import { TIME_INTERVALS } from "./constants";
 
 type Market = { base: string; quote: string };
@@ -11,7 +11,7 @@ type Market = { base: string; quote: string };
 type EligibleRewards = {
   marketMaking: number;
   trading: number;
-  isClaimable: boolean;
+  isClaimed: boolean;
 };
 export class LmpApi extends BalancesApi {
   /**
@@ -26,11 +26,12 @@ export class LmpApi extends BalancesApi {
   /**
    * @summary get number of blocks to start of next epoch
    */
-  public async blocksToNextEpoch(): Promise<number> {
+  public async blocksToNextEpoch(blocksInEpoch?: number): Promise<number> {
     await this.initApi();
+    const BLOCKS_IN_EPOCH = blocksInEpoch || TIME_INTERVALS.blocksInEpoch;
     const currBlock = await this.getLatestBlockNumber();
-    const startBlock = Math.floor(currBlock / TIME_INTERVALS.blocksInEpoch);
-    return startBlock + TIME_INTERVALS.blocksInEpoch;
+    const blocksAfterPrevEpochStart = currBlock % BLOCKS_IN_EPOCH;
+    return BLOCKS_IN_EPOCH - blocksAfterPrevEpochStart;
   }
 
   /**
@@ -76,7 +77,7 @@ export class LmpApi extends BalancesApi {
     await this.initApi();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const res = await this.api.rpc.lmp.accountsSorted<Vec<AccountId>>(
+    const res = await this.api.rpc.lmp.accountsSorted<Vec<AccountId32>>(
       epoch,
       market,
       sortedByMM,
@@ -108,7 +109,7 @@ export class LmpApi extends BalancesApi {
     return {
       marketMaking: Number(res[0]), // market making rewards in PDEX
       trading: Number(res[1]), // trading rewards in PDEX
-      isClaimable: Boolean(res[2]),
+      isClaimed: Boolean(res[2]),
     };
   }
 
@@ -177,6 +178,54 @@ export class LmpApi extends BalancesApi {
     market: string
   ): Promise<Extrinsic> {
     await this.initApi();
-    return this.api.tx.lmp.claimLmpRewards(epoch, market);
+    const [asset1, asset2] = market.split("-");
+    const pair = {
+      base: assetIdEnumFromString(asset1),
+      quote: assetIdEnumFromString(asset2),
+    };
+    return this.api.tx.ocex.claimLmpRewards(epoch, pair);
+  }
+
+  /**
+   * @summary get total score and fee for a market in an epoch
+   */
+  public async getTotalScoreAndFeeForMarket(
+    epoch: number,
+    market: string
+  ): Promise<{ score: number; totalFee: number }> {
+    await this.initApi();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const resp = await this.api.rpc.lmp.totalScore<[string, string]>(
+      market,
+      epoch
+    );
+    return {
+      score: Number(resp[0]),
+      totalFee: Number(resp[1]),
+    };
+  }
+
+  /**
+   * @summary get trader metrics (market making score and tradingScore)
+   * for an account in a market for an epoch
+   */
+  public async getTraderMetrics(
+    epoch: number,
+    market: string,
+    account: string
+  ): Promise<{ mmScore: number; tradingScore: number }> {
+    await this.initApi();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const resp = await this.api.rpc.lmp.traderMetrics<[string, string, Bool]>(
+      market,
+      account,
+      epoch
+    );
+    return {
+      mmScore: Number(resp[0]),
+      tradingScore: Number(resp[1]),
+    };
   }
 }

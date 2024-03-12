@@ -1,5 +1,23 @@
 # @polkadex/ux
 
+## 6.12.0
+
+### Minor Changes
+
+- 19b356a: This PR aims to add the calendar and date picker component
+
+## 6.11.0
+
+### Minor Changes
+
+- 0dd6bc5: feat: interactable component
+
+## 6.10.0
+
+### Minor Changes
+
+- be60fb4: feat: carousel component
+
 ## 6.9.0
 
 ### Minor Changes

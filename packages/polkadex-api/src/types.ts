@@ -25,6 +25,12 @@ export const orderbookTypes = {
     price: "String", // Price is defined in quote asset per unit base asset
     timestamp: "i64",
   },
+  CancelAllPayload: {
+    main: "AccountId",
+    proxy: "AccountId",
+    market: "String",
+    timestamp: "u64",
+  },
   order_id: "H256",
   OrderSide: {
     _enum: {
@@ -143,7 +149,7 @@ export const rpc = {
           type: "u16",
         },
       ],
-      type: "Vec<AccountId>>",
+      type: "Vec<AccountId32>",
     },
     eligibleRewards: {
       description: "eligible rewards for an account given market and epoch",
@@ -216,6 +222,39 @@ export const rpc = {
         },
       ],
       type: "Vec<u16>",
+    },
+    totalScore: {
+      description: "total score and fee for a market in an epoch",
+      params: [
+        {
+          name: "market",
+          type: "String",
+        },
+        {
+          name: "epoch",
+          type: "u16",
+        },
+      ],
+      type: "(String, String)",
+    },
+    traderMetrics: {
+      description:
+        "gives the individual mm score, trading score and is claimable",
+      params: [
+        {
+          name: "market",
+          type: "String",
+        },
+        {
+          name: "main",
+          type: "AccountId",
+        },
+        {
+          name: "epoch",
+          type: "u16",
+        },
+      ],
+      type: "(String, String, bool)",
     },
   },
 };

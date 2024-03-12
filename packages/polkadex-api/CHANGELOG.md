@@ -1,5 +1,35 @@
 # @polkadex/polkadex-api
 
+## 3.1.1
+
+### Patch Changes
+
+- 69d1b7c: feat: add cancel all payload types
+
+## 3.1.0
+
+### Minor Changes
+
+- e4f16d1: Logic fix for fetching top accounts
+
+## 3.0.8
+
+### Patch Changes
+
+- 71e9aaf: fix: logic for blocks to next epoch
+
+## 3.0.7
+
+### Patch Changes
+
+- 3ed6b25: fix: make types and api public
+
+## 3.0.6
+
+### Patch Changes
+
+- ee100f6: feat: add scoring rpc typings
+
 ## 3.0.5
 
 ### Patch Changes
