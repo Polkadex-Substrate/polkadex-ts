@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Input } from "./Input";
+import { Passcode } from "./Passcode";
 
 const meta = {
-  title: "Components/Input",
-  component: Input,
+  title: "Components/Passcode",
+  component: Passcode,
   parameters: {
     layout: "centered",
   },
-} satisfies Meta<typeof Input>;
+} satisfies Meta<typeof Passcode>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

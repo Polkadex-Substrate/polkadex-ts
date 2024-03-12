@@ -1,12 +1,12 @@
-import { Button, Passcode } from "@polkadex/ux";
+import { Button, Passcode as PasscodePolkadex } from "@polkadex/ux";
 import { useState } from "react";
 
-export const Input = () => {
+export const Passcode = () => {
   const [password, setPassword] = useState("");
 
   return (
     <div className="flex flex-col gap-4">
-      <Passcode.Outline
+      <PasscodePolkadex.Outline
         focusOnInit
         value={password}
         onValuesChange={(e) => setPassword(e)}
