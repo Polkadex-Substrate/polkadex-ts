@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode } from "react";
 import { DateRange } from "react-day-picker";
 
@@ -16,10 +18,7 @@ function DatePicker({
   return (
     <Popover>
       <Popover.Trigger asChild>{children}</Popover.Trigger>
-      <Popover.Content
-        className="w-auto p-0 bg-backgroundBase m-1"
-        align="center"
-      >
+      <Popover.Content className="w-auto p-0 bg-level-1 m-1" align="center">
         <Calendar
           mode="single"
           selected={date}
@@ -43,10 +42,7 @@ function DatePickerRange({
   return (
     <Popover>
       <Popover.Trigger asChild>{children}</Popover.Trigger>
-      <Popover.Content
-        className="w-auto p-0 bg-backgroundBase m-1"
-        align="center"
-      >
+      <Popover.Content className="w-auto p-0 bg-level-1 m-1" align="center">
         <Calendar
           initialFocus
           mode="range"
@@ -59,8 +55,5 @@ function DatePickerRange({
     </Popover>
   );
 }
-
-DatePicker.displayName = "DatePicker";
-DatePickerRange.displayName = "DatePickerRange";
 
 export { DatePicker, DatePickerRange };
