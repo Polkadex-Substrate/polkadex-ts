@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.12.0
+
+### Minor Changes
+
+- 19b356a: This PR aims to add the calendar and date picker component
+
 ## 6.11.0
 
 ### Minor Changes
