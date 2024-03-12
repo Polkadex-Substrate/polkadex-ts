@@ -1,5 +1,11 @@
 # @polkadex/types
 
+## 1.2.3
+
+### Patch Changes
+
+- 5f8fc4f: Feat lmp api
+
 ## 1.2.2
 
 ### Patch Changes

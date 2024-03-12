@@ -84,7 +84,7 @@ const Drawer = ({
       <DrawerVaul.Portal container={containerRef.current}>
         <DrawerVaul.Overlay
           className={classNames(
-            " bg-overlay-2 inset-0 fixed data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+            "z-[15] bg-overlay-2 inset-0 fixed data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             blured && "backdrop-blur-primary "
           )}
           onClick={

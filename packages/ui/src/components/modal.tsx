@@ -81,7 +81,7 @@ const Modal = ({
       <AlertDialog.Portal container={containerRef.current}>
         <AlertDialog.Overlay
           className={classNames(
-            "backdrop-blur-primary inset-0 fixed",
+            "backdrop-blur-primary inset-0 fixed z-[15]",
             "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
           )}
           onClick={

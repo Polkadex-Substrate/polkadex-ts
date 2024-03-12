@@ -8,9 +8,9 @@ import {
   PropsWithChildren,
   PropsWithoutRef,
 } from "react";
-import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
+import { RiInformationLine } from "@remixicon/react";
 
 import {
   isValidComponent,
@@ -119,7 +119,7 @@ const Content = forwardRef<ElementRef<typeof Popover.Content>, ContentProps>(
         {...props}
       >
         {withIcon && (
-          <InformationCircleIcon className="w-4 h-4 mt-1 text-attention-base" />
+          <RiInformationLine className="w-4 h-4 mt-1 text-attention-base" />
         )}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">

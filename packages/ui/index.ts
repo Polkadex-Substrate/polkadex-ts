@@ -8,3 +8,4 @@ export * from "./src/components";
 export * from "./src/plugAndPlay";
 export * from "./src/readyToUse";
 export * from "./src/helpers";
+export * from "./src/hooks";

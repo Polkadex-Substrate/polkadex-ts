@@ -36,3 +36,5 @@ export * from "./scrollArea";
 export * from "./resizable";
 export * from "./calendar";
 export * from "./datePicker";
+export * from "./carousel";
+export * from "./interactable";

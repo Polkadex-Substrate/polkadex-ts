@@ -1,5 +1,27 @@
 # @polkadex/ux
 
+## 6.11.0
+
+### Minor Changes
+
+- 0dd6bc5: feat: interactable component
+
+## 6.10.0
+
+### Minor Changes
+
+- be60fb4: feat: carousel component
+
+## 6.9.0
+
+### Minor Changes
+
+- 6be628f: - [x] fix: Resizable Component ForwardRef Implementation
+  - [x] fix: Icon Library Upgrade - Heroicons to Remixicons:
+  - [x] fix: Overlay Z-Index Adjustment for Dropdown, Popover, and Modal
+  - [x] fix: Remove Fill from Three Icons - Ask, Bid, and AskAndBid
+  - [x] fix: New Input Component Prop - containerProps
+
 ## 6.8.0
 
 ### Minor Changes

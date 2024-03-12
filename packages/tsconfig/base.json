@@ -8,6 +8,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
+    "downlevelIteration": true,
     "isolatedModules": true,
     "moduleResolution": "node",
     "noUnusedLocals": false,

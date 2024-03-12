@@ -1,5 +1,11 @@
 # @polkadex/tsconfig
 
+## 0.0.3
+
+### Patch Changes
+
+- 5f8fc4f: Feat lmp api
+
 ## 0.0.2
 
 ### Patch Changes

@@ -8,9 +8,9 @@ import {
   Fragment,
   PropsWithChildren,
 } from "react";
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
+import { RiAddLine } from "@remixicon/react";
 
 import {
   getChildren,
@@ -31,7 +31,7 @@ const Icon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
     return children ? (
       <Fragment>{children} </Fragment>
     ) : (
-      <PlusCircleIcon
+      <RiAddLine
         ref={ref}
         className={twMerge(
           classNames("h-5 w-5 transition-transform duration-300 text-white"),
