@@ -35,3 +35,4 @@ export * from "./filterGroup";
 export * from "./scrollArea";
 export * from "./resizable";
 export * from "./carousel";
+export * from "./interactable";
