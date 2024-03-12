@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.11.0
+
+### Minor Changes
+
+- 0dd6bc5: feat: interactable component
+
 ## 6.10.0
 
 ### Minor Changes
