@@ -41,9 +41,9 @@ export const ExtensionAccounts = ({
 
   return (
     <Loading.Spinner active={loading}>
-      <Interaction withAnimation={!loading} {...props}>
+      <Interaction {...props}>
         {hasExtensionAccounts && (
-          <Interaction.Title onClose={onClose}>
+          <Interaction.Title onClose={{ onClick: onClose }}>
             Select funding wallet
           </Interaction.Title>
         )}

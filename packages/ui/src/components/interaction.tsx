@@ -2,23 +2,24 @@
 
 import {
   ComponentProps,
-  Fragment,
   PropsWithChildren,
   PropsWithoutRef,
+  ReactNode,
 } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
-import { Transition } from "@headlessui/react";
 import { RiArrowLeftLine, RiCloseLine } from "@remixicon/react";
 
-import { isValidComponent, typeofChildren } from "../helpers";
+import { typeofChildren } from "../helpers";
 
 import { Typography, TextProps } from "./typography";
 import { Button, ButtonProps } from "./button";
-
+interface GenericAction extends Omit<ButtonProps, "ref"> {
+  icon?: ReactNode;
+}
 interface TitleProps extends ComponentProps<"div"> {
-  onBack?: () => void;
-  onClose?: () => void;
+  onBack?: GenericAction;
+  onClose?: GenericAction;
   withPadding?: boolean;
   size?: TextProps["size"];
 }
@@ -28,19 +29,23 @@ const Title = ({
   onBack,
   onClose,
   className,
-  size = "md",
+  size = "base",
   ...props
 }: PropsWithChildren<TitleProps>) => {
-  const hasBack = typeof onBack === "function";
-  const hasClose = typeof onClose === "function";
+  const hasBack = !!Object.keys(onBack ?? {}).length;
+  const hasClose = !!Object.keys(onClose ?? {}).length;
 
   const isString = typeofChildren(children);
+  const { icon: backIcon, ...onBackProps } = onBack ?? {};
+  const { icon: closeIcon, ...onCloseProps } = onClose ?? {};
+
   return (
     <div
       className={twMerge(
         classNames(
           hasClose && "justify-between",
-          withPadding && "px-7",
+          withPadding && hasClose && "pl-7 pr-4",
+          withPadding && hasBack && "pr-7 pl-4",
           "flex items-center gap-2 flex-1"
         ),
         className
@@ -48,8 +53,10 @@ const Title = ({
       {...props}
     >
       {hasBack && (
-        <Button.Icon onClick={onBack} variant="ghost" rounded>
-          <RiArrowLeftLine className="w-full h-full text-secondary group-hover:text-white" />
+        <Button.Icon variant="ghost" rounded {...onBackProps}>
+          {backIcon ?? (
+            <RiArrowLeftLine className="w-full h-full text-secondary group-hover:text-white" />
+          )}
         </Button.Icon>
       )}
       {isString ? (
@@ -61,8 +68,10 @@ const Title = ({
       )}
 
       {hasClose && (
-        <Button.Icon onClick={onClose} variant="ghost" rounded>
-          <RiCloseLine className="w-full h-full text-secondary group-hover:text-white" />
+        <Button.Icon size="md" variant="ghost" rounded {...onCloseProps}>
+          {closeIcon ?? (
+            <RiCloseLine className="w-full h-full text-secondary group-hover:text-white" />
+          )}
         </Button.Icon>
       )}
     </div>
@@ -79,24 +88,15 @@ const Footer = ({
   withPadding = true,
   ...props
 }: PropsWithChildren<FooterProps>) => {
-  const [ActionComponent] = isValidComponent(children, Action);
-  const [CloseComponent] = isValidComponent(children, Close);
-
-  const customClassNames = twMerge(
-    classNames(withPadding && "px-7", "flex flex-col gap-3"),
-    className
-  );
-
-  if (!ActionComponent || (CloseComponent && children))
-    return (
-      <div className={customClassNames} {...props}>
-        {children}
-      </div>
-    );
   return (
-    <div className={customClassNames} {...props}>
-      {ActionComponent}
-      {CloseComponent}
+    <div
+      className={twMerge(
+        classNames(withPadding && "px-7", "flex flex-col gap-3"),
+        className
+      )}
+      {...props}
+    >
+      {children}
     </div>
   );
 };
@@ -118,10 +118,11 @@ const Action = ({
 const Close = ({
   children,
   size = "md",
+  appearance = "secondary",
   ...props
 }: PropsWithoutRef<ButtonProps>) => {
   return (
-    <Button.Ghost size={size} {...props}>
+    <Button.Ghost appearance={appearance} size={size} {...props}>
       {children}
     </Button.Ghost>
   );
@@ -149,45 +150,22 @@ const Content = ({
   );
 };
 
-export interface InteractionProps extends ComponentProps<"div"> {
-  withAnimation?: boolean;
-}
-const Interaction = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<InteractionProps>) => {
-  const [TitleCompontent] = isValidComponent(children, Title);
-  const [ContentCompontent] = isValidComponent(children, Content);
-  const [FooterCompontent] = isValidComponent(children, Footer);
+export type InteractionProps = ComponentProps<"div">;
 
+const Interaction = ({ children, className, ...props }: InteractionProps) => {
   return (
-    <Transition
-      appear
-      show
-      enter="transition ease duration-500 transform"
-      enterFrom="opacity-0 translate-y-12"
-      enterTo="opacity-100 translate-y-0"
-      leave="transition ease duration-300 transform"
-      leaveFrom="opacity-100 translate-y-0"
-      leaveTo="opacity-0 translate-y-12"
-      as={Fragment}
+    <div
+      className={twMerge(
+        classNames(
+          "flex flex-col gap-5 pt-7 pb-10 w-full",
+          "bg-backgroundBase border border-primary rounded-sm w-[22rem] max-sm:w-screen"
+        ),
+        className
+      )}
+      {...props}
     >
-      <div
-        className={twMerge(
-          classNames(
-            "flex flex-col gap-5 pt-7 pb-10 w-full",
-            "bg-level-3 border border-primary rounded-xl"
-          ),
-          className
-        )}
-        {...props}
-      >
-        {TitleCompontent}
-        {ContentCompontent}
-        {FooterCompontent}
-      </div>
-    </Transition>
+      {children}
+    </div>
   );
 };
 

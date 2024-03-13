@@ -2,7 +2,7 @@
 
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
 import { ComponentProps } from "react";
-import { DayPicker } from "react-day-picker";
+import { DayPicker, DateRange } from "react-day-picker";
 import { twMerge } from "tailwind-merge";
 
 export type CalendarProps = ComponentProps<typeof DayPicker>;
@@ -61,3 +61,4 @@ const Calendar = ({
 };
 
 export { Calendar };
+export type { DateRange };
