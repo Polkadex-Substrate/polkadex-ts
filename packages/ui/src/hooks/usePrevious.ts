@@ -10,5 +10,5 @@ export function usePrevious<T = string>(value: T, initial?: T) {
     ref.current.target = value;
   }
 
-  return { previousPage: ref.current.previous ?? "" };
+  return { previous: ref.current.previous };
 }
