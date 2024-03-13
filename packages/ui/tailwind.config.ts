@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+import plugin from "tailwindcss/plugin";
+
 import { themeConfig } from "../../themeConfig";
 
 export const config = {
@@ -13,6 +15,22 @@ export const config = {
     "./src/readyToUse/**/*.{js,ts,jsx,tsx,mdx,md}",
     "./src/helpers/*.{js,ts,jsx,tsx,mdx,md}",
   ],
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    plugin(function ({ addUtilities, addBase, theme }) {
+      addBase({
+        html: { color: theme("colors.white") },
+      });
+      addUtilities({
+        ".scrollbar-hide": {
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+      });
+    }),
+  ],
 };
 export default config;

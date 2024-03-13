@@ -25,8 +25,10 @@ export const ConnectWallet = ({
   ...props
 }: PropsWithChildren<ConnectWalletProps>) => {
   return (
-    <Interaction withAnimation={false} {...props}>
-      <Interaction.Title onBack={onBack}>Connect your wallet</Interaction.Title>
+    <Interaction {...props}>
+      <Interaction.Title onBack={{ onClick: onBack }}>
+        Connect your wallet
+      </Interaction.Title>
       <Interaction.Content withPadding={false}>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-1">
