@@ -142,6 +142,7 @@ export const withMinDecimals = (
  * @param space
  * @param precision
  * @param units i.e. ["" ,"B", "KB", "MB", "GB", "TB"]
+ * @returns The abbreviated number as a string, formatted according to the specified options.
  * @summary Abbreviate large numbers to make it
  */
 export const millify = (
