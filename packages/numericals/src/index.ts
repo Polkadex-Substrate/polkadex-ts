@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import abbreviateNumber from "millify";
 import {
   minDecimalPlaces,
   planckToUnit,
@@ -134,4 +135,29 @@ export const withMinDecimals = (
 ): string => {
   const num = cleanNumberLike(val);
   return minDecimalPlaces(num.toString(), minDecimals);
+};
+
+/**
+ * @param value
+ * @param space
+ * @param precision
+ * @param units i.e. ["" ,"B", "KB", "MB", "GB", "TB"]
+ * @summary Abbreviate large numbers to make it
+ */
+export const millify = (
+  value: string | number,
+  precision?: number,
+  space?: boolean,
+  units?: string[]
+) => {
+  const actualValue = rmCommas(value);
+  const actualPrecision = precision ?? 2;
+  const actualSpace = space || false;
+  const actualUnits = units || ["", "K", "M", "B", "T", "P", "E"];
+
+  return abbreviateNumber(+actualValue, {
+    precision: actualPrecision,
+    space: actualSpace,
+    units: actualUnits,
+  });
 };
