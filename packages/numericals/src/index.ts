@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import abbreviateNumber from "millify";
+import { millify as abbreviateNumber } from "millify";
 import {
   minDecimalPlaces,
   planckToUnit,
@@ -156,9 +156,19 @@ export const millify = (
   const actualSpace = space || false;
   const actualUnits = units || ["", "K", "M", "B", "T", "P", "E"];
 
-  return abbreviateNumber(+actualValue, {
-    precision: actualPrecision,
-    space: actualSpace,
-    units: actualUnits,
-  });
+  if (+actualValue < Math.pow(2, 53)) {
+    return abbreviateNumber(+actualValue, {
+      precision: actualPrecision,
+      space: actualSpace,
+      units: actualUnits,
+    });
+  }
+
+  const TRILLION = Math.pow(10, 12);
+
+  return (
+    (+actualValue / TRILLION).toFixed(actualPrecision) +
+    (space ? " " : "") +
+    "T"
+  );
 };

@@ -133,4 +133,9 @@ describe("Utils function testing <> millify", () => {
     const res = millify(value);
     expect(res).toBe("991.39B");
   });
+  it("Should convert 78013880138038318308310 -> 78013880138.04T", () => {
+    const value = "78013880138038318308310";
+    const res = millify(value);
+    expect(res).toBe("78013880138.04T");
+  });
 });
