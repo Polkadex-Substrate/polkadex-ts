@@ -1,5 +1,11 @@
 # @polkadex/numericals
 
+## 0.3.0
+
+### Minor Changes
+
+- 6018edc: Handled edge case for massive numbers
+
 ## 0.2.0
 
 ### Minor Changes
