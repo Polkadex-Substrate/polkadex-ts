@@ -16,7 +16,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "bignumber": "^1.1.0"
+    "bignumber": "^1.1.0",
+    "millify": "^6.1.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

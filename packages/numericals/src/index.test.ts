@@ -1,9 +1,10 @@
 import {
   cleanNumberLike,
   decimalPlaces,
+  millify,
   rmTrailingZeros,
   trimFloat,
-} from "./index";
+} from "../dist";
 
 // rmTrailingZeros function testing
 describe("Utils function testing <> rmTrailingZeros", () => {
@@ -67,5 +68,69 @@ describe("test number conversions", () => {
     const value = "1,232.00";
     const res = cleanNumberLike(value);
     expect(res).toBe("1232.00");
+  });
+});
+
+// millify function testing
+describe("Utils function testing <> millify", () => {
+  it("Should convert -4.72519 -> -4.72", () => {
+    const value = "-4.72419";
+    const res = millify(value);
+    expect(res).toBe("-4.72");
+  });
+  it("Should convert 1.747113 -> 1.75", () => {
+    const value = "1.747113";
+    const res = millify(value);
+    expect(res).toBe("1.75");
+  });
+  it("Should convert 75 -> 75", () => {
+    const value = "75";
+    const res = millify(value);
+    expect(res).toBe("75");
+  });
+  it("Should convert 31.10322000 -> 31.1", () => {
+    const value = "31.10322000";
+    const res = millify(value);
+    expect(res).toBe("31.1");
+  });
+  it("Should convert 996.37139913 -> 996.37", () => {
+    const value = "996.37139913";
+    const res = millify(value);
+    expect(res).toBe("996.37");
+  });
+  it("Should convert 996.37139913 -> 996.371399", () => {
+    const value = "996.37139913";
+    const res = millify(value, 6, false);
+    expect(res).toBe("996.371399");
+  });
+  it("Should convert 1000 -> 1K", () => {
+    const value = "1000";
+    const res = millify(value);
+    expect(res).toBe("1K");
+  });
+  it("Should convert 1314 -> 1.31K", () => {
+    const value = "1314";
+    const res = millify(value);
+    expect(res).toBe("1.31K");
+  });
+  it("Should convert 1024 -> 1.02K", () => {
+    const value = "1024";
+    const res = millify(value);
+    expect(res).toBe("1.02K");
+  });
+  it("Should convert 4613913 -> 4.61M", () => {
+    const value = "4613913";
+    const res = millify(value);
+    expect(res).toBe("4.61M");
+  });
+  it("Should convert 4613913 -> 4.6139 M", () => {
+    const value = "4613913";
+    const res = millify(value, 4, true);
+    expect(res).toBe("4.6139 M");
+  });
+  it("Should convert 991393379379 -> 991.39B", () => {
+    const value = "991393379379";
+    const res = millify(value);
+    expect(res).toBe("991.39B");
   });
 });
