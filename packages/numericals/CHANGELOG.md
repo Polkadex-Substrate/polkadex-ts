@@ -1,5 +1,11 @@
 # @polkadex/numericals
 
+## 0.2.0
+
+### Minor Changes
+
+- bbcb8c5: This PR aims to add a function which abbreviate large numbers to human readable format.
+
 ## 0.1.1
 
 ### Patch Changes
