@@ -71,7 +71,6 @@ const Outline = forwardRef<HTMLInputElement, PasscodeProps>(
         const newArray = [...values];
         if (isBackspacePressed) {
           const hasItem = !!newArray[index];
-
           if (index >= 0 && newArray[index] !== undefined) {
             const last = index === 0 ? 0 : index - 1;
             const i =
