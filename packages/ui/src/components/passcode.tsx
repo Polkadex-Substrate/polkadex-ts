@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ChangeEvent,
   ComponentProps,
   KeyboardEvent,
   MutableRefObject,
@@ -57,42 +56,65 @@ const Outline = forwardRef<HTMLInputElement, PasscodeProps>(
       ];
     }, [value, inputNumb]);
 
-    const onKeyDown = useCallback(
+    const onKeyUp = useCallback(
       (e: KeyboardEvent<HTMLInputElement>, index: number) => {
         const isBackspacePressed = e.key === "Backspace";
-        const isRightArrowPressed = e.key === "ArrowRight" || e.key === "Tab";
-        const isLeftArrowPressed = e.key === "ArrowLeft";
+        const hasRef = inputsRef.current && index === currentValue;
         const isValidNumber = !isNaN(parseInt(e.key)) && index <= inputNumb;
         const inputLength = inputNumb - 1;
-
-        if (isBackspacePressed) {
-          if (index > 0) {
-            setCurrentValue(index - 1);
-            inputsRef.current[index - 1]?.focus({ preventScroll });
+        const updateCurrentValue = (newIndex: number) => {
+          setCurrentValue(newIndex);
+          if (hasRef) {
+            inputsRef.current[newIndex]?.focus({ preventScroll });
           }
-        } else if (isRightArrowPressed && index < inputNumb - 1) {
+        };
+        const newArray = [...values];
+        if (isBackspacePressed) {
+          const hasItem = !!newArray[index];
+
+          if (index >= 0 && newArray[index] !== undefined) {
+            const last = index === 0 ? 0 : index - 1;
+            const i =
+              (index === inputLength && newArray[index]) || hasItem
+                ? index
+                : last;
+            newArray[i] = "";
+            updateCurrentValue(i);
+          }
+        } else if (isValidNumber) {
+          newArray[index] = parseInt(e.key) || e.key;
+          if (index < inputLength) {
+            updateCurrentValue(index + 1);
+          }
+        }
+
+        onValuesChange(newArray.join(" "));
+      },
+      [currentValue, inputNumb, onValuesChange, values, preventScroll]
+    );
+
+    const onKeyDown = useCallback(
+      (e: KeyboardEvent<HTMLInputElement>, index: number) => {
+        const keyCode = Number(e.key);
+        const isNotBackspacePressed = e.key !== "Backspace";
+        const isRightArrowPressed = e.key === "ArrowRight";
+        const isLeftArrowPressed = e.key === "ArrowLeft";
+        const isTabPressed = e.key === "Tab";
+        const validNumber = !(keyCode >= 0 && keyCode <= 9);
+        const isPastePressed = !(e.metaKey && e.key === "v");
+        if (validNumber && isNotBackspacePressed && isPastePressed)
+          e.preventDefault();
+
+        if ((isRightArrowPressed || isTabPressed) && index < inputNumb - 1) {
           setCurrentValue(index + 1);
-          inputsRef.current[index + 1]?.focus({ preventScroll });
-        } else if (isLeftArrowPressed && index > 0) {
+          inputsRef.current[index + 1].focus({ preventScroll });
+        }
+        if (isLeftArrowPressed && index > 0) {
           setCurrentValue(index - 1);
-          inputsRef.current[index - 1]?.focus({ preventScroll });
-        } else if (isValidNumber && index < inputLength) {
-          setCurrentValue(index + 1);
-          inputsRef.current[index + 1]?.focus({ preventScroll });
+          inputsRef.current[index - 1].focus({ preventScroll });
         }
       },
       [inputNumb, preventScroll]
-    );
-
-    const onChange = useCallback(
-      (e: ChangeEvent<HTMLInputElement>, index: number) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const newArray = [...value.split(" ").map(String)];
-        newArray[index] = e.target.value;
-        onValuesChange(newArray.join(" "));
-      },
-      [value, onValuesChange]
     );
 
     useEffect(() => {
@@ -108,7 +130,6 @@ const Outline = forwardRef<HTMLInputElement, PasscodeProps>(
           inputsRef,
           inputNumb,
           values,
-          currentValue,
         }}
       >
         <div
@@ -127,7 +148,7 @@ const Outline = forwardRef<HTMLInputElement, PasscodeProps>(
                 position={i}
                 type={type}
                 value={v ?? ""}
-                onChange={(e) => onChange(e, i)}
+                onKeyUp={(e) => onKeyUp(e, i)}
                 onKeyDown={(e) => onKeyDown(e, i)}
                 error={error}
                 {...props}
@@ -179,14 +200,12 @@ type State = {
   inputsRef: MutableRefObject<Array<HTMLInputElement> | []>;
   inputNumb: number;
   values: (string | number)[];
-  currentValue: number;
 };
 
 const Context = createContext<State>({
   inputsRef: { current: [] },
   inputNumb: 0,
   values: [],
-  currentValue: 0,
 });
 
 export const usePasscodeProvider = () => {
