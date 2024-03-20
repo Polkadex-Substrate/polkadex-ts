@@ -4,7 +4,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "license": "GPL-3.0-only",
-  "version": "0.1.1",
+  "version": "0.3.0",
   "files": [
     "dist/**"
   ],
@@ -16,7 +16,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "bignumber": "^1.1.0"
+    "bignumber": "^1.1.0",
+    "millify": "^6.1.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

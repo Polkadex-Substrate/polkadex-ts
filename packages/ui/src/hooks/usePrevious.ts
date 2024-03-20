@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 
-export function usePrevious(value: string, initial?: string) {
+export function usePrevious<T = string>(value: T, initial?: T) {
   const ref = useRef({ target: value, previous: initial });
 
   if (ref.current.target !== value) {
@@ -10,5 +10,5 @@ export function usePrevious(value: string, initial?: string) {
     ref.current.target = value;
   }
 
-  return { previousPage: ref.current.previous ?? "" };
+  return { previous: ref.current.previous };
 }

@@ -172,9 +172,9 @@ const Interactable = ({
   const [triggerSize, setTriggerSize] = useState(initialDimensions);
   const [cardSize, setCardSize] = useState(initialDimensions);
 
-  const { previousPage } = usePrevious(page);
+  const { previous = "" } = usePrevious(page);
 
-  const onBack = useCallback(() => setPage(previousPage), [previousPage]);
+  const onBack = useCallback(() => setPage(previous), [previous]);
   const onReset = useCallback(() => setPage(""), []);
 
   const { className: overlayClassName } = overlayProps ?? {};
@@ -192,7 +192,7 @@ const Interactable = ({
       value={{
         page,
         setPage,
-        previousPage,
+        previousPage: previous,
         onBack,
         onReset,
         triggerSize,

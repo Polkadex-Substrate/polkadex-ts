@@ -12,8 +12,10 @@ export const placements = [
 
 export const placementsStyles = {
   center: "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
-  "center left": "top-1/2 left-0 transform -translate-y-1/2",
-  "center right": "top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2",
+  "center left":
+    "top-1/2 left-0 transform -translate-y-1/2 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
+  "center right":
+    "top-1/2 right-0 transform -translate-y-1/2 data-[state=closed]:slide-out-to-right-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-right-1/2 data-[state=open]:slide-in-from-top-[48%]",
   "top center": "top-0 left-1/2 transform -translate-x-1/2",
   "top left": "top-0 left-0",
   "top right": "top-0 right-0",

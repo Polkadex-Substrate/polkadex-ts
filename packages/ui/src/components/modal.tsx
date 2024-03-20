@@ -14,7 +14,7 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
-import { isValidComponent, placements, placementsStyles } from "../helpers";
+import { placements, placementsStyles } from "../helpers";
 
 interface TitleProps extends AlertDialog.DialogTitleProps {
   onBack?: () => void;
@@ -59,9 +59,6 @@ const Modal = ({
   placement = "center",
   ...props
 }: PropsWithChildren<ModalProps>) => {
-  const [TitleComponent] = isValidComponent(children, Title);
-  const [ContentComponent] = isValidComponent(children, Content);
-  const [FooterComponent] = isValidComponent(children, Footer);
   const containerRef = useRef<HTMLElement | null>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -89,21 +86,19 @@ const Modal = ({
           }
         />
         <AlertDialog.Content
-          style={{ scrollbarGutter: "stable" }}
           className={twMerge(
             classNames(
-              "fixed z-50 max-sm:w-full max-md:w-auto h-auto overflow-hidden hover:overflow-auto max-h-screen duration-200 shadow-lg",
-              "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
-              "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%]",
+              "fixed z-50 max-sm:w-full max-md:w-auto h-auto overflow-auto max-h-screen duration-200 shadow-lg scrollbar-hide",
+              "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+              "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+              "flex flex-col bg-level-0",
               placementsStyles[placement]
             ),
             className
           )}
           {...props}
         >
-          {TitleComponent}
-          {ContentComponent}
-          {FooterComponent}
+          {children}
         </AlertDialog.Content>
       </AlertDialog.Portal>
     </AlertDialog.Root>
