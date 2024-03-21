@@ -5,7 +5,7 @@ import { Context } from ".";
 export const useTransactionManager = () => {
   const state = useContext(Context);
 
-  if (!Context) {
+  if (!state) {
     const error = new Error("useTransactionManager context is undefined");
     error.name = "ContextError";
     Error?.captureStackTrace?.(error, useContext);

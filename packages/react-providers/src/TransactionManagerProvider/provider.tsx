@@ -58,7 +58,7 @@ export const TransactionManagerProvider = ({
       setExtStatus(updatedExtrinsicsStatus);
 
       if (result.status.isFinalized) {
-        setExtrinsics((e) => e.splice(1));
+        setExtrinsics((e) => e.slice(1));
       }
     },
     [extStatus]
