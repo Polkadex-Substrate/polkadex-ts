@@ -106,6 +106,10 @@ export const TransactionManagerProvider = ({
     ]);
   };
 
+  const getTxStatus = (hash: string) => {
+    return txStatus.find((s) => s.hash === hash);
+  };
+
   useEffect(() => {
     if (txQueue.length > 0) {
       // Check if there is no onGoing item
@@ -118,11 +122,16 @@ export const TransactionManagerProvider = ({
     }
   }, [txStatus, txQueue, sendExtrinsicToChain]);
 
-  return <Provider value={{ addToTxQueue, txStatus }}>{children}</Provider>;
+  return (
+    <Provider value={{ addToTxQueue, getTxStatus, txStatus }}>
+      {children}
+    </Provider>
+  );
 };
 
 export const Context = createContext<TransactionManagerState>({
   addToTxQueue: () => {},
+  getTxStatus: () => undefined,
   txStatus: [],
 });
 
