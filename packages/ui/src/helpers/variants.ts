@@ -69,6 +69,10 @@ export const tokenAppearance = {
   DOT: "bg-dot",
   ASTR: "bg-transparent",
   IBTC: "bg-white",
+  USDC: "bg-transparent",
+  UNQ: "bg-transparent",
+  DED: "bg-transparent",
+  PINK: "bg-transparent",
 };
 
 export type TokenAppearance = keyof typeof tokenAppearance;
