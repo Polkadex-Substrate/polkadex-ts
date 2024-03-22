@@ -70,7 +70,7 @@ export const tokenAppearance = {
   ASTR: "bg-transparent",
   IBTC: "bg-white",
   USDC: "bg-transparent",
-  UNQ: "bg-white",
+  UNQ: "bg-transparent",
   DED: "bg-transparent",
   PINK: "bg-transparent",
 };
