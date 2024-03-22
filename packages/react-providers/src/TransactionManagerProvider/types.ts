@@ -1,13 +1,14 @@
-import { ExtrinsicStatus } from "@polkadot/types/interfaces";
 import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
+import { SubmittableResult } from "@polkadot/api";
 
 export type TransactionManagerState = {
-  pushExtrinsic: (e: SubmittableExtrinsic) => void;
-  extStatus: ExtStatus[];
+  addToTxQueue: (e: SubmittableExtrinsic) => void;
+  txStatus: ExtStatus[];
 };
 
 export type ExtStatus = {
   hash: string;
-  status: ExtrinsicStatus["type"][];
-  isOngoing: boolean;
+  result: SubmittableResult[];
+  status: "queued" | "ongoing" | "completed" | "error";
+  error?: Error;
 };

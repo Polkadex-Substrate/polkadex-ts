@@ -8,6 +8,7 @@ import {
   createContext,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 
@@ -18,78 +19,111 @@ export const TransactionManagerProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  // Think it like a queue
-  const [extrinsics, setExtrinsics] = useState<SubmittableExtrinsic[]>([]);
+  const [txQueue, _setTxQueue] = useState<SubmittableExtrinsic[]>([]); // Tx queue
+  const [txStatus, _setTxStatus] = useState<ExtStatus[]>([]); // List of statuses of current and past txs
+  const stRef = useRef(txStatus);
+  const txRef = useRef(txQueue);
 
-  // List of status of current extrinsic and past extrinsics
-  const [extStatus, setExtStatus] = useState<ExtStatus[]>([]);
+  const setStQueue = useCallback((st: ExtStatus[]): void => {
+    stRef.current = st;
+    _setTxStatus(st);
+  }, []);
 
-  const pushExtrinsic = (extrinsic: SubmittableExtrinsic) =>
-    setExtrinsics((prev) => [...prev, extrinsic]);
+  const setTxQueue = useCallback((txs: SubmittableExtrinsic[]): void => {
+    txRef.current = txs;
+    _setTxQueue(txs);
+  }, []);
 
-  const updateStatus = useCallback(
-    (hash: string, result: ISubmittableResult) => {
-      let updatedExtrinsicsStatus: ExtStatus[];
-      const isHashExists = extStatus.find((e) => e.hash === hash);
-
-      if (isHashExists) {
-        updatedExtrinsicsStatus = extStatus.map((e) => {
+  const updateTxStatus = useCallback(
+    (hash: string, result: ISubmittableResult | null, error?: Error) => {
+      let updatedTxStatus: ExtStatus[];
+      if (!result) {
+        updatedTxStatus = stRef.current.map((e): ExtStatus => {
           if (e.hash === hash) {
             return {
+              ...e,
               hash,
-              status: [...e.status, result.status.type],
-              isOngoing: !result.status.isFinalized,
+              status: "error",
+              error,
             };
           }
           return e;
         });
       } else {
-        updatedExtrinsicsStatus = [
-          ...extStatus,
-          {
-            hash,
-            status: [result.status.type],
-            isOngoing: !result.status.isFinalized,
-          },
-        ];
+        updatedTxStatus = stRef.current.map((e): ExtStatus => {
+          if (e.hash === hash) {
+            return {
+              hash,
+              result: [...e.result, result],
+              status: result.isError
+                ? "error"
+                : result.status.isFinalized
+                ? "completed"
+                : "ongoing",
+            };
+          }
+          return e;
+        });
       }
 
-      // BUG: Not updating extStatus
-      setExtStatus(updatedExtrinsicsStatus);
+      setStQueue(updatedTxStatus);
 
-      if (result.status.isFinalized) {
-        setExtrinsics((e) => e.slice(1));
+      if (!result || result.isError || result.status.isFinalized) {
+        // Drop transaction
+        const validTxs = txRef.current.filter(
+          (t) => t.hash.toHex().toString() !== hash
+        );
+        setTxQueue(validTxs);
       }
     },
-    [extStatus]
+    [setStQueue, setTxQueue]
   );
 
   const sendExtrinsicToChain = useCallback(
-    (ext: SubmittableExtrinsic) => {
+    async (ext: SubmittableExtrinsic) => {
       const hash = ext.hash.toHex().toString();
-      ext.send((result) => updateStatus(hash, result));
+      try {
+        await ext.send((result) => updateTxStatus(hash, result));
+      } catch (error) {
+        updateTxStatus(hash, null, error as Error);
+        throw new Error(error as string);
+      }
     },
-    [updateStatus]
+    [updateTxStatus]
   );
 
+  const addToTxQueue = (tx: SubmittableExtrinsic) => {
+    // Push in tx queue
+    setTxQueue([...txQueue, tx]);
+    // Mark it's status as queued
+    setStQueue([
+      ...txStatus,
+      {
+        hash: tx.hash.toHex().toString(),
+        result: [],
+        status: "queued",
+      },
+    ]);
+  };
+
   useEffect(() => {
-    if (extrinsics.length > 0) {
+    if (txQueue.length > 0) {
       // Check if there is no onGoing item
-      const isOnGoing = extStatus.find((e) => e.isOngoing);
+      const isOnGoing = txStatus.find((s) => s.status === "ongoing");
       if (!isOnGoing) {
-        const ext = extrinsics[0];
+        const ext = txQueue[0];
         // Send first extrinsic item to blockchain
         sendExtrinsicToChain(ext);
       }
     }
-  }, [extStatus, extrinsics, sendExtrinsicToChain]);
+  }, [txStatus, txQueue, sendExtrinsicToChain]);
 
-  return <Provider value={{ pushExtrinsic, extStatus }}>{children}</Provider>;
+  return <Provider value={{ addToTxQueue, txStatus }}>{children}</Provider>;
 };
 
 export const Context = createContext<TransactionManagerState>({
-  pushExtrinsic: () => {},
-  extStatus: [],
+  addToTxQueue: () => {},
+  txStatus: [],
 });
 
 const Provider = ({
