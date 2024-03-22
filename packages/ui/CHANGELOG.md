@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.15.0
+
+### Minor Changes
+
+- f776b00: Added SVG tokens for USDC, DED, PINK and UNQ
+
 ## 6.14.0
 
 ### Minor Changes
