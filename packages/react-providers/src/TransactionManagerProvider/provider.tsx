@@ -106,9 +106,12 @@ export const TransactionManagerProvider = ({
     ]);
   };
 
-  const getTxStatus = (hash: string) => {
-    return txStatus.find((s) => s.hash === hash);
-  };
+  const getTxStatus = useCallback(
+    (hash: string) => {
+      return txStatus.find((s) => s.hash === hash);
+    },
+    [txStatus]
+  );
 
   useEffect(() => {
     if (txQueue.length > 0) {
