@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.1.2
+
+### Patch Changes
+
+- 3697b4f: fix: swap api rpc
+
 ## 3.1.1
 
 ### Patch Changes
