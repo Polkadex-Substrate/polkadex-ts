@@ -52,9 +52,6 @@ export interface ForeignChain<T> {
   // returns the minimum amount of the asset that can be deposited
   getMinDepositAmount(address: string, assetId: string): Promise<number>;
 
-  // returns how much asset will be swapped to give 1.5 PDEX to new account
-  getMinAmountTakenForCreation(assetId: string): Promise<number | null>;
-
   // creates the transaction to transfer asset to polkadex chain
   createDepositTransaction(
     from: string,
@@ -62,16 +59,6 @@ export interface ForeignChain<T> {
     assetId: string,
     amount: number
   ): Promise<Transaction<T>>;
-
-  // get maximum amount of asset that can be withdrawn
-  getMaxWithdrawAmount(address: string, assetId: string): Promise<number>;
-
-  // creates the transaction to transfer asset from polkadex chain to foreign chain
-  withdrawTransaction(
-    to: string,
-    assetId: string,
-    amount: number
-  ): Promise<Extrinsic>;
 }
 
 export interface Token {
