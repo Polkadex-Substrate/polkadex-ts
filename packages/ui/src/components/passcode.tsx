@@ -1,9 +1,7 @@
 "use client";
 
 import {
-  ChangeEvent,
   ComponentProps,
-  FocusEvent,
   KeyboardEvent,
   MutableRefObject,
   createContext,
@@ -26,6 +24,7 @@ interface PasscodeProps
   inputNumb?: number;
   error?: boolean;
   containerProps?: ComponentProps<"div">;
+  preventScroll?: boolean;
 }
 
 const Outline = forwardRef<HTMLInputElement, PasscodeProps>(
@@ -37,6 +36,7 @@ const Outline = forwardRef<HTMLInputElement, PasscodeProps>(
       onValuesChange,
       inputNumb = 5,
       error,
+      preventScroll = true,
       containerProps,
       ...props
     },
@@ -65,14 +65,18 @@ const Outline = forwardRef<HTMLInputElement, PasscodeProps>(
         const updateCurrentValue = (newIndex: number) => {
           setCurrentValue(newIndex);
           if (hasRef) {
-            inputsRef.current[newIndex]?.focus();
+            inputsRef.current[newIndex]?.focus({ preventScroll });
           }
         };
         const newArray = [...values];
         if (isBackspacePressed) {
+          const hasItem = !!newArray[index];
           if (index >= 0 && newArray[index] !== undefined) {
             const last = index === 0 ? 0 : index - 1;
-            const i = index === inputLength && newArray[index] ? index : last;
+            const i =
+              (index === inputLength && newArray[index]) || hasItem
+                ? index
+                : last;
             newArray[i] = "";
             updateCurrentValue(i);
           }
@@ -85,7 +89,7 @@ const Outline = forwardRef<HTMLInputElement, PasscodeProps>(
 
         onValuesChange(newArray.join(" "));
       },
-      [currentValue, inputNumb, onValuesChange, values]
+      [currentValue, inputNumb, onValuesChange, values, preventScroll]
     );
 
     const onKeyDown = useCallback(
@@ -102,41 +106,22 @@ const Outline = forwardRef<HTMLInputElement, PasscodeProps>(
 
         if ((isRightArrowPressed || isTabPressed) && index < inputNumb - 1) {
           setCurrentValue(index + 1);
-          inputsRef.current[index + 1].focus();
+          inputsRef.current[index + 1].focus({ preventScroll });
         }
         if (isLeftArrowPressed && index > 0) {
           setCurrentValue(index - 1);
-          inputsRef.current[index - 1].focus();
+          inputsRef.current[index - 1].focus({ preventScroll });
         }
       },
-      [inputNumb]
+      [inputNumb, preventScroll]
     );
 
-    const onFocus = useCallback(
-      (e: FocusEvent<HTMLInputElement>, index: number) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setCurrentValue(index);
-        e.target.focus();
-      },
-      []
-    );
-
-    const onChange = useCallback(
-      (e: ChangeEvent<HTMLInputElement>, index: number) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setCurrentValue(index);
-        e.target.focus();
-      },
-      []
-    );
     useEffect(() => {
       if (focusOnInit && !!inputsRef && !value.length) {
-        inputsRef.current[0].focus();
+        inputsRef.current[0].focus({ preventScroll });
         setCurrentValue(0);
       }
-    }, [focusOnInit, value]);
+    }, [focusOnInit, value, preventScroll]);
 
     return (
       <Context.Provider
@@ -164,8 +149,6 @@ const Outline = forwardRef<HTMLInputElement, PasscodeProps>(
                 value={v ?? ""}
                 onKeyUp={(e) => onKeyUp(e, i)}
                 onKeyDown={(e) => onKeyDown(e, i)}
-                onFocus={(e) => onFocus(e, i)}
-                onChange={(e) => onChange(e, i)}
                 error={error}
                 {...props}
               />
