@@ -1,5 +1,18 @@
 # @polkadex/ux
 
+## 6.15.0
+
+### Minor Changes
+
+- f776b00: Added SVG tokens for USDC, DED, PINK and UNQ
+
+## 6.14.0
+
+### Minor Changes
+
+- 39755b0: fix: passcode preventScroll onFocus
+  fix: change value in the current Index item if is focused
+
 ## 6.13.0
 
 ### Minor Changes

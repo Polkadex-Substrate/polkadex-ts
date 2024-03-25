@@ -1,6 +1,6 @@
 {
   "name": "@polkadex/ux",
-  "version": "6.13.0",
+  "version": "6.15.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
