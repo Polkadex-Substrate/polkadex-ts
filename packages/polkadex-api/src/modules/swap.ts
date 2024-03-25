@@ -39,14 +39,14 @@ export class SwapApi extends BaseApi {
     await this.initApi();
     if (base.toUpperCase() === "POLKADEX") base = "PDEX";
     if (quote.toUpperCase() === "POLKADEX") quote = "PDEX";
-    amount = Number(toPlanck(amount, this.chainDecimals).toFixed());
+    const amt = Number(toPlanck(amount, this.chainDecimals).toFixed());
     const result: Option<u128> =
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       await this.api.rpc.tx.quotePriceExactTokensForTokens<Option<u128>>(
         base,
         quote,
-        Number(amount),
+        amt,
         includeFee
       );
     return toUnit(result.unwrap().toString(), this.chainDecimals).toNumber();
@@ -61,14 +61,14 @@ export class SwapApi extends BaseApi {
     await this.initApi();
     if (base.toUpperCase() === "POLKADEX") base = "PDEX";
     if (quote.toUpperCase() === "POLKADEX") quote = "PDEX";
-    amount = Number(toPlanck(amount, this.chainDecimals).toFixed());
+    const amt = toPlanck(amount, this.chainDecimals).toFixed();
     const result: Option<u128> =
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       await this.api.rpc.tx.quotePriceTokensForExactTokens(
         base,
         quote,
-        amount,
+        amt,
         includeFee
       );
     return toUnit(result.unwrap().toString(), this.chainDecimals).toNumber();
