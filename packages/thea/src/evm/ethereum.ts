@@ -32,6 +32,8 @@ export class Ethereum implements ForeignChain<SimulateContractReturnType> {
     switch (assetId) {
       case ETHEREUM_ASSETS.LINK:
         return LINK_CONTRACT;
+      case ETHEREUM_ASSETS.ETH:
+        return "0x0000000";
       default:
         throw new Error(`Unsupported asset id: ${assetId}`);
     }
@@ -40,6 +42,9 @@ export class Ethereum implements ForeignChain<SimulateContractReturnType> {
   async getDecimals(assetId: string): Promise<number> {
     if (this.decimalsCache.has(assetId)) {
       return this.decimalsCache.get(assetId) as number;
+    }
+    if (assetId === ETHEREUM_ASSETS.ETH) {
+      return 18;
     }
     const decimals = await this.publicClient.readContract({
       address: this.contractFromAssetId(assetId) as `0x${string}`,
@@ -95,32 +100,16 @@ export class Ethereum implements ForeignChain<SimulateContractReturnType> {
         `Insufficient balance, need ${amount} but have ${balance}`
       );
     }
-
-    // if deposit is ether then send ether directly
-    if (assetId === ETHEREUM_ASSETS.ETH) {
-      // check if balance is enough
-      const tx = await this.publicClient.simulateContract({
-        address: THEA_CONTRACT as `0x${string}`,
-        abi: TheaAbi,
-        functionName: "deposit",
-        args: [assetId, parseUnits(amount.toString(), 18), to],
-        account: from as `0x${string}`,
-      });
-      return { tx, network: ForeignNetwork.Ethereum };
-    }
+    const tokenContract = this.contractFromAssetId(assetId);
 
     // if deposit is erc20 then check for approval of token transfer
-    const tokenContract = this.contractFromAssetId(assetId);
-    // check if approval is done
-    if (!(await this.checkApproval(amount, from, assetId))) {
-      throw new Error("Approval not done");
+    if (assetId !== ETHEREUM_ASSETS.ETH) {
+      // check if approval is done
+      if (!(await this.checkApproval(amount, from, assetId))) {
+        throw new Error("Approval not done");
+      }
     }
-
-    const decimals = await this.publicClient.readContract({
-      address: tokenContract as `0x${string}`,
-      abi: erc20Abi,
-      functionName: "decimals",
-    });
+    const decimals = await this.getDecimals(assetId);
     const tx = await this.publicClient.simulateContract({
       address: THEA_CONTRACT as `0x${string}`,
       abi: TheaAbi,
@@ -154,6 +143,21 @@ export class Ethereum implements ForeignChain<SimulateContractReturnType> {
     });
     const decimals = await this.getDecimals(assetId);
     return Number(formatUnits(balance, decimals));
+  }
+
+  public async claimWithdrawal(
+    address: string,
+    nonce: number,
+    index: number
+  ): Promise<Transaction<SimulateContractReturnType>> {
+    const tx = await this.publicClient.simulateContract({
+      address: THEA_CONTRACT as `0x${string}`,
+      abi: TheaAbi,
+      functionName: "claimWithdrawal",
+      args: [nonce, index],
+      account: address as `0x${string}`,
+    });
+    return { tx, network: ForeignNetwork.Ethereum };
   }
 
   public getMaxDepositAmount(
