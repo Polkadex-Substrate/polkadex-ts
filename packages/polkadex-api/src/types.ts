@@ -95,7 +95,7 @@ export const rpc = {
         },
         {
           name: "amount",
-          type: "u128",
+          type: "String",
         },
         {
           name: "include_fee",
@@ -117,7 +117,7 @@ export const rpc = {
         },
         {
           name: "amount",
-          type: "u128",
+          type: "String",
         },
         {
           name: "include_fee",
