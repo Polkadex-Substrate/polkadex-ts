@@ -7,9 +7,9 @@ import { BaseApi } from "../base-api";
 import { assetIdEnumFromString, parseAsset } from "./helpers";
 
 export type SwapPool = {
-  base: string;
-  quote: string;
-  lpToken: string;
+  base: string; // assetId
+  quote: string; // assetId
+  lpToken: string; // assetId
 };
 export class SwapApi extends BaseApi {
   public async queryPools(): Promise<SwapPool[]> {
