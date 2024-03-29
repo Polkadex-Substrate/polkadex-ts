@@ -10,11 +10,11 @@ import {
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { Spinner } from "./spinner";
-import { Typography } from "./typography";
-import { Icon } from "./icon";
-import { Separator } from "./separator";
-import { Button } from "./button";
+import { Spinner } from "../spinner";
+import { Typography } from "../typography";
+import { Icon } from "../icon";
+import { Separator } from "../separator";
+import { Button } from "../button";
 
 const VerticalCard = ({
   status,
