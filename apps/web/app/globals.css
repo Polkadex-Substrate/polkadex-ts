@@ -48,3 +48,26 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.wrapper h2 {
+  color: #2a8af6;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.3rem;
+}
+
+.wrapper button {
+  max-width: fit-content;
+  padding: 0.4rem 1rem;
+  font-size: medium;
+  cursor: pointer;
+}
