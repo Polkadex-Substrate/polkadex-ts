@@ -97,7 +97,11 @@ export default function Page() {
     const injector = await web3FromAddress(srcAddress);
     const options = { signer: injector.signer as Signer, nonce: -1 };
     await signAndSubmitPromiseWrapper({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       options,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       tx,
       address: srcAddress,
       criteria: "IS_FINALIZED",
