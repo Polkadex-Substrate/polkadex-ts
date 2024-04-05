@@ -70,7 +70,8 @@ const Title = ({
 }: PropsWithChildren<{
   messages: ProgressBarMessage;
 }>) => {
-  const { currentTxStatus, txStatus } = useProgressBarProvider();
+  const { currentTxStatus, txStatus, completedStatus } =
+    useProgressBarProvider();
 
   const description = useMemo(
     () => messages[currentTxStatus?.status],
@@ -78,8 +79,8 @@ const Title = ({
   );
 
   const completed = useMemo(
-    () => !!txStatus?.find((e) => e.status === "completed"),
-    [txStatus]
+    () => !!txStatus?.find((e) => e.status === completedStatus),
+    [txStatus, completedStatus]
   );
 
   return (
@@ -129,7 +130,8 @@ const Card = ({
   status: StatusProps;
   vertical?: boolean;
 }>) => {
-  const { txStatus, currentTxStatus } = useProgressBarProvider();
+  const { txStatus, currentTxStatus, completedStatus } =
+    useProgressBarProvider();
 
   const completed = useMemo(
     () => !!txStatus?.find((e) => e.status === status),
@@ -137,7 +139,7 @@ const Card = ({
   );
 
   const ongoing = currentTxStatus?.status === status;
-  const finished = currentTxStatus?.status === "completed";
+  const finished = currentTxStatus?.status === completedStatus;
 
   const activeAppearance = completed ? "success" : "primary";
   const IconComponent = useMemo(
@@ -257,8 +259,15 @@ const Maximized = ({ children }: { children: ReactNode }) => {
 };
 
 const Minimized = ({ children }: { children: ReactNode }) => {
-  const { open, setOpen, currentTxStatus, txStatus, show, onReset } =
-    useProgressBarProvider();
+  const {
+    open,
+    setOpen,
+    currentTxStatus,
+    txStatus,
+    show,
+    onReset,
+    completedStatus,
+  } = useProgressBarProvider();
 
   const width = useMemo(
     () => (txStatus.length ? size[txStatus.length] : 0),
@@ -266,8 +275,8 @@ const Minimized = ({ children }: { children: ReactNode }) => {
   );
 
   const completed = useMemo(
-    () => currentTxStatus?.status === "completed",
-    [currentTxStatus?.status]
+    () => currentTxStatus?.status === completedStatus,
+    [currentTxStatus?.status, completedStatus]
   );
 
   return (
@@ -342,11 +351,13 @@ const ProgressBar = ({
   data,
   initialOpen = false,
   closeDelay = 0,
+  completedStatus,
   children,
 }: PropsWithChildren<{
   initialOpen?: boolean;
   data: ExtStatus[];
   closeDelay?: number;
+  completedStatus?: string;
 }>) => {
   const [txStatus, setTxStatus] = useState<ExtStatus[]>([]);
   const [open, setOpen] = useState(initialOpen);
@@ -388,6 +399,7 @@ const ProgressBar = ({
         currentTxStatus,
         show,
         onReset,
+        completedStatus,
       }}
     >
       <Portal.Root asChild>{children}</Portal.Root>
@@ -403,6 +415,7 @@ type State = {
   currentTxStatus: ExtStatus;
   show: boolean;
   onReset: () => void;
+  completedStatus?: string;
 };
 
 const Context = createContext<State>({
@@ -418,6 +431,7 @@ const Context = createContext<State>({
     error: undefined,
   },
   show: false,
+  completedStatus: "completed",
 });
 
 export const useProgressBarProvider = () => {
