@@ -1,5 +1,17 @@
 # @polkadex/polkadex-api
 
+## 3.2.0
+
+### Minor Changes
+
+- a7cac9b: feat: add signedExtensions types
+
+## 3.1.2
+
+### Patch Changes
+
+- 3697b4f: fix: swap api rpc
+
 ## 3.1.1
 
 ### Patch Changes

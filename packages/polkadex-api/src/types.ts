@@ -95,7 +95,7 @@ export const rpc = {
         },
         {
           name: "amount",
-          type: "u128",
+          type: "String",
         },
         {
           name: "include_fee",
@@ -117,7 +117,7 @@ export const rpc = {
         },
         {
           name: "amount",
-          type: "u128",
+          type: "String",
         },
         {
           name: "include_fee",
@@ -259,4 +259,14 @@ export const rpc = {
   },
 };
 
-export const apiTypes = { types, rpc, runtime };
+export const signedExtensions = {
+  ChargeAssetTxPayment: {
+    extrinsic: {
+      tip: "Compact<Balance>",
+      assetId: "Option<u128>",
+    },
+    payload: {},
+  },
+};
+
+export const apiTypes = { types, rpc, runtime, signedExtensions };
