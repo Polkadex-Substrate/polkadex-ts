@@ -39,4 +39,4 @@ export * from "./datePicker";
 export * from "./carousel";
 export * from "./interactable";
 export * from "./passcode";
-export * from "./progress";
+export * from "./progressBar";
