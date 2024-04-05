@@ -37,6 +37,7 @@ const size: { [key: number]: string } = {
   1: "16%",
   2: "50%",
 };
+
 const Status = ({ children }: { children: ReactNode }) => {
   const { txStatus } = useProgressBarProvider();
   const width = useMemo(
@@ -279,7 +280,6 @@ const Minimized = ({ children }: { children: ReactNode }) => {
     [currentTxStatus?.status, completedStatus]
   );
 
-  return (
     <AnimatePresence>
       {!open && show && (
         <motion.div
@@ -351,7 +351,7 @@ const ProgressBar = ({
   data,
   initialOpen = false,
   closeDelay = 0,
-  completedStatus,
+  completedStatus = "completed",
   children,
 }: PropsWithChildren<{
   initialOpen?: boolean;
@@ -431,7 +431,7 @@ const Context = createContext<State>({
     error: undefined,
   },
   show: false,
-  completedStatus: "completed",
+  completedStatus: "",
 });
 
 export const useProgressBarProvider = () => {
