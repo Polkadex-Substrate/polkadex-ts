@@ -324,7 +324,8 @@ const Minimized = ({ children }: { children: ReactNode }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  onReset();
+                  setOpen(true);
+                  setTimeout(() => onReset(), 300);
                 }}
               >
                 <RiCloseLine className="w-3 h-3" />
