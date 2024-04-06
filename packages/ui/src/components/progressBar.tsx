@@ -31,7 +31,7 @@ import { Typography } from "./typography";
 import { Button } from "./button";
 import { Icon } from "./icon";
 
-export type StatusProps = "queued" | "ongoing" | "completed" | "error";
+export type StatusProps = ExtStatus["status"];
 
 const size: { [key: number]: string } = {
   1: "16%",
