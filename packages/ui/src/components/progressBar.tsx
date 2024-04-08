@@ -353,16 +353,28 @@ const ProgressBar = ({
   initialOpen = false,
   closeDelay = 0,
   completedStatus = "completed",
+  onReset,
   children,
 }: PropsWithChildren<{
   initialOpen?: boolean;
   data: ExtStatus[];
   closeDelay?: number;
   completedStatus?: string;
+  onReset?: () => void;
 }>) => {
   const [txStatus, setTxStatus] = useState<ExtStatus[]>([]);
   const [open, setOpen] = useState(initialOpen);
   const show = useMemo(() => !!txStatus?.length, [txStatus]);
+
+  const currentTxStatus = useMemo(
+    () => txStatus[txStatus.length - 1],
+    [txStatus]
+  );
+
+  const handleReset = useCallback(() => {
+    if (onReset) onReset?.();
+    setTxStatus([]);
+  }, [onReset]);
 
   useEffect(() => {
     if (!data) return;
@@ -380,16 +392,10 @@ const ProgressBar = ({
       setTimeout(() => setTxStatus([]), closeDelay);
   }, [txStatus.length, closeDelay]);
 
-  const currentTxStatus = useMemo(
-    () => txStatus[txStatus.length - 1],
-    [txStatus]
-  );
-
-  const onReset = useCallback(() => setTxStatus([]), []);
-
   useEffect(() => {
     if (!txStatus?.length) setOpen(initialOpen);
   }, [initialOpen, txStatus.length]);
+
   return (
     <Context.Provider
       value={{
@@ -399,7 +405,7 @@ const ProgressBar = ({
         setTxStatus,
         currentTxStatus,
         show,
-        onReset,
+        onReset: handleReset,
         completedStatus,
       }}
     >
