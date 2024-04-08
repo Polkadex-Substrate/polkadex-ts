@@ -334,8 +334,7 @@ const Minimized = ({ children }: { children: ReactNode }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  setOpen(true);
-                  setTimeout(() => onReset(), 300);
+                  onReset();
                 }}
               >
                 <RiCloseLine className="w-3 h-3" />
@@ -353,15 +352,14 @@ const ProgressBar = ({
   initialOpen = false,
   closeDelay = 0,
   completedStatus = "completed",
-  onReset,
   children,
 }: PropsWithChildren<{
   initialOpen?: boolean;
   data: ExtStatus[];
   closeDelay?: number;
   completedStatus?: string;
-  onReset?: () => void;
 }>) => {
+  const memorizedData = useMemo(() => data[data.length - 1], [data]);
   const [txStatus, setTxStatus] = useState<ExtStatus[]>([]);
   const [open, setOpen] = useState(initialOpen);
   const show = useMemo(() => !!txStatus?.length, [txStatus]);
@@ -371,26 +369,26 @@ const ProgressBar = ({
     [txStatus]
   );
 
-  const handleReset = useCallback(() => {
-    if (onReset) onReset?.();
-    setTxStatus([]);
-  }, [onReset]);
+  const onReset = useCallback(() => {
+    setOpen(true);
+    setTimeout(() => setTxStatus([]), 300);
+  }, []);
 
   useEffect(() => {
-    if (!data) return;
+    if (!memorizedData) return;
+
     setTxStatus((prev) => {
       const existingStatus = new Set(prev?.map(({ status }) => status));
-      const uniqueTransactions = data?.filter(
-        ({ status }) => !existingStatus.has(status)
-      );
-      return [...prev, ...uniqueTransactions];
+      const uniqueTransactions = !existingStatus.has(memorizedData.status);
+
+      if (uniqueTransactions) return [...prev, memorizedData];
+      return [...prev];
     });
-  }, [data]);
+  }, [memorizedData]);
 
   useEffect(() => {
-    if (!!closeDelay && txStatus?.length >= 3)
-      setTimeout(() => setTxStatus([]), closeDelay);
-  }, [txStatus.length, closeDelay]);
+    if (!!closeDelay && txStatus?.length >= 3) setTimeout(onReset, closeDelay);
+  }, [txStatus.length, closeDelay, onReset]);
 
   useEffect(() => {
     if (!txStatus?.length) setOpen(initialOpen);
@@ -405,7 +403,7 @@ const ProgressBar = ({
         setTxStatus,
         currentTxStatus,
         show,
-        onReset: handleReset,
+        onReset,
         completedStatus,
       }}
     >
