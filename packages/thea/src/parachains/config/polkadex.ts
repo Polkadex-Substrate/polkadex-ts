@@ -6,12 +6,12 @@ import {
   ExtrinsicConfig,
 } from "@moonbeam-network/xcm-builder";
 
-import { polkadex, assetHub } from "./chains";
-import { usdt, pdex } from "./assets";
+import { polkadex, assetHub } from "../chains";
+import { usdt, pdex } from "../assets";
 
 const getExt = (): ExtrinsicConfigBuilder => {
-  const pallet = "theaExecutor";
-  const func = "parachainWithdraw";
+  const pallet = "polkadotXcm";
+  const func = "limitedReserveTransferAssets";
 
   return {
     build: () => {
@@ -31,12 +31,12 @@ const xcmDeliveryFeeAmount = 1.082;
 const toAssethub: AssetConfig[] = [
   new AssetConfig({
     asset: usdt,
-    balance: BalanceBuilder().substrate().system().account(),
+    balance: BalanceBuilder().substrate().assets().account(),
     destination: assetHub,
     destinationFee: {
       amount: 0.0022,
       asset: usdt,
-      balance: BalanceBuilder().substrate().system().account(),
+      balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: getExt(),
     fee: {

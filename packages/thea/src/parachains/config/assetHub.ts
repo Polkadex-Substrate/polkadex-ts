@@ -6,9 +6,8 @@ import {
   ExtrinsicConfig,
 } from "@moonbeam-network/xcm-builder";
 
-import { polkadex, assetHub } from "./chains";
-import { usdt, dot, pdex } from "./assets";
-import { polkadexConfig } from "./polkadex";
+import { polkadex, assetHub } from "../chains";
+import { usdt, dot, pdex } from "../assets";
 
 const getExt = (): ExtrinsicConfigBuilder => {
   const pallet = "polkadotXcm";
@@ -30,11 +29,12 @@ const getExt = (): ExtrinsicConfigBuilder => {
             V2: {
               parents: 0,
               interior: {
-                X1: { AccountId32: { network: { Any: null }, id: address } },
+                X1: {
+                  AccountId32: { network: { Any: null }, id: address },
+                },
               },
             },
           };
-
           const arg3 = {
             V2: [
               {
@@ -53,11 +53,8 @@ const getExt = (): ExtrinsicConfigBuilder => {
               },
             ],
           };
-
           const arg4 = 0;
-
           const arg5 = { Unlimited: null };
-
           return [arg1, arg2, arg3, arg4, arg5];
         },
       });
@@ -73,7 +70,7 @@ const toPolkadex: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadex,
     destinationFee: {
-      amount: 1,
+      amount: 0,
       asset: pdex,
       balance: BalanceBuilder().substrate().assets().account(),
     },
@@ -91,13 +88,3 @@ export const assetHubConfig = new ChainConfig({
   assets: [...toPolkadex],
   chain: assetHub,
 });
-
-// <-----Different File------->
-
-const polkadotChainsConfig: ChainConfig[] = [assetHubConfig, polkadexConfig];
-
-export const chainsConfig: ChainConfig[] = [...polkadotChainsConfig];
-
-export const chainsConfigMap = new Map<string, ChainConfig>(
-  chainsConfig.map((config) => [config.chain.key, config])
-);

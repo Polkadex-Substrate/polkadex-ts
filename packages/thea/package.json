@@ -16,9 +16,16 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@moonbeam-network/xcm-sdk": "^2.0.8",
     "@polkadex/numericals": "*",
-    "@polkadot/api": "latest",
+    "@polkadot/api": "^10.12.4",
+    "@polkadot/api-augment": "^10.12.4",
+    "@polkadot/apps-config": "^0.135.1",
+    "@polkadot/types": "^10.12.4",
+    "@polkadot/util": "^12.6.2",
+    "@polkadot/util-crypto": "^12.6.2",
     "bignumber": "^1.1.0",
+    "ethers": "^6.11.1",
     "viem": "^2.9.0"
   },
   "devDependencies": {

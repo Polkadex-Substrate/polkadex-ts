@@ -12,8 +12,8 @@ import {
 import { sepolia } from "viem/chains";
 
 import { ForeignChain, ForeignNetwork, Transaction } from "../types";
-import { ETHEREUM_ASSETS } from "../assets";
 
+import { ETHEREUM_ASSETS } from "./assets";
 import { LINK_CONTRACT, THEA_CONTRACT } from "./contracts";
 import { TheaAbi } from "./theaAbi";
 

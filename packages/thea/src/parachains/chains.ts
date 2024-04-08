@@ -14,11 +14,11 @@ export const assetHub = new Parachain({
   ecosystem: Ecosystem.Polkadot,
   genesisHash:
     "0x68d56f15f85d3136970ec16946040bc1752654e906147f7e43e9d539d7c3de2f",
-  key: "assethub",
+  key: "assetHub",
   name: "AssetHub",
   parachainId: 1000,
   ss58Format: 0,
-  ws: "wss://statemint.api.onfinality.io/public-ws",
+  ws: "wss://statemint-rpc.dwellir.com",
 });
 
 export const polkadex = new Parachain({
@@ -36,7 +36,7 @@ export const polkadex = new Parachain({
   name: "Polkadex",
   parachainId: 2040,
   ss58Format: 88,
-  ws: "wss://polkadex.api.onfinality.io/public-ws",
+  ws: "wss://polkadex.public.curie.radiumblock.co/ws",
 });
 
 export const chains = [assetHub, polkadex];

@@ -7,6 +7,7 @@ import { Asset } from "@moonbeam-network/xcm-types";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { Signer } from "@polkadot/api/types";
 import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
+import { Sdk } from "@moonbeam-network/xcm-sdk";
 
 import { chainsMap } from "./chains";
 import { assetsMap } from "./assets";
@@ -68,7 +69,7 @@ export default function Page() {
       Utils.parseUnits(amount.toString(), assetDecimal)
     );
 
-    console.log(amountFormatted, destAccountId);
+    console.log({ amountFormatted, destAccountId });
 
     const extrinsicBuilder = source.config.extrinsic?.build({
       address: destAccountId,
@@ -96,7 +97,7 @@ export default function Page() {
     await web3Enable("polkadex-thea");
     const injector = await web3FromAddress(srcAddress);
     const options = { signer: injector.signer as Signer, nonce: -1 };
-    await signAndSubmitPromiseWrapper({
+    const finalizedTx = await signAndSubmitPromiseWrapper({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       options,
@@ -106,13 +107,69 @@ export default function Page() {
       address: srcAddress,
       criteria: "IS_FINALIZED",
     });
+    console.log("Tx hash =>", finalizedTx.txHash.toString());
+  };
+
+  const fromPolkadot = async () => {
+    const { web3Enable, web3FromAddress } = await import(
+      "@polkadot/extension-dapp"
+    );
+
+    const sdkInstance = Sdk();
+    await web3Enable("polkadex-thea");
+    const injector = await web3FromAddress(srcAddress);
+    if (!injector) return;
+
+    const data = await sdkInstance.getTransferData({
+      // destinationAddress: evmSigner.address, // If using viem, use evmSigner.account.address
+      destinationKeyOrChain: "moonbeam",
+      keyOrAsset: "dot",
+      polkadotSigner: injector.signer,
+      sourceAddress: srcAddress,
+      sourceKeyOrChain: "polkadot",
+      destinationAddress: destAddress,
+      // evmSigner,
+    });
+
+    const res = await data.transfer(0.0001);
+
+    console.log(res);
+  };
+
+  const crossChainTransferWithSdk = async () => {
+    const { web3Enable, web3FromAddress } = await import(
+      "@polkadot/extension-dapp"
+    );
+
+    await web3Enable("polkadex-thea");
+    const injector = await web3FromAddress(srcAddress);
+    if (!injector) return;
+
+    const sdkInstance = Sdk({ configService });
+
+    const data = await sdkInstance.getTransferData({
+      // destinationAddress: evmSigner.address, // If using viem, use evmSigner.account.address
+      destinationKeyOrChain: "polkadex",
+      keyOrAsset: "usdt",
+      polkadotSigner: injector.signer,
+      sourceAddress: srcAddress,
+      sourceKeyOrChain: "assethub",
+      destinationAddress: destAddress,
+      // evmSigner,
+    });
+
+    console.log("Transfer data => ", data);
+
+    const res = await data.transfer(amount);
+
+    console.log(res);
   };
 
   return (
     <div className="wrapper">
       <h2>THEA Deposit with Moonbeam SDK</h2>
       <p>Sending from AssetHub to Polkadex for {amount} USDT</p>
-      <button onClick={crossChainTransfer}>Submit Tx</button>
+      <button onClick={crossChainTransferWithSdk}>Submit Tx</button>
     </div>
   );
 }

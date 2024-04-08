@@ -27,7 +27,7 @@ export const pdex = new Asset({
   originSymbol: "PDEX",
 });
 
-export const assets: Asset[] = [dot, pha, unq, usdt, pink, ded];
+export const assets: Asset[] = [dot, pha, unq, usdt, pink, ded, pdex];
 
 export const assetsMap = new Map<string, Asset>(
   assets.map((asset) => [asset.key, asset])
