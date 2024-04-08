@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.16.0
+
+### Minor Changes
+
+- 6cba38e: feat: progressBar component
+
 ## 6.15.0
 
 ### Minor Changes
