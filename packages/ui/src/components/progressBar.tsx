@@ -355,36 +355,35 @@ const ProgressBar = ({
   children,
 }: PropsWithChildren<{
   initialOpen?: boolean;
-  data: ExtStatus[];
+  data: ExtStatus;
   closeDelay?: number;
   completedStatus?: string;
 }>) => {
-  const memorizedData = useMemo(() => data[data.length - 1], [data]);
+  const [visible, setVisible] = useState(true);
   const [txStatus, setTxStatus] = useState<ExtStatus[]>([]);
   const [open, setOpen] = useState(initialOpen);
-  const show = useMemo(() => !!txStatus?.length, [txStatus]);
-
+  const show = useMemo(
+    () => !!txStatus?.length && visible,
+    [txStatus, visible]
+  );
   const currentTxStatus = useMemo(
     () => txStatus[txStatus.length - 1],
     [txStatus]
   );
 
-  const onReset = useCallback(() => {
-    setOpen(true);
-    setTimeout(() => setTxStatus([]), 300);
-  }, []);
+  const onReset = useCallback(() => setVisible(false), []);
 
   useEffect(() => {
-    if (!memorizedData) return;
+    if (!data) return;
 
     setTxStatus((prev) => {
       const existingStatus = new Set(prev?.map(({ status }) => status));
-      const uniqueTransactions = !existingStatus.has(memorizedData.status);
+      const uniqueTransactions = !existingStatus.has(data.status);
 
-      if (uniqueTransactions) return [...prev, memorizedData];
+      if (uniqueTransactions) return [...prev, data];
       return [...prev];
     });
-  }, [memorizedData]);
+  }, [data]);
 
   useEffect(() => {
     if (!!closeDelay && txStatus?.length >= 3) setTimeout(onReset, closeDelay);
