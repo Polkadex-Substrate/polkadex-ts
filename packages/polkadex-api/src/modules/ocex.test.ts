@@ -36,6 +36,7 @@ describe("OCEX modules testing", () => {
       expect(res.method.toJSON().args.asset).toEqual(asset);
     }
   );
+
   test(
     "Get deposit extrinsic for USDT asset",
     { timeout: 100000 },
@@ -44,6 +45,29 @@ describe("OCEX modules testing", () => {
       const res = await ocex.deposit(0.1, asset as unknown as string);
       expect(res.meta.name.toJSON()).toBe("deposit");
       expect(hexToBigInt(res.method.toJSON().args.asset.asset), asset.asset);
+    }
+  );
+
+  test(
+    "Add proxy account for a funding account",
+    { timeout: 100000 },
+    async () => {
+      const res = await ocex.createProxyAccount(
+        "esrJG4KfTSMs6KMW7HDbhRc69FggP5uWaAUhcN2SUcsbapSri",
+        "esofajbxqmo8X6viLFkxGDAsrnaVC923JqsqvEXHxQJuFDmTW"
+      );
+      expect(res.meta.name.toJSON()).toBe("register_main_account");
+    }
+  );
+
+  test(
+    "Remove proxy account for a funding account",
+    { timeout: 100000 },
+    async () => {
+      const res = await ocex.removeProxyAccount(
+        "esofajbxqmo8X6viLFkxGDAsrnaVC923JqsqvEXHxQJuFDmTW"
+      );
+      expect(res.meta.name.toJSON()).toBe("remove_proxy_account");
     }
   );
 });
