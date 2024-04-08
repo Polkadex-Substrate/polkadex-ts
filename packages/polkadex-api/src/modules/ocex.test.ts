@@ -55,7 +55,9 @@ describe("OCEX modules testing", () => {
       const asset = { asset: "3496813586714279103986568049643838918" };
       const res = await ocex.deposit(0.1, asset as unknown as string);
       expect(res.meta.name.toJSON()).toBe("deposit");
-      expect(hexToBigInt(res.method.toJSON().args.asset.asset), asset.asset);
+      expect(hexToBigInt(res.method.toJSON().args.asset.asset)).equals(
+        BigInt(asset.asset)
+      );
     }
   );
 
