@@ -8,11 +8,11 @@ export class OcexApi extends BalancesApi {
   // Get proxy address linked to a main address
   public async getProxies(mainAccount: string): Promise<string[]> {
     await this.initApi();
-    const info =
-      await this.api.query.ocex.accounts<PolkadexPrimitivesOcexAccountInfo>(
-        mainAccount
-      );
-    return info.proxies?.toArray().map((a) => a.toString()) || [];
+    const info = (await this.api.query.ocex.accounts(mainAccount))?.toJSON();
+    if (!info) return [];
+    return (info as unknown as PolkadexPrimitivesOcexAccountInfo).proxies.map(
+      (a) => a.toString()
+    );
   }
 
   // Create a new trading/proxy account

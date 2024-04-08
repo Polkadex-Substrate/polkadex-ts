@@ -17,7 +17,6 @@ describe("OCEX modules testing", () => {
     await api.disconnect();
   });
 
-  // Not working....
   test("Get proxies for a funding account", { timeout: 100000 }, async () => {
     const res = await ocex.getProxies(
       "esq2wFkRsic8WM4nstAtkjqWdCDnTrGHMpFjaGN2rEHnQXUNm"
@@ -25,6 +24,18 @@ describe("OCEX modules testing", () => {
     expectTypeOf(res).toBeArray();
     expect(res.length).toBe(2);
   });
+
+  test(
+    "Get proxies for a funding account which doesn't have any proxies yet",
+    { timeout: 100000 },
+    async () => {
+      const res = await ocex.getProxies(
+        "esrJG4KfTSMs6KMW7HDbhRc69FggP5uWaAUhcN2SUcsbapSri"
+      );
+      expectTypeOf(res).toBeArray();
+      expect(res.length).toBe(0);
+    }
+  );
 
   test(
     "Get deposit extrinsic for PDEX asset",
