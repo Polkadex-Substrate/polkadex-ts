@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.2.0
+
+### Minor Changes
+
+- a7cac9b: feat: add signedExtensions types
+
 ## 3.1.2
 
 ### Patch Changes
