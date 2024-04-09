@@ -149,7 +149,7 @@ export default function Page() {
 
     const data = await sdkInstance.getTransferData({
       // destinationAddress: evmSigner.address, // If using viem, use evmSigner.account.address
-      destinationKeyOrChain: "polkadex",
+      destinationKeyOrChain: "polkadot",
       keyOrAsset: "usdt",
       polkadotSigner: injector.signer,
       sourceAddress: srcAddress,

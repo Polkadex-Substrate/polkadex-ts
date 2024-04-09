@@ -1,4 +1,5 @@
 import { Parachain, Ecosystem, AnyChain } from "@moonbeam-network/xcm-types";
+import { polkadot } from "@moonbeam-network/xcm-config";
 
 import { usdt } from "./assets";
 
@@ -39,7 +40,9 @@ export const polkadex = new Parachain({
   ws: "wss://polkadex.api.onfinality.io/public-ws",
 });
 
-export const chains = [assetHub, polkadex];
+export { polkadot };
+
+export const chains = [assetHub, polkadex, polkadot];
 
 export const chainsMap = new Map<string, AnyChain>(
   chains.map((chain) => [chain.key, chain])
