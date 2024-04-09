@@ -31,12 +31,12 @@ const xcmDeliveryFeeAmount = 1.082;
 const toAssethub: AssetConfig[] = [
   new AssetConfig({
     asset: usdt,
-    balance: BalanceBuilder().substrate().system().account(),
+    balance: BalanceBuilder().substrate().assets().account(),
     destination: assetHub,
     destinationFee: {
       amount: 0.0022,
       asset: usdt,
-      balance: BalanceBuilder().substrate().system().account(),
+      balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: getExt(),
     fee: {
