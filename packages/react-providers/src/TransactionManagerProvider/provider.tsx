@@ -13,6 +13,7 @@ import {
 } from "react";
 
 import { ExtStatus, TransactionManagerState } from "./types";
+import { getStatus } from "./utils";
 
 export const TransactionManagerProvider = ({
   children,
@@ -52,14 +53,19 @@ export const TransactionManagerProvider = ({
       } else {
         updatedTxStatus = stRef.current.map((e): ExtStatus => {
           if (e.hash === hash) {
+            const { status, isError } = result;
+            const { isFinalized, isInBlock, isBroadcast } = status;
+            const statusText = getStatus({
+              isError,
+              isBroadcast,
+              isInBlock,
+              isFinalized,
+            });
+
             return {
               hash,
               result: [...e.result, result],
-              status: result.isError
-                ? "error"
-                : result.status.isFinalized
-                ? "completed"
-                : "ongoing",
+              status: statusText,
             };
           }
           return e;
@@ -114,14 +120,9 @@ export const TransactionManagerProvider = ({
   );
 
   useEffect(() => {
-    if (txQueue.length > 0) {
-      // Check if there is no onGoing item
-      const isOnGoing = txStatus.find((s) => s.status === "ongoing");
-      if (!isOnGoing) {
-        const ext = txQueue[0];
-        // Send first extrinsic item to blockchain
-        sendExtrinsicToChain(ext);
-      }
+    if (txQueue.length) {
+      const started = txStatus.find((s) => s.status === "queued");
+      if (started) sendExtrinsicToChain(txQueue[0]);
     }
   }, [txStatus, txQueue, sendExtrinsicToChain]);
 
