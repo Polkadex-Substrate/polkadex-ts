@@ -1,7 +1,5 @@
 "use client";
 
-// TODO: Investigate alternative method for handling resets to improve the exit animation.
-
 import * as Portal from "@radix-ui/react-portal";
 import {
   Dispatch,
@@ -30,16 +28,17 @@ import { Separator } from "./separator";
 import { Typography } from "./typography";
 import { Button } from "./button";
 import { Icon } from "./icon";
-
 export type StatusProps = ExtStatus["status"];
 
 const size: { [key: number]: string } = {
-  1: "16%",
-  2: "50%",
+  1: "15%",
+  2: "30%",
+  3: "50%",
 };
 
 const Status = ({ children }: { children: ReactNode }) => {
   const { txStatus } = useProgressBarProvider();
+
   const width = useMemo(
     () => (txStatus.length ? size[txStatus.length] : 0),
     [txStatus.length]
@@ -180,6 +179,7 @@ const Card = ({
         )}
       </Icon>
       <Typography.Text
+        className="whitespace-nowrap"
         appearance={ongoing && !finished ? "base" : activeAppearance}
       >
         {children}
@@ -352,12 +352,14 @@ const ProgressBar = ({
   initialOpen = false,
   closeDelay = 0,
   completedStatus = "completed",
+  statusLength = 4,
   children,
 }: PropsWithChildren<{
   initialOpen?: boolean;
   data: ExtStatus;
   closeDelay?: number;
   completedStatus?: string;
+  statusLength?: number;
 }>) => {
   const [visible, setVisible] = useState(true);
   const [txStatus, setTxStatus] = useState<ExtStatus[]>([]);
@@ -386,8 +388,9 @@ const ProgressBar = ({
   }, [data]);
 
   useEffect(() => {
-    if (!!closeDelay && txStatus?.length >= 3) setTimeout(onReset, closeDelay);
-  }, [txStatus.length, closeDelay, onReset]);
+    if (!!closeDelay && txStatus?.length >= statusLength)
+      setTimeout(onReset, closeDelay);
+  }, [txStatus.length, closeDelay, onReset, statusLength]);
 
   useEffect(() => {
     if (!txStatus?.length) setOpen(initialOpen);
