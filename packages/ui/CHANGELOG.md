@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.17.0
+
+### Minor Changes
+
+- e3b22d4: fix: ProgressBar component closing behavior
+
 ## 6.16.0
 
 ### Minor Changes
