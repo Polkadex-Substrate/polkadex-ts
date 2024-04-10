@@ -12,6 +12,7 @@ import { Sdk } from "@moonbeam-network/xcm-sdk";
 import { chainsMap } from "./chains";
 import { assetsMap } from "./assets";
 import { chainsConfigMap } from "./assetHub";
+import { ExtrinsicBuilderV2 } from "./builders";
 
 const configService = new ConfigService({
   assets: assetsMap,
@@ -19,15 +20,15 @@ const configService = new ConfigService({
   chainsConfig: chainsConfigMap,
 });
 
-const srcAddress = "15GYTpDWPEvbnkDqJeyqNQREKXUfXPcAvK8wJP48QrmAW8wL";
-const destAddress = "esq2wFkRsic8WM4nstAtkjqWdCDnTrGHMpFjaGN2rEHnQXUNm";
+const srcAddress = "5GUD1cXQB1nFyLprscEQh6apekh4KMGD6FnkatcM6AAJ7JQb";
+const destAddress = "5GUD1cXQB1nFyLprscEQh6apekh4KMGD6FnkatcM6AAJ7JQb";
 const amount = 0.001;
 
 export default function Page() {
   const crossChainTransfer = async () => {
     // Transfer params
     const asset = configService.getAsset("usdt");
-    const srcChain = configService.getChain("assetHub");
+    const srcChain = configService.getChain("assethub");
     const destChain = configService.getChain("polkadex");
 
     console.log("Connecting to blockchain");
@@ -81,7 +82,7 @@ export default function Page() {
       palletInstance: palletInstance,
       source: source.chain,
     });
-
+    console.log("extrinsic params", extrinsicBuilder);
     if (!extrinsicBuilder) return;
 
     const call = api.tx?.[extrinsicBuilder.module]?.[extrinsicBuilder.func];
@@ -122,11 +123,11 @@ export default function Page() {
 
     const data = await sdkInstance.getTransferData({
       // destinationAddress: evmSigner.address, // If using viem, use evmSigner.account.address
-      destinationKeyOrChain: "moonbeam",
+      destinationKeyOrChain: "polkadot",
       keyOrAsset: "dot",
       polkadotSigner: injector.signer,
       sourceAddress: srcAddress,
-      sourceKeyOrChain: "polkadot",
+      sourceKeyOrChain: "Polkadot-asset-hub",
       destinationAddress: destAddress,
       // evmSigner,
     });
@@ -149,12 +150,12 @@ export default function Page() {
 
     const data = await sdkInstance.getTransferData({
       // destinationAddress: evmSigner.address, // If using viem, use evmSigner.account.address
-      destinationKeyOrChain: "polkadot",
+      sourceKeyOrChain: "assethub",
+      sourceAddress: srcAddress,
+      destinationKeyOrChain: "polkadex",
+      destinationAddress: destAddress,
       keyOrAsset: "usdt",
       polkadotSigner: injector.signer,
-      sourceAddress: srcAddress,
-      sourceKeyOrChain: "assethub",
-      destinationAddress: destAddress,
       // evmSigner,
     });
 
@@ -170,6 +171,7 @@ export default function Page() {
       <h2>THEA Deposit with Moonbeam SDK</h2>
       <p>Sending from AssetHub to Polkadex for {amount} USDT</p>
       <button onClick={crossChainTransferWithSdk}>Submit Tx</button>
+      <button onClick={crossChainTransfer}>Submit Tx2</button>
     </div>
   );
 }

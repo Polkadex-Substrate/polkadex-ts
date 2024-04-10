@@ -4,47 +4,29 @@ import {
   BalanceBuilder,
   AssetMinBuilder,
   ExtrinsicConfig,
+  ExtrinsicBuilder,
 } from "@moonbeam-network/xcm-builder";
 
-import { polkadex, assetHub } from "./chains";
+import { assetHub, polkadex, polkadotAssetHub } from "./chains";
 import { usdt, pdex } from "./assets";
-
-const getExt = (): ExtrinsicConfigBuilder => {
-  const pallet = "theaExecutor";
-  const func = "parachainWithdraw";
-
-  return {
-    build: () => {
-      return new ExtrinsicConfig({
-        module: pallet,
-        func,
-        getArgs: () => {
-          return [];
-        },
-      });
-    },
-  };
-};
+import { ExtrinsicBuilderV2 } from "./builders";
 
 const xcmDeliveryFeeAmount = 1.082;
 
 const toAssethub: AssetConfig[] = [
   new AssetConfig({
     asset: usdt,
-    balance: BalanceBuilder().substrate().assets().account(),
+    balance: BalanceBuilder().substrate().system().account(),
     destination: assetHub,
     destinationFee: {
       amount: 0.0022,
-      asset: usdt,
-      balance: BalanceBuilder().substrate().assets().account(),
-    },
-    extrinsic: getExt(),
-    fee: {
       asset: pdex,
       balance: BalanceBuilder().substrate().system().account(),
-      xcmDeliveryFeeAmount,
     },
-    min: AssetMinBuilder().assets().asset(),
+    extrinsic: ExtrinsicBuilderV2()
+      .polkadotXcm()
+      .reserveTransferAssets()
+      .here(),
   }),
 ];
 

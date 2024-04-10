@@ -2,14 +2,13 @@ import { ChainConfig, AssetConfig } from "@moonbeam-network/xcm-config";
 import { BalanceBuilder } from "@moonbeam-network/xcm-builder";
 
 import { ExtrinsicBuilderV2 } from "./builders";
-import { assetHub, polkadot } from "./chains";
+import { polkadotAssetHub, polkadot, assetHub } from "./chains";
 import { dot, usdt } from "./assets";
 
 const xcmDeliveryFeeAmount = 0.047;
-
 const toAssetHub: AssetConfig[] = [
   new AssetConfig({
-    asset: usdt,
+    asset: dot,
     balance: BalanceBuilder().substrate().system().account(),
     destination: assetHub,
     destinationFee: {
@@ -25,7 +24,6 @@ const toAssetHub: AssetConfig[] = [
     },
   }),
 ];
-
 export const polkadotConfig = new ChainConfig({
   assets: [...toAssetHub],
   chain: polkadot,
