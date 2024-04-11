@@ -28,12 +28,12 @@ import { Separator } from "./separator";
 import { Typography } from "./typography";
 import { Button } from "./button";
 import { Icon } from "./icon";
+
 export type StatusProps = ExtStatus["status"];
 
 const size: { [key: number]: string } = {
   1: "15%",
-  2: "30%",
-  3: "50%",
+  2: "50%",
 };
 
 const Status = ({ children }: { children: ReactNode }) => {
@@ -70,12 +70,11 @@ const Title = ({
 }: PropsWithChildren<{
   messages: ProgressBarMessage;
 }>) => {
-  const { currentTxStatus, txStatus, completedStatus } =
-    useProgressBarProvider();
+  const { txStatus, completedStatus, ongoingStatus } = useProgressBarProvider();
 
   const description = useMemo(
-    () => messages[currentTxStatus?.status],
-    [messages, currentTxStatus?.status]
+    () => messages[ongoingStatus],
+    [messages, ongoingStatus]
   );
 
   const completed = useMemo(
@@ -93,7 +92,7 @@ const Title = ({
         )}
         <div className="flex flex-col items-center text-center">
           <Typography.Text size="xl" className="first-letter:uppercase">
-            {currentTxStatus?.status}
+            {ongoingStatus}
           </Typography.Text>
           {description && (
             <Typography.Text appearance="primary" size="sm">
@@ -130,18 +129,17 @@ const Card = ({
   status: StatusProps;
   vertical?: boolean;
 }>) => {
-  const { txStatus, currentTxStatus, completedStatus } =
+  const { txStatus, currentTxStatus, completedStatus, ongoingStatus } =
     useProgressBarProvider();
 
   const completed = useMemo(
     () => !!txStatus?.find((e) => e.status === status),
     [txStatus, status]
   );
-
-  const ongoing = currentTxStatus?.status === status;
+  const ongoing = status === ongoingStatus;
   const finished = currentTxStatus?.status === completedStatus;
-
   const activeAppearance = completed ? "success" : "primary";
+
   const IconComponent = useMemo(
     () =>
       (completed && !ongoing) || finished ? (
@@ -152,12 +150,10 @@ const Card = ({
 
     [completed, ongoing, finished]
   );
-
   return (
     <div
       className={classNames(
         "flex items-center flex-1",
-        !completed && "opacity-50",
         vertical
           ? "flex-col px-4 gap-3 py-3"
           : "gap-2 py-1 pl-2 pr-3 rounded-full bg-level-2"
@@ -352,14 +348,14 @@ const ProgressBar = ({
   initialOpen = false,
   closeDelay = 0,
   completedStatus = "completed",
-  statusLength = 4,
+  statuses,
   children,
 }: PropsWithChildren<{
   initialOpen?: boolean;
   data: ExtStatus;
   closeDelay?: number;
   completedStatus?: string;
-  statusLength?: number;
+  statuses: StatusProps[];
 }>) => {
   const [visible, setVisible] = useState(true);
   const [txStatus, setTxStatus] = useState<ExtStatus[]>([]);
@@ -387,10 +383,24 @@ const ProgressBar = ({
     });
   }, [data]);
 
+  const currentIndex = useMemo(
+    () =>
+      !!currentTxStatus &&
+      statuses.findIndex(
+        (e) => e.toLowerCase() === currentTxStatus.status.toLowerCase()
+      ),
+    [currentTxStatus, statuses]
+  );
+
+  const ongoingStatus =
+    currentIndex !== -1 && currentIndex < statuses.length - 1
+      ? statuses[currentIndex + 1]
+      : "ongoing";
+
   useEffect(() => {
-    if (!!closeDelay && txStatus?.length >= statusLength)
+    if (!!closeDelay && txStatus?.length >= statuses.length)
       setTimeout(onReset, closeDelay);
-  }, [txStatus.length, closeDelay, onReset, statusLength]);
+  }, [txStatus.length, closeDelay, onReset, statuses.length]);
 
   useEffect(() => {
     if (!txStatus?.length) setOpen(initialOpen);
@@ -407,6 +417,7 @@ const ProgressBar = ({
         show,
         onReset,
         completedStatus,
+        ongoingStatus,
       }}
     >
       <Portal.Root asChild>{children}</Portal.Root>
@@ -423,6 +434,7 @@ type State = {
   show: boolean;
   onReset: () => void;
   completedStatus?: string;
+  ongoingStatus: StatusProps;
 };
 
 const Context = createContext<State>({
@@ -434,11 +446,12 @@ const Context = createContext<State>({
   currentTxStatus: {
     hash: "",
     result: [],
-    status: "queued",
+    status: "ongoing",
     error: undefined,
   },
   show: false,
   completedStatus: "",
+  ongoingStatus: "ongoing",
 });
 
 export const useProgressBarProvider = () => {

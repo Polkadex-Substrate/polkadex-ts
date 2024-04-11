@@ -55,6 +55,7 @@ export const TransactionManagerProvider = ({
           if (e.hash === hash) {
             const { status, isError } = result;
             const { isFinalized, isInBlock, isBroadcast } = status;
+
             const statusText = getStatus({
               isError,
               isBroadcast,
@@ -107,7 +108,7 @@ export const TransactionManagerProvider = ({
       {
         hash: tx.hash.toHex().toString(),
         result: [],
-        status: "queued",
+        status: "ongoing",
       },
     ]);
   };
@@ -121,7 +122,7 @@ export const TransactionManagerProvider = ({
 
   useEffect(() => {
     if (txQueue.length) {
-      const started = txStatus.find((s) => s.status === "queued");
+      const started = txStatus.find((s) => s.status === "ongoing");
       if (started) sendExtrinsicToChain(txQueue[0]);
     }
   }, [txStatus, txQueue, sendExtrinsicToChain]);
