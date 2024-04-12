@@ -1,5 +1,9 @@
-import { AssetConfig, ChainConfig } from "@moonbeam-network/xcm-config";
-import { AssetMinBuilder, BalanceBuilder, ExtrinsicBuilder } from "@moonbeam-network/xcm-builder";
+import { AssetConfig, ChainConfig, usdc } from "@moonbeam-network/xcm-config";
+import {
+  AssetMinBuilder,
+  BalanceBuilder,
+  ExtrinsicBuilder,
+} from "@moonbeam-network/xcm-builder";
 
 import { ExtrinsicBuilderV2 } from "./builders";
 import { assetHub, bifrost, polkadex, polkadot } from "./chains";
@@ -7,7 +11,7 @@ import { dot, usdt } from "./assets";
 import { polkadexConfig } from "./polkadex";
 import { polkadotConfig } from "./polkadot";
 
-const xcmDeliveryFeeAmount = 0.001;
+const xcmDeliveryFeeAmount = 0.123;
 
 const toPolkadex: AssetConfig[] = [
   new AssetConfig({
@@ -17,6 +21,26 @@ const toPolkadex: AssetConfig[] = [
     destinationFee: {
       amount: 0.001,
       asset: usdt,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .polkadotXcm()
+      .limitedReserveTransferAssets()
+      .X2(),
+    fee: {
+      asset: dot,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+    min: AssetMinBuilder().assets().asset(),
+  }),
+  new AssetConfig({
+    asset: usdc,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0.001,
+      asset: usdc,
       balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: ExtrinsicBuilderV2()

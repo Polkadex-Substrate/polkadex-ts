@@ -1,18 +1,11 @@
 import { Parachain, Ecosystem, AnyChain } from "@moonbeam-network/xcm-types";
-import {
-  dot,
-  polkadot,
-  polkadotAssetHub,
-  usdc,
-  usdt,
-} from "@moonbeam-network/xcm-config";
+import { dot, polkadot, usdt, usdc } from "@moonbeam-network/xcm-config";
 
 import { pdex } from "./assets";
 
-export { polkadot, polkadotAssetHub };
+export { polkadot };
 
 export const assetHub = new Parachain({
-  type: undefined,
   assetsData: [
     {
       asset: dot,
@@ -24,6 +17,12 @@ export const assetHub = new Parachain({
       decimals: 6,
       id: 1984,
       palletInstance: 50,
+    },
+    {
+      asset: usdc,
+      decimals: 6,
+      id: 1337,
+      palletInstance: 30,
     },
   ],
   ecosystem: Ecosystem.Polkadot,
@@ -37,28 +36,30 @@ export const assetHub = new Parachain({
 });
 
 export const polkadex = new Parachain({
-  type: undefined,
   assetsData: [
     {
       asset: usdt,
       decimals: 12,
-      id: "95930534000017180603917534864279132680",
-      palletInstance: 50,
+      id: "3496813586714279103986568049643838918",
+    },
+    {
+      asset: usdc,
+      decimals: 12,
+      id: "304494718746685751324769169435167367843",
     },
     {
       asset: pdex,
       decimals: 12,
-      id: 0,
     },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash:
-    "0x72f3bba34b1ecd532bccbed46701ad37c4ef329bfe86b7cf014ac06cb92ed47d",
+    "0x3920bcb4960a1eef5580cd5367ff3f430eef052774f78468852f7b9cb39f8a3c",
   key: "polkadex",
   name: "Polkadex",
   parachainId: 2040,
-  ss58Format: 89,
-  ws: "wss://moonbeam-rpc.dwellir.com",
+  ss58Format: 88,
+  ws: "wss://polkadex.public.curie.radiumblock.co/ws",
 });
 
 export const bifrost = new Parachain({
