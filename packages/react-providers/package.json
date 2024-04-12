@@ -30,6 +30,7 @@
   "devDependencies": {
     "@chainsafe/metamask-polkadot-types": "^0.6.0",
     "@polkadex/eslint-config": "*",
+    "@polkadot/api": "latest",
     "tsup": "^7.2.0"
   },
   "publishConfig": {
