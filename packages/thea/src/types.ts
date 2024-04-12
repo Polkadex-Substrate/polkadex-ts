@@ -4,7 +4,6 @@ export enum ForeignNetwork {
   PolkadexParachain,
   Ethereum,
 }
-
 export interface Transaction<T> {
   tx: T;
   network: ForeignNetwork;
