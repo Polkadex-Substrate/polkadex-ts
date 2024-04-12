@@ -59,12 +59,6 @@ export interface ForeignChain<T> {
   // returns the minimum amount of the asset that can be deposited
   getMinDepositAmount(address: string, assetId: string): Promise<number>;
 
-  // returns true if the deposit conditions are valid
-  validateDeposit(args: TransactionInput): Promise<boolean>;
-
-  // return true if the withdrawal conditions are valid
-  validateWithdrawal(args: TransactionInput): Promise<boolean>;
-
   // creates the transaction to transfer asset to polkadex chain
   createDepositTransaction(
     from: string,
