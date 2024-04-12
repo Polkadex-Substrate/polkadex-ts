@@ -11,5 +11,5 @@ export type ExtStatus = {
   hash: string;
   result: SubmittableResult[];
   status: "broadcasted" | "inblock" | "finalized" | "error" | "ongoing";
-  error?: Error;
+  error?: string;
 };
