@@ -125,7 +125,9 @@ export const TransactionManagerProvider = ({
 
   useEffect(() => {
     if (txQueue.length) {
-      const started = txStatus.find((s) => s.status === "broadcasted");
+      const started = txStatus.find(
+        (s) => s.status === "broadcasted" || s.status === "inblock"
+      );
       if (!started) sendExtrinsicToChain(txQueue[0]);
     }
   }, [txStatus, txQueue, sendExtrinsicToChain]);
