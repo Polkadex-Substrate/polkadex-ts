@@ -1,5 +1,11 @@
 # @polkadex/react-providers
 
+## 2.1.0
+
+### Minor Changes
+
+- 4ac47e2: fix: transaction status
+
 ## 2.0.0
 
 ### Major Changes

@@ -1,5 +1,16 @@
 # @polkadex/ux
 
+## 6.18.0
+
+### Minor Changes
+
+- 4ac47e2: fix: transaction status
+
+### Patch Changes
+
+- Updated dependencies [4ac47e2]
+  - @polkadex/react-providers@2.1.0
+
 ## 6.17.0
 
 ### Minor Changes

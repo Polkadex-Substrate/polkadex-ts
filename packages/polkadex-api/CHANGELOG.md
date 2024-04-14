@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.3.1
+
+### Patch Changes
+
+- 2dd551f: Thea api
+
 ## 3.3.0
 
 ### Minor Changes
