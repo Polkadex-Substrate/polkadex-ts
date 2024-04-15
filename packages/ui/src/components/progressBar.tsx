@@ -1,7 +1,5 @@
 "use client";
 
-// TODO: Investigate alternative method for handling resets to improve the exit animation.
-
 import * as Portal from "@radix-ui/react-portal";
 import {
   Dispatch,
@@ -20,6 +18,7 @@ import {
   RiBox3Fill,
   RiCheckLine,
   RiCloseLine,
+  RiErrorWarningLine,
 } from "@remixicon/react";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
@@ -30,21 +29,9 @@ import { Separator } from "./separator";
 import { Typography } from "./typography";
 import { Button } from "./button";
 import { Icon } from "./icon";
-
 export type StatusProps = ExtStatus["status"];
 
-const size: { [key: number]: string } = {
-  1: "16%",
-  2: "50%",
-};
-
 const Status = ({ children }: { children: ReactNode }) => {
-  const { txStatus } = useProgressBarProvider();
-  const width = useMemo(
-    () => (txStatus.length ? size[txStatus.length] : 0),
-    [txStatus.length]
-  );
-
   return (
     <div className="relative overflow-hidden w-full py-4">
       <div className="flex items-center justify-evenly relative z-[1] w-full">
@@ -53,10 +40,6 @@ const Status = ({ children }: { children: ReactNode }) => {
       <div className="flex items-center absolute top-0 my-auto w-full h-full bottom-7">
         <div className="relative w-full flex flex-col">
           <Separator.Horizontal className="absolute top-0 left-0" />
-          <Separator.Horizontal
-            className="absolute top-0 left-0 bg-success-base"
-            style={{ width }}
-          />
         </div>
       </div>
     </div>
@@ -71,12 +54,12 @@ const Title = ({
 }: PropsWithChildren<{
   messages: ProgressBarMessage;
 }>) => {
-  const { currentTxStatus, txStatus, completedStatus } =
+  const { txStatus, completedStatus, ongoingStatus, error } =
     useProgressBarProvider();
 
   const description = useMemo(
-    () => messages[currentTxStatus?.status],
-    [messages, currentTxStatus?.status]
+    () => messages[ongoingStatus],
+    [messages, ongoingStatus]
   );
 
   const completed = useMemo(
@@ -84,23 +67,31 @@ const Title = ({
     [txStatus, completedStatus]
   );
 
+  const statusIcon = useMemo(
+    () =>
+      completed ? (
+        <RiCheckLine className="w-8 h-8 text-success-base" />
+      ) : (
+        <Spinner.PulseRing className="w-8 h-8" />
+      ),
+    [completed]
+  );
+
   return (
     <div className="flex flex-col w-full bg-level-1">
       <div className="flex flex-col gap-3 items-center p-5 border-b border-primary">
-        {completed ? (
-          <RiCheckLine className="w-8 h-8 text-success-base" />
+        {error ? (
+          <RiErrorWarningLine className="text-danger-base h-8 w-8" />
         ) : (
-          <Spinner.PulseRing className="w-8 h-8" />
+          statusIcon
         )}
         <div className="flex flex-col items-center text-center">
           <Typography.Text size="xl" className="first-letter:uppercase">
-            {currentTxStatus?.status}
+            {error ? "Error" : ongoingStatus}
           </Typography.Text>
-          {description && (
-            <Typography.Text appearance="primary" size="sm">
-              {description}
-            </Typography.Text>
-          )}
+          <Typography.Text appearance="primary" size="sm">
+            {error || description}
+          </Typography.Text>
         </div>
       </div>
       {children}
@@ -131,18 +122,18 @@ const Card = ({
   status: StatusProps;
   vertical?: boolean;
 }>) => {
-  const { txStatus, currentTxStatus, completedStatus } =
+  const { txStatus, currentTxStatus, completedStatus, ongoingStatus, error } =
     useProgressBarProvider();
 
   const completed = useMemo(
     () => !!txStatus?.find((e) => e.status === status),
     [txStatus, status]
   );
-
-  const ongoing = currentTxStatus?.status === status;
+  const ongoing = status === ongoingStatus;
   const finished = currentTxStatus?.status === completedStatus;
-
   const activeAppearance = completed ? "success" : "primary";
+  const hasError = ongoing && error;
+
   const IconComponent = useMemo(
     () =>
       (completed && !ongoing) || finished ? (
@@ -153,6 +144,17 @@ const Card = ({
 
     [completed, ongoing, finished]
   );
+
+  const IconRender = useMemo(
+    () =>
+      ongoing && !vertical && !finished ? (
+        <Spinner.PulseRing className="w-4 h-4 text-primary" />
+      ) : (
+        IconComponent
+      ),
+    [ongoing, finished, vertical, IconComponent]
+  );
+  const apperance = ongoing && !finished ? "base" : activeAppearance;
 
   return (
     <div
@@ -173,14 +175,15 @@ const Card = ({
             : "w-auto h-auto p-0"
         )}
       >
-        {ongoing && !vertical && !finished ? (
-          <Spinner.PulseRing className="w-4 h-4 text-primary" />
+        {hasError ? (
+          <RiErrorWarningLine className="text-danger-base w-4 h-4" />
         ) : (
-          IconComponent
+          IconRender
         )}
       </Icon>
       <Typography.Text
-        appearance={ongoing && !finished ? "base" : activeAppearance}
+        className="whitespace-nowrap"
+        appearance={hasError ? "danger" : apperance}
       >
         {children}
       </Typography.Text>
@@ -260,20 +263,8 @@ const Maximized = ({ children }: { children: ReactNode }) => {
 };
 
 const Minimized = ({ children }: { children: ReactNode }) => {
-  const {
-    open,
-    setOpen,
-    currentTxStatus,
-    txStatus,
-    show,
-    onReset,
-    completedStatus,
-  } = useProgressBarProvider();
-
-  const width = useMemo(
-    () => (txStatus.length ? size[txStatus.length] : 0),
-    [txStatus.length]
-  );
+  const { open, setOpen, currentTxStatus, show, onReset, completedStatus } =
+    useProgressBarProvider();
 
   const completed = useMemo(
     () => currentTxStatus?.status === completedStatus,
@@ -317,14 +308,10 @@ const Minimized = ({ children }: { children: ReactNode }) => {
               <div className="flex items-center absolute top-0 my-auto w-full h-full bottom-0 z-[0]">
                 <div className="relative w-full flex flex-col">
                   <Separator.Horizontal className="absolute top-0 left-0" />
-                  <Separator.Horizontal
-                    className="absolute top-0 left-0 bg-success-base"
-                    style={{ width }}
-                  />
                 </div>
               </div>
             </div>
-            {completed && (
+            {(completed || !!currentTxStatus.error) && (
               <Button.Icon
                 rounded
                 variant="outline"
@@ -334,8 +321,7 @@ const Minimized = ({ children }: { children: ReactNode }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  setOpen(true);
-                  setTimeout(() => onReset(), 300);
+                  onReset();
                 }}
               >
                 <RiCloseLine className="w-3 h-3" />
@@ -353,44 +339,48 @@ const ProgressBar = ({
   initialOpen = false,
   closeDelay = 0,
   completedStatus = "completed",
-  onReset,
+  statuses,
   children,
 }: PropsWithChildren<{
   initialOpen?: boolean;
-  data: ExtStatus[];
+  data: ExtStatus;
   closeDelay?: number;
   completedStatus?: string;
-  onReset?: () => void;
+  statuses: StatusProps[];
 }>) => {
+  const [visible, setVisible] = useState(true);
   const [txStatus, setTxStatus] = useState<ExtStatus[]>([]);
   const [open, setOpen] = useState(initialOpen);
-  const show = useMemo(() => !!txStatus?.length, [txStatus]);
-
+  const show = useMemo(
+    () => !!txStatus?.length && visible,
+    [txStatus, visible]
+  );
   const currentTxStatus = useMemo(
     () => txStatus[txStatus.length - 1],
     [txStatus]
   );
 
-  const handleReset = useCallback(() => {
-    if (onReset) onReset?.();
-    setTxStatus([]);
-  }, [onReset]);
+  const onReset = useCallback(() => setVisible(false), []);
 
   useEffect(() => {
     if (!data) return;
+
     setTxStatus((prev) => {
       const existingStatus = new Set(prev?.map(({ status }) => status));
-      const uniqueTransactions = data?.filter(
-        ({ status }) => !existingStatus.has(status)
-      );
-      return [...prev, ...uniqueTransactions];
+      const uniqueTransactions = !existingStatus.has(data.status);
+
+      if (uniqueTransactions) return [...prev, data];
+      return [...prev];
     });
   }, [data]);
 
+  const ongoingStatus = useMemo(() => data.status, [data?.status]);
+  const error = useMemo(() => data.error, [data?.error]);
+
   useEffect(() => {
-    if (!!closeDelay && txStatus?.length >= 3)
-      setTimeout(() => setTxStatus([]), closeDelay);
-  }, [txStatus.length, closeDelay]);
+    if (!!closeDelay && txStatus?.length >= statuses.length)
+      setTimeout(onReset, closeDelay);
+  }, [txStatus.length, closeDelay, onReset, statuses.length]);
 
   useEffect(() => {
     if (!txStatus?.length) setOpen(initialOpen);
@@ -405,8 +395,10 @@ const ProgressBar = ({
         setTxStatus,
         currentTxStatus,
         show,
-        onReset: handleReset,
+        onReset,
         completedStatus,
+        ongoingStatus,
+        error,
       }}
     >
       <Portal.Root asChild>{children}</Portal.Root>
@@ -423,6 +415,8 @@ type State = {
   show: boolean;
   onReset: () => void;
   completedStatus?: string;
+  ongoingStatus: StatusProps;
+  error?: string;
 };
 
 const Context = createContext<State>({
@@ -434,11 +428,13 @@ const Context = createContext<State>({
   currentTxStatus: {
     hash: "",
     result: [],
-    status: "queued",
+    status: "ongoing",
     error: undefined,
   },
   show: false,
   completedStatus: "",
+  ongoingStatus: "ongoing",
+  error: "",
 });
 
 export const useProgressBarProvider = () => {

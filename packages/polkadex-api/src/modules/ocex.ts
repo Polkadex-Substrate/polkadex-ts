@@ -5,15 +5,17 @@ import { toPlanck } from "@polkadex/numericals";
 import { BalancesApi } from "./balances";
 
 export class OcexApi extends BalancesApi {
+  // Get proxy address linked to a main address
   public async getProxies(mainAccount: string): Promise<string[]> {
     await this.initApi();
-    const info =
-      await this.api.query.ocex.accounts<PolkadexPrimitivesOcexAccountInfo>(
-        mainAccount
-      );
-    return info.proxies.toArray().map((a) => a.toString());
+    const info = (await this.api.query.ocex.accounts(mainAccount))?.toJSON();
+    if (!info) return [];
+    return (info as unknown as PolkadexPrimitivesOcexAccountInfo).proxies.map(
+      (a) => a.toString()
+    );
   }
 
+  // Create a new trading/proxy account
   public async createProxyAccount(
     mainAccount: string,
     proxy: string
@@ -27,6 +29,15 @@ export class OcexApi extends BalancesApi {
     }
   }
 
+  // Remove a proxy account
+  public async removeProxyAccount(
+    proxyAddress: string
+  ): Promise<SubmittableExtrinsic> {
+    await this.initApi();
+    return this.api.tx.ocex.removeProxyAccount(proxyAddress);
+  }
+
+  // Transfer from funding to trading account
   public async deposit(
     amount: number | string,
     asset: string
@@ -35,6 +46,6 @@ export class OcexApi extends BalancesApi {
     // transform amount decimals into usable form
     const decimals = this.chainDecimals;
     const amt = toPlanck(amount, decimals);
-    return this.api.tx.ocex.deposit(amt.toFixed(0), asset);
+    return this.api.tx.ocex.deposit(asset, amt.toFixed(0));
   }
 }

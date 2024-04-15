@@ -17,7 +17,7 @@ import { ETHEREUM_ASSETS } from "./assets";
 import { LINK_CONTRACT, THEA_CONTRACT } from "./contracts";
 import { TheaAbi } from "./theaAbi";
 
-export class Ethereum implements ForeignChain<SimulateContractReturnType> {
+export class Sepolia implements ForeignChain<SimulateContractReturnType> {
   id = "ethereum";
   publicClient: PublicClient;
   decimalsCache: Map<string, number> = new Map();

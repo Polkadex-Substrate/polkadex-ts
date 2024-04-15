@@ -10,6 +10,6 @@ export type TransactionManagerState = {
 export type ExtStatus = {
   hash: string;
   result: SubmittableResult[];
-  status: "queued" | "ongoing" | "completed" | "error";
-  error?: Error;
+  status: "broadcasted" | "inblock" | "finalized" | "error" | "ongoing";
+  error?: string;
 };

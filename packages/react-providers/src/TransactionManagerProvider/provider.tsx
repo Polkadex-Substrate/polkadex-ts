@@ -13,6 +13,7 @@ import {
 } from "react";
 
 import { ExtStatus, TransactionManagerState } from "./types";
+import { getStatus } from "./utils";
 
 export const TransactionManagerProvider = ({
   children,
@@ -21,6 +22,7 @@ export const TransactionManagerProvider = ({
 }) => {
   const [txQueue, _setTxQueue] = useState<SubmittableExtrinsic[]>([]); // Tx queue
   const [txStatus, _setTxStatus] = useState<ExtStatus[]>([]); // List of statuses of current and past txs
+
   const stRef = useRef(txStatus);
   const txRef = useRef(txQueue);
 
@@ -35,36 +37,45 @@ export const TransactionManagerProvider = ({
   }, []);
 
   const updateTxStatus = useCallback(
-    (hash: string, result: ISubmittableResult | null, error?: Error) => {
-      let updatedTxStatus: ExtStatus[];
-      if (!result) {
-        updatedTxStatus = stRef.current.map((e): ExtStatus => {
-          if (e.hash === hash) {
-            return {
-              ...e,
-              hash,
-              status: "error",
-              error,
-            };
+    (
+      extrinsic: SubmittableExtrinsic,
+      hash: string,
+      result: ISubmittableResult
+    ) => {
+      const updatedTxStatus = stRef.current.map((e): ExtStatus => {
+        if (e.hash === hash) {
+          if (e.error) return e;
+          let error = "";
+          const { status, isError, dispatchError } = result;
+          const { isFinalized, isInBlock, isBroadcast } = status;
+
+          if (dispatchError) {
+            if (dispatchError.isModule) {
+              const { docs, name, section } = extrinsic.registry.findMetaError(
+                dispatchError.asModule
+              );
+              error = `${section}.${name}: ${docs.join(" ")}`;
+            } else {
+              error = dispatchError.toString();
+            }
           }
-          return e;
-        });
-      } else {
-        updatedTxStatus = stRef.current.map((e): ExtStatus => {
-          if (e.hash === hash) {
-            return {
-              hash,
-              result: [...e.result, result],
-              status: result.isError
-                ? "error"
-                : result.status.isFinalized
-                ? "completed"
-                : "ongoing",
-            };
-          }
-          return e;
-        });
-      }
+
+          const statusText = getStatus({
+            isError,
+            isBroadcast,
+            isInBlock,
+            isFinalized,
+          });
+
+          return {
+            hash,
+            result: [...e.result, result],
+            status: statusText,
+            error,
+          };
+        }
+        return e;
+      });
 
       setStQueue(updatedTxStatus);
 
@@ -83,9 +94,8 @@ export const TransactionManagerProvider = ({
     async (ext: SubmittableExtrinsic) => {
       const hash = ext.hash.toHex().toString();
       try {
-        await ext.send((result) => updateTxStatus(hash, result));
+        await ext.send((result) => updateTxStatus(ext, hash, result));
       } catch (error) {
-        updateTxStatus(hash, null, error as Error);
         throw new Error(error as string);
       }
     },
@@ -101,7 +111,7 @@ export const TransactionManagerProvider = ({
       {
         hash: tx.hash.toHex().toString(),
         result: [],
-        status: "queued",
+        status: "ongoing",
       },
     ]);
   };
@@ -114,14 +124,11 @@ export const TransactionManagerProvider = ({
   );
 
   useEffect(() => {
-    if (txQueue.length > 0) {
-      // Check if there is no onGoing item
-      const isOnGoing = txStatus.find((s) => s.status === "ongoing");
-      if (!isOnGoing) {
-        const ext = txQueue[0];
-        // Send first extrinsic item to blockchain
-        sendExtrinsicToChain(ext);
-      }
+    if (txQueue.length) {
+      const started = txStatus.find(
+        (s) => s.status === "broadcasted" || s.status === "inblock"
+      );
+      if (!started) sendExtrinsicToChain(txQueue[0]);
     }
   }, [txStatus, txQueue, sendExtrinsicToChain]);
 
