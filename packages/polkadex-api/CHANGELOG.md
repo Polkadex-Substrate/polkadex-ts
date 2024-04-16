@@ -1,5 +1,17 @@
 # @polkadex/polkadex-api
 
+## 3.3.1
+
+### Patch Changes
+
+- 2dd551f: Thea api
+
+## 3.3.0
+
+### Minor Changes
+
+- 81bc3a8: This PR aims to add remaining OCEX modules. In Orderbook and THEA, RPC's should be called from this package only.
+
 ## 3.2.0
 
 ### Minor Changes
