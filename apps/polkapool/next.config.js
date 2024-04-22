@@ -4,6 +4,13 @@
 
 const nextConfig = {
   reactStrictMode: false,
+  transpilePackages: [
+    "@polkadex/blockchain-api",
+    "@polkadex/polkadex-api",
+    "@polkadex/react-providers",
+    "@polkadex/types",
+    "@polkadex/ux",
+  ],
   eslint: {
     ignoreDuringBuilds: true,
   },

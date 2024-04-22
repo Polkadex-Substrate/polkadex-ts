@@ -23,7 +23,7 @@ export const GenericHorizontal = ({
   return (
     <div
       className={twMerge(
-        classNames("flex items-cneter justify-between gap-2 py-1"),
+        classNames("flex items-center justify-between gap-2 py-1"),
         className
       )}
       {...props}
