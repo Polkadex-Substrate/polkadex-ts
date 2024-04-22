@@ -38,22 +38,16 @@ export const FeaturedPoolsTable = () => {
       <Table.Header>
         {table.getHeaderGroups().map((headerGroup) => (
           <Table.Row key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              console.log(
-                " header.column.columnDef.cell",
-                header.column.columnDef.cell
-              );
-              return (
-                <Table.Head key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </Table.Head>
-              );
-            })}
+            {headerGroup.headers.map((header) => (
+              <Table.Head key={header.id}>
+                {header.isPlaceholder
+                  ? null
+                  : flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+              </Table.Head>
+            ))}
           </Table.Row>
         ))}
       </Table.Header>
