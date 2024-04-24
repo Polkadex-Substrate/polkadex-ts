@@ -14,6 +14,8 @@ const SOURCE_CHAIN = "Sepolia";
 const DESTINATION_CHAIN = "Polkadex";
 const AMOUNT = 0.1;
 
+const DESTINATION_ADDRESS = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
+
 export const EthereumEco = () => {
   const { getAllChains } = new Thea();
   const [walletClient, setWalletClient] = useState<WalletClient>();
@@ -91,7 +93,7 @@ export const EthereumEco = () => {
       polkadexConnector.getChain(),
       linkAsset,
       selectedAddress as `0x${string}`,
-      "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w"
+      DESTINATION_ADDRESS
     );
 
     console.log(transferConfig);
