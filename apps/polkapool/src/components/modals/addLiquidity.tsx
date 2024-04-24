@@ -64,26 +64,26 @@ export const AddLiquidity = ({
   );
   const handleClose = useCallback(() => onOpenChange(false), [onOpenChange]);
 
-  const enoughtBalance = useMemo(() => {
+  const enoughBalance = useMemo(() => {
     const baseBal = Number(baseBalance?.balance) ?? 0;
     const quoteBal = Number(quoteBalance?.balance) ?? 0;
 
-    const enoughtBaseBalance = Number(baseValue) <= baseBal - EXISTENTIAL_PDEX;
+    const enoughBaseBalance = Number(baseValue) <= baseBal - EXISTENTIAL_PDEX;
 
-    const enoughtQuoteBalance =
+    const enoughQuoteBalance =
       Number(quoteValue) < quoteBal - EXISTENTIAL_OTHERS;
 
-    return enoughtBaseBalance && enoughtQuoteBalance;
+    return enoughBaseBalance && enoughQuoteBalance;
   }, [quoteBalance?.balance, baseBalance?.balance, baseValue, quoteValue]);
 
   const buttonText = useMemo(() => {
     const AddLiquidityText =
-      !!quoteValue && !!baseValue && !enoughtBalance
+      !!quoteValue && !!baseValue && !enoughBalance
         ? "Insufficient balance"
         : "Add Liquidity";
 
     return !!quoteAsset && !!baseAsset ? AddLiquidityText : "Select a token";
-  }, [baseAsset, quoteAsset, enoughtBalance, quoteValue, baseValue]);
+  }, [baseAsset, quoteAsset, enoughBalance, quoteValue, baseValue]);
 
   const disabled = useMemo(
     () =>
@@ -93,7 +93,7 @@ export const AddLiquidity = ({
       !baseAsset ||
       !isLogged ||
       addLiquidityLoading ||
-      !enoughtBalance,
+      !enoughBalance,
 
     [
       baseValue,
@@ -101,7 +101,7 @@ export const AddLiquidity = ({
       quoteValue,
       isLogged,
       baseAsset,
-      enoughtBalance,
+      enoughBalance,
       addLiquidityLoading,
     ]
   );

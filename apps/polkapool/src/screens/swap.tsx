@@ -46,7 +46,7 @@ export function Swap() {
     unitPriceSuccess,
     handleChangeAmount,
     handleChangePrice,
-    enoughtBalance,
+    enoughBalance,
     baseAsset,
     setBaseAsset,
     quoteAsset,
@@ -104,7 +104,7 @@ export function Swap() {
       !!baseValue &&
       !!quoteValue &&
       !!api &&
-      !!enoughtBalance &&
+      !!enoughBalance &&
       !swapLoading,
     [
       baseAsset?.id,
@@ -112,7 +112,7 @@ export function Swap() {
       baseValue,
       quoteValue,
       api,
-      enoughtBalance,
+      enoughBalance,
       swapLoading,
     ]
   );
@@ -122,7 +122,7 @@ export function Swap() {
     [balancesIsLoading, swapLoading, api]
   );
 
-  const swapButtonText = enoughtBalance
+  const swapButtonText = enoughBalance
     ? "Swap"
     : `Insufficient ${baseAsset?.ticker} balance`;
   const buttonText =

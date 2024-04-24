@@ -25,7 +25,7 @@ export function useGetPrice() {
     [isPDEx]
   );
 
-  const enoughtBalance = useMemo(() => {
+  const enoughBalance = useMemo(() => {
     const selectedTokenBalance = balances?.find(
       (e) => e.id === baseAsset?.id
     )?.balance;
@@ -123,7 +123,7 @@ export function useGetPrice() {
     unitPriceSuccess,
     handleChangeAmount,
     handleChangePrice,
-    enoughtBalance,
+    enoughBalance,
     baseAsset,
     setBaseAsset,
     quoteAsset,
