@@ -1,6 +1,6 @@
 import { KeyringPair$Json } from "@polkadot/keyring/types";
 
-import { LocalAccountExternalStorage } from "../types";
+import { LocalAccountExternalStorage, Token } from "../types";
 
 import { GDriveStorage } from "./GDrive/drive";
 import { GoogleDriveAccount } from "./types";
@@ -8,6 +8,7 @@ export class GDriveExternalAccountStore implements LocalAccountExternalStorage {
   private initialized = false;
   private list: GoogleDriveAccount<KeyringPair$Json>[] = [];
   private readonly ACCOUNT_PREFIX = "account:";
+  private initialToken: Token = null;
   id = "google-drive";
   name = "GoogleDrive";
   constructor(apiKey: string, clientId: string) {
@@ -18,7 +19,9 @@ export class GDriveExternalAccountStore implements LocalAccountExternalStorage {
     return this.initialized;
   }
 
-  async init() {
+  async init(initialToken: Token = null) {
+    this.initialToken = initialToken;
+    GDriveStorage.setInitialToken(this.initialToken);
     this.list = [];
     const files = await GDriveStorage.getAll();
     const jsons = files
@@ -32,12 +35,13 @@ export class GDriveExternalAccountStore implements LocalAccountExternalStorage {
         };
       });
     this.list = jsons ? await Promise.all(jsons) : [];
+    this.initialized = true;
+    return GDriveStorage.getGoogleToken();
   }
 
   async getFiles() {
     if (this.initialized) return this.list;
     await this.init();
-    this.initialized = true;
     return this.list;
   }
 

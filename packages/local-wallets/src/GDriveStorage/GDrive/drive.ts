@@ -1,3 +1,5 @@
+import { Token } from "../../types";
+
 import { GoogleDriveApi } from "./api";
 import { GoogleOauth } from "./oauth";
 
@@ -24,13 +26,21 @@ class GoogleDriveStorage {
     this.oauth.setOptions({ clientId, scope: DRIVE_APPDATA_SCOPE });
   }
 
+  setInitialToken(initialToken: Token): void {
+    this.api.setInitialToken(initialToken);
+  }
+
+  getGoogleToken() {
+    return this.oauth.token;
+  }
+
   async init(): Promise<void> {
     await Promise.all([this.api, this.oauth].map((client) => client.init()));
   }
 
   async auth(): Promise<void> {
     await this.init();
-    await this.oauth.checkToken();
+    if (!this.api.initialToken) await this.oauth.checkToken();
   }
 
   async createBackupFolder() {

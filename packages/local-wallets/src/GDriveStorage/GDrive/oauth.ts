@@ -10,7 +10,7 @@ type GoogleOauthOptions = {
 export class GoogleOauth {
   private options!: GoogleOauthOptions;
   private client!: google.accounts.oauth2.TokenClient;
-  private token!: google.accounts.oauth2.TokenResponse | null;
+  public token!: google.accounts.oauth2.TokenResponse | null;
   private isAuthProcess = false;
 
   private authCallback = (token: google.accounts.oauth2.TokenResponse) => {};
@@ -60,8 +60,7 @@ export class GoogleOauth {
   private async waitForAuthFinalization(func: () => void): Promise<void> {
     await new Promise<void>((resolve, reject) => {
       this.authCallback = (token) => {
-        const expires = String(Date.now() + Number(token.expires_in) * 1000);
-        this.token = { ...token, expires_in: expires };
+        this.token = token;
         this.isAuthProcess = false;
         resolve();
       };
@@ -77,10 +76,10 @@ export class GoogleOauth {
   }
 
   public async checkToken(): Promise<void> {
-    if (
-      !this.token ||
-      Date.now() + FIVE_MINUTES > Number(this.token.expires_in)
-    ) {
+    const expires =
+      this.token && String(Date.now() + Number(this.token.expires_in) * 1000);
+
+    if (!this.token || Date.now() + FIVE_MINUTES > Number(expires)) {
       await this.getToken();
     }
   }

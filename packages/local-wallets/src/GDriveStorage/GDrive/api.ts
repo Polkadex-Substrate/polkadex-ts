@@ -1,3 +1,5 @@
+import { Token } from "../../types";
+
 import { ScriptLoader, waitDocumentReady } from "./utils";
 
 type GoogleApiOptions = {
@@ -8,9 +10,14 @@ type GoogleApiOptions = {
 export class GoogleApi {
   private options!: GoogleApiOptions;
   private _ready = false;
+  public initialToken: Token = null;
 
   get ready(): boolean {
     return this._ready;
+  }
+
+  public setInitialToken(initialToken: Token): void {
+    this.initialToken = initialToken;
   }
 
   public setOptions(options: GoogleApiOptions): void {
@@ -41,12 +48,13 @@ export class GoogleApi {
     apiKey,
     discoveryDocs,
   }: GoogleApiOptions): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       gapi.load("client", () => {
         gapi.client
           .init({ apiKey, discoveryDocs })
           .then(() => {
             this._ready = true;
+            if (this.initialToken) gapi.auth.setToken(this.initialToken);
             resolve();
           })
           .catch(reject);
