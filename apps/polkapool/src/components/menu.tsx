@@ -9,21 +9,22 @@ import {
   useMotionTemplate,
   useMotionValue,
 } from "framer-motion";
-import { PropsWithChildren, useEffect, useMemo } from "react";
+import { PropsWithChildren, memo, useEffect, useMemo } from "react";
 import classNames from "classnames";
 import { usePathname } from "next/navigation";
 
-import { commom } from "../../tailwind.config";
+import { common } from "../../tailwind.config";
 
 import { Github, Twitter } from "./icons";
 
 import { sizeAnimations, variants } from "@/helpers/animations";
 import { useCoreProvider } from "@/core";
+
 export const Menu = () => {
   const { connected } = useCoreProvider();
   const turn = useMotionValue(0);
 
-  const backgroundImage = useMotionTemplate`conic-gradient(from ${turn}turn, #a78bfa00 75%, ${commom["attention-base"]} 100%)`;
+  const backgroundImage = useMotionTemplate`conic-gradient(from ${turn}turn, #a78bfa00 75%, ${common["attention-base"]} 100%)`;
 
   useEffect(() => {
     if (connected) {
@@ -100,19 +101,23 @@ export const Menu = () => {
   );
 };
 
-const Route = ({ href, children }: PropsWithChildren<{ href: string }>) => {
-  const pathname = usePathname();
+const Route = memo(
+  ({ href, children }: PropsWithChildren<{ href: string }>) => {
+    const pathname = usePathname();
 
-  const active = useMemo(() => href.includes(pathname), [href, pathname]);
-  return (
-    <Button.Solid
-      className={classNames(
-        !active && "bg-transparent hover:bg-secondary-base"
-      )}
-      asChild
-      rounded
-    >
-      <Link href={href}>{children}</Link>
-    </Button.Solid>
-  );
-};
+    const active = useMemo(() => href.includes(pathname), [href, pathname]);
+    return (
+      <Button.Solid
+        className={classNames(
+          !active && "bg-transparent hover:bg-secondary-base"
+        )}
+        asChild
+        rounded
+      >
+        <Link href={href}>{children}</Link>
+      </Button.Solid>
+    );
+  }
+);
+
+Route.displayName = "Route";

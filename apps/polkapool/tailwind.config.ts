@@ -3,7 +3,7 @@
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
 
-export const commom = {
+export const common = {
   "primary-base": "#E6007A",
   "primary-hover": "#EA268E",
   "primary-pressed": "#9F005F",
@@ -29,7 +29,7 @@ export const commom = {
   "info-pressed": "#065FB2",
 };
 
-const commomBg = {
+const commonBg = {
   "level-0": "#0D0D10",
   "level-1": "#131419",
   "level-2": "#252932",
@@ -86,7 +86,7 @@ const config: Config = {
           `,
       },
       colors: {
-        ...commom,
+        ...common,
         textBase: "#FFFFFF",
         primary: "#8B909A",
         secondary: "#575A60",
@@ -95,27 +95,27 @@ const config: Config = {
         disabled: "#2B303A",
       },
       backgroundColor: {
-        ...commom,
-        ...commomBg,
+        ...common,
+        ...commonBg,
         ...overlay,
         backgroundBase: "#06070A",
       },
       outlineColor: {
-        ...commom,
+        ...common,
       },
       backgroundSize: {
         skeletonSize: "400% 400%",
       },
       fill: {
-        ...commom,
-        ...commomBg,
+        ...common,
+        ...commonBg,
       },
       boxShadow: {
         baseShadow: "0px 20px 23px rgba(0, 0, 0, 0.05)",
       },
       borderColor: {
-        ...commom,
-        ...commomBg,
+        ...common,
+        ...commonBg,
         ...border,
       },
       backdropBlur: {
