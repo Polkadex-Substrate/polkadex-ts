@@ -3,14 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { SwapApi } from "@polkadex/polkadex-api";
+import { parseScientific, trimFloat } from "@polkadex/numericals";
 
 import { Asset, useCoreProvider } from "@/core";
-import {
-  EXISTENTIAL_OTHERS,
-  EXISTENTIAL_PDEX,
-  parseScientific,
-  trimFloat,
-} from "@/constants";
+import { EXISTENTIAL_OTHERS, EXISTENTIAL_PDEX } from "@/constants";
 import { polkadexAsset } from "@/core/utils";
 export const slippageValues = [0.5, 1, 1.5, 2, 3, 4, 5, 10];
 

@@ -10,6 +10,7 @@ const nextConfig = {
     "@polkadex/react-providers",
     "@polkadex/types",
     "@polkadex/ux",
+    "@polkadex/numericals",
   ],
   eslint: {
     ignoreDuringBuilds: true,

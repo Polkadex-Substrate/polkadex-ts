@@ -11,10 +11,9 @@ import classNames from "classnames";
 import { RiAddLine } from "@remixicon/react";
 import { useMemo } from "react";
 import Link from "next/link";
+import { parseScientific, trimFloat } from "@polkadex/numericals";
 
 import { useCoreProvider } from "@/core";
-import { parseScientific, trimFloat } from "@/constants";
-
 export const TokenCard = ({
   icon,
   ticker,

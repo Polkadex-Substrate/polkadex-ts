@@ -2,7 +2,7 @@ import { Token, TokenAppearance, Typography } from "@polkadex/ux";
 import { createColumnHelper } from "@tanstack/react-table";
 
 import { Pool } from "@/core";
-// import { parseScientific, trimFloat } from "@/constants";
+// import { parseScientific, trimFloat } from "@polkadex/numericals";
 
 const columnHelper = createColumnHelper<Pool>();
 

@@ -18,16 +18,11 @@ import {
   useMemo,
   useEffect,
 } from "react";
+import { parseScientific, trimFloat } from "@polkadex/numericals";
 
 import { Position, useCoreProvider } from "@/core";
 import { useAddLiquidity, useGetPrice } from "@/hooks";
-import {
-  EXISTENTIAL_OTHERS,
-  EXISTENTIAL_PDEX,
-  parseScientific,
-  trimFloat,
-} from "@/constants";
-
+import { EXISTENTIAL_OTHERS, EXISTENTIAL_PDEX } from "@/constants";
 export const AddLiquidity = ({
   open,
   onOpenChange,

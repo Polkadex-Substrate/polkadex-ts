@@ -11,8 +11,8 @@ import {
 import { RiArrowDropDownFill } from "@remixicon/react";
 import { ComponentProps, useMemo } from "react";
 import classNames from "classnames";
+import { parseScientific, trimFloat } from "@polkadex/numericals";
 
-import { parseScientific, trimFloat } from "@/constants";
 import { useCoreProvider } from "@/core";
 interface Props extends ComponentProps<"input"> {
   action?: (e: string) => void;
