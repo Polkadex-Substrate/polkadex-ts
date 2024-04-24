@@ -1,6 +1,6 @@
 "use client";
 
-import { Polkadex, Sepolia } from "@polkadex/thea";
+import { Thea, getChainConnector, EVMChainAdapter } from "@polkadex/thea";
 import { useEffect, useState } from "react";
 import {
   SimulateContractReturnType,
@@ -10,11 +10,13 @@ import {
 } from "viem";
 import { sepolia } from "viem/chains";
 
-export const EthereumEco = () => {
-  const [walletClient, setWalletClient] = useState<WalletClient>();
+const SOURCE_CHAIN = "Sepolia";
+const DESTINATION_CHAIN = "Polkadex";
+const AMOUNT = 0.1;
 
-  const sepoliaConnector = new Sepolia();
-  const destChain = new Polkadex();
+export const EthereumEco = () => {
+  const { getAllChains } = new Thea();
+  const [walletClient, setWalletClient] = useState<WalletClient>();
 
   useEffect(() => {
     setWalletClient(
@@ -33,6 +35,10 @@ export const EthereumEco = () => {
   };
 
   const getAllBalances = async () => {
+    const sourceChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
+    if (!sourceChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    const sepoliaConnector = getChainConnector(sourceChain.genesis);
+
     console.log("Fetching balance...");
     const selectedAddress = await authoizeMetamask();
     const assets = sepoliaConnector.getSupportedAssets();
@@ -44,11 +50,17 @@ export const EthereumEco = () => {
   };
 
   const approveTransfer = async () => {
+    const sourceChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
+    if (!sourceChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    const sepoliaConnector = getChainConnector(
+      sourceChain.genesis
+    ) as EVMChainAdapter;
+
     const selectedAddress = await authoizeMetamask();
     const linkAsset = sepoliaConnector.getSupportedAssets()[1];
     const { request } =
       await sepoliaConnector.approveTokenTransfer<SimulateContractReturnType>(
-        0.1,
+        AMOUNT,
         selectedAddress as string,
         linkAsset.id as string
       );
@@ -60,11 +72,23 @@ export const EthereumEco = () => {
   };
 
   const depositToThea = async () => {
+    const sourceChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
+    if (!sourceChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    const sepoliaConnector = getChainConnector(
+      sourceChain.genesis
+    ) as EVMChainAdapter;
+
+    const destChain = getAllChains().find((c) => c.name === DESTINATION_CHAIN);
+    if (!destChain) throw new Error(`${DESTINATION_CHAIN} chain not found..`);
+    const polkadexConnector = getChainConnector(
+      destChain.genesis
+    ) as EVMChainAdapter;
+
     const selectedAddress = await authoizeMetamask();
     const linkAsset = sepoliaConnector.getSupportedAssets()[1];
 
     const transferConfig = await sepoliaConnector.getTransferConfig(
-      destChain.getChain(),
+      polkadexConnector.getChain(),
       linkAsset,
       selectedAddress as `0x${string}`,
       "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w"
@@ -86,6 +110,10 @@ export const EthereumEco = () => {
       <h1 className="text-2xl underline decoration-dashed underline-offset-4 text-sky-400 text-center">
         Ethereum EcoSystem
       </h1>
+
+      <p className="my-4 text-center">
+        {SOURCE_CHAIN} to {DESTINATION_CHAIN} transfer ---- {AMOUNT} USDT
+      </p>
 
       <div className="flex justify-center items-center gap-4 my-10">
         <button

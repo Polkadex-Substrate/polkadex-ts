@@ -1,8 +1,11 @@
 import { ASSETHUB_GENESIS, POLKADEX_GENESIS, SEPOLIA_GENESIS } from "../config";
 
-import { AssetHub, Polkadex, Sepolia } from "./";
+import { AssetHub, Polkadex } from "./substrate";
+import { Sepolia } from "./evm";
 
-export const getChainConnector = (genesis: string) => {
+import { BaseChainAdapter } from "./";
+
+export const getChainConnector = (genesis: string): BaseChainAdapter => {
   switch (genesis) {
     case ASSETHUB_GENESIS:
       return new AssetHub();

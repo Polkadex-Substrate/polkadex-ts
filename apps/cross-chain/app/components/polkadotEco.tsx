@@ -2,15 +2,22 @@
 
 import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
 import { Signer } from "@polkadot/api/types";
-import { AssetHub } from "@polkadex/thea";
+import { getChainConnector, Thea } from "@polkadex/thea";
+
+const SOURCE_CHAIN = "AssetHub";
+const DESTINATION_CHAIN = "Polkadex";
 
 const fromAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
 const toAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
 const amount = 0.01;
 
 export const PolkadotEco = () => {
+  const { getAllChains } = new Thea();
+
   const queryBalances = async () => {
-    const assetHub = new AssetHub();
+    const assetHubChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
+    if (!assetHubChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    const assetHub = getChainConnector(assetHubChain.genesis);
     const assets = assetHub.getSupportedAssets();
     const balances = await assetHub.getBalances(fromAddress, assets);
     console.log(balances);
@@ -25,12 +32,14 @@ export const PolkadotEco = () => {
 
     if (!injector) throw new Error("Injector not found..");
 
-    console.log("Doing transfer...");
+    const assetHubChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
+    if (!assetHubChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    const assetHub = getChainConnector(assetHubChain.genesis);
 
-    const assetHub = new AssetHub();
     const usdtAsset = assetHub.getSupportedAssets()[1];
     const destChain = assetHub.getDestinationChains(usdtAsset)[0];
 
+    console.log("Doing transfer...");
     const transferConfig = await assetHub.getTransferConfig(
       destChain,
       usdtAsset,
@@ -54,7 +63,7 @@ export const PolkadotEco = () => {
       </h1>
 
       <p className="my-4 text-center">
-        AssetHub to Polkadex transfer ---- {amount} USDT
+        {SOURCE_CHAIN} to {DESTINATION_CHAIN} transfer ---- {amount} USDT
       </p>
 
       <div className="flex justify-center items-center gap-4 my-10">
