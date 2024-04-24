@@ -59,13 +59,14 @@ export class Sepolia implements EVMChainAdapter {
     fromAddress: string,
     toAddress: string
   ): Promise<TransferConfig> {
-    const feeToken = ETHEREUM_ASSETS.ETH;
+    const sourceFeeToken = ETHEREUM_ASSETS.ETH;
+    const destFeeToken = ETHEREUM_ASSETS.ETH;
     const sourceChain = this.getChain();
     const assetBalance = await this.getBalance(fromAddress, asset.id as string);
 
     const nativeTokenBalance = await this.getBalance(
       fromAddress,
-      feeToken.id as string
+      sourceFeeToken.id as string
     );
 
     const min: AssetAmount = {
@@ -84,24 +85,23 @@ export class Sepolia implements EVMChainAdapter {
 
     const sourceFee: AssetAmount = {
       amount: transactionFee,
-      ticker: feeToken.ticker,
+      ticker: sourceFeeToken.ticker,
     };
 
-    // TODO: Check with Krishna
     const destinationFee: AssetAmount = {
       amount: 0,
-      ticker: "LINK",
+      ticker: destFeeToken.ticker,
     };
 
     const sourceFeeBalance: AssetAmount = {
       amount: nativeTokenBalance,
-      ticker: feeToken.ticker,
+      ticker: sourceFeeToken.ticker,
     };
 
     // TODO: Calculate balance for fee token of selected asset
     const destinationFeeBalance: AssetAmount = {
       amount: 0,
-      ticker: "LINK",
+      ticker: destFeeToken.ticker,
     };
 
     return {
