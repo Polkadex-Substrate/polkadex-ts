@@ -23,7 +23,7 @@ export const PolkadotEco = () => {
     await web3Enable("polkadex-thea");
     const injector = await web3FromAddress(fromAddress);
 
-    if (!injector) return;
+    if (!injector) throw new Error("Injector not found..");
 
     console.log("Doing transfer...");
 

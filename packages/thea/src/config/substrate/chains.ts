@@ -1,5 +1,7 @@
 import { Parachain, Ecosystem, AnyChain } from "@moonbeam-network/xcm-types";
 
+import { ASSETHUB_GENESIS, POLKADEX_GENESIS } from "../genesis";
+
 import { pdex, dot, usdt } from "./assets";
 
 export const assetHub = new Parachain({
@@ -16,8 +18,7 @@ export const assetHub = new Parachain({
     },
   ],
   ecosystem: Ecosystem.Polkadot,
-  genesisHash:
-    "0x68d56f15f85d3136970ec16946040bc1752654e906147f7e43e9d539d7c3de2f",
+  genesisHash: ASSETHUB_GENESIS,
   key: "assethub",
   name: "AssetHub",
   parachainId: 1000,
@@ -38,8 +39,7 @@ export const polkadex = new Parachain({
     },
   ],
   ecosystem: Ecosystem.Polkadot,
-  genesisHash:
-    "0x3920bcb4960a1eef5580cd5367ff3f430eef052774f78468852f7b9cb39f8a3c",
+  genesisHash: POLKADEX_GENESIS,
   key: "polkadex",
   name: "Polkadex",
   parachainId: 2040,

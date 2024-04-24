@@ -40,7 +40,7 @@ export const EthereumEco = () => {
       selectedAddress as string,
       assets
     );
-    console.log(assets, balances);
+    console.log(balances);
   };
 
   const approveTransfer = async () => {
