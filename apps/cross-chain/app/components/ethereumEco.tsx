@@ -1,6 +1,6 @@
 "use client";
 
-import { Polkadex, Sepolia } from "@/core";
+import { Polkadex, Sepolia } from "@polkadex/thea";
 import { SimulateContractReturnType, createWalletClient, custom } from "viem";
 import { sepolia } from "viem/chains";
 
@@ -10,6 +10,7 @@ export const EthereumEco = () => {
 
   let walletClient = createWalletClient({
     chain: sepolia,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     transport: custom(window.ethereum!),
   });

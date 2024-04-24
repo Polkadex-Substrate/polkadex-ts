@@ -16,8 +16,11 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@moonbeam-network/xcm-sdk": "^2.1.2",
+    "@polkadex/utils": "^1.1.46",
     "@polkadex/numericals": "*",
     "@polkadot/api": "latest",
+    "@polkadot/util-crypto": "^12.6.2",
     "bignumber": "^1.1.0",
     "viem": "^2.9.0"
   },
