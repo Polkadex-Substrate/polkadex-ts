@@ -4,3 +4,5 @@ export const TIME_INTERVALS = {
   daysInEpoch: 28,
   blocksInEpoch: 201600,
 };
+
+export const ASSET_ID = { USDT: "3496813586714279103986568049643838918" };

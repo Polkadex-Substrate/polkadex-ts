@@ -1,4 +1,5 @@
 import { Parachain, Ecosystem, AnyChain } from "@moonbeam-network/xcm-types";
+import { ASSET_ID } from "@polkadex/polkadex-api";
 
 import { ASSETHUB_GENESIS, POLKADEX_GENESIS } from "../genesis";
 
@@ -35,7 +36,7 @@ export const polkadex = new Parachain({
     {
       asset: usdt,
       decimals: 12,
-      id: "3496813586714279103986568049643838918",
+      id: ASSET_ID.USDT,
     },
   ],
   ecosystem: Ecosystem.Polkadot,

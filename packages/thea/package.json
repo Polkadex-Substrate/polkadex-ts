@@ -25,7 +25,8 @@
     "@polkadot/util": "^12.6.2",
     "@polkadot/util-crypto": "^12.6.2",
     "bignumber": "^1.1.0",
-    "viem": "^2.9.0"
+    "viem": "^2.9.0",
+    "@polkadex/polkadex-api": "*"
   },
   "devDependencies": {
     "@polkadex/eslint-config": "*",
