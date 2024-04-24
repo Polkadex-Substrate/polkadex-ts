@@ -1,5 +1,5 @@
 {
-  "name": "cross-chain",
+  "name": "@polkadex/cross-chain",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@polkadex/thea": "*",
+    "@polkadot/extension-dapp": "^0.47.2",
     "next": "14.2.2",
     "react": "^18",
     "react-dom": "^18",

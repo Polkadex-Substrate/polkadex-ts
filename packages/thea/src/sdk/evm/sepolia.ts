@@ -21,10 +21,10 @@ import {
   changeSubstrateToBaseChain,
   sepolia as sepoliaChain,
   polkadex,
-} from "@/core/config";
+} from "../../config";
+import { AssetAmount, EVMChainAdapter, TransferConfig } from "../types";
 
 import { TheaAbi } from "./theaAbi";
-import { AssetAmount, EVMChainAdapter, TransferConfig } from "../types";
 
 export class Sepolia implements EVMChainAdapter {
   private id = "ethereum";

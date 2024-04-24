@@ -1,8 +1,8 @@
 "use client";
 
 import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
-
-import { AssetHub } from "@/core";
+import { Signer } from "@polkadot/api/types";
+import { AssetHub } from "@polkadex/thea";
 
 const fromAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
 const toAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
@@ -41,7 +41,9 @@ export const PolkadotEco = () => {
     const ext = await transferConfig.transfer<SubmittableExtrinsic>(amount);
     console.log(ext);
 
-    const res = await ext.signAndSend(fromAddress, { signer: injector.signer });
+    const res = await ext.signAndSend(fromAddress, {
+      signer: injector.signer as Signer,
+    });
     console.log(res);
   };
 

@@ -1,4 +1,4 @@
-import { EthereumEco, PolkadotEco } from "./components";
+import { PolkadotEco, EthereumEco } from "./components";
 
 export default function Home() {
   return (

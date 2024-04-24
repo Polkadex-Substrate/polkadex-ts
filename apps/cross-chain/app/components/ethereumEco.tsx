@@ -1,24 +1,35 @@
 "use client";
 
 import { Polkadex, Sepolia } from "@polkadex/thea";
-import { SimulateContractReturnType, createWalletClient, custom } from "viem";
+import { useEffect, useState } from "react";
+import {
+  SimulateContractReturnType,
+  createWalletClient,
+  custom,
+  WalletClient,
+} from "viem";
 import { sepolia } from "viem/chains";
 
 export const EthereumEco = () => {
+  const [walletClient, setWalletClient] = useState<WalletClient>();
+
   const sepoliaConnector = new Sepolia();
   const destChain = new Polkadex();
 
-  let walletClient = createWalletClient({
-    chain: sepolia,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    transport: custom(window.ethereum!),
-  });
-
+  useEffect(() => {
+    setWalletClient(
+      createWalletClient({
+        chain: sepolia,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        transport: custom(window.ethereum!),
+      })
+    );
+  }, []);
   const authoizeMetamask = async () => {
-    const addresses = await walletClient.requestAddresses();
+    const addresses = await walletClient?.requestAddresses();
     console.log("All addresses => ", addresses);
-    return addresses[0];
+    return addresses?.[0];
   };
 
   const getAllBalances = async () => {
@@ -42,8 +53,9 @@ export const EthereumEco = () => {
         linkAsset.id as string
       );
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    let res = await walletClient.writeContract(request);
+    const res = await walletClient.writeContract(request);
     console.log("Approved result => ", res);
   };
 
@@ -54,7 +66,7 @@ export const EthereumEco = () => {
     const transferConfig = await sepoliaConnector.getTransferConfig(
       destChain.getChain(),
       linkAsset,
-      selectedAddress,
+      selectedAddress as `0x${string}`,
       "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w"
     );
 
@@ -63,6 +75,7 @@ export const EthereumEco = () => {
     const { request } =
       await transferConfig.transfer<SimulateContractReturnType>(0.1);
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const res = await walletClient.writeContract(request);
     console.log("Deposited to THEA => ", res);
