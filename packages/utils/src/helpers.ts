@@ -54,8 +54,13 @@ export const localStorageOrDefault = <T>(
 };
 
 export const setLocalStorage = <T>(key: string, value: T, parse = true) => {
-  const parseVal = parse ? JSON.stringify(value) : (value as string);
-  localStorage.setItem(key, parseVal);
+  try {
+    const parseVal = parse ? JSON.stringify(value) : (value as string);
+    localStorage.setItem(key, parseVal);
+  } catch (error) {
+    console.error(`Error serializing value for key "${key}":`, error);
+    throw error;
+  }
 };
 
 export const removeLocalStorage = (key: string) => localStorage.removeItem(key);
