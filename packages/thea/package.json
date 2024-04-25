@@ -4,7 +4,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "license": "GPL-3.0-only",
-  "version": "3.1.2",
+  "version": "4.0.0",
   "files": [
     "dist/**"
   ],
@@ -18,7 +18,7 @@
   "dependencies": {
     "@moonbeam-network/xcm-sdk": "^2.1.2",
     "@polkadex/numericals": "*",
-    "@polkadex/utils": "^1.1.46",
+    "@polkadex/utils": "^0.2.0",
     "@polkadot/api": "^10.13.1",
     "@polkadot/apps-config": "^0.136.1",
     "@polkadot/types": "^11.0.1",

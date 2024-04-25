@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.4.0
+
+### Minor Changes
+
+- df6030f: In this PR, we will be adding support for DED, PINK and USDC token which would be transferable from AssetHub to Polkadex.
+
 ## 3.3.1
 
 ### Patch Changes
