@@ -1,14 +1,14 @@
 import { Asset } from "../types";
 
 const ETH: Asset = {
-  id: "123",
+  id: "112",
   decimal: 18,
   logo: "ETH",
   ticker: "ETH",
 };
 
 const LINK: Asset = {
-  id: "456",
+  id: "111",
   decimal: 18,
   logo: "LINK",
   ticker: "LINK",
