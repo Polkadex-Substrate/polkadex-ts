@@ -1,6 +1,6 @@
 {
   "name": "@polkadex/polkapool",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "author": "Kas Ferreira <rodolfo@polkadex.trade>",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@polkadex/blockchain-api": "^1.1.61",
-    "@polkadex/numericals": "^0.3.0",
+    "@polkadex/numericals": "^0.4.0",
     "@polkadex/polkadex-api": "^3.1.2",
     "@polkadex/react-providers": "^2.0.0",
     "@polkadex/types": "^1.2.3",
