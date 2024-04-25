@@ -17,7 +17,6 @@ export class GDriveExternalAccountStore implements LocalAccountExternalStorage {
   private initialized = false;
   private list: GoogleDriveAccount<KeyringPair$Json>[] = [];
   private readonly ACCOUNT_PREFIX = "account:";
-
   id = "google-drive";
   name = "GoogleDrive";
   constructor(apiKey: string, clientId: string) {

@@ -14,7 +14,7 @@ type GoogleOauthOptions = {
 export class GoogleOauth {
   private options!: GoogleOauthOptions;
   private client!: google.accounts.oauth2.TokenClient;
-  public token!: google.accounts.oauth2.TokenResponse | null;
+  private token!: google.accounts.oauth2.TokenResponse | null;
   private isAuthProcess = false;
 
   private authCallback = (token: google.accounts.oauth2.TokenResponse) => {};
