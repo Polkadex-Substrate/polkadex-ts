@@ -44,6 +44,7 @@ export const AddLiquidity = ({
     setQuoteValue,
     slippage,
     setBaseValue,
+    enoughLiquidity,
   } = useGetPrice();
 
   const { onAddLiquidity, addLiquidityLoading } = useAddLiquidity();
@@ -59,8 +60,11 @@ export const AddLiquidity = ({
   );
 
   const receiveWithSlippage = useMemo(
-    () => Number(quoteValue) * (1 - (slippage || 0) / 100),
-    [quoteValue, slippage]
+    () =>
+      enoughLiquidity
+        ? Number(quoteValue) * (1 - (slippage || 0) / 100)
+        : quoteValue,
+    [quoteValue, slippage, enoughLiquidity]
   );
   const handleClose = useCallback(() => onOpenChange(false), [onOpenChange]);
 

@@ -56,6 +56,7 @@ export function Swap() {
     quoteValue,
     setQuoteValue,
     existential,
+    enoughLiquidity,
   } = useGetPrice();
 
   const onHandleSwap = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -69,8 +70,11 @@ export function Swap() {
   };
 
   const receiveWithSlippage = useMemo(
-    () => Number(quoteValue) * (1 - (slippage || 0) / 100),
-    [quoteValue, slippage]
+    () =>
+      enoughLiquidity
+        ? Number(quoteValue) * (1 - (slippage || 0) / 100)
+        : Number(quoteValue),
+    [quoteValue, slippage, enoughLiquidity]
   );
 
   const handleSwap = useCallback(async () => {

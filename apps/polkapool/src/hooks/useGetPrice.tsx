@@ -12,7 +12,7 @@ export const slippageValues = [0.5, 1, 1.5, 2, 3, 4, 5, 10];
 
 export function useGetPrice() {
   const [slippage, setSlippage] = useState(slippageValues[0]);
-  const { balances, swapApi } = useCoreProvider();
+  const { balances, swapApi, pools } = useCoreProvider();
 
   const [baseAsset, setBaseAsset] = useState<Asset | null>(polkadexAsset);
   const [baseValue, setBaseValue] = useState("");
@@ -40,6 +40,11 @@ export function useGetPrice() {
     [swapApi, quoteAsset, baseAsset]
   );
 
+  const enoughLiquidity = useMemo(
+    () => !!pools?.find((a) => a.quote.id === quoteAsset?.id)?.quote.reserve,
+    [pools, quoteAsset?.id]
+  );
+
   const handleChangePrice = useCallback(
     async (value: string, swap = false) => {
       if (!swapApi) return;
@@ -51,6 +56,8 @@ export function useGetPrice() {
       const isValidNumber = !isNaN(valueNumber);
 
       setBaseValue(value);
+
+      if (!enoughLiquidity || !receiveId) return;
       if (payId && receiveId && isValidNumber && !!valueNumber) {
         const result = await swapApi.quotePriceExactTokensForTokens(
           swap ? receiveId : payId,
@@ -62,18 +69,20 @@ export function useGetPrice() {
         setQuoteValue(formattedBalance);
       } else if (quoteValue) setQuoteValue("");
     },
-    [baseAsset?.id, quoteAsset?.id, swapApi, quoteValue]
+    [baseAsset?.id, quoteAsset?.id, swapApi, quoteValue, enoughLiquidity]
   );
 
   const handleChangeAmount = useCallback(
     async (value: string, swap = false) => {
       if (!swapApi) return;
+
       const payId = baseAsset?.id;
       const receiveId = quoteAsset?.id;
       const valueNumber = parseFloat(value);
       const isValidNumber = !isNaN(valueNumber);
 
       setQuoteValue(value);
+      if (!enoughLiquidity || !receiveId) return;
 
       if (payId && receiveId && isValidNumber && !!valueNumber) {
         const result = await swapApi.quotePriceTokensForExactTokens(
@@ -87,7 +96,7 @@ export function useGetPrice() {
         setBaseValue(formattedBalance);
       } else if (baseValue) setBaseValue("");
     },
-    [baseAsset?.id, quoteAsset?.id, swapApi, baseValue]
+    [baseAsset?.id, quoteAsset?.id, swapApi, baseValue, enoughLiquidity]
   );
 
   const {
@@ -135,5 +144,6 @@ export function useGetPrice() {
     existential,
     slippage,
     setSlippage,
+    enoughLiquidity,
   };
 }
