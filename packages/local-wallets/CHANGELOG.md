@@ -1,5 +1,16 @@
 # @polkadex/local-wallets
 
+## 2.1.0
+
+### Minor Changes
+
+- 6b5a833: fix: retrieve/use localstorage
+
+### Patch Changes
+
+- Updated dependencies [6b5a833]
+  - @polkadex/utils@0.2.0
+
 ## 2.0.3
 
 ### Patch Changes
