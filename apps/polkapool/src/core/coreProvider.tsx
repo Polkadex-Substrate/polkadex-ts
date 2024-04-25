@@ -158,7 +158,11 @@ export const CoreProvider = ({ children }: { children: ReactNode }) => {
 
   const connected = useMemo(() => !!Object.keys(api ?? {}).length, [api]);
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const swapApi = useMemo(() => new SwapApi(api as ApiPromise), [api]);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const assetApi = useMemo(() => new AssetsApi(api as ApiPromise), [api]);
 
   const enabledAssets = useMemo(
