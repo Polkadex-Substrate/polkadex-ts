@@ -3,7 +3,7 @@ import { ASSET_ID } from "@polkadex/polkadex-api";
 
 import { ASSETHUB_GENESIS, POLKADEX_GENESIS } from "../genesis";
 
-import { pdex, dot, usdt } from "./assets";
+import { pdex, dot, usdt, usdc } from "./assets";
 
 export const assetHub = new Parachain({
   assetsData: [
@@ -15,6 +15,12 @@ export const assetHub = new Parachain({
       asset: usdt,
       decimals: 6,
       id: 1984,
+      palletInstance: 50,
+    },
+    {
+      asset: usdc,
+      decimals: 6,
+      id: 1337,
       palletInstance: 50,
     },
   ],
@@ -37,6 +43,11 @@ export const polkadex = new Parachain({
       asset: usdt,
       decimals: 12,
       id: ASSET_ID.USDT,
+    },
+    {
+      asset: usdc,
+      decimals: 12,
+      id: ASSET_ID.USDC,
     },
   ],
   ecosystem: Ecosystem.Polkadot,

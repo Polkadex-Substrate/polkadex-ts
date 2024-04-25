@@ -123,8 +123,8 @@ export class AssetHub implements BaseChainAdapter {
     const destinationFeeBalance: AssetAmount = {
       ticker: transferConfig.source.destinationFeeBalance.originSymbol,
       amount: +Utils.formatUnits(
-        transferConfig.source.destinationFeeBalance.amount,
-        transferConfig.source.destinationFeeBalance.decimals
+        transferConfig.destination.balance.amount,
+        transferConfig.destination.balance.decimals
       ),
     };
 
@@ -140,7 +140,6 @@ export class AssetHub implements BaseChainAdapter {
 
       transfer: async <T>(amount: number): Promise<T> => {
         const api = await getPolkadotApi(this.chain.ws);
-        const feeAsset = this.chain.assetsData.get("usdt");
         const { source } = ConfigBuilder(this.configService)
           .assets()
           .asset(subAsset)
@@ -162,8 +161,8 @@ export class AssetHub implements BaseChainAdapter {
           amount: amountFormatted,
           asset: asset.id as string,
           destination: subDestChain,
-          fee: transferConfig.source.fee.amount,
-          feeAsset: feeAsset?.id || "",
+          fee: BigInt(0),
+          feeAsset: "",
           palletInstance: palletInstance,
           source: this.chain,
         });
