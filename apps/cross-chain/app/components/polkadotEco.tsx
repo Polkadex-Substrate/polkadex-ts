@@ -6,6 +6,7 @@ import { getChainConnector, Thea } from "@polkadex/thea";
 
 const SOURCE_CHAIN = "AssetHub";
 const DESTINATION_CHAIN = "Polkadex";
+const SELECTED_ASSET = "USDT";
 
 const fromAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
 const toAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
@@ -15,11 +16,11 @@ export const PolkadotEco = () => {
   const { getAllChains } = new Thea();
 
   const queryBalances = async () => {
-    const assetHubChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
-    if (!assetHubChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
-    const assetHub = getChainConnector(assetHubChain.genesis);
-    const assets = assetHub.getSupportedAssets();
-    const balances = await assetHub.getBalances(fromAddress, assets);
+    const srcChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
+    if (!srcChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    const srcChainConnector = getChainConnector(srcChain.genesis);
+    const assets = srcChainConnector.getSupportedAssets();
+    const balances = await srcChainConnector.getBalances(fromAddress, assets);
     console.log(balances);
   };
   const xcmTransfer = async () => {
@@ -32,28 +33,38 @@ export const PolkadotEco = () => {
 
     if (!injector) throw new Error("Injector not found..");
 
-    const assetHubChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
-    if (!assetHubChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
-    const assetHub = getChainConnector(assetHubChain.genesis);
+    const srcChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
+    if (!srcChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    const srcChainConnector = getChainConnector(srcChain.genesis);
 
-    const usdtAsset = assetHub.getSupportedAssets()[1];
-    const destChain = assetHub.getDestinationChains(usdtAsset)[0];
+    const selectedAsset = srcChainConnector
+      .getSupportedAssets()
+      .find((a) => a.ticker === SELECTED_ASSET);
+
+    if (!selectedAsset) throw new Error("Could not find asset...");
+
+    const destChain = srcChainConnector
+      .getDestinationChains(selectedAsset)
+      .find((c) => c.name === DESTINATION_CHAIN);
+
+    if (!destChain) throw new Error("Invalid destination chain..");
 
     console.log("Doing transfer...");
-    const transferConfig = await assetHub.getTransferConfig(
+    const transferConfig = await srcChainConnector.getTransferConfig(
       destChain,
-      usdtAsset,
+      selectedAsset,
       fromAddress,
       toAddress
     );
 
+    console.log("Transfer config => ", transferConfig);
+
     const ext = await transferConfig.transfer<SubmittableExtrinsic>(amount);
     console.log(ext);
 
-    const res = await ext.signAndSend(fromAddress, {
+    await ext.signAndSend(fromAddress, {
       signer: injector.signer as Signer,
     });
-    console.log(res);
   };
 
   return (
@@ -63,7 +74,8 @@ export const PolkadotEco = () => {
       </h1>
 
       <p className="my-4 text-center">
-        {SOURCE_CHAIN} to {DESTINATION_CHAIN} transfer ---- {amount} USDT
+        {SOURCE_CHAIN} to {DESTINATION_CHAIN} transfer ---- {amount}{" "}
+        {SELECTED_ASSET}
       </p>
 
       <div className="flex justify-center items-center gap-4 my-10">
