@@ -6,7 +6,7 @@ import { getChainConnector, Thea } from "@polkadex/thea";
 
 const SOURCE_CHAIN = "AssetHub";
 const DESTINATION_CHAIN = "Polkadex";
-const SELECTED_ASSET = "USDT";
+const SELECTED_ASSET = "DED";
 
 const fromAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
 const toAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
