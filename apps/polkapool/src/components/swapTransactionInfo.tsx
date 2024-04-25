@@ -1,9 +1,14 @@
 "use client";
 
+import { SubmittableExtrinsic } from "@polkadot/api/types";
+import { ISubmittableResult } from "@polkadot/types/types";
+
 import { GenericHorizontal } from "./genericHorizontal";
 
 import { useCoreProvider } from "@/core";
 import { SwapProps, useCall, useTransactionFee } from "@/hooks";
+
+type Result = SubmittableExtrinsic<"promise", ISubmittableResult>;
 
 interface Props extends SwapProps {
   receiveWithSlippage: number;
@@ -26,7 +31,7 @@ export const SwapTransactionInfo = ({
         receiveAmount,
         payAmount,
         account?.address ?? "",
-      ]),
+      ]) as unknown as Promise<Result>,
   });
 
   return (
