@@ -7,14 +7,12 @@ interface Base {
   init: () => Promise<void>;
   isReady: () => boolean;
 }
-export interface LocalAccountExternalStorage {
+export interface LocalAccountExternalStorage extends Base {
   id: string;
   getAll(): Promise<KeyringPair$Json[]>;
   get(address: string): Promise<KeyringPair$Json>;
   addFromJson(json: KeyringPair$Json): Promise<void>;
   remove(address: string): Promise<void>;
-  init: (initialToken: Token) => Promise<Token>;
-  isReady: () => boolean;
 }
 
 export interface LocalAccountStore extends Base {

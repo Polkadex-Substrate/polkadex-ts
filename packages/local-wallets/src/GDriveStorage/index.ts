@@ -1,14 +1,23 @@
 import { KeyringPair$Json } from "@polkadot/keyring/types";
+import { localStorageOrDefault, removeLocalStorage } from "@polkadex/utils";
 
 import { LocalAccountExternalStorage, Token } from "../types";
 
 import { GDriveStorage } from "./GDrive/drive";
 import { GoogleDriveAccount } from "./types";
+export const GOOGLE_LOCAL_STORAGE_KEY = "gDrive";
+
+export const localToken = localStorageOrDefault(
+  GOOGLE_LOCAL_STORAGE_KEY,
+  null,
+  true
+) as Token;
+
 export class GDriveExternalAccountStore implements LocalAccountExternalStorage {
   private initialized = false;
   private list: GoogleDriveAccount<KeyringPair$Json>[] = [];
   private readonly ACCOUNT_PREFIX = "account:";
-  private initialToken: Token = null;
+
   id = "google-drive";
   name = "GoogleDrive";
   constructor(apiKey: string, clientId: string) {
@@ -19,24 +28,26 @@ export class GDriveExternalAccountStore implements LocalAccountExternalStorage {
     return this.initialized;
   }
 
-  async init(initialToken: Token = null) {
-    this.initialToken = initialToken;
-    GDriveStorage.setInitialToken(this.initialToken);
-    this.list = [];
-    const files = await GDriveStorage.getAll();
-    const jsons = files
-      ?.filter((file) => file?.name?.includes(this.ACCOUNT_PREFIX))
-      .map(async (file): Promise<GoogleDriveAccount<KeyringPair$Json>> => {
-        return {
-          id: file.id as string,
-          name: file.name as string,
-          description: file.description as string,
-          data: await GDriveStorage.get<KeyringPair$Json>(file.id as string),
-        };
-      });
-    this.list = jsons ? await Promise.all(jsons) : [];
-    this.initialized = true;
-    return GDriveStorage.getGoogleToken();
+  async init() {
+    try {
+      this.list = [];
+      const files = await GDriveStorage.getAll();
+      const jsons = files
+        ?.filter((file) => file?.name?.includes(this.ACCOUNT_PREFIX))
+        .map(async (file): Promise<GoogleDriveAccount<KeyringPair$Json>> => {
+          return {
+            id: file.id as string,
+            name: file.name as string,
+            description: file.description as string,
+            data: await GDriveStorage.get<KeyringPair$Json>(file.id as string),
+          };
+        });
+      this.list = jsons ? await Promise.all(jsons) : [];
+      this.initialized = true;
+    } catch (error) {
+      if (localToken) removeLocalStorage(GOOGLE_LOCAL_STORAGE_KEY);
+      throw error;
+    }
   }
 
   async getFiles() {

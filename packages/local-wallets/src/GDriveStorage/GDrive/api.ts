@@ -1,4 +1,4 @@
-import { Token } from "../../types";
+import { localToken } from "..";
 
 import { ScriptLoader, waitDocumentReady } from "./utils";
 
@@ -10,14 +10,9 @@ type GoogleApiOptions = {
 export class GoogleApi {
   private options!: GoogleApiOptions;
   private _ready = false;
-  public initialToken: Token = null;
 
   get ready(): boolean {
     return this._ready;
-  }
-
-  public setInitialToken(initialToken: Token): void {
-    this.initialToken = initialToken;
   }
 
   public setOptions(options: GoogleApiOptions): void {
@@ -54,7 +49,7 @@ export class GoogleApi {
           .init({ apiKey, discoveryDocs })
           .then(() => {
             this._ready = true;
-            if (this.initialToken) gapi.auth.setToken(this.initialToken);
+            if (localToken) gapi.auth.setToken(localToken);
             resolve();
           })
           .catch(reject);

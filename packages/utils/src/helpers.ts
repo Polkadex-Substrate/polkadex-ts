@@ -53,6 +53,13 @@ export const localStorageOrDefault = <T>(
   return val;
 };
 
+export const setLocalStorage = <T>(key: string, value: T, parse = true) => {
+  const parseVal = parse ? JSON.stringify(value) : (value as string);
+  localStorage.setItem(key, parseVal);
+};
+
+export const removeLocalStorage = (key: string) => localStorage.removeItem(key);
+
 /**
  * @name isValidAddress
  * @summary Return whether an address is valid Substrate address.

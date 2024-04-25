@@ -1,3 +1,7 @@
+import { setLocalStorage } from "@polkadex/utils";
+
+import { GOOGLE_LOCAL_STORAGE_KEY } from "..";
+
 import { ScriptLoader, waitDocumentReady } from "./utils";
 
 const FIVE_MINUTES = 1000 * 60 * 5;
@@ -60,7 +64,9 @@ export class GoogleOauth {
   private async waitForAuthFinalization(func: () => void): Promise<void> {
     await new Promise<void>((resolve, reject) => {
       this.authCallback = (token) => {
-        this.token = token;
+        const expires = String(Date.now() + Number(token.expires_in) * 1000);
+        this.token = { ...token, expires_in: expires };
+        setLocalStorage(GOOGLE_LOCAL_STORAGE_KEY, token);
         this.isAuthProcess = false;
         resolve();
       };
@@ -76,10 +82,10 @@ export class GoogleOauth {
   }
 
   public async checkToken(): Promise<void> {
-    const expires =
-      this.token && String(Date.now() + Number(this.token.expires_in) * 1000);
-
-    if (!this.token || Date.now() + FIVE_MINUTES > Number(expires)) {
+    if (
+      !this.token ||
+      Date.now() + FIVE_MINUTES > Number(this.token.expires_in)
+    ) {
       await this.getToken();
     }
   }
