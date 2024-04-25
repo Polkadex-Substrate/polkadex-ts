@@ -2,6 +2,8 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { SubmittableExtrinsic } from "@polkadot/api/types";
+import { ISubmittableResult } from "@polkadot/types/types";
 
 import { signAndSend } from "@/helpers";
 import { useCoreProvider } from "@/core";
@@ -29,12 +31,12 @@ export function useSwap() {
     }: SwapProps) => {
       if (!account || !api || !swapApi) return;
 
-      const extrinsic = await swapApi.swapExactTokensForTokensTx(
+      const extrinsic = (await swapApi.swapExactTokensForTokensTx(
         [payId, receiveId],
         payAmount,
         receiveAmount,
         account.address
-      );
+      )) as unknown as SubmittableExtrinsic<"promise", ISubmittableResult>;
 
       const res = await signAndSend({
         api,
