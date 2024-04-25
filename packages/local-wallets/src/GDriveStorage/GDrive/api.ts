@@ -1,3 +1,5 @@
+import { localToken } from "..";
+
 import { ScriptLoader, waitDocumentReady } from "./utils";
 
 type GoogleApiOptions = {
@@ -41,12 +43,13 @@ export class GoogleApi {
     apiKey,
     discoveryDocs,
   }: GoogleApiOptions): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       gapi.load("client", () => {
         gapi.client
           .init({ apiKey, discoveryDocs })
           .then(() => {
             this._ready = true;
+            if (localToken) gapi.auth.setToken(localToken);
             resolve();
           })
           .catch(reject);

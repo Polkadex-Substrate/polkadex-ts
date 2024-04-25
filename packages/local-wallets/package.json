@@ -19,6 +19,7 @@
     "@polkadot/keyring": "latest",
     "@polkadot/ui-keyring": "latest",
     "@polkadot/util-crypto": "latest",
+    "@polkadex/utils":"*",
     "bignumber": "^1.1.0",
     "typescript": "latest"
   },
