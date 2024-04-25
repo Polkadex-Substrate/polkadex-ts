@@ -1,5 +1,11 @@
 # @polkadex/local-wallets
 
+## 2.2.0
+
+### Minor Changes
+
+- 753dce8: - fix: updated the dependency version of @polkadex/utils to the latest version.
+
 ## 2.1.0
 
 ### Minor Changes
