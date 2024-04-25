@@ -215,10 +215,10 @@ export const CoreProvider = ({ children }: { children: ReactNode }) => {
               balance,
             };
           } else {
-            const {
-              data: { free },
-            } = await api.query.system.account(account.address);
-
+            const b = await api.query.system.account(account.address);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const free = BigInt(b.toJSON()?.data?.free || "0");
             const formattedBalance = formatBalance(free, {
               decimals: 12,
               withSi: false,
