@@ -1,5 +1,12 @@
 # @polkadex/numericals
 
+## 0.4.0
+
+### Minor Changes
+
+- c9f98ca: fix: parseScientific function
+- 500ad61: Polkapool v2
+
 ## 0.3.0
 
 ### Minor Changes
