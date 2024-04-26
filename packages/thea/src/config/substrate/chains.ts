@@ -1,5 +1,5 @@
 import { Parachain, Ecosystem, AnyChain } from "@moonbeam-network/xcm-types";
-import { ASSET_ID } from "@polkadex/polkadex-api";
+import { ASSETS_MAP } from "@polkadex/polkadex-api";
 
 import {
   ASSETHUB_GENESIS,
@@ -73,28 +73,28 @@ export const polkadex = new Parachain({
     },
     {
       asset: dot,
-      decimals: 12,
-      id: ASSET_ID.DOT,
+      decimals: ASSETS_MAP.get("DOT")?.decimal,
+      id: ASSETS_MAP.get("DOT")?.id,
     },
     {
       asset: usdt,
-      decimals: 12,
-      id: ASSET_ID.USDT,
+      decimals: ASSETS_MAP.get("USDT")?.decimal,
+      id: ASSETS_MAP.get("USDT")?.id,
     },
     {
       asset: usdc,
-      decimals: 12,
-      id: ASSET_ID.USDC,
+      decimals: ASSETS_MAP.get("USDC")?.decimal,
+      id: ASSETS_MAP.get("USDC")?.id,
     },
     {
       asset: ded,
-      decimals: 12,
-      id: ASSET_ID.DED,
+      decimals: ASSETS_MAP.get("DED")?.decimal,
+      id: ASSETS_MAP.get("DED")?.id,
     },
     {
       asset: pink,
-      decimals: 12,
-      id: ASSET_ID.PINK,
+      decimals: ASSETS_MAP.get("PINK")?.decimal,
+      id: ASSETS_MAP.get("PINK")?.id,
     },
   ],
   ecosystem: Ecosystem.Polkadot,
