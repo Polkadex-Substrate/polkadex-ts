@@ -1763,6 +1763,15 @@
     axios "^1.2.5"
     ethers "^6.0.5"
 
+"@polkadex/utils@latest":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@polkadex/utils/-/utils-0.2.0.tgz#80cf2e327c77a559cfbbc431e164d78a5e1c4be2"
+  integrity sha512-A3bO/xDb/KMb5uI3zzLMptTBI76ZlrHJnutk/SsJg/Lqt4WAxtlBZH9kUcNhnvOP70Nlg86O72tvGdsoOcONgA==
+  dependencies:
+    "@polkadot/keyring" latest
+    "@polkadot/util" latest
+    typescript latest
+
 "@polkadot-api/client@0.0.1-492c132563ea6b40ae1fc5470dec4cd18768d182.1.0":
   version "0.0.1-492c132563ea6b40ae1fc5470dec4cd18768d182.1.0"
   resolved "https://registry.yarnpkg.com/@polkadot-api/client/-/client-0.0.1-492c132563ea6b40ae1fc5470dec4cd18768d182.1.0.tgz#5d6b863f63f5c6ecd4183fcf0c5c84dd349f7627"
