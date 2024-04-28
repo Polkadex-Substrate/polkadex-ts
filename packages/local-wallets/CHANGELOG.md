@@ -1,5 +1,11 @@
 # @polkadex/local-wallets
 
+## 2.3.0
+
+### Minor Changes
+
+- dab9cb8: fix: token refresh
+
 ## 2.2.0
 
 ### Minor Changes
