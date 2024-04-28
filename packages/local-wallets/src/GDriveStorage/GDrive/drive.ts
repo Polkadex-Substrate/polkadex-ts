@@ -1,4 +1,4 @@
-import { localToken } from "..";
+import { getToken } from "..";
 
 import { GoogleDriveApi } from "./api";
 import { GoogleOauth } from "./oauth";
@@ -32,6 +32,7 @@ class GoogleDriveStorage {
 
   async auth(): Promise<void> {
     await this.init();
+    const localToken = getToken();
     if (!localToken) await this.oauth.checkToken();
   }
 
