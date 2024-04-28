@@ -18,6 +18,7 @@ export const PolkadotEco = () => {
   const queryBalances = async () => {
     const srcChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
     if (!srcChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    console.log("Querying balances...");
     const srcChainConnector = getChainConnector(srcChain.genesis);
     const assets = srcChainConnector.getSupportedAssets();
     const balances = await srcChainConnector.getBalances(fromAddress, assets);
