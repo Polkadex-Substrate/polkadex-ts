@@ -7,11 +7,8 @@ import { GDriveStorage } from "./GDrive/drive";
 import { GoogleDriveAccount } from "./types";
 export const GOOGLE_LOCAL_STORAGE_KEY = "gDrive";
 
-export const localToken = localStorageOrDefault(
-  GOOGLE_LOCAL_STORAGE_KEY,
-  null,
-  true
-) as Token;
+export const getToken = () =>
+  localStorageOrDefault(GOOGLE_LOCAL_STORAGE_KEY, null, true) as Token;
 
 export class GDriveExternalAccountStore implements LocalAccountExternalStorage {
   private initialized = false;
@@ -44,6 +41,7 @@ export class GDriveExternalAccountStore implements LocalAccountExternalStorage {
       this.list = jsons ? await Promise.all(jsons) : [];
       this.initialized = true;
     } catch (error) {
+      const localToken = getToken();
       if (localToken) removeLocalStorage(GOOGLE_LOCAL_STORAGE_KEY);
       throw error;
     }

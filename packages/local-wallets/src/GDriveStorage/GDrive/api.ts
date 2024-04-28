@@ -1,4 +1,4 @@
-import { localToken } from "..";
+import { getToken } from "..";
 
 import { ScriptLoader, waitDocumentReady } from "./utils";
 
@@ -48,6 +48,7 @@ export class GoogleApi {
         gapi.client
           .init({ apiKey, discoveryDocs })
           .then(() => {
+            const localToken = getToken();
             this._ready = true;
             if (localToken) gapi.auth.setToken(localToken);
             resolve();
