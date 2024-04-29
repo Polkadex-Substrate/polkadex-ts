@@ -1,5 +1,12 @@
 # @polkadex/polkadex-api
 
+## 3.5.0
+
+### Minor Changes
+
+- 966fba6: This task is about to add the metadata of supported assets for Polkadex network and make the project build succesful (if it breaks anything)
+- a79b5ab: In this PR, we will be adding Polkadot XCM chain for DOT asset transfer. Users would be allowed to transfer DOT from Polkadot to Polkadex.
+
 ## 3.4.0
 
 ### Minor Changes

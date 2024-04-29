@@ -1,5 +1,18 @@
 # @polkadex/cross-chain
 
+## 0.3.0
+
+### Minor Changes
+
+- 966fba6: This task is about to add the metadata of supported assets for Polkadex network and make the project build succesful (if it breaks anything)
+- a79b5ab: In this PR, we will be adding Polkadot XCM chain for DOT asset transfer. Users would be allowed to transfer DOT from Polkadot to Polkadex.
+
+### Patch Changes
+
+- Updated dependencies [966fba6]
+- Updated dependencies [a79b5ab]
+  - @polkadex/thea@4.1.0
+
 ## 0.2.0
 
 ### Minor Changes
