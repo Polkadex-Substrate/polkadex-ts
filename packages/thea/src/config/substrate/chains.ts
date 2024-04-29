@@ -1,15 +1,21 @@
-import { Parachain, Ecosystem, AnyChain } from "@moonbeam-network/xcm-types";
+import {
+  Parachain,
+  EvmParachain,
+  Ecosystem,
+  AnyChain,
+} from "@moonbeam-network/xcm-types";
 import { ASSETS_MAP } from "@polkadex/polkadex-api";
 
 import {
   ASSETHUB_GENESIS,
   ASTAR_GENESIS,
+  MOONBEAM_GENESIS,
   PHALA_GENESIS,
   POLKADEX_GENESIS,
   POLKADOT_GENESIS,
 } from "../genesis";
 
-import { pdex, dot, usdt, usdc, ded, pink, astr, pha } from "./assets";
+import { pdex, dot, usdt, usdc, ded, pink, astr, pha, glmr } from "./assets";
 
 export const assetHub = new Parachain({
   assetsData: [
@@ -99,6 +105,25 @@ export const phala = new Parachain({
   ws: "wss://phala.api.onfinality.io/public-ws",
 });
 
+export const moonbeam = new EvmParachain({
+  assetsData: [
+    {
+      asset: glmr,
+      decimals: 18,
+    },
+  ],
+  ecosystem: Ecosystem.Polkadot,
+  genesisHash: MOONBEAM_GENESIS,
+  key: "moonbeam",
+  name: "Moonbeam",
+  id: 1284,
+  rpc: "https://rpc.api.moonbeam.network",
+  parachainId: 2004,
+  ss58Format: 1284,
+  ws: "wss://moonbeam-rpc.dwellir.com",
+  nativeCurrency: { decimals: 18, name: "GLMR", symbol: "GLMR" },
+});
+
 export const polkadex = new Parachain({
   assetsData: [
     {
@@ -140,6 +165,11 @@ export const polkadex = new Parachain({
       decimals: ASSETS_MAP.get("PHA")?.decimal,
       id: ASSETS_MAP.get("PHA")?.id,
     },
+    {
+      asset: glmr,
+      decimals: ASSETS_MAP.get("GLMR")?.decimal,
+      id: ASSETS_MAP.get("GLMR")?.id,
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: POLKADEX_GENESIS,
@@ -150,7 +180,14 @@ export const polkadex = new Parachain({
   ws: "wss://polkadex.api.onfinality.io/public-ws",
 });
 
-export const substrateChains = [polkadex, assetHub, polkadot, astar, phala];
+export const substrateChains = [
+  polkadex,
+  assetHub,
+  polkadot,
+  astar,
+  phala,
+  moonbeam,
+];
 
 export const chainsMap = new Map<string, AnyChain>(
   substrateChains.map((chain) => [chain.key, chain])

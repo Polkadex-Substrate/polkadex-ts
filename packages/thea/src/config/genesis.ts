@@ -10,3 +10,5 @@ export const ASTAR_GENESIS =
   "0x9eb76c5184c4ab8679d2d5d819fdf90b9c001403e9e17da2e14b6d8aec4029c6";
 export const PHALA_GENESIS =
   "0x1bb969d85965e4bb5a651abbedf21a54b6b31a21f66b5401cc3f1e286268d736";
+export const MOONBEAM_GENESIS =
+  "0xfe58ea77779b7abda7da4ec526d14db9b1e9cd40a217c34892af80a9b332b76d";

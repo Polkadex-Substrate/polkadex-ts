@@ -5,15 +5,25 @@ import {
   POLKADOT_GENESIS,
   ASTAR_GENESIS,
   PHALA_GENESIS,
+  MOONBEAM_GENESIS,
 } from "../config";
 
-import { AssetHub, Polkadex, Polkadot, Astar, Phala } from "./substrate";
+import {
+  AssetHub,
+  Polkadex,
+  Polkadot,
+  Astar,
+  Phala,
+  Moonbeam,
+} from "./substrate";
 import { Sepolia } from "./evm";
 
 import { BaseChainAdapter } from "./";
 
 export const getChainConnector = (genesis: string): BaseChainAdapter => {
   switch (genesis) {
+    case MOONBEAM_GENESIS:
+      return new Moonbeam();
     case PHALA_GENESIS:
       return new Phala();
     case ASTAR_GENESIS:

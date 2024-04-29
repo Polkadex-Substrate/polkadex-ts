@@ -1,8 +1,15 @@
 import { ChainConfig, AssetConfig } from "@moonbeam-network/xcm-config";
 import { BalanceBuilder, AssetMinBuilder } from "@moonbeam-network/xcm-builder";
 
-import { assetHub, polkadex, polkadot, astar, phala } from "../chains";
-import { usdt, usdc, ded, pink, dot, astr, pha } from "../assets";
+import {
+  assetHub,
+  polkadex,
+  polkadot,
+  astar,
+  phala,
+  moonbeam,
+} from "../chains";
+import { usdt, usdc, ded, pink, dot, astr, pha, glmr } from "../assets";
 import { ExtrinsicBuilderV2 } from "../builders";
 
 const toAssethub: AssetConfig[] = [
@@ -106,6 +113,7 @@ const toAstar: AssetConfig[] = [
     min: AssetMinBuilder().assets().asset(),
   }),
 ];
+
 const toPhala: AssetConfig[] = [
   new AssetConfig({
     asset: pha,
@@ -124,7 +132,25 @@ const toPhala: AssetConfig[] = [
   }),
 ];
 
+const toMoonbeam: AssetConfig[] = [
+  new AssetConfig({
+    asset: glmr,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: moonbeam,
+    destinationFee: {
+      amount: 0,
+      asset: glmr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .polkadotXcm()
+      .reserveTransferAssets()
+      .here(),
+    min: AssetMinBuilder().assets().asset(),
+  }),
+];
+
 export const polkadexConfig = new ChainConfig({
-  assets: [...toAssethub, ...toPolkadot, ...toAstar, ...toPhala],
+  assets: [...toAssethub, ...toPolkadot, ...toAstar, ...toPhala, ...toMoonbeam],
   chain: polkadex,
 });
