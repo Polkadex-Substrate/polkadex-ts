@@ -22,8 +22,11 @@ import {
   glmr,
   unq,
   ibtc,
+  pdex,
 } from "../assets";
 import { ExtrinsicBuilderV2 } from "../builders";
+
+const xcmDeliveryFeeAmount = 1;
 
 const toAssethub: AssetConfig[] = [
   new AssetConfig({
@@ -31,15 +34,21 @@ const toAssethub: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: assetHub,
     destinationFee: {
-      amount: 0.7,
+      amount: 0.05,
       asset: usdt,
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2()
-      .polkadotXcm()
-      .reserveTransferAssets()
-      .here(),
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
     min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
   }),
 
   new AssetConfig({
@@ -56,6 +65,11 @@ const toAssethub: AssetConfig[] = [
       .reserveTransferAssets()
       .here(),
     min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
   }),
 
   new AssetConfig({
@@ -72,6 +86,11 @@ const toAssethub: AssetConfig[] = [
       .reserveTransferAssets()
       .here(),
     min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
   }),
 
   new AssetConfig({
@@ -88,6 +107,11 @@ const toAssethub: AssetConfig[] = [
       .reserveTransferAssets()
       .here(),
     min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
   }),
 ];
 
@@ -106,6 +130,11 @@ const toPolkadot: AssetConfig[] = [
       .reserveTransferAssets()
       .here(),
     min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
   }),
 ];
 
@@ -124,6 +153,11 @@ const toAstar: AssetConfig[] = [
       .reserveTransferAssets()
       .here(),
     min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
   }),
 ];
 
@@ -142,6 +176,11 @@ const toPhala: AssetConfig[] = [
       .reserveTransferAssets()
       .here(),
     min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
   }),
 ];
 
@@ -160,6 +199,11 @@ const toMoonbeam: AssetConfig[] = [
       .reserveTransferAssets()
       .here(),
     min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
   }),
 ];
 
@@ -178,6 +222,11 @@ const toUnique: AssetConfig[] = [
       .reserveTransferAssets()
       .here(),
     min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
   }),
 ];
 
@@ -196,6 +245,11 @@ const toInterlay: AssetConfig[] = [
       .reserveTransferAssets()
       .here(),
     min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
   }),
 ];
 

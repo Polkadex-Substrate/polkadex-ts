@@ -4,13 +4,13 @@ import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
 import { Signer } from "@polkadot/api/types";
 import { getChainConnector, Thea } from "@polkadex/thea";
 
-const SOURCE_CHAIN = "Polkadot";
-const DESTINATION_CHAIN = "Polkadex";
-const SELECTED_ASSET = "DOT";
+const SOURCE_CHAIN = "Polkadex";
+const DESTINATION_CHAIN = "AssetHub";
+const SELECTED_ASSET = "USDT";
 
 const fromAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
 const toAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
-const amount = 0.01;
+const amount = 0.1;
 
 export const PolkadotEco = () => {
   const { getAllChains } = new Thea();
