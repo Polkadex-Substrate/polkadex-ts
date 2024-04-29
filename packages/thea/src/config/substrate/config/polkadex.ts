@@ -9,8 +9,20 @@ import {
   phala,
   moonbeam,
   unique,
+  interlay,
 } from "../chains";
-import { usdt, usdc, ded, pink, dot, astr, pha, glmr, unq } from "../assets";
+import {
+  usdt,
+  usdc,
+  ded,
+  pink,
+  dot,
+  astr,
+  pha,
+  glmr,
+  unq,
+  ibtc,
+} from "../assets";
 import { ExtrinsicBuilderV2 } from "../builders";
 
 const toAssethub: AssetConfig[] = [
@@ -169,6 +181,24 @@ const toUnique: AssetConfig[] = [
   }),
 ];
 
+const toInterlay: AssetConfig[] = [
+  new AssetConfig({
+    asset: ibtc,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: interlay,
+    destinationFee: {
+      amount: 0,
+      asset: ibtc,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .polkadotXcm()
+      .reserveTransferAssets()
+      .here(),
+    min: AssetMinBuilder().assets().asset(),
+  }),
+];
+
 export const polkadexConfig = new ChainConfig({
   assets: [
     ...toAssethub,
@@ -177,6 +207,7 @@ export const polkadexConfig = new ChainConfig({
     ...toPhala,
     ...toMoonbeam,
     ...toUnique,
+    ...toInterlay,
   ],
   chain: polkadex,
 });

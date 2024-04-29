@@ -5,3 +5,4 @@ export * from "./astar";
 export * from "./phala";
 export * from "./moonbeam";
 export * from "./unique";
+export * from "./interlay";

@@ -9,6 +9,7 @@ import { ASSETS_MAP } from "@polkadex/polkadex-api";
 import {
   ASSETHUB_GENESIS,
   ASTAR_GENESIS,
+  INTERLAY_GENESIS,
   MOONBEAM_GENESIS,
   PHALA_GENESIS,
   POLKADEX_GENESIS,
@@ -27,6 +28,8 @@ import {
   pha,
   glmr,
   unq,
+  intr,
+  ibtc,
 } from "./assets";
 
 export const assetHub = new Parachain({
@@ -133,6 +136,30 @@ export const unique = new Parachain({
   ws: "wss://unique-rpc.dwellir.com",
 });
 
+export const interlay = new Parachain({
+  assetsData: [
+    {
+      asset: intr,
+      decimals: 10,
+      id: { Token: intr.originSymbol },
+      metadataId: 0,
+    },
+    {
+      asset: ibtc,
+      decimals: 8,
+      id: { Token: ibtc.originSymbol },
+      metadataId: 0,
+    },
+  ],
+  ecosystem: Ecosystem.Polkadot,
+  genesisHash: INTERLAY_GENESIS,
+  key: "interlay",
+  name: "Interlay",
+  parachainId: 2032,
+  ss58Format: 2032,
+  ws: "wss://interlay-rpc.dwellir.com",
+});
+
 export const moonbeam = new EvmParachain({
   assetsData: [
     {
@@ -203,6 +230,11 @@ export const polkadex = new Parachain({
       decimals: ASSETS_MAP.get("UNQ")?.decimal,
       id: ASSETS_MAP.get("UNQ")?.id,
     },
+    {
+      asset: ibtc,
+      decimals: ASSETS_MAP.get("IBTC")?.decimal,
+      id: ASSETS_MAP.get("IBTC")?.id,
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: POLKADEX_GENESIS,
@@ -221,6 +253,7 @@ export const substrateChains = [
   phala,
   moonbeam,
   unique,
+  interlay,
 ];
 
 export const chainsMap = new Map<string, AnyChain>(
