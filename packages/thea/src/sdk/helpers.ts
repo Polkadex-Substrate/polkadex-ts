@@ -4,15 +4,18 @@ import {
   SEPOLIA_GENESIS,
   POLKADOT_GENESIS,
   ASTAR_GENESIS,
+  PHALA_GENESIS,
 } from "../config";
 
-import { AssetHub, Polkadex, Polkadot, Astar } from "./substrate";
+import { AssetHub, Polkadex, Polkadot, Astar, Phala } from "./substrate";
 import { Sepolia } from "./evm";
 
 import { BaseChainAdapter } from "./";
 
 export const getChainConnector = (genesis: string): BaseChainAdapter => {
   switch (genesis) {
+    case PHALA_GENESIS:
+      return new Phala();
     case ASTAR_GENESIS:
       return new Astar();
     case POLKADOT_GENESIS:
