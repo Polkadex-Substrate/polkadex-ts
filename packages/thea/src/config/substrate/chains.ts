@@ -1,7 +1,11 @@
 import { Parachain, Ecosystem, AnyChain } from "@moonbeam-network/xcm-types";
-import { ASSET_ID } from "@polkadex/polkadex-api";
+import { ASSETS_MAP } from "@polkadex/polkadex-api";
 
-import { ASSETHUB_GENESIS, POLKADEX_GENESIS } from "../genesis";
+import {
+  ASSETHUB_GENESIS,
+  POLKADEX_GENESIS,
+  POLKADOT_GENESIS,
+} from "../genesis";
 
 import { pdex, dot, usdt, usdc, ded, pink } from "./assets";
 
@@ -45,6 +49,22 @@ export const assetHub = new Parachain({
   ws: "wss://polkadot-asset-hub-rpc.polkadot.io",
 });
 
+export const polkadot = new Parachain({
+  assetsData: [
+    {
+      asset: dot,
+      decimals: 10,
+    },
+  ],
+  ecosystem: Ecosystem.Polkadot,
+  genesisHash: POLKADOT_GENESIS,
+  key: "polkadot",
+  name: "Polkadot",
+  parachainId: -1,
+  ss58Format: 0,
+  ws: "wss://rpc.polkadot.io",
+});
+
 export const polkadex = new Parachain({
   assetsData: [
     {
@@ -52,24 +72,29 @@ export const polkadex = new Parachain({
       decimals: 12,
     },
     {
+      asset: dot,
+      decimals: ASSETS_MAP.get("DOT")?.decimal,
+      id: ASSETS_MAP.get("DOT")?.id,
+    },
+    {
       asset: usdt,
-      decimals: 12,
-      id: ASSET_ID.USDT,
+      decimals: ASSETS_MAP.get("USDT")?.decimal,
+      id: ASSETS_MAP.get("USDT")?.id,
     },
     {
       asset: usdc,
-      decimals: 12,
-      id: ASSET_ID.USDC,
+      decimals: ASSETS_MAP.get("USDC")?.decimal,
+      id: ASSETS_MAP.get("USDC")?.id,
     },
     {
       asset: ded,
-      decimals: 12,
-      id: ASSET_ID.DED,
+      decimals: ASSETS_MAP.get("DED")?.decimal,
+      id: ASSETS_MAP.get("DED")?.id,
     },
     {
       asset: pink,
-      decimals: 12,
-      id: ASSET_ID.PINK,
+      decimals: ASSETS_MAP.get("PINK")?.decimal,
+      id: ASSETS_MAP.get("PINK")?.id,
     },
   ],
   ecosystem: Ecosystem.Polkadot,
@@ -78,10 +103,10 @@ export const polkadex = new Parachain({
   name: "Polkadex",
   parachainId: 2040,
   ss58Format: 88,
-  ws: "wss://polkadex.public.curie.radiumblock.co/ws",
+  ws: "wss://polkadex.api.onfinality.io/public-ws",
 });
 
-export const substrateChains = [polkadex, assetHub];
+export const substrateChains = [polkadex, assetHub, polkadot];
 
 export const chainsMap = new Map<string, AnyChain>(
   substrateChains.map((chain) => [chain.key, chain])

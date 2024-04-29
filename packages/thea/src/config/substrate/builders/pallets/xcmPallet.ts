@@ -35,6 +35,29 @@ const limitedReserveTransferAssets = (parent: Parents) => {
   };
 };
 
+const reserveTransferAssets = (parent: Parents) => {
+  const func = "reserveTransferAssets";
+  return {
+    here: (): ExtrinsicConfigBuilder => ({
+      build: ({ address, amount, destination }) =>
+        new ExtrinsicConfig({
+          module: pallet,
+          func,
+          getArgs: () => {
+            const version = XcmVersion.v2;
+            const account = getExtrinsicAccount(address);
+            return [
+              toDest(version, destination),
+              toBeneficiary(version, account),
+              toAssets(version, parent, "Here", amount),
+              0,
+            ];
+          },
+        }),
+    }),
+  };
+};
+
 const limitedTeleportAssets = (parent: Parents) => {
   const func = "limitedTeleportAssets";
   return {
@@ -62,6 +85,7 @@ const limitedTeleportAssets = (parent: Parents) => {
 export const xcmPallet = () => {
   return {
     limitedReserveTransferAssets,
+    reserveTransferAssets,
     limitedTeleportAssets,
   };
 };

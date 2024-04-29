@@ -4,9 +4,9 @@ import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
 import { Signer } from "@polkadot/api/types";
 import { getChainConnector, Thea } from "@polkadex/thea";
 
-const SOURCE_CHAIN = "AssetHub";
+const SOURCE_CHAIN = "Polkadot";
 const DESTINATION_CHAIN = "Polkadex";
-const SELECTED_ASSET = "DED";
+const SELECTED_ASSET = "DOT";
 
 const fromAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
 const toAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
@@ -18,6 +18,7 @@ export const PolkadotEco = () => {
   const queryBalances = async () => {
     const srcChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
     if (!srcChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    console.log("Querying balances...");
     const srcChainConnector = getChainConnector(srcChain.genesis);
     const assets = srcChainConnector.getSupportedAssets();
     const balances = await srcChainConnector.getBalances(fromAddress, assets);

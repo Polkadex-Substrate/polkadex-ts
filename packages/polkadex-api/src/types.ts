@@ -1,5 +1,17 @@
 import { DefinitionsCall } from "@polkadot/types/types";
 
+export enum AssetType {
+  Substrate,
+  EVM,
+}
+export type Asset = {
+  name: string;
+  ticker: string;
+  id: string;
+  decimal: number;
+  network: AssetType;
+};
+
 export const runtimeTypes = {
   AssetId: {
     _enum: {
