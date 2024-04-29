@@ -8,8 +8,9 @@ import {
   astar,
   phala,
   moonbeam,
+  unique,
 } from "../chains";
-import { usdt, usdc, ded, pink, dot, astr, pha, glmr } from "../assets";
+import { usdt, usdc, ded, pink, dot, astr, pha, glmr, unq } from "../assets";
 import { ExtrinsicBuilderV2 } from "../builders";
 
 const toAssethub: AssetConfig[] = [
@@ -150,7 +151,32 @@ const toMoonbeam: AssetConfig[] = [
   }),
 ];
 
+const toUnique: AssetConfig[] = [
+  new AssetConfig({
+    asset: unq,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: unique,
+    destinationFee: {
+      amount: 0,
+      asset: unq,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .polkadotXcm()
+      .reserveTransferAssets()
+      .here(),
+    min: AssetMinBuilder().assets().asset(),
+  }),
+];
+
 export const polkadexConfig = new ChainConfig({
-  assets: [...toAssethub, ...toPolkadot, ...toAstar, ...toPhala, ...toMoonbeam],
+  assets: [
+    ...toAssethub,
+    ...toPolkadot,
+    ...toAstar,
+    ...toPhala,
+    ...toMoonbeam,
+    ...toUnique,
+  ],
   chain: polkadex,
 });

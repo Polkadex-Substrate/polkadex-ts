@@ -6,6 +6,7 @@ import { polkadotConfig } from "./polkadot";
 import { astarConfig } from "./astar";
 import { phalaConfig } from "./phala";
 import { moonbeamConfig } from "./moonbeam";
+import { uniqueConfig } from "./unique";
 
 export const chainsConfig: ChainConfig[] = [
   assetHubConfig,
@@ -14,6 +15,7 @@ export const chainsConfig: ChainConfig[] = [
   astarConfig,
   phalaConfig,
   moonbeamConfig,
+  uniqueConfig,
 ];
 
 export const chainsConfigMap = new Map<string, ChainConfig>(

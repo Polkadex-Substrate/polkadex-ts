@@ -6,6 +6,7 @@ import {
   ASTAR_GENESIS,
   PHALA_GENESIS,
   MOONBEAM_GENESIS,
+  UNIQUE_GENESIS,
 } from "../config";
 
 import {
@@ -15,6 +16,7 @@ import {
   Astar,
   Phala,
   Moonbeam,
+  Unique,
 } from "./substrate";
 import { Sepolia } from "./evm";
 
@@ -22,6 +24,8 @@ import { BaseChainAdapter } from "./";
 
 export const getChainConnector = (genesis: string): BaseChainAdapter => {
   switch (genesis) {
+    case UNIQUE_GENESIS:
+      return new Unique();
     case MOONBEAM_GENESIS:
       return new Moonbeam();
     case PHALA_GENESIS:

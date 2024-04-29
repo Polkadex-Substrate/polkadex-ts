@@ -17,6 +17,11 @@ export const pdex = new Asset({
   originSymbol: "PDEX",
 });
 
+export const unq = new Asset({
+  key: "unq",
+  originSymbol: "UNQ",
+});
+
 export const substrateAssets: Asset[] = [
   dot,
   usdt,
@@ -27,6 +32,7 @@ export const substrateAssets: Asset[] = [
   astr,
   pha,
   glmr,
+  unq,
 ];
 
 export const assetsMap = new Map<string, Asset>(

@@ -13,9 +13,21 @@ import {
   PHALA_GENESIS,
   POLKADEX_GENESIS,
   POLKADOT_GENESIS,
+  UNIQUE_GENESIS,
 } from "../genesis";
 
-import { pdex, dot, usdt, usdc, ded, pink, astr, pha, glmr } from "./assets";
+import {
+  pdex,
+  dot,
+  usdt,
+  usdc,
+  ded,
+  pink,
+  astr,
+  pha,
+  glmr,
+  unq,
+} from "./assets";
 
 export const assetHub = new Parachain({
   assetsData: [
@@ -105,6 +117,22 @@ export const phala = new Parachain({
   ws: "wss://phala.api.onfinality.io/public-ws",
 });
 
+export const unique = new Parachain({
+  assetsData: [
+    {
+      asset: unq,
+      decimals: 18,
+    },
+  ],
+  ecosystem: Ecosystem.Polkadot,
+  genesisHash: UNIQUE_GENESIS,
+  key: "unique",
+  name: "Unique",
+  parachainId: 2037,
+  ss58Format: 7391,
+  ws: "wss://unique-rpc.dwellir.com",
+});
+
 export const moonbeam = new EvmParachain({
   assetsData: [
     {
@@ -170,6 +198,11 @@ export const polkadex = new Parachain({
       decimals: ASSETS_MAP.get("GLMR")?.decimal,
       id: ASSETS_MAP.get("GLMR")?.id,
     },
+    {
+      asset: unq,
+      decimals: ASSETS_MAP.get("UNQ")?.decimal,
+      id: ASSETS_MAP.get("UNQ")?.id,
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: POLKADEX_GENESIS,
@@ -187,6 +220,7 @@ export const substrateChains = [
   astar,
   phala,
   moonbeam,
+  unique,
 ];
 
 export const chainsMap = new Map<string, AnyChain>(
