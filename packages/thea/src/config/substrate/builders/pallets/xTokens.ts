@@ -114,24 +114,21 @@ const transferMultiassets = (originParachainId?: number) => {
             const isAssetDifferent = !!feeAsset && asset !== feeAsset;
             const assets = [
               toAsset(
-                palletInstance && asset
-                  ? {
-                      X3: [
-                        {
-                          Parachain:
-                            originParachainId ?? destination.parachainId,
-                        },
-                        {
-                          PalletInstance: palletInstance,
-                        },
-                        {
-                          GeneralIndex: asset,
-                        },
-                      ],
-                    }
-                  : "Here",
+                {
+                  X3: [
+                    {
+                      Parachain: originParachainId ?? destination.parachainId,
+                    },
+                    {
+                      PalletInstance: palletInstance,
+                    },
+                    {
+                      GeneralIndex: asset,
+                    },
+                  ],
+                },
                 amount,
-                palletInstance && asset ? 1 : 0
+                1
               ),
             ];
 
