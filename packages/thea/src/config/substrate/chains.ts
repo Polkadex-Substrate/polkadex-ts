@@ -3,11 +3,12 @@ import { ASSETS_MAP } from "@polkadex/polkadex-api";
 
 import {
   ASSETHUB_GENESIS,
+  ASTAR_GENESIS,
   POLKADEX_GENESIS,
   POLKADOT_GENESIS,
 } from "../genesis";
 
-import { pdex, dot, usdt, usdc, ded, pink } from "./assets";
+import { pdex, dot, usdt, usdc, ded, pink, astr } from "./assets";
 
 export const assetHub = new Parachain({
   assetsData: [
@@ -65,6 +66,22 @@ export const polkadot = new Parachain({
   ws: "wss://rpc.polkadot.io",
 });
 
+export const astar = new Parachain({
+  assetsData: [
+    {
+      asset: astr,
+      decimals: 18,
+    },
+  ],
+  ecosystem: Ecosystem.Polkadot,
+  genesisHash: ASTAR_GENESIS,
+  key: "astar",
+  name: "Astar",
+  parachainId: 2006,
+  ss58Format: 5,
+  ws: "wss://astar-rpc.dwellir.com",
+});
+
 export const polkadex = new Parachain({
   assetsData: [
     {
@@ -96,6 +113,11 @@ export const polkadex = new Parachain({
       decimals: ASSETS_MAP.get("PINK")?.decimal,
       id: ASSETS_MAP.get("PINK")?.id,
     },
+    {
+      asset: astr,
+      decimals: ASSETS_MAP.get("ASTR")?.decimal,
+      id: ASSETS_MAP.get("ASTR")?.id,
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: POLKADEX_GENESIS,
@@ -106,7 +128,7 @@ export const polkadex = new Parachain({
   ws: "wss://polkadex.api.onfinality.io/public-ws",
 });
 
-export const substrateChains = [polkadex, assetHub, polkadot];
+export const substrateChains = [polkadex, assetHub, polkadot, astar];
 
 export const chainsMap = new Map<string, AnyChain>(
   substrateChains.map((chain) => [chain.key, chain])
