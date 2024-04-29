@@ -127,8 +127,7 @@ const transferMultiassets = (originParachainId?: number) => {
                     },
                   ],
                 },
-                amount,
-                1
+                amount
               ),
             ];
 
