@@ -125,7 +125,7 @@ const toPolkadot: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadot,
     destinationFee: {
-      amount: 0, // Not sure
+      amount: 0, // TODO: Change it later
       asset: dot,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -149,7 +149,7 @@ const toAstar: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: astar,
     destinationFee: {
-      amount: 0, // Not sure
+      amount: 0, // TODO: Change it later
       asset: astr,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -173,7 +173,7 @@ const toPhala: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: phala,
     destinationFee: {
-      amount: 0, // Not sure
+      amount: 0, // TODO: Change it later
       asset: pha,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -197,7 +197,7 @@ const toMoonbeam: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: moonbeam,
     destinationFee: {
-      amount: 0, // Not sure
+      amount: 0, // TODO: Change it later
       asset: glmr,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -221,7 +221,7 @@ const toUnique: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: unique,
     destinationFee: {
-      amount: 0, // Not sure
+      amount: 0, // TODO: Change it later
       asset: unq,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -245,7 +245,7 @@ const toInterlay: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: interlay,
     destinationFee: {
-      amount: 0, // Not sure
+      amount: 0, // TODO: Change it later
       asset: ibtc,
       balance: BalanceBuilder().substrate().system().account(),
     },
