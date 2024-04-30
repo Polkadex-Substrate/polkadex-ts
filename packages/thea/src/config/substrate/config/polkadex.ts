@@ -106,9 +106,10 @@ const toAssethub: AssetConfig[] = [
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2()
-      .polkadotXcm()
-      .reserveTransferAssets()
-      .here(),
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .insufficient(ASSETS_MAP.get("USDT")?.id as string, 700000000000),
     min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: pdex,
