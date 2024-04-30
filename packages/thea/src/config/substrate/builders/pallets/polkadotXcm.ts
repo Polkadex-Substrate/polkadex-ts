@@ -14,6 +14,24 @@ const pallet = "polkadotXcm";
 const limitedReserveTransferAssets = () => {
   const func = "limitedReserveTransferAssets";
   return {
+    here: (): ExtrinsicConfigBuilder => ({
+      build: ({ address, amount, destination }) =>
+        new ExtrinsicConfig({
+          module: pallet,
+          func,
+          getArgs: () => {
+            const version = XcmVersion.v3;
+            const account = getExtrinsicAccount(address);
+            return [
+              toDest(version, destination),
+              toBeneficiary(version, account),
+              toAssets(version, 0, "Here", amount),
+              0,
+              "Unlimited",
+            ];
+          },
+        }),
+    }),
     X1: (): ExtrinsicConfigBuilder => ({
       build: ({ address, amount, asset, destination, palletInstance }) =>
         new ExtrinsicConfig({
