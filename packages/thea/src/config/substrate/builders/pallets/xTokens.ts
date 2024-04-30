@@ -13,16 +13,53 @@ import { toAsset, toDest } from "./xTokens.utils";
 
 const pallet = "xTokens";
 
-const transfer = (): ExtrinsicConfigBuilder => ({
-  build: ({ address, amount, asset, destination }) =>
+const transfer = () => ({
+  X2: (): ExtrinsicConfigBuilder => ({
+    build: ({ address, amount, asset, destination }) =>
+      new ExtrinsicConfig({
+        module: pallet,
+        func: "transfer",
+        getArgs: () => {
+          const version = XcmVersion.v2;
+          const account = getExtrinsicAccount(address);
+          return [
+            asset,
+            amount,
+            toDest(version, destination, account),
+            "Unlimited",
+          ];
+        },
+      }),
+  }),
+  X3: (): ExtrinsicConfigBuilder => ({
+    build: ({ address, amount, asset, destination }) =>
+      new ExtrinsicConfig({
+        module: pallet,
+        func: "transfer",
+        getArgs: (func) => {
+          const version = getExtrinsicArgumentVersion(func, 2);
+          const account = getExtrinsicAccount(address);
+          return [
+            asset,
+            amount,
+            toDest(version, destination, account),
+            "Unlimited",
+          ];
+        },
+      }),
+  }),
+});
+
+const evmTransfer = (): ExtrinsicConfigBuilder => ({
+  build: ({ address, amount, destination }) =>
     new ExtrinsicConfig({
       module: pallet,
       func: "transfer",
-      getArgs: (func) => {
-        const version = getExtrinsicArgumentVersion(func, 2);
+      getArgs: () => {
+        const version = XcmVersion.v2;
         const account = getExtrinsicAccount(address);
         return [
-          asset,
+          "SelfReserve",
           amount,
           toDest(version, destination, account),
           "Unlimited",
@@ -72,6 +109,29 @@ const transferMultiasset = (originParachainId?: number) => {
 
 const transferMultiassets = (originParachainId?: number) => {
   return {
+    here: (): ExtrinsicConfigBuilder => ({
+      build: ({ address, amount, asset, destination, palletInstance }) =>
+        new ExtrinsicConfig({
+          module: pallet,
+          func: "transferMultiassets",
+          getArgs: () => {
+            const version = XcmVersion.v3;
+            const account = getExtrinsicAccount(address);
+            const assets = [
+              toAsset("Here", amount, palletInstance && asset ? 1 : 0),
+            ];
+
+            return [
+              {
+                [version]: assets,
+              },
+              0,
+              toDest(version, destination, account),
+              "Unlimited",
+            ];
+          },
+        }),
+    }),
     X3: (): ExtrinsicConfigBuilder => ({
       build: ({
         address,
@@ -146,6 +206,7 @@ const transferMultiassets = (originParachainId?: number) => {
 export const xTokens = () => {
   return {
     transfer,
+    evmTransfer,
     transferMultiasset,
     transferMultiassets,
   };
