@@ -1,5 +1,6 @@
 import { ChainConfig, AssetConfig } from "@moonbeam-network/xcm-config";
 import { BalanceBuilder, AssetMinBuilder } from "@moonbeam-network/xcm-builder";
+import { ASSETS_MAP } from "@polkadex/polkadex-api";
 
 import {
   assetHub,
@@ -83,9 +84,10 @@ const toAssethub: AssetConfig[] = [
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2()
-      .polkadotXcm()
-      .reserveTransferAssets()
-      .here(),
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .insufficient(ASSETS_MAP.get("USDT")?.id as string, 700000000000),
     min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: pdex,

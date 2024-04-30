@@ -34,6 +34,29 @@ const parachainWithdraw = () => {
             },
           }),
       }),
+      insufficient: (
+        feeAssetId: string,
+        feeAmount: number
+      ): ExtrinsicConfigBuilder => ({
+        build: ({ address, amount, asset, destination }) =>
+          new ExtrinsicConfig({
+            module: pallet,
+            func,
+            getArgs: () => {
+              const version = XcmVersion.v3;
+              const account = getExtrinsicAccount(address);
+              return [
+                asset,
+                amount,
+                toBeneficiary(version, destination, account),
+                feeAssetId,
+                feeAmount,
+                true,
+                false,
+              ];
+            },
+          }),
+      }),
     }),
   };
 };
