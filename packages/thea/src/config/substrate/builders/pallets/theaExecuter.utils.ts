@@ -6,6 +6,17 @@ export const toBeneficiary = (
   destination: AnyChain,
   account: any
 ) => {
+  if (destination.key === "polkadot") {
+    return {
+      [version]: {
+        parents: 1,
+        interior: {
+          X1: account,
+        },
+      },
+    };
+  }
+
   return {
     [version]: {
       parents: 1,
