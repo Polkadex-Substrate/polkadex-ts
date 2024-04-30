@@ -56,14 +56,15 @@ const toAssethub: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: assetHub,
     destinationFee: {
-      amount: 0.7,
+      amount: 0.05,
       asset: usdc,
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2()
-      .polkadotXcm()
-      .reserveTransferAssets()
-      .here(),
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
     min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: pdex,
@@ -78,7 +79,7 @@ const toAssethub: AssetConfig[] = [
     destination: assetHub,
     destinationFee: {
       amount: 0.7,
-      asset: ded,
+      asset: usdt,
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2()
@@ -99,7 +100,7 @@ const toAssethub: AssetConfig[] = [
     destination: assetHub,
     destinationFee: {
       amount: 0.7,
-      asset: pink,
+      asset: usdt,
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2()
