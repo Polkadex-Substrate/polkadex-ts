@@ -245,14 +245,15 @@ const toInterlay: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: interlay,
     destinationFee: {
-      amount: 0,
+      amount: 0, // Not sure
       asset: ibtc,
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2()
-      .polkadotXcm()
-      .reserveTransferAssets()
-      .here(),
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
     min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: pdex,
