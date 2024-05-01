@@ -72,6 +72,23 @@ const toPolkadex: AssetConfig[] = [
       balance: BalanceBuilder().substrate().tokens().accounts(),
     },
   }),
+
+  // Not working
+  new AssetConfig({
+    asset: glmr,
+    balance: BalanceBuilder().substrate().tokens().accounts(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0,
+      asset: glmr,
+      balance: BalanceBuilder().substrate().tokens().accounts(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X2(),
+    fee: {
+      asset: intr,
+      balance: BalanceBuilder().substrate().tokens().accounts(),
+    },
+  }),
 ];
 
 export const interlayConfig = new ChainConfig({
