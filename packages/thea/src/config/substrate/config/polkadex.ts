@@ -30,6 +30,7 @@ import { ExtrinsicBuilderV2 } from "../builders";
 const xcmDeliveryFeeAmount = 1;
 
 const toAssethub: AssetConfig[] = [
+  // Need to test
   new AssetConfig({
     asset: dot,
     balance: BalanceBuilder().substrate().assets().account(),
@@ -269,6 +270,29 @@ const toInterlay: AssetConfig[] = [
     destinationFee: {
       amount: 0, // TODO: Change it later
       asset: ibtc,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  // Need to test
+  new AssetConfig({
+    asset: dot,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: interlay,
+    destinationFee: {
+      amount: 0, // TODO: Change it later
+      asset: dot,
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2()
