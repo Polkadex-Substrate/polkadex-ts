@@ -151,6 +151,12 @@ export const interlay = new Parachain({
       metadataId: 0,
     },
     {
+      asset: usdt,
+      decimals: 6,
+      id: { ForeignAsset: 2 },
+      metadataId: 0,
+    },
+    {
       asset: ibtc,
       decimals: 8,
       id: { Token: ibtc.originSymbol },
