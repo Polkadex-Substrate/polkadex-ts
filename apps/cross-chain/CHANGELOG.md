@@ -1,5 +1,22 @@
 # @polkadex/cross-chain
 
+## 0.3.1
+
+### Patch Changes
+
+- 2ab5735: This task aims to integrate Astar chain & Interlay chain and more remaining chains which will allow deposit from respective chains to Polkadex. The objective is to enhance cross-chain functionality.
+
+  - [x] Astar to Polkadex - ASTR
+  - [x] Interlay to Polkadex - IBTC
+  - [x] Moonbeam to Polkadex - GLMR
+  - [x] Unique to Polkadex - UNQ
+  - [x] Phala to Polkadex - PHA
+
+  from respective chains to Polkadex network.
+
+- Updated dependencies [7a112a3]
+  - @polkadex/thea@5.0.0
+
 ## 0.3.0
 
 ### Minor Changes
