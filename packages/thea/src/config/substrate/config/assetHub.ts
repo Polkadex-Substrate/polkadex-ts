@@ -8,7 +8,7 @@ import { dot, usdt, usdc, ded, pink } from "../assets";
 const xcmDeliveryFeeAmount = 0.002;
 
 const toPolkadex: AssetConfig[] = [
-  /* Not working */
+  // Not working yet (Issue in Polkadex network)
   new AssetConfig({
     asset: dot,
     balance: BalanceBuilder().substrate().system().account(),

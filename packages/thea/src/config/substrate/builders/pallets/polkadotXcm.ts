@@ -20,12 +20,12 @@ const limitedReserveTransferAssets = () => {
           module: pallet,
           func,
           getArgs: () => {
-            const version = XcmVersion.v3;
+            const version = XcmVersion.v2;
             const account = getExtrinsicAccount(address);
             return [
               toDest(version, destination),
               toBeneficiary(version, account),
-              toAssets(version, 0, "Here", amount),
+              toAssets(version, 1, "Here", amount),
               0,
               "Unlimited",
             ];
@@ -33,7 +33,7 @@ const limitedReserveTransferAssets = () => {
         }),
     }),
     X1: (): ExtrinsicConfigBuilder => ({
-      build: ({ address, amount, asset, destination, palletInstance }) =>
+      build: ({ address, amount, destination }) =>
         new ExtrinsicConfig({
           module: pallet,
           func,
