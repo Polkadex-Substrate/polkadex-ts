@@ -1,5 +1,11 @@
 # @polkadex/react-providers
 
+## 2.2.0
+
+### Minor Changes
+
+- 1c2c6e9: This changes in this PR handles the error events for blockchain gracefully and fixes the transaction status array. Along with that, there are minor changes in Progress bar component to fix it's statuses checks.
+
 ## 2.1.0
 
 ### Minor Changes
