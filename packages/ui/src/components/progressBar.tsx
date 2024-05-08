@@ -130,6 +130,7 @@ const Card = ({
   );
 
   const ongoing = useMemo(() => {
+    if (ongoingStatus === "ongoing") return status === "broadcasted";
     if (ongoingStatus === "broadcasted") return status === "inblock";
     if (ongoingStatus === "inblock") return status === "finalized";
     if (ongoingStatus === "finalized") return false;
