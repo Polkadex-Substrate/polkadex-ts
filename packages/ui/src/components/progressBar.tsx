@@ -122,45 +122,52 @@ const Card = ({
   status: StatusProps;
   vertical?: boolean;
 }>) => {
-  const { txStatus, currentTxStatus, completedStatus, ongoingStatus, error } =
-    useProgressBarProvider();
+  const { txStatus, ongoingStatus, error } = useProgressBarProvider();
 
   const completed = useMemo(
     () => !!txStatus?.find((e) => e.status === status),
     [txStatus, status]
   );
-  const ongoing = status === ongoingStatus;
-  const finished = currentTxStatus?.status === completedStatus;
-  const activeAppearance = completed ? "success" : "primary";
+
+  const ongoing = useMemo(() => {
+    if (ongoingStatus === "ongoing") return status === "broadcasted";
+    if (ongoingStatus === "broadcasted") return status === "inblock";
+    if (ongoingStatus === "inblock") return status === "finalized";
+    if (ongoingStatus === "finalized") return false;
+    return true;
+  }, [ongoingStatus, status]);
+
   const hasError = ongoing && error;
 
   const IconComponent = useMemo(
     () =>
-      (completed && !ongoing) || finished ? (
+      completed ? (
         <RiCheckLine className="w-4 h-4 text-success-base" />
       ) : (
         <RiBox3Fill className="w-4 h-4 text-white" />
       ),
 
-    [completed, ongoing, finished]
+    [completed]
   );
 
   const IconRender = useMemo(
     () =>
-      ongoing && !vertical && !finished ? (
+      !vertical && ongoing ? (
         <Spinner.PulseRing className="w-4 h-4 text-primary" />
       ) : (
         IconComponent
       ),
-    [ongoing, finished, vertical, IconComponent]
+    [vertical, IconComponent, ongoing]
   );
-  const apperance = ongoing && !finished ? "base" : activeAppearance;
+
+  const activeAppearance = completed ? "success" : "primary";
+  const apperance = ongoing ? "base" : activeAppearance;
 
   return (
     <div
       className={classNames(
         "flex items-center flex-1",
-        !completed && "opacity-50",
+        !completed && !ongoing && "opacity-50",
         vertical
           ? "flex-col px-4 gap-3 py-3"
           : "gap-2 py-1 pl-2 pr-3 rounded-full bg-level-2"
@@ -224,7 +231,11 @@ const Maximized = ({ children }: { children: ReactNode }) => {
                   Having Trouble?
                 </Typography.Text>
                 <Typography.Text appearance="info" size="xs" asChild>
-                  <a href="/" target="_blank">
+                  <a
+                    href="https://t.me/Polkadex"
+                    target="_blank"
+                    rel="norefferar noreferrer"
+                  >
                     Get in touch
                   </a>
                 </Typography.Text>
