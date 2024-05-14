@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.20.0
+
+### Minor Changes
+
+- 62b428f: Added vDOT and BNC logos
+
 ## 6.19.0
 
 ### Minor Changes
