@@ -13,3 +13,5 @@ export * from "./usdc";
 export * from "./ded";
 export * from "./pink";
 export * from "./unq";
+export * from "./bnc";
+export * from "./vdot";
