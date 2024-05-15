@@ -12,13 +12,17 @@ import {
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 import { RiArrowDownSLine } from "@remixicon/react";
+import { useMeasure } from "react-use";
+import { UseMeasureRef } from "react-use/lib/useMeasure";
+import { Skeleton } from "@polkadex/ux";
 
-import { Skeleton, HoverCard } from "../components";
+import { HoverCard } from "../components";
 
 const HoverInformation = ({ children }: { children: ReactNode }) => {
+  const [ref, bounds] = useMeasure<HTMLAnchorElement>();
   const [open, setOpen] = useState(false);
   return (
-    <Context.Provider value={{ open, setOpen }}>
+    <Context.Provider value={{ open, setOpen, ref, width: bounds.width }}>
       <HoverCard open={open} onOpenChange={setOpen}>
         {children}
       </HoverCard>
@@ -30,10 +34,11 @@ interface TriggerProps extends ComponentProps<typeof HoverCard.Trigger> {
   loading?: boolean;
 }
 const Trigger = ({ className, children, loading, ...props }: TriggerProps) => {
-  const { setOpen } = useContext(Context);
+  const { setOpen, ref } = useContext(Context);
 
   return (
     <HoverCard.Trigger
+      ref={ref}
       className={twMerge(classNames("group"), className)}
       onClick={(e) => {
         e.preventDefault();
@@ -43,7 +48,7 @@ const Trigger = ({ className, children, loading, ...props }: TriggerProps) => {
       {...props}
     >
       <Skeleton loading={loading} className="min-w-12 min-h-4">
-        <div className="flex items-center gap-1.5">{children}</div>
+        <div className="flex items-center gap-1">{children}</div>
       </Skeleton>
     </HoverCard.Trigger>
   );
@@ -53,17 +58,24 @@ const Content = ({
   className,
   children,
   ...props
-}: ComponentProps<typeof HoverCard.Content>) => (
-  <HoverCard.Content
-    className={twMerge(
-      classNames("flex flex-col gap-3 max-w-[300px] p-4"),
-      className
-    )}
-    {...props}
-  >
-    {children}
-  </HoverCard.Content>
-);
+}: ComponentProps<typeof HoverCard.Content>) => {
+  const { width } = useContext(Context);
+
+  return (
+    <HoverCard.Content
+      className={twMerge(
+        classNames("flex flex-col gap-3 w-full max-w-[400px] p-4"),
+        className
+      )}
+      style={{ minWidth: width }}
+      sideOffset={4}
+      withArrow
+      {...props}
+    >
+      {children}
+    </HoverCard.Content>
+  );
+};
 
 const Arrow = ({ children, className, ...props }: ComponentProps<"svg">) => {
   return (
@@ -84,11 +96,15 @@ const Arrow = ({ children, className, ...props }: ComponentProps<"svg">) => {
 type State = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  ref: UseMeasureRef<HTMLAnchorElement> | null;
+  width: number;
 };
 
 const Context = createContext<State>({
   open: false,
   setOpen: () => {},
+  ref: null,
+  width: 0,
 });
 
 HoverInformation.Trigger = Trigger;
