@@ -19,6 +19,7 @@ export interface ButtonProps extends ComponentProps<"button"> {
     | "primary"
     | "secondary"
     | "tertiary"
+    | "quaternary"
     | "danger"
     | "success"
     | "attention"
@@ -39,6 +40,8 @@ const buttonStyleClasses: Record<
       "bg-secondary-base text-white hover:text-white hover:bg-secondary-hover active:bg-secondary-pressed",
     tertiary:
       "bg-tertiary-base text-primary hover:bg-tertiary-hover active:bg-tertiary-pressed",
+    quaternary:
+      "bg-level-1 text-white hover:text-white hover:bg-level-3 active:bg-level-4",
     danger:
       "bg-danger-base hover:bg-danger-hover active:bg-danger-pressed text-white",
     success:
@@ -54,6 +57,8 @@ const buttonStyleClasses: Record<
       "hover:text-white hover:bg-secondary-hover/40 active:bg-secondary-pressed text-primary",
     tertiary:
       "text-primary hover:bg-tertiary-hover/40 active:bg-tertiary-pressed text-primary",
+    quaternary:
+      "hover:text-white hover:bg-level-2/40 active:bg-level-4 text-primary",
     danger:
       "hover:bg-danger-hover/20 active:bg-danger-pressed text-danger-base",
     success:
@@ -69,6 +74,8 @@ const buttonStyleClasses: Record<
       "border border-secondary-base text-primary hover:text-white hover:bg-secondary-hover active:bg-secondary-pressed",
     tertiary:
       "border border-tertiary-base text-primary hover:bg-tertiary-hover active:bg-tertiary-pressed",
+    quaternary:
+      "border border-secondary text-primary hover:bg-level-1 active:bg-level-3",
     danger:
       "border border-danger-base text-danger-base hover:text-white hover:bg-danger-hover active:bg-danger-pressed",
     success:
@@ -83,6 +90,7 @@ const buttonStyleClasses: Record<
     secondary:
       "hover:underline text-primary hover:text-white active:text-secondary-pressed",
     tertiary: "hover:underline text-primary active:text-tertiary-pressed",
+    quaternary: "hover:underline text-actionInput active:text-primary",
     danger:
       "hover:underline text-danger-base hover:text-danger-hover active:text-danger-pressed",
     success:
@@ -98,6 +106,8 @@ const buttonStyleClasses: Record<
       "text-primary hover:text-white bg-secondary-base/30 hover:bg-secondary-base/40 active:bg-secondary-base/60",
     tertiary:
       "text-primary bg-tertiary-base/30 hover:bg-tertiary-base/40 active:bg-tertiary-base/60",
+    quaternary:
+      "text-primary bg-level-2/30 hover:bg-level-3/40 active:bg-level-4/60",
     danger:
       "text-danger-base bg-danger-base/20 hover:bg-danger-base/30 active:bg-danger-base/40",
     success:
