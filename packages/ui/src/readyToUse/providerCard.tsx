@@ -2,10 +2,9 @@
 
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
 import { ElementType } from "react";
-import { Typography } from "@polkadex/ux";
 import classNames from "classnames";
 
-import { Button } from "../components";
+import { Button, Typography } from "../components";
 
 export const ProviderCard = ({
   title,

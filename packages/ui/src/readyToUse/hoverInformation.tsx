@@ -14,9 +14,8 @@ import classNames from "classnames";
 import { RiArrowDownSLine } from "@remixicon/react";
 import { useMeasure } from "react-use";
 import { UseMeasureRef } from "react-use/lib/useMeasure";
-import { Skeleton } from "@polkadex/ux";
 
-import { HoverCard } from "../components";
+import { HoverCard, Skeleton } from "../components";
 
 const HoverInformation = ({ children }: { children: ReactNode }) => {
   const [ref, bounds] = useMeasure<HTMLAnchorElement>();
