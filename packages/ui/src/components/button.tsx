@@ -35,37 +35,37 @@ const buttonStyleClasses: Record<
 > = {
   solid: {
     primary:
-      "bg-primary-base hover:bg-primary-hover active:bg-primary-pressed text-white",
+      "bg-primary-base enabled:hover:bg-primary-hover active:bg-primary-pressed text-white disabled:bg-disabled",
     secondary:
-      "bg-secondary-base text-white hover:text-white hover:bg-secondary-hover active:bg-secondary-pressed",
+      "bg-secondary-base text-white hover:text-white enabled:hover:bg-secondary-hover active:bg-secondary-pressed disabled:bg-disabled",
     tertiary:
-      "bg-tertiary-base text-primary hover:bg-tertiary-hover active:bg-tertiary-pressed",
+      "bg-tertiary-base text-primary enabled:hover:bg-tertiary-hover active:bg-tertiary-pressed disabled:bg-disabled",
     quaternary:
-      "bg-level-1 text-white hover:text-white hover:bg-level-3 active:bg-level-4",
+      "bg-level-1 text-white hover:text-white enabled:hover:bg-level-3 active:bg-level-4 disabled:bg-disabled",
     danger:
-      "bg-danger-base hover:bg-danger-hover active:bg-danger-pressed text-white",
+      "bg-danger-base enabled:hover:bg-danger-hover active:bg-danger-pressed text-white disabled:bg-disabled",
     success:
-      "bg-success-base hover:bg-success-hover active:bg-success-presse text-white",
+      "bg-success-base enabled:hover:bg-success-hover active:bg-success-presse text-white disabled:bg-disabled",
     attention:
-      "bg-attention-base hover:bg-attention-hover active:bg-attention-pressed text-white",
-    info: "bg-info-base hover:bg-info-hover active:bg-info-pressed text-white",
+      "bg-attention-base enabled:hover:bg-attention-hover active:bg-attention-pressed text-white disabled:bg-disabled",
+    info: "bg-info-base enabled:hover:bg-info-hover active:bg-info-pressed text-white disabled:bg-disabled",
   },
   ghost: {
     primary:
-      "hover:bg-primary-hover/20 active:bg-primary-pressed text-primary-base",
+      "enabled:hover:bg-primary-hover/20 enabled:active:bg-primary-pressed enabled:text-primary-base disabled:text-primary-base/50",
     secondary:
-      "hover:text-white hover:bg-secondary-hover/40 active:bg-secondary-pressed text-primary",
+      "enabled:hover:text-white enabled:hover:bg-secondary-hover/40 enabled:active:bg-secondary-pressed enabled:text-primary disabled:text-primary/50",
     tertiary:
-      "text-primary hover:bg-tertiary-hover/40 active:bg-tertiary-pressed text-primary",
+      "enabled:text-primary enabled:hover:bg-tertiary-hover/40 enabled:active:bg-tertiary-pressed enabled:text-primary disabled:text-primary/50",
     quaternary:
-      "hover:text-white hover:bg-level-2/40 active:bg-level-4 text-primary",
+      "enabled:hover:text-white enabled:hover:bg-level-2/40 enabled:active:bg-level-4 enabled:text-primary disabled:text-primary/50",
     danger:
-      "hover:bg-danger-hover/20 active:bg-danger-pressed text-danger-base",
+      "enabled:hover:bg-danger-hover/20 enabled:active:bg-danger-pressed enabled:text-danger-base disabled:text-danger-base/50",
     success:
-      "hover:bg-success-hover/20 active:bg-success-pressed text-success-base",
+      "enabled:hover:bg-success-hover/20 enabled:active:bg-success-pressed enabled:text-success-base disabled:text-success-base/50",
     attention:
-      "hover:bg-attention-hover/20 active:bg-attention-pressed text-attention-base",
-    info: "hover:bg-info-hover/20 active:bg-info-pressed text-info-base",
+      "enabled:hover:bg-attention-hover/20 enabled:active:bg-attention-pressed enabled:text-attention-base disabled:text-attention-base/50",
+    info: "enabled:hover:bg-info-hover/20 enabled:active:bg-info-pressed enabled:text-info-base disabled:text-info-base/50",
   },
   outline: {
     primary:
@@ -165,7 +165,7 @@ export const Base = forwardRef<
           classNames(
             "transition-colors duration-300",
             "flex items-center justify-center whitespace-nowrap",
-            "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-disabled",
+            "disabled:cursor-not-allowed disabled:select-none ",
             withIcon ? iconSizeClasses[size] : buttonSizeClasses[size],
             rounded ? "rounded-full" : "rounded-sm",
             withIcon && "group",
