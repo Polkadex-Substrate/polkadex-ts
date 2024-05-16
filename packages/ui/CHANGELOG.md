@@ -1,5 +1,17 @@
 # @polkadex/ux
 
+## 6.22.0
+
+### Minor Changes
+
+- 0adc374: - [x] feat: new quaternary color variant to the Button component.
+  - [x] fix: Removed unnecessary child validation from the HoverCard component.
+  - [x] fix: Improved the style of the ProviderCard component.
+  - [x] feat: HoverInformation component
+  - [x] feat: ResponsiveCard component
+  - [x] feat: Chain componen
+  - [x] feat: GenericHorizontalCard component
+
 ## 6.21.0
 
 ### Minor Changes
