@@ -40,3 +40,4 @@ export * from "./carousel";
 export * from "./interactable";
 export * from "./passcode";
 export * from "./progressBar";
+export * from "./chain";
