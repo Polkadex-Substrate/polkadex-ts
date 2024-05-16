@@ -1,29 +1,34 @@
 "use client";
 
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
-import { ElementType } from "react";
+import { ComponentProps, ElementType } from "react";
 import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
 import { Button, Typography } from "../components";
-
+interface ProviderCardProps extends ComponentProps<typeof Button.Ghost> {
+  title: string;
+  action: () => void;
+  icon: string;
+  installed?: boolean;
+  href?: string;
+}
 export const ProviderCard = ({
   title,
   action,
   installed = true,
   icon,
   href,
-}: {
-  title: string;
-  action: () => void;
-  icon: string;
-  installed?: boolean;
-  href?: string;
-}) => {
+  className,
+}: ProviderCardProps) => {
   const IconComponent = getExtensionIcon(icon) as ElementType;
   return (
     <Button.Ghost
       appearance="quaternary"
-      className="flex justify-between gap-3 px-4 py-3.5 h-auto"
+      className={twMerge(
+        classNames("flex justify-between gap-3 px-4 py-3.5 h-auto"),
+        className
+      )}
       onClick={action}
       disabled={!installed}
     >
@@ -38,7 +43,7 @@ export const ProviderCard = ({
       {!installed && (
         <Button.Light asChild size="xs">
           <a href={`//${href}`} target="_blank" rel="noreferrer">
-            Setup wallet
+            Setup
           </a>
         </Button.Light>
       )}
