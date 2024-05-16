@@ -5,4 +5,3 @@ export * from "./transactionLoading";
 export * from "./responsiveCard";
 export * from "./hoverInformation";
 export * from "./genericHorizontalItem";
-export * from "./providerCard";
