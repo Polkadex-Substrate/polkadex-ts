@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.21.0
+
+### Minor Changes
+
+- 6f4ba9c: feat: Implemented new SVG components for the following blockchain chains: AssetHub, Astar, Bifrost, Ethereum, Interlay, Moonbeam, Phala, Polkadex, Polkadot, Unique, Unknown
+
 ## 6.20.0
 
 ### Minor Changes
