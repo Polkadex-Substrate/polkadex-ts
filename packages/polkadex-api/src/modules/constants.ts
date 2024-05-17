@@ -78,6 +78,20 @@ export const ASSETS: Asset[] = [
     decimal: 12,
     network: AssetType.Substrate,
   },
+  {
+    name: "BNC",
+    ticker: "BNC",
+    id: "130314105136721928300689838359167097187",
+    decimal: 12,
+    network: AssetType.Substrate,
+  },
+  {
+    name: "vDOT",
+    ticker: "VDOT",
+    id: "313524628741076911470961827389955394913",
+    decimal: 12,
+    network: AssetType.Substrate,
+  },
 ];
 
 export const ASSETS_MAP = new Map<string, Asset>(

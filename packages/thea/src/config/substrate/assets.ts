@@ -9,10 +9,11 @@ import {
   glmr,
   intr,
   ibtc,
+  bnc,
 } from "@moonbeam-network/xcm-config";
 import { Asset } from "@moonbeam-network/xcm-types";
 
-export { dot, usdt, usdc, ded, pink, astr, pha, glmr, ibtc, intr };
+export { dot, usdt, usdc, ded, pink, astr, pha, glmr, ibtc, intr, bnc };
 
 export const pdex = new Asset({
   key: "pdex",
@@ -37,6 +38,7 @@ export const substrateAssets: Asset[] = [
   unq,
   intr,
   ibtc,
+  bnc,
 ];
 
 export const assetsMap = new Map<string, Asset>(
