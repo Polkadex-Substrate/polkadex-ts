@@ -1,7 +1,9 @@
+"use client";
+
 import { PropsWithChildren } from "react";
 import { useMeasure } from "react-use";
 
-import { Dropdown, Input, Typography, Token } from "../components";
+import { Typography, Token, Popover, Searchable } from "../components";
 import { TokenAppearance } from "../helpers";
 
 type Chain = (typeof chains)[0];
@@ -17,36 +19,45 @@ const SelectChain = ({
   const [ref, bounds] = useMeasure<HTMLButtonElement>();
 
   return (
-    <Dropdown>
-      <Dropdown.Trigger ref={ref} className="w-full">
+    <Popover>
+      <Popover.Trigger ref={ref} className="w-full">
         {children}
-      </Dropdown.Trigger>
-      <Dropdown.Content
+      </Popover.Trigger>
+      <Popover.Content
         className="flex flex-col"
         style={{ minWidth: bounds.width }}
       >
-        <div className="p-4 border-b border-primary">
-          <Input.Search
-            placeholder="Search token or chain..."
-            className="max-sm:focus:text-[16px]"
-          />
-        </div>
-        {chains?.map((value) => (
-          <Dropdown.Item
-            key={value.name}
-            onClick={() => onChange(value)}
-            disabled={!value.active}
-            className="p-0"
-          >
-            <Card
-              title={value.name}
-              description={value?.description}
-              icon={value.icon}
-            />
-          </Dropdown.Item>
-        ))}
-      </Dropdown.Content>
-    </Dropdown>
+        <Searchable>
+          <div className="p-2">
+            <Searchable.Input placeholder="Search token or chain.." />
+          </div>
+          <Searchable.List>
+            <Searchable.Empty className="flex-1 flex items-center justify-center">
+              No result found
+            </Searchable.Empty>
+            <Searchable.Group>
+              {chains?.map((value, i) => {
+                return (
+                  <Searchable.Item
+                    key={i}
+                    value={value.description}
+                    className="p-0"
+                    disabled={!value.active}
+                    onSelect={() => onChange(value)}
+                  >
+                    <Card
+                      title={value.name}
+                      description={value?.description}
+                      icon={value.icon}
+                    />
+                  </Searchable.Item>
+                );
+              })}
+            </Searchable.Group>
+          </Searchable.List>
+        </Searchable>
+      </Popover.Content>
+    </Popover>
   );
 };
 
