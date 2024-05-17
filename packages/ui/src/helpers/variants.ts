@@ -1,3 +1,5 @@
+import { themeConfig } from "../../../../themeConfig";
+
 export const placements = [
   "center",
   "center left",
@@ -64,15 +66,16 @@ export const fontSizeClasses = {
 export const tokenAppearance = {
   PHA: "bg-black",
   USDT: "bg-usdt",
-  PDEX: "bg-transparent",
-  GLMR: "bg-transparent",
+  PDEX: "bg-level-1",
+  GLMR: "bg-level-1",
   DOT: "bg-dot",
-  ASTR: "bg-transparent",
+  ASTR: "bg-level-1",
   IBTC: "bg-white",
-  USDC: "bg-transparent",
-  UNQ: "bg-transparent",
-  DED: "bg-transparent",
-  PINK: "bg-transparent",
+  USDC: "bg-level-1",
+  UNQ: "bg-level-1",
+  DED: "bg-level-1",
+  PINK: "bg-level-1",
+  UNKN: "bg-white",
 };
 
 export type TokenAppearance = keyof typeof tokenAppearance;
@@ -89,3 +92,9 @@ export const sizesVariants = {
 };
 
 export type SizesVariants = keyof typeof sizesVariants;
+
+export const appearanceBackground = themeConfig.theme.extend.backgroundColor;
+export type AppearanceBackgroundVariants = keyof typeof appearanceBackground;
+
+export const appearanceText = themeConfig.theme.extend.colors;
+export type AppearanceTextVariants = keyof typeof appearanceText;
