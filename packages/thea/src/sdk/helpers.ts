@@ -8,6 +8,7 @@ import {
   MOONBEAM_GENESIS,
   UNIQUE_GENESIS,
   INTERLAY_GENESIS,
+  BIFROST_GENESIS,
 } from "../config";
 
 import {
@@ -19,6 +20,7 @@ import {
   Moonbeam,
   Unique,
   Interlay,
+  Bifrost,
 } from "./substrate";
 import { Sepolia } from "./evm";
 
@@ -28,6 +30,8 @@ export const getChainConnector = (genesis: string): BaseChainAdapter => {
   switch (genesis) {
     case INTERLAY_GENESIS:
       return new Interlay();
+    case BIFROST_GENESIS:
+      return new Bifrost();
     case UNIQUE_GENESIS:
       return new Unique();
     case MOONBEAM_GENESIS:
