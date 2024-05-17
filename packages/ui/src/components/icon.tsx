@@ -5,36 +5,44 @@ import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 
 import * as Icons from "../icons";
-import { SizesVariants, TokenAppearance, sizesVariants } from "../helpers";
+import {
+  AppearanceBackgroundVariants,
+  SizesVariants,
+  sizesVariants,
+} from "../helpers";
 
 export type IconsProps = keyof typeof Icons;
-interface Props extends ComponentProps<"svg"> {
+
+interface Props extends ComponentProps<"div"> {
   name?: IconsProps;
-  appearance?: TokenAppearance;
+  appearance?: AppearanceBackgroundVariants;
   size?: SizesVariants;
 }
 
 export const Icon = ({
   name,
-  size,
+  size = "md",
   className,
+  appearance,
   children,
   ...props
 }: PropsWithChildren<Props>) => {
-  const iconUppercase = name?.toUpperCase();
-  const iconTicker =
-    Object.keys(Icons).find(
-      (iconName) => iconName.toUpperCase() === iconUppercase
-    ) || "Unknown";
+  const initialName = name ?? "Unknown";
+  const IconComponent = Icons[initialName];
 
-  const IconComponent = Icons[iconTicker as keyof typeof Icons];
-  const customProps = twMerge(
-    classNames(size && sizesVariants[size]),
-    className
-  );
-  return children ? (
-    <div className={customProps}>{children}</div>
-  ) : (
-    <IconComponent className={customProps} {...props} />
+  return (
+    <div
+      className={twMerge(
+        classNames(
+          "flex items-center justify-center",
+          sizesVariants[size],
+          appearance && `bg-${appearance}`
+        ),
+        className
+      )}
+      {...props}
+    >
+      {children || <IconComponent className="w-full h-full" />}
+    </div>
   );
 };
