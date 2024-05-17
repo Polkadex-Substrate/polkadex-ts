@@ -10,15 +10,19 @@ import { SizesVariants, sizesVariants } from "../helpers";
 import { Skeleton } from ".";
 
 interface ChainProps extends ComponentProps<"svg"> {
-  name: string | keyof typeof Chains;
+  name: string;
   size?: SizesVariants;
   loading?: boolean;
+  bordered?: boolean;
+  rounded?: boolean;
 }
 
 export const Chain = ({
   name,
   size = "md",
   loading,
+  bordered,
+  rounded,
   className,
   ...props
 }: ChainProps) => {
@@ -26,10 +30,22 @@ export const Chain = ({
   const IconComponent = Chains[iconName];
 
   return (
-    <Skeleton loading={loading} className={sizesVariants[size]}>
+    <Skeleton
+      loading={loading}
+      className={classNames(
+        "flex-none",
+        sizesVariants[size],
+        rounded && "rounded-full"
+      )}
+    >
       <IconComponent
         className={twMerge(
-          classNames("text-textBase", sizesVariants[size]),
+          classNames(
+            "text-textBase",
+            sizesVariants[size],
+            bordered && "border border-secondary",
+            rounded && "rounded-full"
+          ),
           className
         )}
         {...props}

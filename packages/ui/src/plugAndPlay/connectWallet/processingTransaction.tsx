@@ -2,8 +2,8 @@
 
 import { ElementType, useEffect } from "react";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
-import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
+import classNames from "classnames";
 
 import {
   Interaction,
@@ -34,7 +34,7 @@ export const ProcessingTransaction = ({
   return (
     <Interaction
       className={twMerge(
-        classNames("gap-10 min-h-[30rem] h-full justify-center"),
+        classNames("w-full md:min-w-[24rem] md:max-w-[24rem]"),
         className
       )}
       {...props}
