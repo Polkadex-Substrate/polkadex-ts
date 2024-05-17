@@ -10,7 +10,7 @@ export const truncateNames = (inputString: string, maxLength: number) => {
     return inputString;
   } else {
     const truncated = inputString.substring(0, maxLength);
-    const lastNonAlphanumericIndex = truncated.search(/[^a-zA-Z0-9\s]$/);
+    const lastNonAlphanumericIndex = truncated.search(/[^a-zA-Z0-9\s]+$/);
     const truncateIndex =
       lastNonAlphanumericIndex !== -1 ? lastNonAlphanumericIndex : maxLength;
     return truncated.substring(0, truncateIndex) + "...";
