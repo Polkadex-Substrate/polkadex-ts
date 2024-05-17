@@ -5,21 +5,20 @@ import {
   useExtensionAccounts,
   useExtensions,
 } from "@polkadex/react-providers";
-import {
-  Button,
-  Popover,
-  Searchable,
-  Typography,
-  truncateString,
-  ScrollArea,
-} from "@polkadex/ux";
 import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
 import { useMemo, useRef, useState } from "react";
 import { RiCheckLine, RiWalletLine } from "@remixicon/react";
 import { useMeasure } from "react-use";
 import { isValidAddress } from "@polkadex/utils";
 
-import { truncateNames } from "../helpers";
+import {
+  Button,
+  Popover,
+  Searchable,
+  Typography,
+  ScrollArea,
+} from "../components";
+import { truncateNames, truncateString } from "../helpers";
 
 import { ProviderCard } from "./providerCard";
 import { AccountCard } from "./accountCard";

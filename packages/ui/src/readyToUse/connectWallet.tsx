@@ -4,7 +4,8 @@ import { PropsWithChildren, useState } from "react";
 import { ExtensionStatus } from "@polkadex/react-providers";
 import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
 import { ExtensionDetails } from "@polkadex/types";
-import { Interaction, InteractionProps, Typography } from "@polkadex/ux";
+
+import { Interaction, InteractionProps, Typography } from "../components";
 
 import { ProviderCard } from "./providerCard";
 import { SelectChain, chains } from "./selectChain";
@@ -127,9 +128,7 @@ export const ConnectWallet = ({
           </Typography.Paragraph>
         )}
         {showFooterClose && (
-          <Interaction.Close onClick={onBack}>
-            Connect other wallet
-          </Interaction.Close>
+          <Interaction.Close onClick={onBack}>Close</Interaction.Close>
         )}
       </Interaction.Footer>
     </Interaction>
