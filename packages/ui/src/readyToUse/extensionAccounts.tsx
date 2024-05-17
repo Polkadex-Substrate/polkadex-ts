@@ -1,3 +1,5 @@
+"use client";
+
 import { ExtensionAccount } from "@polkadex/react-providers";
 import { useEffect } from "react";
 import classNames from "classnames";
@@ -29,7 +31,7 @@ export const ExtensionAccounts = ({
   onTryAgain,
   onRefresh,
   onRedirect,
-  loading,
+  loading = false,
   success,
   ...props
 }: ExtensionAccountsProps) => {
