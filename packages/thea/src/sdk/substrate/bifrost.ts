@@ -29,7 +29,7 @@ export class Bifrost implements BaseChainAdapter {
       chainsConfig: chainsConfigMap,
     });
     this.configService = configService;
-    this.chain = configService.getChain("Bifrost");
+    this.chain = configService.getChain("bifrost");
     this.sdk = Sdk({ configService });
   }
 
