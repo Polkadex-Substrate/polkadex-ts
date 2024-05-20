@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.6.0
+
+### Minor Changes
+
+- 209e392: In this PR, we will be adding Deposit/Withdrawal for THEA for Bifrost chain, supporting BNC and vDOT tokens.
+
 ## 3.5.0
 
 ### Minor Changes
