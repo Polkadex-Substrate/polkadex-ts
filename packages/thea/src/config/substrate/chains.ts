@@ -9,6 +9,7 @@ import { ASSETS_MAP } from "@polkadex/polkadex-api";
 import {
   ASSETHUB_GENESIS,
   ASTAR_GENESIS,
+  BIFROST_GENESIS,
   INTERLAY_GENESIS,
   MOONBEAM_GENESIS,
   PHALA_GENESIS,
@@ -30,6 +31,8 @@ import {
   unq,
   intr,
   ibtc,
+  bnc,
+  vdot,
 } from "./assets";
 
 export const assetHub = new Parachain({
@@ -179,6 +182,29 @@ export const moonbeam = new EvmParachain({
   nativeCurrency: { decimals: 18, name: "GLMR", symbol: "GLMR" },
 });
 
+export const bifrost = new Parachain({
+  assetsData: [
+    {
+      asset: bnc,
+      decimals: 12,
+      id: { Native: bnc.originSymbol },
+    },
+    {
+      asset: vdot,
+      id: { VToken2: 0 },
+      metadataId: { VToken2: 0 },
+      decimals: 10,
+    },
+  ],
+  ecosystem: Ecosystem.Polkadot,
+  genesisHash: BIFROST_GENESIS,
+  key: "bifrost",
+  name: "Bifrost",
+  parachainId: 2030,
+  ss58Format: 6,
+  ws: "wss://bifrost-polkadot-rpc.dwellir.com",
+});
+
 export const polkadex = new Parachain({
   assetsData: [
     {
@@ -235,6 +261,16 @@ export const polkadex = new Parachain({
       decimals: ASSETS_MAP.get("IBTC")?.decimal,
       id: ASSETS_MAP.get("IBTC")?.id,
     },
+    {
+      asset: bnc,
+      decimals: ASSETS_MAP.get("BNC")?.decimal,
+      id: ASSETS_MAP.get("BNC")?.id,
+    },
+    {
+      asset: vdot,
+      decimals: ASSETS_MAP.get("VDOT")?.decimal,
+      id: ASSETS_MAP.get("VDOT")?.id,
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: POLKADEX_GENESIS,
@@ -254,6 +290,7 @@ export const substrateChains = [
   moonbeam,
   unique,
   interlay,
+  bifrost,
 ];
 
 export const chainsMap = new Map<string, AnyChain>(

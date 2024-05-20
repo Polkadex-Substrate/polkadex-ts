@@ -6,3 +6,4 @@ export * from "./phala";
 export * from "./moonbeam";
 export * from "./unique";
 export * from "./interlay";
+export * from "./bifrost";
