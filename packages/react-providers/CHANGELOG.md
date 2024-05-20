@@ -1,5 +1,23 @@
 # @polkadex/react-providers
 
+## 2.2.0
+
+### Minor Changes
+
+- 1c2c6e9: This changes in this PR handles the error events for blockchain gracefully and fixes the transaction status array. Along with that, there are minor changes in Progress bar component to fix it's statuses checks.
+
+## 2.1.0
+
+### Minor Changes
+
+- 4ac47e2: fix: transaction status
+
+## 2.0.0
+
+### Major Changes
+
+- 3da8bef: 1. This PR aims to make a transaction manager provider which takes a submittable extrinsic as input and enqueue it. 2. Submits the extrinsic one by one from queue & updates the status and sends it back
+
 ## 1.2.0
 
 ### Minor Changes

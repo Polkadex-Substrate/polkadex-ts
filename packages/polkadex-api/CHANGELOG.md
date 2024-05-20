@@ -1,5 +1,48 @@
 # @polkadex/polkadex-api
 
+## 3.6.0
+
+### Minor Changes
+
+- 209e392: In this PR, we will be adding Deposit/Withdrawal for THEA for Bifrost chain, supporting BNC and vDOT tokens.
+
+## 3.5.0
+
+### Minor Changes
+
+- 966fba6: This task is about to add the metadata of supported assets for Polkadex network and make the project build succesful (if it breaks anything)
+- a79b5ab: In this PR, we will be adding Polkadot XCM chain for DOT asset transfer. Users would be allowed to transfer DOT from Polkadot to Polkadex.
+
+## 3.4.0
+
+### Minor Changes
+
+- df6030f: In this PR, we will be adding support for DED, PINK and USDC token which would be transferable from AssetHub to Polkadex.
+
+## 3.3.1
+
+### Patch Changes
+
+- 2dd551f: Thea api
+
+## 3.3.0
+
+### Minor Changes
+
+- 81bc3a8: This PR aims to add remaining OCEX modules. In Orderbook and THEA, RPC's should be called from this package only.
+
+## 3.2.0
+
+### Minor Changes
+
+- a7cac9b: feat: add signedExtensions types
+
+## 3.1.2
+
+### Patch Changes
+
+- 3697b4f: fix: swap api rpc
+
 ## 3.1.1
 
 ### Patch Changes

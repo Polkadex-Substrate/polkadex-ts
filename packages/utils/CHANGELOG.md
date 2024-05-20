@@ -1,5 +1,11 @@
 # @polkadex/utils
 
+## 0.2.0
+
+### Minor Changes
+
+- 6b5a833: fix: retrieve/use localstorage
+
 ## 0.1.1
 
 ### Patch Changes

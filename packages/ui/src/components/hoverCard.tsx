@@ -11,18 +11,15 @@ import {
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 
-import { isValidComponent } from "../helpers";
-
 const Trigger = forwardRef<
   ElementRef<typeof HoverCardRadix.Trigger>,
   ComponentPropsWithoutRef<typeof HoverCardRadix.Trigger>
->(({ children, ...props }, ref) => {
-  return (
-    <HoverCardRadix.Trigger ref={ref} {...props}>
-      {children}
-    </HoverCardRadix.Trigger>
-  );
-});
+>(({ children, ...props }, ref) => (
+  <HoverCardRadix.Trigger ref={ref} {...props}>
+    {children}
+  </HoverCardRadix.Trigger>
+));
+
 Trigger.displayName = "Trigger";
 
 interface ContentProps
@@ -48,30 +45,32 @@ const Content = forwardRef<
   ) => {
     const { className: arrowClassname, ...restProps } = arrowProps || {};
     return (
-      <HoverCardRadix.Content
-        ref={ref}
-        sideOffset={sideOffset}
-        className={twMerge(
-          classNames(
-            "p-2 bg-level-1 rounded-md border border-primary text-sm",
-            "z-50 overflow-hidden shadow-md animate-in fade-in-0 zoom-in-95 ",
-            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
-            "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
-          ),
-          className
-        )}
-        {...props}
-      >
-        <Fragment>
-          {children}
-          {withArrow && (
-            <HoverCardRadix.Arrow
-              className={twMerge(classNames("fill-level-1"), arrowClassname)}
-              {...restProps}
-            />
+      <HoverCardRadix.Portal>
+        <HoverCardRadix.Content
+          ref={ref}
+          sideOffset={sideOffset}
+          className={twMerge(
+            classNames(
+              "p-2 bg-level-1 rounded-md border border-primary text-sm",
+              "z-50 overflow-hidden shadow-md animate-in fade-in-0 zoom-in-95 ",
+              "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+              "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
+            ),
+            className
           )}
-        </Fragment>
-      </HoverCardRadix.Content>
+          {...props}
+        >
+          <Fragment>
+            {children}
+            {withArrow && (
+              <HoverCardRadix.Arrow
+                className={twMerge(classNames("fill-level-1"), arrowClassname)}
+                {...restProps}
+              />
+            )}
+          </Fragment>
+        </HoverCardRadix.Content>
+      </HoverCardRadix.Portal>
     );
   }
 );
@@ -83,17 +82,13 @@ const HoverCard = ({
   closeDelay = 150,
   ...props
 }: PropsWithChildren<HoverCardRadix.HoverCardProps>) => {
-  const [TriggerComponent] = isValidComponent(children, Trigger);
-  const [ContentComponent] = isValidComponent(children, Content);
-
   return (
     <HoverCardRadix.Root
       openDelay={openDelay}
       closeDelay={closeDelay}
       {...props}
     >
-      {TriggerComponent}
-      <HoverCardRadix.Portal>{ContentComponent}</HoverCardRadix.Portal>
+      {children}
     </HoverCardRadix.Root>
   );
 };

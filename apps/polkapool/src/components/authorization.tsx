@@ -1,37 +1,36 @@
 "use client";
 
+import { RiCloseLine } from "@remixicon/react";
 import { ElementType, useCallback, useEffect, useState } from "react";
 import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
-import { RiCloseLine } from "@remixicon/react";
-
 import {
   Interaction,
   InteractionProps,
   Spinner,
   Typography,
-} from "../../components";
+  useInteractableProvider,
+} from "@polkadex/ux";
 
 interface AuthorizationProps extends InteractionProps {
   extensionName?: string;
   extensionIcon?: string;
   loadingDescription?: string;
   loading?: boolean;
-  onActionCallback: () => void;
   onAction: () => Promise<boolean>;
-  onClose?: () => void;
 }
 export const Authorization = ({
   extensionIcon,
   extensionName,
-  onActionCallback,
   onAction,
-  onClose,
   className,
   ...props
 }: AuthorizationProps) => {
   const [error, setError] = useState(false);
+
+  const { onReset, setPage } = useInteractableProvider();
+
   const IconComponent = getExtensionIcon(
     extensionIcon as string
   ) as ElementType;
@@ -44,20 +43,20 @@ export const Authorization = ({
         return;
       }
 
-      onActionCallback();
+      setPage("accounts");
     } catch (error) {
       setError(true);
     }
-  }, [onAction, onActionCallback]);
+  }, [onAction, setPage]);
 
   useEffect(() => {
     if (!error) callbackFn();
-  }, [onActionCallback, callbackFn, error]);
+  }, [setPage, callbackFn, error]);
 
   const errorMessage = `Please authorize your ${extensionName} wallet extension to connect to Orderbook App`;
   return (
     <Interaction
-      className={twMerge(classNames("gap-10", className))}
+      className={twMerge(classNames("gap-10 w-full", className))}
       {...props}
     >
       <Interaction.Content className="flex flex-col gap-5 items-center text-center">
@@ -107,7 +106,7 @@ export const Authorization = ({
         >
           Try again
         </Interaction.Action>
-        <Interaction.Close onClick={onClose}>
+        <Interaction.Close onClick={onReset}>
           Connect other wallet
         </Interaction.Close>
       </Interaction.Footer>

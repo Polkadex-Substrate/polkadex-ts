@@ -1,12 +1,14 @@
 "use client";
 
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 import { ExtensionStatus } from "@polkadex/react-providers";
 import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
-import { ExtensionDetails } from "@polkadex/types/src/utils";
+import { ExtensionDetails } from "@polkadex/types";
+import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
 import { Interaction, InteractionProps, Typography } from "../../components";
-import { ChainCard, ProviderCard } from "../../readyToUse";
+import { ProviderCard, SelectChain, chains } from "../../readyToUse";
 const ExtensionsArrayWhitelist = ExtensionsArray?.filter(
   (item) => item.id !== "metamask-polkadot-snap"
 );
@@ -15,6 +17,9 @@ interface ConnectWalletProps extends InteractionProps {
   installedExtensions: Record<string, ExtensionStatus>;
   onBack: () => void;
   onConnectCallback: () => void;
+  showChains?: boolean;
+  showTerms?: boolean;
+  showFooterClose?: boolean;
 }
 export const ConnectWallet = ({
   children,
@@ -22,31 +27,62 @@ export const ConnectWallet = ({
   installedExtensions,
   onConnectProvider,
   onConnectCallback,
+  showChains = true,
+  showTerms = true,
+  showFooterClose,
+  className,
   ...props
 }: PropsWithChildren<ConnectWalletProps>) => {
+  const [selectedChain, setSelectedChain] = useState<(typeof chains)[0]>(
+    chains[0]
+  );
   return (
-    <Interaction {...props}>
-      <Interaction.Title onBack={{ onClick: onBack }}>
+    <Interaction
+      className={twMerge(
+        classNames("w-full md:min-w-[24rem] md:max-w-[24rem]"),
+        className
+      )}
+      {...props}
+    >
+      <Interaction.Title onClose={{ onClick: onBack }}>
         Connect your wallet
       </Interaction.Title>
       <Interaction.Content withPadding={false}>
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-1">
-            <Typography.Text appearance="secondary" size="xs" className="px-7">
-              Chain
-            </Typography.Text>
-            <div className="px-3">
-              <ChainCard
-                title="Native Wallets"
-                description="Polkadot, Kusama & Parachains."
-                icon="DOT"
-              />
+        <div className="flex flex-col gap-3">
+          {showChains && (
+            <div className="flex flex-col gap-1">
+              <Typography.Text
+                appearance="secondary"
+                size="xs"
+                className="px-7"
+              >
+                Chain
+              </Typography.Text>
+              <div className="w-full px-3">
+                <SelectChain
+                  chains={chains}
+                  onChange={(e) => setSelectedChain(e)}
+                >
+                  <SelectChain.Card
+                    title={selectedChain.name}
+                    description={selectedChain.description}
+                    icon={selectedChain.icon}
+                  />
+                </SelectChain>
+              </div>
             </div>
-          </div>
+          )}
+
           <div className="flex flex-col gap-1">
-            <Typography.Text appearance="secondary" size="xs" className="px-7">
-              Wallets available on the Polkadot chain
-            </Typography.Text>
+            {showChains && (
+              <Typography.Text
+                appearance="secondary"
+                size="xs"
+                className="px-7"
+              >
+                Wallets available on the Polkadot chain
+              </Typography.Text>
+            )}
             <div className="flex flex-col px-3 max-h-[16rem] overflow-auto">
               {ExtensionsArrayWhitelist?.sort(
                 (a, b) =>
@@ -71,28 +107,33 @@ export const ConnectWallet = ({
         </div>
       </Interaction.Content>
       <Interaction.Footer>
-        <Typography.Paragraph size="xs" className="text-center">
-          By using the application, you agree to our
-          <a
-            href="https://github.com/Polkadex-Substrate/Docs/blob/master/Polkadex_Terms_of_Use.pdf"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="text-primary-base"
-          >
-            {" "}
-            Terms of Service{" "}
-          </a>
-          and our{" "}
-          <a
-            href="https://github.com/Polkadex-Substrate/Docs/blob/master/Polkadex_Privacy_Policy.pdf"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="text-primary-base"
-          >
-            Privacy Policy
-          </a>
-          .
-        </Typography.Paragraph>
+        {showTerms && (
+          <Typography.Paragraph size="xs" className="text-center">
+            By using the application, you agree to our
+            <a
+              href="https://github.com/Polkadex-Substrate/Docs/blob/master/Polkadex_Terms_of_Use.pdf"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-primary-base align-middle"
+            >
+              {" "}
+              Terms of Service{" "}
+            </a>
+            and our{" "}
+            <a
+              href="https://github.com/Polkadex-Substrate/Docs/blob/master/Polkadex_Privacy_Policy.pdf"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-primary-base align-middle"
+            >
+              Privacy Policy
+            </a>
+            .
+          </Typography.Paragraph>
+        )}
+        {showFooterClose && (
+          <Interaction.Close onClick={onBack}>Close</Interaction.Close>
+        )}
       </Interaction.Footer>
     </Interaction>
   );

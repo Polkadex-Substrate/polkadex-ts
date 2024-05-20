@@ -1,6 +1,8 @@
 import { CreateResult } from "@polkadot/ui-keyring/types";
 import { KeyringPair, KeyringPair$Json } from "@polkadot/keyring/types";
 
+export type Token = google.accounts.oauth2.TokenResponse | null;
+
 interface Base {
   init: () => Promise<void>;
   isReady: () => boolean;

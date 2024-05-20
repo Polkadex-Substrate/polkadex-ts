@@ -1,5 +1,86 @@
 # @polkadex/ux
 
+## 6.23.0
+
+### Minor Changes
+
+- accc979: fix: Dropdown Item hover style
+  fix: truncateNames helper
+  fix: ProviderCard custom props
+  feat: AccountCombobox component
+  feat: SelectChain component
+  fix: Input mobile/desktop styles
+  fix: Icon component props
+  fix: Token component props
+  fix: Chain component props
+  feat: ExtensionsAccounts + Authorization reusable component
+  feat: Connect Wallet reusable component
+  fix: theme variants
+
+## 6.22.0
+
+### Minor Changes
+
+- 0adc374: - [x] feat: new quaternary color variant to the Button component.
+  - [x] fix: Removed unnecessary child validation from the HoverCard component.
+  - [x] fix: Improved the style of the ProviderCard component.
+  - [x] feat: HoverInformation component
+  - [x] feat: ResponsiveCard component
+  - [x] feat: Chain componen
+  - [x] feat: GenericHorizontalCard component
+
+## 6.21.0
+
+### Minor Changes
+
+- 6f4ba9c: feat: Implemented new SVG components for the following blockchain chains: AssetHub, Astar, Bifrost, Ethereum, Interlay, Moonbeam, Phala, Polkadex, Polkadot, Unique, Unknown
+
+## 6.20.0
+
+### Minor Changes
+
+- 62b428f: Added vDOT and BNC logos
+
+## 6.19.0
+
+### Minor Changes
+
+- 1c2c6e9: This changes in this PR handles the error events for blockchain gracefully and fixes the transaction status array. Along with that, there are minor changes in Progress bar component to fix it's statuses checks.
+
+### Patch Changes
+
+- Updated dependencies [1c2c6e9]
+  - @polkadex/react-providers@2.2.0
+
+## 6.18.0
+
+### Minor Changes
+
+- 4ac47e2: fix: transaction status
+
+### Patch Changes
+
+- Updated dependencies [4ac47e2]
+  - @polkadex/react-providers@2.1.0
+
+## 6.17.0
+
+### Minor Changes
+
+- e3b22d4: fix: ProgressBar component closing behavior
+
+## 6.16.0
+
+### Minor Changes
+
+- 6cba38e: feat: progressBar component
+
+## 6.15.0
+
+### Minor Changes
+
+- f776b00: Added SVG tokens for USDC, DED, PINK and UNQ
+
 ## 6.14.0
 
 ### Minor Changes

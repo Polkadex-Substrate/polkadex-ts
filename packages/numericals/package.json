@@ -4,7 +4,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "license": "GPL-3.0-only",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "files": [
     "dist/**"
   ],
@@ -16,15 +16,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "@polkadot-cloud/utils": "^0.3.0",
     "bignumber": "^1.1.0",
     "millify": "^6.1.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "tsup": "^7.2.0",
     "@polkadex/eslint-config": "*",
     "@types/jest": "^29.5.12",
     "ts-jest": "^29.1.2",
+    "tsup": "^7.2.0",
     "typescript": "latest"
   },
   "publishConfig": {
