@@ -186,6 +186,7 @@ export const bifrost = new Parachain({
     {
       asset: bnc,
       decimals: 12,
+      id: { Native: bnc.originSymbol },
     },
   ],
   ecosystem: Ecosystem.Polkadot,

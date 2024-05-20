@@ -15,8 +15,7 @@ const toPolkadex: AssetConfig[] = [
       asset: bnc,
       balance: BalanceBuilder().substrate().system().account(),
     },
-    // TODO: Change
-    extrinsic: ExtrinsicBuilderV2().xTokens().transferMultiassets().here(),
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
     fee: {
       asset: bnc,
       balance: BalanceBuilder().substrate().system().account(),

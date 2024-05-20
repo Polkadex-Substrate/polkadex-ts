@@ -4,10 +4,7 @@ import {
   ExtrinsicConfig,
 } from "@moonbeam-network/xcm-builder";
 
-import {
-  getExtrinsicAccount,
-  getExtrinsicArgumentVersion,
-} from "../ExtrinsicBuilder.utils";
+import { getExtrinsicAccount } from "../ExtrinsicBuilder.utils";
 
 import { toAsset, toDest } from "./xTokens.utils";
 
@@ -36,8 +33,8 @@ const transfer = () => ({
       new ExtrinsicConfig({
         module: pallet,
         func: "transfer",
-        getArgs: (func) => {
-          const version = getExtrinsicArgumentVersion(func, 2);
+        getArgs: () => {
+          const version = XcmVersion.v3;
           const account = getExtrinsicAccount(address);
           return [
             asset,

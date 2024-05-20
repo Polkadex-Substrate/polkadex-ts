@@ -186,7 +186,7 @@ export class Bifrost implements BaseChainAdapter {
       let amount = 0;
 
       // Native asset
-      if (!a.id) {
+      if (!a.id || !!Object.keys(a.id)) {
         const native = await api.query.system.account(address);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

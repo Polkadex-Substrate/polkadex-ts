@@ -275,7 +275,6 @@ const toBifrost: AssetConfig[] = [
       asset: bnc,
       balance: BalanceBuilder().substrate().system().account(),
     },
-    // TODO: Test it
     extrinsic: ExtrinsicBuilderV2()
       .theaExecuter()
       .parachainWithdraw()
