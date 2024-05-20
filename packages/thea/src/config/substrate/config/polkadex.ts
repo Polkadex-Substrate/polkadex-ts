@@ -26,6 +26,7 @@ import {
   ibtc,
   pdex,
   bnc,
+  vdot,
 } from "../assets";
 import { ExtrinsicBuilderV2 } from "../builders";
 
@@ -273,6 +274,28 @@ const toBifrost: AssetConfig[] = [
     destinationFee: {
       amount: 0, // TODO: Change it later
       asset: bnc,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: vdot,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: bifrost,
+    destinationFee: {
+      amount: 0, // TODO: Change it later
+      asset: vdot,
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2()

@@ -89,7 +89,7 @@ export const ASSETS: Asset[] = [
     name: "vDOT",
     ticker: "VDOT",
     id: "313524628741076911470961827389955394913",
-    decimal: 12,
+    decimal: 10,
     network: AssetType.Substrate,
   },
 ];

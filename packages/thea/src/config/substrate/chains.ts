@@ -32,6 +32,7 @@ import {
   intr,
   ibtc,
   bnc,
+  vdot,
 } from "./assets";
 
 export const assetHub = new Parachain({
@@ -188,6 +189,12 @@ export const bifrost = new Parachain({
       decimals: 12,
       id: { Native: bnc.originSymbol },
     },
+    {
+      asset: vdot,
+      id: { VToken2: 0 },
+      metadataId: { VToken2: 0 },
+      decimals: 10,
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: BIFROST_GENESIS,
@@ -258,6 +265,11 @@ export const polkadex = new Parachain({
       asset: bnc,
       decimals: ASSETS_MAP.get("BNC")?.decimal,
       id: ASSETS_MAP.get("BNC")?.id,
+    },
+    {
+      asset: vdot,
+      decimals: ASSETS_MAP.get("VDOT")?.decimal,
+      id: ASSETS_MAP.get("VDOT")?.id,
     },
   ],
   ecosystem: Ecosystem.Polkadot,
