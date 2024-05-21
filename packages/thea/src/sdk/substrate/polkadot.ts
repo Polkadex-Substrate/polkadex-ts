@@ -1,3 +1,4 @@
+import _ from "lodash";
 import Utils from "@polkadex/utils";
 import { Sdk } from "@moonbeam-network/xcm-sdk";
 import { ConfigService, ConfigBuilder } from "@moonbeam-network/xcm-config";
@@ -37,27 +38,40 @@ export class Polkadot implements BaseChainAdapter {
     return changeSubstrateToBaseChain(this.chain);
   }
 
-  getSupportedAssets(): Asset[] {
-    const substrate_assets = Array.from(this.chain.assetsData.values()).map(
-      (a) => changeSubstrateToBaseAsset(a)
-    );
+  getSupportedAssets(destinationChain: Chain): Asset[] {
+    const substrate_assets: Asset[] = [];
+
+    const supportedAssets = Array.from(this.chain.assetsData.values());
+    supportedAssets.forEach((asset) => {
+      const destChains = this.sdk
+        .assets()
+        .asset(asset.asset)
+        .source(this.chain).destinationChains;
+      if (destChains.find((c) => c.genesisHash === destinationChain.genesis)) {
+        substrate_assets.push(changeSubstrateToBaseAsset(asset));
+      }
+    });
+
     return [...substrate_assets];
   }
 
-  getDestinationChains(asset: Asset): Chain[] {
-    // Find for substrate ecosystem
+  getDestinationChains(): Chain[] {
     let substrateDestChains: Chain[] = [];
-    const substrateAsset = getSubstrateAsset(asset);
-    if (substrateAsset) {
+
+    const supportedAssets = this.sdk.assets().assets;
+
+    supportedAssets.forEach((asset) => {
       const destChains = this.sdk
         .assets()
-        .asset(substrateAsset)
+        .asset(asset)
         .source(this.chain).destinationChains;
-      substrateDestChains = destChains.map((c) =>
-        changeSubstrateToBaseChain(c)
-      );
-    }
-    return [...substrateDestChains];
+      substrateDestChains = [
+        ...substrateDestChains,
+        ...destChains.map((c) => changeSubstrateToBaseChain(c)),
+      ];
+    });
+
+    return [..._.uniqBy(substrateDestChains, "genesis")];
   }
 
   async getTransferConfig(

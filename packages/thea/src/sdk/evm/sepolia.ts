@@ -46,7 +46,7 @@ export class Sepolia implements EVMChainAdapter {
     return [ETHEREUM_ASSETS.ETH, ETHEREUM_ASSETS.LINK];
   }
 
-  getDestinationChains(asset: Asset): Chain[] {
+  getDestinationChains(): Chain[] {
     const substrate_chains = [polkadex].map((c) =>
       changeSubstrateToBaseChain(c)
     );

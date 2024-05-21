@@ -17,12 +17,17 @@ export const PolkadotEco = () => {
 
   const queryBalances = async () => {
     const srcChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
+    const destChain = getAllChains().find((c) => c.name === DESTINATION_CHAIN);
     if (!srcChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    if (!destChain) throw new Error(`${DESTINATION_CHAIN} chain not found..`);
     console.log("Querying balances...");
     const srcChainConnector = getChainConnector(srcChain.genesis);
-    const assets = srcChainConnector.getSupportedAssets();
-    const balances = await srcChainConnector.getBalances(fromAddress, assets);
-    console.log(balances);
+    srcChainConnector.getDestinationChains().forEach(async (c) => {
+      console.log("For ", c.name, "=>");
+      const assets = srcChainConnector.getSupportedAssets(c);
+      const balances = await srcChainConnector.getBalances(fromAddress, assets);
+      console.log(balances);
+    });
   };
   const xcmTransfer = async () => {
     const { web3Enable, web3FromAddress } = await import(
@@ -38,17 +43,17 @@ export const PolkadotEco = () => {
     if (!srcChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
     const srcChainConnector = getChainConnector(srcChain.genesis);
 
+    const destChain = srcChainConnector
+      .getDestinationChains()
+      .find((c) => c.name === DESTINATION_CHAIN);
+
+    if (!destChain) throw new Error(`${DESTINATION_CHAIN} chain not found..`);
+
     const selectedAsset = srcChainConnector
-      .getSupportedAssets()
+      .getSupportedAssets(destChain)
       .find((a) => a.ticker === SELECTED_ASSET);
 
     if (!selectedAsset) throw new Error("Could not find asset...");
-
-    const destChain = srcChainConnector
-      .getDestinationChains(selectedAsset)
-      .find((c) => c.name === DESTINATION_CHAIN);
-
-    if (!destChain) throw new Error("Invalid destination chain..");
 
     console.log("Doing transfer...");
     const transferConfig = await srcChainConnector.getTransferConfig(
