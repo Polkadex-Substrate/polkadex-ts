@@ -38,12 +38,14 @@ export const EthereumEco = () => {
 
   const getAllBalances = async () => {
     const sourceChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
+    const destChain = getAllChains().find((c) => c.name === DESTINATION_CHAIN);
     if (!sourceChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    if (!destChain) throw new Error(`${DESTINATION_CHAIN} chain not found..`);
     const sepoliaConnector = getChainConnector(sourceChain.genesis);
 
     console.log("Fetching balance...");
     const selectedAddress = await authoizeMetamask();
-    const assets = sepoliaConnector.getSupportedAssets();
+    const assets = sepoliaConnector.getSupportedAssets(destChain);
     const balances = await sepoliaConnector.getBalances(
       selectedAddress as string,
       assets
@@ -53,13 +55,15 @@ export const EthereumEco = () => {
 
   const approveTransfer = async () => {
     const sourceChain = getAllChains().find((c) => c.name === SOURCE_CHAIN);
+    const destChain = getAllChains().find((c) => c.name === DESTINATION_CHAIN);
     if (!sourceChain) throw new Error(`${SOURCE_CHAIN} chain not found..`);
+    if (!destChain) throw new Error(`${DESTINATION_CHAIN} chain not found..`);
     const sepoliaConnector = getChainConnector(
       sourceChain.genesis
     ) as EVMChainAdapter;
 
     const selectedAddress = await authoizeMetamask();
-    const linkAsset = sepoliaConnector.getSupportedAssets()[1];
+    const linkAsset = sepoliaConnector.getSupportedAssets(destChain)[1];
     const { request } =
       await sepoliaConnector.approveTokenTransfer<SimulateContractReturnType>(
         AMOUNT,
@@ -87,7 +91,7 @@ export const EthereumEco = () => {
     ) as EVMChainAdapter;
 
     const selectedAddress = await authoizeMetamask();
-    const linkAsset = sepoliaConnector.getSupportedAssets()[1];
+    const linkAsset = sepoliaConnector.getSupportedAssets(destChain)[1];
 
     const transferConfig = await sepoliaConnector.getTransferConfig(
       polkadexConnector.getChain(),
