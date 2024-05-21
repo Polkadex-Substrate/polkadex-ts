@@ -2,7 +2,6 @@ import {
   ChainCard,
   Interaction,
   Interactable as PolkadeInteractable,
-  ProviderCard,
   Typography,
   useInteractableProvider,
 } from "@polkadex/ux";
