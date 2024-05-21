@@ -41,3 +41,4 @@ export * from "./interactable";
 export * from "./passcode";
 export * from "./progressBar";
 export * from "./chain";
+export * from "./intro";
