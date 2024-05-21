@@ -14,20 +14,26 @@ const config: StorybookConfig = {
     "../stories/**/*.mdx",
     "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
+
   addons: [
     getAbsolutePath("@storybook/addon-links"),
     getAbsolutePath("@storybook/addon-essentials"),
     getAbsolutePath("@storybook/addon-onboarding"),
     getAbsolutePath("@storybook/addon-interactions"),
     getAbsolutePath("@storybook/addon-styling-webpack"),
-    "@storybook/addon-themes"
+    getAbsolutePath("@storybook/addon-themes"),
+    "@chromatic-com/storybook"
   ],
+
   framework: {
     name: getAbsolutePath("@storybook/nextjs"),
     options: {},
   },
-  docs: {
-    autodocs: "tag",
-  },
+
+  docs: {},
+
+  typescript: {
+    reactDocgen: "react-docgen-typescript"
+  }
 };
 export default config;
