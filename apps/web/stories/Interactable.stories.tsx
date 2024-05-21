@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Intro } from "./Intro";
+import { Interactable } from "./Interactable";
 
 const meta = {
-  title: "Components/Intro",
-  component: Intro,
+  title: "Components/Interactable",
+  component: Interactable,
   parameters: {
     layout: "centered",
   },
-} satisfies Meta<typeof Intro>;
+} satisfies Meta<typeof Interactable>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
