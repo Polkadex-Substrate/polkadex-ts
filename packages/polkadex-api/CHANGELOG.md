@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.6.1
+
+### Patch Changes
+
+- c9889c4: fix: update withdraw payload
+
 ## 3.6.0
 
 ### Minor Changes
