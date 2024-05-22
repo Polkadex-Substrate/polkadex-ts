@@ -1,5 +1,16 @@
 # @polkadex/polkapool
 
+## 1.1.0
+
+### Minor Changes
+
+- 311eaea: Fixed build errors for Polkapool project
+
+### Patch Changes
+
+- Updated dependencies [df6030f]
+  - @polkadex/polkadex-api@3.4.0
+
 ## 1.0.0
 
 ### Major Changes

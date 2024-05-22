@@ -149,8 +149,11 @@ ItemCheckbox.displayName = "ItemCheckbox";
 
 const Item = forwardRef<
   ElementRef<typeof DropdownMenu.Item>,
-  ComponentPropsWithoutRef<typeof DropdownMenu.Item> & { shortcut?: string }
->(({ children, shortcut, className, ...props }, ref) => {
+  ComponentPropsWithoutRef<typeof DropdownMenu.Item> & {
+    shortcut?: string;
+    withStyle?: boolean;
+  }
+>(({ children, shortcut, className, withStyle = true, ...props }, ref) => {
   const isString = typeofChildren(children);
 
   return (
@@ -158,9 +161,10 @@ const Item = forwardRef<
       ref={ref}
       className={twMerge(
         classNames(
-          "p-2 m-1 flex justify-between gap-4 outline-none cursor-default",
-          "transition-colors duration-300 focus:bg-level-3 rounded-md",
-          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
+          "flex justify-between gap-4 outline-none cursor-pointer",
+          "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+          withStyle &&
+            "p-2 m-1 focus:bg-level-3 rounded-md transition-colors duration-300"
         ),
         className
       )}

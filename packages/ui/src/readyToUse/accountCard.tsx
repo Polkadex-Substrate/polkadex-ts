@@ -1,10 +1,12 @@
 "use client";
 
 import classNames from "classnames";
-import { PropsWithChildren } from "react";
+import { ElementType, Fragment, PropsWithChildren } from "react";
+import { getExtensionIcon } from "@polkadot-cloud/assets/extensions";
 
-import { Copy, Typography } from "../components";
-import { truncateString, Icons } from "../../index";
+import { Copy, Typography, Icon } from "../components";
+import { truncateString } from "../helpers";
+import { Icons } from "../..";
 
 type WalletCardProps = {
   name?: string;
@@ -13,6 +15,9 @@ type WalletCardProps = {
   withIcon?: boolean;
   hoverable?: boolean;
   present?: boolean;
+  addressLength?: number;
+  source?: string;
+  largeText?: boolean;
 };
 
 const AccountCard = ({
@@ -21,9 +26,14 @@ const AccountCard = ({
   onClick,
   withIcon = true,
   hoverable = true,
+  addressLength = 12,
+  source,
+  largeText,
   children,
 }: PropsWithChildren<WalletCardProps>) => {
-  const shortAddress = truncateString(address, 12);
+  const shortAddress = truncateString(address, addressLength);
+
+  const IconComponent = getExtensionIcon(source as string) as ElementType;
 
   const props = onClick && {
     role: "Button",
@@ -35,18 +45,31 @@ const AccountCard = ({
       {...props}
       className={classNames(
         "flex-1 flex items-center gap-3 justify-between rounded-lg cursor-pointer",
-        hoverable && "p-3 hover:bg-level-4 duration-300 transition-colors"
+        hoverable && "p-3 hover:bg-level-1 duration-300 transition-colors"
       )}
     >
       <div className="flex justify-between items-center gap-1">
         <div className="flex items-center gap-2 ">
           {withIcon && (
-            <div className="flex items-center justify-center w-9 h-9 p-1 bg-level-3 rounded-full">
-              <Icons.Avatar />
-            </div>
+            <Fragment>
+              {IconComponent ? (
+                <Icon
+                  size="lg"
+                  className="border border-primary rounded-full p-2"
+                >
+                  <IconComponent />
+                </Icon>
+              ) : (
+                <div className="flex items-center justify-center w-9 h-9 p-1 bg-level-3 rounded-full">
+                  <Icons.Avatar />
+                </div>
+              )}
+            </Fragment>
           )}
           <div className="flex flex-col">
-            <Typography.Text bold>{name}</Typography.Text>
+            <Typography.Text bold size={largeText ? "lg" : "sm"}>
+              {name}
+            </Typography.Text>
             <div className="flex items-center gap-1 text-primary">
               <Copy value={address} />
               <Typography.Text appearance="primary">
@@ -68,9 +91,10 @@ const Inverted = ({
   withIcon = true,
   hoverable = true,
   present = true,
+  addressLength = 8,
   children,
 }: PropsWithChildren<WalletCardProps>) => {
-  const shortAddress = truncateString(address, 8);
+  const shortAddress = truncateString(address, addressLength);
 
   const props = onClick && {
     role: "Button",
@@ -106,7 +130,7 @@ const Inverted = ({
                 appearance="attention"
                 size="xs"
                 bold
-                className="px-1 py-0.5 rounded-md bg-attention-base/20 w-fit"
+                className="px-1 py-0.5 rounded-md bg-attention-base bg-opacity-20 w-fit"
               >
                 Not present
               </Typography.Text>
@@ -120,4 +144,5 @@ const Inverted = ({
 };
 
 AccountCard.Inverted = Inverted;
+
 export { AccountCard };

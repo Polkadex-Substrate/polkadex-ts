@@ -1,3 +1,5 @@
+import { getToken } from "..";
+
 import { GoogleDriveApi } from "./api";
 import { GoogleOauth } from "./oauth";
 
@@ -30,7 +32,8 @@ class GoogleDriveStorage {
 
   async auth(): Promise<void> {
     await this.init();
-    await this.oauth.checkToken();
+    const localToken = getToken();
+    if (!localToken) await this.oauth.checkToken();
   }
 
   async createBackupFolder() {

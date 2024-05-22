@@ -2,6 +2,8 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { SubmittableExtrinsic } from "@polkadot/api/types";
+import { ISubmittableResult } from "@polkadot/types/types";
 
 import { signAndSend } from "@/helpers";
 import { useCoreProvider } from "@/core";
@@ -32,14 +34,14 @@ export function useRemoveLiquidity() {
     }: RemoveLiquidityProps) => {
       if (!account || !api || !swapApi) return;
 
-      const extrinsic = await swapApi.removeLiquidityTx(
+      const extrinsic = (await swapApi.removeLiquidityTx(
         baseId,
         quoteId,
         lpTokenBurnAmount,
         baseMinAmount,
         quoteMinAmount,
         account.address
-      );
+      )) as unknown as SubmittableExtrinsic<"promise", ISubmittableResult>;
 
       const res = await signAndSend({
         api,
