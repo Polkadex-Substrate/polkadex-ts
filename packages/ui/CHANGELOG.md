@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.24.0
+
+### Minor Changes
+
+- f7fe0f4: feat: Intro component
+
 ## 6.23.0
 
 ### Minor Changes
