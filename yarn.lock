@@ -7851,7 +7851,7 @@ smoldot@2.0.22:
   dependencies:
     ws "^8.8.1"
 
-sonner@^1.4.0, sonner@^1.4.41:
+sonner@^1.4.0:
   version "1.4.41"
   resolved "https://registry.yarnpkg.com/sonner/-/sonner-1.4.41.tgz#ff085ae4f4244713daf294959beaa3e90f842d2c"
   integrity sha512-uG511ggnnsw6gcn/X+YKkWPo5ep9il9wYi3QJxHsYe7yTZ4+cOd1wuodOUmOpFuXL+/RE3R04LczdNCDygTDgQ==
