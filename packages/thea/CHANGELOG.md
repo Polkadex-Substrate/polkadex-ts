@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 5.3.0
+
+### Minor Changes
+
+- a04122b: Added a helper function to get all supported assets and fixed issue with THEA withdrawal
+
 ## 5.2.0
 
 ### Minor Changes
