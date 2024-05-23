@@ -1,5 +1,5 @@
 import { XcmVersion } from "@moonbeam-network/xcm-builder";
-import { AnyChain } from "@moonbeam-network/xcm-types";
+import { AnyChain, ChainAssetId } from "@moonbeam-network/xcm-types";
 
 export const toBeneficiary = (
   version: XcmVersion,
@@ -30,4 +30,8 @@ export const toBeneficiary = (
       },
     },
   };
+};
+
+export const toAsset = (asset: ChainAssetId) => {
+  return asset === "0" ? "Polkadex" : { Asset: asset };
 };
