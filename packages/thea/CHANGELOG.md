@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 5.2.0
+
+### Minor Changes
+
+- 0f4ec4c: In this PR, we will be doing a minor change in cross-chain interfaces that we designed earlier. There was a design flaw which have been fixed in this PR now.
+
 ## 5.1.0
 
 ### Minor Changes
