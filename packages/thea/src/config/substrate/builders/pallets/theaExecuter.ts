@@ -6,7 +6,7 @@ import {
 
 import { getExtrinsicAccount } from "../ExtrinsicBuilder.utils";
 
-import { toBeneficiary } from "./theaExecuter.utils";
+import { toAsset, toBeneficiary } from "./theaExecuter.utils";
 
 const pallet = "theaExecutor";
 
@@ -23,7 +23,7 @@ const parachainWithdraw = () => {
               const version = XcmVersion.v3;
               const account = getExtrinsicAccount(address);
               return [
-                asset,
+                toAsset(asset),
                 amount,
                 toBeneficiary(version, destination, account),
                 null,
@@ -46,10 +46,10 @@ const parachainWithdraw = () => {
               const version = XcmVersion.v3;
               const account = getExtrinsicAccount(address);
               return [
-                asset,
+                toAsset(asset),
                 amount,
                 toBeneficiary(version, destination, account),
-                feeAssetId,
+                toAsset(feeAssetId),
                 feeAmount,
                 true,
                 false,

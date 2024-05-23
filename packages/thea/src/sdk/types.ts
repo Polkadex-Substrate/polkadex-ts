@@ -23,6 +23,9 @@ export interface BaseChainAdapter {
   // Get current chain
   getChain(): Chain;
 
+  // Get all supported assets
+  getAllAssets: () => Asset[];
+
   // Get supported assets for given destination chain
   getSupportedAssets: (destChain: Chain) => Asset[];
 
