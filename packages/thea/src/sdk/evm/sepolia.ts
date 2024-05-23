@@ -38,6 +38,10 @@ export class Sepolia implements EVMChainAdapter {
     });
   }
 
+  getAllAssets(): Asset[] {
+    return [ETHEREUM_ASSETS.ETH, ETHEREUM_ASSETS.LINK];
+  }
+
   getChain(): Chain {
     return sepoliaChain;
   }

@@ -38,6 +38,12 @@ export class Polkadex implements BaseChainAdapter {
     return changeSubstrateToBaseChain(this.chain);
   }
 
+  getAllAssets(): Asset[] {
+    return Array.from(this.chain.assetsData.values()).map((a) =>
+      changeSubstrateToBaseAsset(a)
+    );
+  }
+
   getSupportedAssets(destinationChain: Chain): Asset[] {
     const substrate_assets: Asset[] = [];
 
