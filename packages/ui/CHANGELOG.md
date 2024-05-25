@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.24.1
+
+### Patch Changes
+
+- 596a9a0: Updated Moonbeam logo
+
 ## 6.24.0
 
 ### Minor Changes
