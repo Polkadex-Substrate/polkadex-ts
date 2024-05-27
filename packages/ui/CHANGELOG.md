@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.25.0
+
+### Minor Changes
+
+- 68c3484: Added a new enum for ChainType and minor UI fix
+
 ## 6.24.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 5.4.0
+
+### Minor Changes
+
+- 68c3484: Added a new enum for ChainType and minor UI fix
+
 ## 5.3.0
 
 ### Minor Changes
