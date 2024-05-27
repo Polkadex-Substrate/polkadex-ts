@@ -132,6 +132,14 @@ export class Interlay implements BaseChainAdapter {
       ),
     };
 
+    const sourceFeeExistential: AssetAmount = {
+      ticker: transferConfig.source.existentialDeposit.originSymbol,
+      amount: +Utils.formatUnits(
+        transferConfig.source.existentialDeposit.amount,
+        transferConfig.source.existentialDeposit.decimals
+      ),
+    };
+
     const destinationFee: AssetAmount = {
       ticker: transferConfig.destination.fee.originSymbol,
       amount: +Utils.formatUnits(
@@ -157,6 +165,7 @@ export class Interlay implements BaseChainAdapter {
       destinationFee,
       sourceFeeBalance,
       destinationFeeBalance,
+      sourceFeeExistential,
 
       transfer: async <T>(amount: number): Promise<T> => {
         const api = await getPolkadotApi(this.chain.ws);

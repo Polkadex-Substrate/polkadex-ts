@@ -87,7 +87,7 @@ const Primary = forwardRef<ElementRef<"input">, InputWithContainerProps>(
         {...containerProps}
       >
         <div className="flex flex-1 items-center justify-between gap-2 pl-3 pr-2">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-1 items-center gap-2">
             {LabelComponent}
             <Base
               ref={ref}
