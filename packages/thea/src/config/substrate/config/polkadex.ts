@@ -152,7 +152,7 @@ const toAstar: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: astar,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.05,
       asset: astr,
       balance: BalanceBuilder().substrate().system().account(),
     },

@@ -11,8 +11,9 @@ export type TransferConfig = {
   min: AssetAmount;
   max: AssetAmount;
   sourceFee: AssetAmount;
-  destinationFee: AssetAmount;
   sourceFeeBalance: AssetAmount;
+  sourceFeeExistential: AssetAmount;
+  destinationFee: AssetAmount;
   destinationFeeBalance: AssetAmount;
 
   // Do the actual transfer
