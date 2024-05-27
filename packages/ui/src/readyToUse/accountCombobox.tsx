@@ -29,7 +29,7 @@ const ExtensionsArrayWhitelist = ExtensionsArray?.filter(
 
 const EvmWallets = ["talisman"];
 
-const initialValue = ExtensionsArray.find(({ id }) => id === "polkadot-js");
+const initialValue = ExtensionsArray.find(({ id }) => id === "talisman");
 export const AccountCombobox = ({
   account,
   evm = false,
