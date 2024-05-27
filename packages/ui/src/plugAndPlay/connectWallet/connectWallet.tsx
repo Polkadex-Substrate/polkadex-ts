@@ -13,7 +13,7 @@ const ExtensionsArrayWhitelist = ExtensionsArray?.filter(
   (item) => item.id !== "metamask-polkadot-snap"
 );
 
-const EvmWallets = ["subwallet-js", "talisman", "enkrypt"];
+const EvmWallets = ["talisman"];
 
 interface ConnectWalletProps extends InteractionProps {
   onConnectProvider: (value: ExtensionDetails) => void;
