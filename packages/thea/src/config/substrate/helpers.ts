@@ -1,4 +1,8 @@
-import { AnyChain, ChainAssetsData } from "@moonbeam-network/xcm-types";
+import {
+  AnyChain,
+  ChainAssetsData,
+  ChainType as MoonbeamChainType,
+} from "@moonbeam-network/xcm-types";
 
 import { Asset, ChainType, Chain } from "../types";
 
@@ -8,7 +12,10 @@ export const changeSubstrateToBaseChain = (chain: AnyChain): Chain => ({
   genesis: chain.genesisHash,
   logo: chain.name,
   name: chain.name,
-  type: ChainType.Substrate,
+  type:
+    chain.type === MoonbeamChainType.EvmParachain
+      ? ChainType.EvmSubstrate
+      : ChainType.Substrate,
   isTestnet: chain.isTestChain,
 });
 
