@@ -5,36 +5,63 @@ import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 
 import * as Icons from "../icons";
-import { SizesVariants, TokenAppearance, sizesVariants } from "../helpers";
+import {
+  AppearanceBackgroundVariants,
+  SizesVariants,
+  sizesVariants,
+} from "../helpers";
+
+import { Skeleton } from "./skeleton";
 
 export type IconsProps = keyof typeof Icons;
-interface Props extends ComponentProps<"svg"> {
+
+interface Props extends ComponentProps<"div"> {
   name?: IconsProps;
-  appearance?: TokenAppearance;
+  appearance?: AppearanceBackgroundVariants;
   size?: SizesVariants;
+  bordered?: boolean;
+  rounded?: boolean;
+  loading?: boolean;
 }
 
 export const Icon = ({
   name,
-  size,
+  size = "md",
   className,
+  appearance,
+  loading,
+  bordered,
+  rounded,
   children,
   ...props
 }: PropsWithChildren<Props>) => {
-  const iconUppercase = name?.toUpperCase();
-  const iconTicker =
-    Object.keys(Icons).find(
-      (iconName) => iconName.toUpperCase() === iconUppercase
-    ) || "Unknown";
+  const initialName = name ?? "Unknown";
+  const IconComponent = Icons[initialName];
 
-  const IconComponent = Icons[iconTicker as keyof typeof Icons];
-  const customProps = twMerge(
-    classNames(size && sizesVariants[size]),
-    className
-  );
-  return children ? (
-    <div className={customProps}>{children}</div>
-  ) : (
-    <IconComponent className={customProps} {...props} />
+  return (
+    <Skeleton
+      loading={loading}
+      className={classNames(
+        "flex-none",
+        sizesVariants[size],
+        rounded && "rounded-full"
+      )}
+    >
+      <div
+        className={twMerge(
+          classNames(
+            "flex items-center justify-center",
+            sizesVariants[size],
+            appearance && `bg-${appearance}`,
+            bordered && "border border-secondary",
+            rounded && "rounded-full"
+          ),
+          className
+        )}
+        {...props}
+      >
+        {children || <IconComponent className="w-full h-full" />}
+      </div>
+    </Skeleton>
   );
 };

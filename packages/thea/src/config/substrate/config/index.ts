@@ -8,6 +8,7 @@ import { phalaConfig } from "./phala";
 import { moonbeamConfig } from "./moonbeam";
 import { uniqueConfig } from "./unique";
 import { interlayConfig } from "./interlay";
+import { bifrostConfig } from "./bifrost";
 
 export const chainsConfig: ChainConfig[] = [
   assetHubConfig,
@@ -18,6 +19,7 @@ export const chainsConfig: ChainConfig[] = [
   moonbeamConfig,
   uniqueConfig,
   interlayConfig,
+  bifrostConfig,
 ];
 
 export const chainsConfigMap = new Map<string, ChainConfig>(

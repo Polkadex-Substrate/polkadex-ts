@@ -1,5 +1,52 @@
 # @polkadex/ux
 
+## 6.24.1
+
+### Patch Changes
+
+- 596a9a0: Updated Moonbeam logo
+
+## 6.24.0
+
+### Minor Changes
+
+- f7fe0f4: feat: Intro component
+
+## 6.23.0
+
+### Minor Changes
+
+- accc979: fix: Dropdown Item hover style
+  fix: truncateNames helper
+  fix: ProviderCard custom props
+  feat: AccountCombobox component
+  feat: SelectChain component
+  fix: Input mobile/desktop styles
+  fix: Icon component props
+  fix: Token component props
+  fix: Chain component props
+  feat: ExtensionsAccounts + Authorization reusable component
+  feat: Connect Wallet reusable component
+  fix: theme variants
+
+## 6.22.0
+
+### Minor Changes
+
+- 0adc374: - [x] feat: new quaternary color variant to the Button component.
+  - [x] fix: Removed unnecessary child validation from the HoverCard component.
+  - [x] fix: Improved the style of the ProviderCard component.
+  - [x] feat: HoverInformation component
+  - [x] feat: ResponsiveCard component
+  - [x] feat: Chain componen
+  - [x] feat: GenericHorizontalCard component
+
+## 6.21.0
+
+### Minor Changes
+
+- 6f4ba9c: feat: Implemented new SVG components for the following blockchain chains: AssetHub, Astar, Bifrost, Ethereum, Interlay, Moonbeam, Phala, Polkadex, Polkadot, Unique, Unknown
+
 ## 6.20.0
 
 ### Minor Changes

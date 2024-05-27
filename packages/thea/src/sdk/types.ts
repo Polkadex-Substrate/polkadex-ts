@@ -11,8 +11,9 @@ export type TransferConfig = {
   min: AssetAmount;
   max: AssetAmount;
   sourceFee: AssetAmount;
-  destinationFee: AssetAmount;
   sourceFeeBalance: AssetAmount;
+  sourceFeeExistential: AssetAmount;
+  destinationFee: AssetAmount;
   destinationFeeBalance: AssetAmount;
 
   // Do the actual transfer
@@ -23,11 +24,14 @@ export interface BaseChainAdapter {
   // Get current chain
   getChain(): Chain;
 
-  // Get all supported assets for current chain
-  getSupportedAssets: () => Asset[];
+  // Get all supported assets
+  getAllAssets: () => Asset[];
 
-  // Available destination chains for an asset
-  getDestinationChains(asset: Asset): Chain[];
+  // Get supported assets for given destination chain
+  getSupportedAssets: (destChain: Chain) => Asset[];
+
+  // Get all available destination chains
+  getDestinationChains(): Chain[];
 
   // Get transfer configuration
   getTransferConfig(

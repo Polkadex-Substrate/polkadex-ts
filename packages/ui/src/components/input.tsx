@@ -1,3 +1,5 @@
+// TODO: Remove component validations
+
 "use client";
 
 import {
@@ -46,7 +48,7 @@ const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
         type="text"
         className={twMerge(
           classNames(
-            "flex-1 bg-transparent text-white placeholder:text-secondary outline-none"
+            "flex-1 bg-transparent text-white placeholder:text-secondary outline-none max-sm:focus:text-[16px]"
           ),
           className
         )}
@@ -59,16 +61,16 @@ const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
 Base.displayName = "Base";
 
 interface InputWithContainerProps extends ComponentPropsWithoutRef<"input"> {
-  contianerProps?: ComponentProps<"div">;
+  containerProps?: ComponentProps<"div">;
 }
 const Primary = forwardRef<ElementRef<"input">, InputWithContainerProps>(
-  ({ children, className, contianerProps, ...props }) => {
+  ({ children, className, containerProps, ...props }) => {
     const ref = useRef<HTMLInputElement>(null);
     const ButtonComponents = isValidComponent(children, Button);
     const [LabelComponent] = isValidComponent(children, Label);
     const [TickerComponent] = isValidComponent(children, Ticker);
 
-    const { className: containerClassName } = contianerProps ?? {};
+    const { className: containerClassName } = containerProps ?? {};
     return (
       <div
         className={twMerge(
@@ -82,10 +84,10 @@ const Primary = forwardRef<ElementRef<"input">, InputWithContainerProps>(
           e.stopPropagation();
           ref?.current?.focus();
         }}
-        {...contianerProps}
+        {...containerProps}
       >
         <div className="flex flex-1 items-center justify-between gap-2 pl-3 pr-2">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-1 items-center gap-2">
             {LabelComponent}
             <Base
               ref={ref}
@@ -161,17 +163,21 @@ const Label = ({
 );
 
 const Search = forwardRef<ElementRef<"input">, InputWithContainerProps>(
-  ({ contianerProps, ...props }, ref) => {
-    const { className } = contianerProps ?? {};
+  ({ containerProps, className, ...props }, ref) => {
+    const { className: containerClassName } = containerProps ?? {};
     return (
       <div
         className={twMerge(
           classNames("flex flex-1 items-center gap-2"),
-          className
+          containerClassName
         )}
       >
         <RiSearchLine className="w-4 h-4 text-primary" />
-        <Base ref={ref} className="text-sm" {...props} />
+        <Base
+          ref={ref}
+          className={twMerge(classNames("text-sm"), className)}
+          {...props}
+        />
       </div>
     );
   }
@@ -181,20 +187,28 @@ Search.displayName = "Search";
 const Vertical = ({
   id,
   children,
-  contianerProps,
+  containerProps,
+  className,
   ...props
 }: InputWithContainerProps) => {
   const LabelComponent = isValidComponent(children, Label);
   const ButtonComponent = isValidComponent(children, Action);
 
-  const { className } = contianerProps ?? {};
+  const { className: containerClassName } = containerProps ?? {};
   return (
     <div
-      className={twMerge(classNames("flex flex-col gap-2 w-full"), className)}
+      className={twMerge(
+        classNames("flex flex-col gap-2 w-full"),
+        containerClassName
+      )}
     >
       {LabelComponent}
       <div className="flex items-center justify-between gap-2 flex-1">
-        <Base id={id} className="text-lg font-medium" {...props} />
+        <Base
+          id={id}
+          className={twMerge(classNames("text-lg font-medium"), className)}
+          {...props}
+        />
         {ButtonComponent}
       </div>
     </div>

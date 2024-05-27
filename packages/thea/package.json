@@ -4,7 +4,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "license": "GPL-3.0-only",
-  "version": "5.0.0",
+  "version": "5.3.0",
   "files": [
     "dist/**"
   ],
@@ -18,6 +18,7 @@
   "dependencies": {
     "@moonbeam-network/xcm-sdk": "^2.1.2",
     "@polkadex/numericals": "*",
+    "@polkadex/polkadex-api": "*",
     "@polkadex/utils": "^1.1.46",
     "@polkadot/api": "^10.13.1",
     "@polkadot/apps-config": "^0.136.1",
@@ -25,12 +26,13 @@
     "@polkadot/util": "^12.6.2",
     "@polkadot/util-crypto": "^12.6.2",
     "bignumber": "^1.1.0",
-    "viem": "^2.9.0",
-    "@polkadex/polkadex-api": "*"
+    "lodash": "^4.17.21",
+    "viem": "^2.9.0"
   },
   "devDependencies": {
     "@polkadex/eslint-config": "*",
     "@polkadex/types": "*",
+    "@types/lodash": "^4.17.4",
     "tsup": "^7.2.0",
     "typescript": "latest",
     "vitest": "^1.3.1"

@@ -1,5 +1,6 @@
 export enum ChainType {
   Substrate,
+  EvmSubstrate,
   Evm,
 }
 
