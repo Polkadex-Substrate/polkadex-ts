@@ -1,5 +1,13 @@
 # @polkadex/ux
 
+## 6.25.1
+
+### Patch Changes
+
+- 6dd7db3: Allow fetching EVM wallets
+- Updated dependencies [6dd7db3]
+  - @polkadex/react-providers@2.2.1
+
 ## 6.25.0
 
 ### Minor Changes

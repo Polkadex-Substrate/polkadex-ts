@@ -1,6 +1,6 @@
 {
   "name": "@polkadex/polkapool",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "author": "Kas Ferreira <rodolfo@polkadex.trade>",
   "scripts": {
@@ -14,9 +14,9 @@
     "@polkadex/blockchain-api": "^1.1.61",
     "@polkadex/numericals": "^0.4.0",
     "@polkadex/polkadex-api": "^3.4.0",
-    "@polkadex/react-providers": "^2.0.0",
+    "@polkadex/react-providers": "^2.2.1",
     "@polkadex/types": "^1.2.3",
-    "@polkadex/ux": "^6.15.0",
+    "@polkadex/ux": "^6.25.1",
     "@polkadot-cloud/assets": "^0.4.0",
     "@polkadot/api": "^10.12.4",
     "@polkadot/util": "^12.6.2",
