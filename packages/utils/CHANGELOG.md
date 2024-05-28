@@ -1,5 +1,11 @@
 # @polkadex/utils
 
+## 0.2.1
+
+### Patch Changes
+
+- 6dd7db3: Allow fetching EVM wallets
+
 ## 0.2.0
 
 ### Minor Changes
