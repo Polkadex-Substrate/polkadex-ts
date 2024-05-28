@@ -26,7 +26,9 @@ export const ConnectAccount = () => {
   const walletsFiltered = useMemo(
     () =>
       !!extensionAccounts && !!sourceId
-        ? extensionAccounts.filter((e) => e.source === sourceId)
+        ? extensionAccounts.filter(
+            (e) => e.source === sourceId && e.type === "sr25519"
+          )
         : [],
     [extensionAccounts, sourceId]
   );

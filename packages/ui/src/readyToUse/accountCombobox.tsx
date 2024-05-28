@@ -9,7 +9,7 @@ import { ExtensionsArray } from "@polkadot-cloud/assets/extensions";
 import { useMemo, useRef, useState } from "react";
 import { RiCheckLine, RiWalletLine } from "@remixicon/react";
 import { useMeasure } from "react-use";
-import { isValidAddress } from "@polkadex/utils";
+import { isValidAddress, isValidEvmAddress } from "@polkadex/utils";
 
 import {
   Button,
@@ -27,13 +27,17 @@ const ExtensionsArrayWhitelist = ExtensionsArray?.filter(
   ({ id }) => id !== "metamask-polkadot-snap"
 );
 
-const initialValue = ExtensionsArray.find(({ id }) => id === "polkadot-js");
+const EvmWallets = ["talisman"];
+
+const initialValue = ExtensionsArray.find(({ id }) => id === "talisman");
 export const AccountCombobox = ({
   account,
+  evm = false,
   setAccount,
 }: {
   account?: ExtensionAccount | null;
   setAccount: (e?: ExtensionAccount | null) => void;
+  evm?: boolean;
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedExtension, setSelectedExtension] = useState(initialValue);
@@ -52,22 +56,26 @@ export const AccountCombobox = ({
   const walletsFiltered = useMemo(
     () =>
       extensionAccounts?.filter(
-        ({ source, address }) =>
-          source === selectedExtension?.id && address !== account?.address
+        ({ source, address, type }) =>
+          source === selectedExtension?.id &&
+          address !== account?.address &&
+          (evm ? type === "ethereum" : type === "sr25519")
       ),
-    [extensionAccounts, selectedExtension?.id, account?.address]
+    [extensionAccounts, selectedExtension?.id, account?.address, evm]
   );
 
   const onPaste = async () => {
     try {
       const address = await navigator.clipboard.readText();
-      const isValid = isValidAddress(address);
+      const isValid = evm
+        ? isValidEvmAddress(address)
+        : isValidAddress(address);
 
       if (isValid)
         setAccount({
           name: "Custom address",
           address,
-          type: "sr25519",
+          type: evm ? "ethereum" : "sr25519",
           source: "custom",
         });
       else {
@@ -142,18 +150,20 @@ export const AccountCombobox = ({
                   (a, b) =>
                     Number(!!extensionsStatus[b.id]) -
                     Number(!!extensionsStatus[a.id])
-                )?.map((value) => {
-                  return (
-                    <ProviderCard
-                      key={value.id}
-                      title={value.title}
-                      icon={value.id}
-                      action={() => setSelectedExtension(value)}
-                      installed={!!extensionsStatus?.[value.id]}
-                      className="py-2 px-1"
-                    />
-                  );
-                })}
+                )
+                  ?.filter((e) => (evm ? EvmWallets.includes(e.id) : true))
+                  ?.map((value) => {
+                    return (
+                      <ProviderCard
+                        key={value.id}
+                        title={value.title}
+                        icon={value.id}
+                        action={() => setSelectedExtension(value)}
+                        installed={!!extensionsStatus?.[value.id]}
+                        className="py-2 px-1"
+                      />
+                    );
+                  })}
               </div>
               <div className="flex flex-col flex-1">
                 <Searchable.Empty className="flex-1 flex items-center justify-center">
