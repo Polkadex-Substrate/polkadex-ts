@@ -43,7 +43,8 @@ export const AccountCombobox = ({
   const [selectedExtension, setSelectedExtension] = useState(initialValue);
 
   const { extensionsStatus } = useExtensions();
-  const { extensionAccounts } = useExtensionAccounts();
+  const { extensionAccounts, connectExtensionAccounts } =
+    useExtensionAccounts();
   const [ref, bounds] = useMeasure<HTMLButtonElement>();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -158,7 +159,10 @@ export const AccountCombobox = ({
                         key={value.id}
                         title={value.title}
                         icon={value.id}
-                        action={() => setSelectedExtension(value)}
+                        action={async () => {
+                          setSelectedExtension(value);
+                          await connectExtensionAccounts(value?.id as string);
+                        }}
                         installed={!!extensionsStatus?.[value.id]}
                         className="py-2 px-1"
                       />

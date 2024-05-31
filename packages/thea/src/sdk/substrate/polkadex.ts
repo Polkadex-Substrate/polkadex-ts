@@ -156,6 +156,14 @@ export class Polkadex implements BaseChainAdapter {
       ),
     };
 
+    const destinationNativeExistential: AssetAmount = {
+      ticker: transferConfig.destination.existentialDeposit.originSymbol,
+      amount: +Utils.formatUnits(
+        transferConfig.destination.existentialDeposit.amount,
+        transferConfig.destination.existentialDeposit.decimals
+      ),
+    };
+
     return {
       sourceChain: this.getChain(),
       destinationChain: destChain,
@@ -166,6 +174,7 @@ export class Polkadex implements BaseChainAdapter {
       sourceFeeBalance,
       destinationFeeBalance,
       sourceFeeExistential,
+      destinationNativeExistential,
 
       transfer: async <T>(amount: number): Promise<T> => {
         const api = await getPolkadotApi(this.chain.ws);
@@ -221,9 +230,11 @@ export class Polkadex implements BaseChainAdapter {
       // Native asset
       if (!a.id) {
         const native = await api.query.system.account(address);
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const raw = BigInt(native.toJSON()?.data?.free || "0");
+        const raw = BigInt(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          native.toJSON()?.data?.free - native.toJSON()?.data?.frozen || "0"
+        );
         amount = Number(Utils.formatUnits(raw, a.decimal));
       } else {
         // Non-native asset
