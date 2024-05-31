@@ -1,5 +1,11 @@
 # @polkadex/ux
 
+## 6.26.0
+
+### Minor Changes
+
+- 64ec300: 1. Ask permisson for Extension to fetch accounts for AccountComboBox component 2. Remove `frozen` value from `free` balance while fetching PDEX balance
+
 ## 6.25.1
 
 ### Patch Changes
