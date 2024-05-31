@@ -156,6 +156,14 @@ export class Moonbeam implements BaseChainAdapter {
       ),
     };
 
+    const destinationNativeExistential: AssetAmount = {
+      ticker: transferConfig.destination.existentialDeposit.originSymbol,
+      amount: +Utils.formatUnits(
+        transferConfig.destination.existentialDeposit.amount,
+        transferConfig.destination.existentialDeposit.decimals
+      ),
+    };
+
     return {
       sourceChain: this.getChain(),
       destinationChain: destChain,
@@ -166,6 +174,7 @@ export class Moonbeam implements BaseChainAdapter {
       sourceFeeBalance,
       destinationFeeBalance,
       sourceFeeExistential,
+      destinationNativeExistential,
 
       transfer: async <T>(amount: number): Promise<T> => {
         const api = await getPolkadotApi(this.chain.ws);
