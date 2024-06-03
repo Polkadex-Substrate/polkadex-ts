@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 5.5.1
+
+### Patch Changes
+
+- 02a8dda: Added destination fees for XCM transactions
+
 ## 5.5.0
 
 ### Minor Changes
