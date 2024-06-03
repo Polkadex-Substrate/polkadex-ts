@@ -4,7 +4,11 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import Keyring from "@polkadot/keyring";
-import { AnyFunction, isValidAddress } from "@polkadex/utils";
+import {
+  AnyFunction,
+  isValidAddress,
+  isValidEvmAddress,
+} from "@polkadex/utils";
 
 import { useExtensions } from "../ExtensionsProvider";
 import type {
@@ -76,10 +80,13 @@ export const useImportExtension = () => {
     keyring.setSS58Format(ss58);
 
     // Remove accounts that do not contain correctly formatted addresses.
-    newAccounts = newAccounts.filter(({ address }) => isValidAddress(address));
+    newAccounts = newAccounts.filter(
+      ({ address }) => isValidAddress(address) || isValidEvmAddress(address)
+    );
 
     // Reformat addresses to ensure correct ss58 format
     newAccounts.forEach(async (account) => {
+      if (isValidEvmAddress(account.address)) return account;
       const { address } = keyring.addFromAddress(account.address);
       account.address = address;
       return account;

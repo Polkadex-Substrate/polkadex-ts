@@ -77,3 +77,11 @@ export const isValidAddress = (address: string) => {
     return false;
   }
 };
+
+/**
+ * @name isValidEvmAddress
+ * @summary Return whether an address is valid evm address.
+ */
+export const isValidEvmAddress = (address: string): boolean => {
+  return /^(0x){1}[0-9a-fA-F]{40}$/i.test(address);
+};

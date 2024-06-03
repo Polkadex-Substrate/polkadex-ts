@@ -151,7 +151,7 @@ const toPolkadot: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadot,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.005,
       asset: dot,
       balance: BalanceBuilder().substrate().system().account(),
     },

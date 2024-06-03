@@ -12,6 +12,9 @@ import { ProviderCard, SelectChain, chains } from "../../readyToUse";
 const ExtensionsArrayWhitelist = ExtensionsArray?.filter(
   (item) => item.id !== "metamask-polkadot-snap"
 );
+
+const EvmWallets = ["talisman"];
+
 interface ConnectWalletProps extends InteractionProps {
   onConnectProvider: (value: ExtensionDetails) => void;
   installedExtensions: Record<string, ExtensionStatus>;
@@ -20,6 +23,7 @@ interface ConnectWalletProps extends InteractionProps {
   showChains?: boolean;
   showTerms?: boolean;
   showFooterClose?: boolean;
+  showEvmExtensions?: boolean;
 }
 export const ConnectWallet = ({
   children,
@@ -29,12 +33,13 @@ export const ConnectWallet = ({
   onConnectCallback,
   showChains = true,
   showTerms = true,
+  showEvmExtensions = false,
   showFooterClose,
   className,
   ...props
 }: PropsWithChildren<ConnectWalletProps>) => {
   const [selectedChain, setSelectedChain] = useState<(typeof chains)[0]>(
-    chains[0]
+    showEvmExtensions ? chains[1] : chains[0]
   );
   return (
     <Interaction
@@ -88,19 +93,23 @@ export const ConnectWallet = ({
                 (a, b) =>
                   Number(!!installedExtensions[b.id]) -
                   Number(!!installedExtensions[a.id])
-              )?.map((value) => (
-                <ProviderCard
-                  key={value.id}
-                  title={value.title}
-                  icon={value.id}
-                  action={() => {
-                    onConnectProvider(value);
-                    onConnectCallback();
-                  }}
-                  href={(value.website as string) ?? value.website[0]}
-                  installed={!!installedExtensions?.[value.id]}
-                />
-              ))}
+              )
+                ?.filter((e) =>
+                  showEvmExtensions ? EvmWallets.includes(e.id) : true
+                )
+                ?.map((value) => (
+                  <ProviderCard
+                    key={value.id}
+                    title={value.title}
+                    icon={value.id}
+                    action={() => {
+                      onConnectProvider(value);
+                      onConnectCallback();
+                    }}
+                    href={(value.website as string) ?? value.website[0]}
+                    installed={!!installedExtensions?.[value.id]}
+                  />
+                ))}
             </div>
           </div>
           {children}

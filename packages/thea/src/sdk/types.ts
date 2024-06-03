@@ -15,6 +15,7 @@ export type TransferConfig = {
   sourceFeeExistential: AssetAmount;
   destinationFee: AssetAmount;
   destinationFeeBalance: AssetAmount;
+  destinationNativeExistential: AssetAmount;
 
   // Do the actual transfer
   transfer<T>(amount: number): Promise<T>;

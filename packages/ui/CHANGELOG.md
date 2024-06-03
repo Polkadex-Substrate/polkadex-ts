@@ -1,5 +1,25 @@
 # @polkadex/ux
 
+## 6.26.0
+
+### Minor Changes
+
+- 64ec300: 1. Ask permisson for Extension to fetch accounts for AccountComboBox component 2. Remove `frozen` value from `free` balance while fetching PDEX balance
+
+## 6.25.1
+
+### Patch Changes
+
+- 6dd7db3: Allow fetching EVM wallets
+- Updated dependencies [6dd7db3]
+  - @polkadex/react-providers@2.2.1
+
+## 6.25.0
+
+### Minor Changes
+
+- 68c3484: Added a new enum for ChainType and minor UI fix
+
 ## 6.24.1
 
 ### Patch Changes

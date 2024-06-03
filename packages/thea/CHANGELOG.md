@@ -1,5 +1,17 @@
 # @polkadex/thea
 
+## 5.5.0
+
+### Minor Changes
+
+- 64ec300: 1. Ask permisson for Extension to fetch accounts for AccountComboBox component 2. Remove `frozen` value from `free` balance while fetching PDEX balance
+
+## 5.4.0
+
+### Minor Changes
+
+- 68c3484: Added a new enum for ChainType and minor UI fix
+
 ## 5.3.0
 
 ### Minor Changes

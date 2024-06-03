@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.6.2
+
+### Patch Changes
+
+- 519f025: vDOT token decimal fix
+
 ## 3.6.1
 
 ### Patch Changes
