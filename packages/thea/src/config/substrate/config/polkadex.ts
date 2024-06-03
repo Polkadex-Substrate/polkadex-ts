@@ -199,7 +199,7 @@ const toPhala: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: phala,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.064296,
       asset: pha,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -223,7 +223,7 @@ const toMoonbeam: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: moonbeam,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.0035,
       asset: glmr,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -247,7 +247,7 @@ const toUnique: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: unique,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0,
       asset: unq,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -271,9 +271,9 @@ const toInterlay: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: interlay,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.00000063,
       asset: ibtc,
-      balance: BalanceBuilder().substrate().system().account(),
+      balance: BalanceBuilder().substrate().tokens().accounts(),
     },
     extrinsic: ExtrinsicBuilderV2()
       .theaExecuter()
@@ -387,7 +387,7 @@ const toBifrost: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: bifrost,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.000563136,
       asset: bnc,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -409,9 +409,9 @@ const toBifrost: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: bifrost,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.00000007,
       asset: vdot,
-      balance: BalanceBuilder().substrate().system().account(),
+      balance: BalanceBuilder().substrate().tokens().accounts(),
     },
     extrinsic: ExtrinsicBuilderV2()
       .theaExecuter()
