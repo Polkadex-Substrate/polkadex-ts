@@ -33,5 +33,5 @@ export const toBeneficiary = (
 };
 
 export const toAsset = (asset: ChainAssetId) => {
-  return asset === "0" ? "Polkadex" : { Asset: asset };
+  return !asset || asset === "PDEX" ? "Polkadex" : { Asset: asset };
 };

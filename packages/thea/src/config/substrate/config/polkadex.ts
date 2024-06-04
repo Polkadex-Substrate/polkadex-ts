@@ -216,6 +216,27 @@ const toMoonbeam: AssetConfig[] = [
       xcmDeliveryFeeAmount,
     },
   }),
+
+  new AssetConfig({
+    asset: pdex,
+    balance: BalanceBuilder().substrate().system().account(),
+    destination: moonbeam,
+    destinationFee: {
+      amount: 0.013,
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
 ];
 
 const toUnique: AssetConfig[] = [
