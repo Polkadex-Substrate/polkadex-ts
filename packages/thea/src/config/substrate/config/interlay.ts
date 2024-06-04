@@ -32,7 +32,7 @@ const toPolkadex: AssetConfig[] = [
       asset: dot,
       balance: BalanceBuilder().substrate().tokens().accounts(),
     },
-    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X2(),
+    extrinsic: ExtrinsicBuilderV2().xTokens().transferMultiasset().X2(),
     fee: {
       asset: intr,
       balance: BalanceBuilder().substrate().tokens().accounts(),
@@ -49,7 +49,7 @@ const toPolkadex: AssetConfig[] = [
       asset: usdt,
       balance: BalanceBuilder().substrate().tokens().accounts(),
     },
-    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X2(),
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
     fee: {
       asset: intr,
       balance: BalanceBuilder().substrate().tokens().accounts(),
