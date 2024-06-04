@@ -22,13 +22,12 @@ const toPolkadex: AssetConfig[] = [
     },
   }),
 
-  // Not tested yet
   new AssetConfig({
     asset: pdex,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadex,
     destinationFee: {
-      amount: 0,
+      amount: 0.0064,
       asset: pdex,
       balance: BalanceBuilder().substrate().system().account(),
     },
