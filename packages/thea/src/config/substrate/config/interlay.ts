@@ -3,7 +3,7 @@ import { BalanceBuilder } from "@moonbeam-network/xcm-builder";
 
 import { ExtrinsicBuilderV2 } from "../builders";
 import { interlay, polkadex } from "../chains";
-import { ibtc, intr, dot, usdt, usdc, glmr, bnc } from "../assets";
+import { ibtc, intr, dot, usdt, usdc, glmr, bnc, vdot } from "../assets";
 
 const toPolkadex: AssetConfig[] = [
   new AssetConfig({
@@ -101,6 +101,23 @@ const toPolkadex: AssetConfig[] = [
       balance: BalanceBuilder().substrate().tokens().accounts(),
     },
     extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X2(),
+    fee: {
+      asset: intr,
+      balance: BalanceBuilder().substrate().tokens().accounts(),
+    },
+  }),
+
+  // Tested & working
+  new AssetConfig({
+    asset: vdot,
+    balance: BalanceBuilder().substrate().tokens().accounts(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0.00000007,
+      asset: vdot,
+      balance: BalanceBuilder().substrate().tokens().accounts(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
     fee: {
       asset: intr,
       balance: BalanceBuilder().substrate().tokens().accounts(),

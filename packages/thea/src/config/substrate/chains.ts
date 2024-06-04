@@ -182,6 +182,11 @@ export const interlay = new Parachain({
       decimals: 12,
       id: { ForeignAsset: 11 },
     },
+    {
+      asset: vdot,
+      decimals: 10,
+      id: { ForeignAsset: 3 },
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: INTERLAY_GENESIS,
