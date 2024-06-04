@@ -177,6 +177,11 @@ export const interlay = new Parachain({
       id: { Token: ibtc.originSymbol },
       metadataId: 0,
     },
+    {
+      asset: bnc,
+      decimals: 12,
+      id: { ForeignAsset: 11 },
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: INTERLAY_GENESIS,
