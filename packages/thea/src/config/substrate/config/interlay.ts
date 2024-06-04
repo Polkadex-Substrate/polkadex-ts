@@ -73,13 +73,13 @@ const toPolkadex: AssetConfig[] = [
     },
   }),
 
-  // Not working
+  // Tested & working
   new AssetConfig({
     asset: glmr,
     balance: BalanceBuilder().substrate().tokens().accounts(),
     destination: polkadex,
     destinationFee: {
-      amount: 0,
+      amount: 0.0035,
       asset: glmr,
       balance: BalanceBuilder().substrate().tokens().accounts(),
     },
