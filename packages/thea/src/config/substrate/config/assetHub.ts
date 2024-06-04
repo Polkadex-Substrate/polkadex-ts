@@ -8,27 +8,6 @@ import { dot, usdt, usdc, ded, pink } from "../assets";
 const xcmDeliveryFeeAmount = 0.002;
 
 const toPolkadex: AssetConfig[] = [
-  // Not working
-  new AssetConfig({
-    asset: dot,
-    balance: BalanceBuilder().substrate().system().account(),
-    destination: polkadex,
-    destinationFee: {
-      amount: 0,
-      asset: dot,
-      balance: BalanceBuilder().substrate().assets().account(),
-    },
-    extrinsic: ExtrinsicBuilderV2()
-      .polkadotXcm()
-      .limitedReserveTransferAssets()
-      .here(),
-    fee: {
-      asset: dot,
-      balance: BalanceBuilder().substrate().system().account(),
-      xcmDeliveryFeeAmount,
-    },
-  }),
-
   new AssetConfig({
     asset: usdt,
     balance: BalanceBuilder().substrate().assets().account(),
