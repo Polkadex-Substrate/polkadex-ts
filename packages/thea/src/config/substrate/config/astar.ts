@@ -3,7 +3,7 @@ import { BalanceBuilder } from "@moonbeam-network/xcm-builder";
 
 import { ExtrinsicBuilderV2 } from "../builders";
 import { astar, polkadex } from "../chains";
-import { astr, dot, glmr } from "../assets";
+import { astr, dot, glmr, unq } from "../assets";
 
 const toPolkadex: AssetConfig[] = [
   new AssetConfig({
@@ -47,6 +47,23 @@ const toPolkadex: AssetConfig[] = [
     destinationFee: {
       amount: 0.1,
       asset: glmr,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    fee: {
+      asset: astr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+  }),
+
+  // Tested & Working
+  new AssetConfig({
+    asset: unq,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0,
+      asset: unq,
       balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),

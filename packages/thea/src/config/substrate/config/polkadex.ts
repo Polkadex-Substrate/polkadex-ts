@@ -214,6 +214,29 @@ const toAstar: AssetConfig[] = [
       xcmDeliveryFeeAmount,
     },
   }),
+
+  // Need to test
+  new AssetConfig({
+    asset: unq,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: astar,
+    destinationFee: {
+      amount: 0, // TODO: Change it later
+      asset: unq,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
 ];
 
 const toPhala: AssetConfig[] = [
