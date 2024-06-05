@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 5.6.0
+
+### Minor Changes
+
+- 539fde6: Added support for PDEX transfer between Moonbeam and Polkadex
+
 ## 5.5.1
 
 ### Patch Changes
