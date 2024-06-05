@@ -311,52 +311,6 @@ const toInterlay: AssetConfig[] = [
 
   // Need to test
   new AssetConfig({
-    asset: usdt,
-    balance: BalanceBuilder().substrate().assets().account(),
-    destination: interlay,
-    destinationFee: {
-      amount: 0, // TODO: Change it later
-      asset: usdt,
-      balance: BalanceBuilder().substrate().system().account(),
-    },
-    extrinsic: ExtrinsicBuilderV2()
-      .theaExecuter()
-      .parachainWithdraw()
-      .X2()
-      .sufficient(),
-    min: AssetMinBuilder().assets().asset(),
-    fee: {
-      asset: pdex,
-      balance: BalanceBuilder().substrate().system().account(),
-      xcmDeliveryFeeAmount,
-    },
-  }),
-
-  // Need to test
-  new AssetConfig({
-    asset: usdc,
-    balance: BalanceBuilder().substrate().assets().account(),
-    destination: interlay,
-    destinationFee: {
-      amount: 0, // TODO: Change it later
-      asset: usdc,
-      balance: BalanceBuilder().substrate().system().account(),
-    },
-    extrinsic: ExtrinsicBuilderV2()
-      .theaExecuter()
-      .parachainWithdraw()
-      .X2()
-      .sufficient(),
-    min: AssetMinBuilder().assets().asset(),
-    fee: {
-      asset: pdex,
-      balance: BalanceBuilder().substrate().system().account(),
-      xcmDeliveryFeeAmount,
-    },
-  }),
-
-  // Need to test
-  new AssetConfig({
     asset: glmr,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: interlay,
