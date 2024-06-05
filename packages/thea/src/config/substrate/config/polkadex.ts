@@ -11,6 +11,7 @@ import {
   moonbeam,
   unique,
   interlay,
+  bifrost,
 } from "../chains";
 import {
   usdt,
@@ -24,6 +25,8 @@ import {
   unq,
   ibtc,
   pdex,
+  bnc,
+  vdot,
 } from "../assets";
 import { ExtrinsicBuilderV2 } from "../builders";
 
@@ -125,7 +128,7 @@ const toPolkadot: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadot,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.005,
       asset: dot,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -149,7 +152,7 @@ const toAstar: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: astar,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.05,
       asset: astr,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -196,7 +199,7 @@ const toPhala: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: phala,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.064296,
       asset: pha,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -220,7 +223,7 @@ const toMoonbeam: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: moonbeam,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.0035,
       asset: glmr,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -236,6 +239,27 @@ const toMoonbeam: AssetConfig[] = [
       xcmDeliveryFeeAmount,
     },
   }),
+
+  new AssetConfig({
+    asset: pdex,
+    balance: BalanceBuilder().substrate().system().account(),
+    destination: moonbeam,
+    destinationFee: {
+      amount: 0.013,
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
 ];
 
 const toUnique: AssetConfig[] = [
@@ -244,7 +268,7 @@ const toUnique: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: unique,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0,
       asset: unq,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -268,9 +292,55 @@ const toInterlay: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: interlay,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.00000063,
       asset: ibtc,
+      balance: BalanceBuilder().substrate().tokens().accounts(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
       balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+];
+
+const toBifrost: AssetConfig[] = [
+  new AssetConfig({
+    asset: bnc,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: bifrost,
+    destinationFee: {
+      amount: 0.000563136,
+      asset: bnc,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: vdot,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: bifrost,
+    destinationFee: {
+      amount: 0.00000007,
+      asset: vdot,
+      balance: BalanceBuilder().substrate().tokens().accounts(),
     },
     extrinsic: ExtrinsicBuilderV2()
       .theaExecuter()
@@ -295,6 +365,7 @@ export const polkadexConfig = new ChainConfig({
     ...toMoonbeam,
     ...toUnique,
     ...toInterlay,
+    ...toBifrost,
   ],
   chain: polkadex,
 });

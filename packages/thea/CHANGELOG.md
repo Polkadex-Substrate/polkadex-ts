@@ -1,5 +1,52 @@
 # @polkadex/thea
 
+## 5.6.0
+
+### Minor Changes
+
+- 539fde6: Added support for PDEX transfer between Moonbeam and Polkadex
+
+## 5.5.1
+
+### Patch Changes
+
+- 02a8dda: Added destination fees for XCM transactions
+
+## 5.5.0
+
+### Minor Changes
+
+- 64ec300: 1. Ask permisson for Extension to fetch accounts for AccountComboBox component 2. Remove `frozen` value from `free` balance while fetching PDEX balance
+
+## 5.4.0
+
+### Minor Changes
+
+- 68c3484: Added a new enum for ChainType and minor UI fix
+
+## 5.3.0
+
+### Minor Changes
+
+- a04122b: Added a helper function to get all supported assets and fixed issue with THEA withdrawal
+
+## 5.2.0
+
+### Minor Changes
+
+- 0f4ec4c: In this PR, we will be doing a minor change in cross-chain interfaces that we designed earlier. There was a design flaw which have been fixed in this PR now.
+
+## 5.1.0
+
+### Minor Changes
+
+- 209e392: In this PR, we will be adding Deposit/Withdrawal for THEA for Bifrost chain, supporting BNC and vDOT tokens.
+
+### Patch Changes
+
+- Updated dependencies [209e392]
+  - @polkadex/polkadex-api@3.6.0
+
 ## 5.0.0
 
 ### Major Changes

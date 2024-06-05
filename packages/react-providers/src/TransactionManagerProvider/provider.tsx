@@ -79,7 +79,12 @@ export const TransactionManagerProvider = ({
 
       setStQueue(updatedTxStatus);
 
-      if (!result || result.isError || result.status.isFinalized) {
+      if (
+        !result ||
+        result.isError ||
+        result.dispatchError ||
+        result.status.isFinalized
+      ) {
         // Drop transaction
         const validTxs = txRef.current.filter(
           (t) => t.hash.toHex().toString() !== hash
@@ -125,9 +130,9 @@ export const TransactionManagerProvider = ({
 
   useEffect(() => {
     if (txQueue.length) {
-      const started = txStatus.find(
-        (s) => s.status === "broadcasted" || s.status === "inblock"
-      );
+      const started = txStatus
+        .filter((s) => !s.error)
+        .find((s) => s.status === "broadcasted" || s.status === "inblock");
       if (!started) sendExtrinsicToChain(txQueue[0]);
     }
   }, [txStatus, txQueue, sendExtrinsicToChain]);

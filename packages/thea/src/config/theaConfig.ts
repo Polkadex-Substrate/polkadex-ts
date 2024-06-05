@@ -1,7 +1,6 @@
 import { changeSubstrateToBaseChain } from "./substrate/helpers";
 import { Chain, ITheaConfig } from "./types";
 import { substrateChains } from "./substrate";
-import { evmChains } from "./evm";
 
 export class Thea implements ITheaConfig {
   getAllChains(): Chain[] {
@@ -9,6 +8,6 @@ export class Thea implements ITheaConfig {
       return changeSubstrateToBaseChain(chain);
     });
 
-    return [...processedSubstrateChains, ...evmChains];
+    return [...processedSubstrateChains];
   }
 }

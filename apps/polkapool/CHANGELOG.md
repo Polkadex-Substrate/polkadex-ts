@@ -1,5 +1,14 @@
 # @polkadex/polkapool
 
+## 1.1.1
+
+### Patch Changes
+
+- 71c88f7: Fix polkapool wallet selection
+- Updated dependencies [6dd7db3]
+  - @polkadex/react-providers@2.2.1
+  - @polkadex/ux@6.25.1
+
 ## 1.1.0
 
 ### Minor Changes
