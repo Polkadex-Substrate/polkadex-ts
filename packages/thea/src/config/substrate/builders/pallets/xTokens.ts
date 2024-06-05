@@ -6,7 +6,7 @@ import {
 
 import { getExtrinsicAccount } from "../ExtrinsicBuilder.utils";
 
-import { toAsset, toDest } from "./xTokens.utils";
+import { toAsset, toDest, toEvmAsset } from "./xTokens.utils";
 
 const pallet = "xTokens";
 
@@ -48,7 +48,7 @@ const transfer = () => ({
 });
 
 const evmTransfer = (): ExtrinsicConfigBuilder => ({
-  build: ({ address, amount, destination }) =>
+  build: ({ address, amount, asset, destination }) =>
     new ExtrinsicConfig({
       module: pallet,
       func: "transfer",
@@ -56,7 +56,7 @@ const evmTransfer = (): ExtrinsicConfigBuilder => ({
         const version = XcmVersion.v2;
         const account = getExtrinsicAccount(address);
         return [
-          "SelfReserve",
+          toEvmAsset(asset),
           amount,
           toDest(version, destination, account),
           "Unlimited",

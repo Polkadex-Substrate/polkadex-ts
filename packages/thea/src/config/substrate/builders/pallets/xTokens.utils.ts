@@ -1,5 +1,5 @@
 import { XcmVersion, Parents } from "@moonbeam-network/xcm-builder";
-import { AnyChain } from "@moonbeam-network/xcm-types";
+import { AnyChain, ChainAssetId } from "@moonbeam-network/xcm-types";
 
 export const toDest = (
   version: XcmVersion,
@@ -44,4 +44,8 @@ export const toAsset = (interior: any, amount: any, parents?: Parents) => {
       Fungible: amount,
     },
   };
+};
+
+export const toEvmAsset = (asset: ChainAssetId) => {
+  return !asset || asset === "GLMR" ? "SelfReserve" : { ForeignAsset: asset };
 };
