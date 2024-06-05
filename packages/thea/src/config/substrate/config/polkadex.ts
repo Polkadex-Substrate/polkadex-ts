@@ -177,7 +177,30 @@ const toAstar: AssetConfig[] = [
     destinationFee: {
       amount: 0, // TODO: Change it later
       asset: dot,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
       balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  // Need to test
+  new AssetConfig({
+    asset: glmr,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: astar,
+    destinationFee: {
+      amount: 0, // TODO: Change it later
+      asset: glmr,
+      balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: ExtrinsicBuilderV2()
       .theaExecuter()
