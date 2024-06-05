@@ -22,15 +22,15 @@ const toPolkadex: AssetConfig[] = [
     },
   }),
 
-  // Not working
+  // Tested & working
   new AssetConfig({
     asset: dot,
     balance: BalanceBuilder().substrate().tokens().accounts(),
     destination: polkadex,
     destinationFee: {
-      amount: 0,
+      amount: 0.06,
       asset: dot,
-      balance: BalanceBuilder().substrate().tokens().accounts(),
+      balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: ExtrinsicBuilderV2().xTokens().transferMultiasset().X2(),
     fee: {
