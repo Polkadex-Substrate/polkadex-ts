@@ -154,18 +154,6 @@ export const interlay = new Parachain({
       metadataId: 0,
     },
     {
-      asset: usdt,
-      decimals: 6,
-      id: { ForeignAsset: 2 },
-      metadataId: 0,
-    },
-    {
-      asset: usdc,
-      decimals: 6,
-      id: { ForeignAsset: 12 },
-      metadataId: 0,
-    },
-    {
       asset: glmr,
       decimals: 18,
       id: { ForeignAsset: 10 },
