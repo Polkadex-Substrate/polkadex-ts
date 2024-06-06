@@ -309,13 +309,13 @@ const toInterlay: AssetConfig[] = [
     },
   }),
 
-  // Need to test
+  // Tested & Working
   new AssetConfig({
     asset: glmr,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: interlay,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.045,
       asset: glmr,
       balance: BalanceBuilder().substrate().system().account(),
     },
