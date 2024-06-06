@@ -360,7 +360,7 @@ const toInterlay: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: interlay,
     destinationFee: {
-      amount: 0.00000007,
+      amount: 0.002,
       asset: vdot,
       balance: BalanceBuilder().substrate().system().account(),
     },
