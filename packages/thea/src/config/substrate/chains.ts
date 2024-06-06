@@ -123,11 +123,6 @@ export const astar = new Parachain({
       id: "18446744073709551620",
     },
     {
-      asset: pink,
-      decimals: 10,
-      id: "18446744073709551633",
-    },
-    {
       asset: bnc,
       decimals: 12,
       id: "18446744073709551623",
