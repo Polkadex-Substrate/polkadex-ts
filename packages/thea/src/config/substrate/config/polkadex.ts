@@ -286,7 +286,6 @@ const toInterlay: AssetConfig[] = [
     },
   }),
 
-  // Tested & Working
   new AssetConfig({
     asset: dot,
     balance: BalanceBuilder().substrate().assets().account(),
@@ -309,7 +308,6 @@ const toInterlay: AssetConfig[] = [
     },
   }),
 
-  // Tested & Working
   new AssetConfig({
     asset: glmr,
     balance: BalanceBuilder().substrate().assets().account(),
@@ -332,7 +330,6 @@ const toInterlay: AssetConfig[] = [
     },
   }),
 
-  // Tested & Working
   new AssetConfig({
     asset: bnc,
     balance: BalanceBuilder().substrate().assets().account(),

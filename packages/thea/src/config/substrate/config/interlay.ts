@@ -22,7 +22,6 @@ const toPolkadex: AssetConfig[] = [
     },
   }),
 
-  // Tested & working
   new AssetConfig({
     asset: dot,
     balance: BalanceBuilder().substrate().tokens().accounts(),
@@ -39,7 +38,6 @@ const toPolkadex: AssetConfig[] = [
     },
   }),
 
-  // Tested & working
   new AssetConfig({
     asset: glmr,
     balance: BalanceBuilder().substrate().tokens().accounts(),
@@ -56,7 +54,6 @@ const toPolkadex: AssetConfig[] = [
     },
   }),
 
-  // Tested & working
   new AssetConfig({
     asset: bnc,
     balance: BalanceBuilder().substrate().tokens().accounts(),
@@ -73,7 +70,6 @@ const toPolkadex: AssetConfig[] = [
     },
   }),
 
-  // Tested & working
   new AssetConfig({
     asset: vdot,
     balance: BalanceBuilder().substrate().tokens().accounts(),
