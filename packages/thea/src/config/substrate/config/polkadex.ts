@@ -355,13 +355,12 @@ const toInterlay: AssetConfig[] = [
     },
   }),
 
-  // Need to test
   new AssetConfig({
     asset: vdot,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: interlay,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.00000007,
       asset: vdot,
       balance: BalanceBuilder().substrate().system().account(),
     },
