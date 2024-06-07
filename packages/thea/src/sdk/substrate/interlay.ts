@@ -221,9 +221,7 @@ export class Interlay implements BaseChainAdapter {
     const api = await getPolkadotApi(this.chain.ws);
 
     const balances = assets.map(async (a): Promise<AssetAmount> => {
-      const b = await api.query.tokens.accounts(address, {
-        Token: a.ticker,
-      });
+      const b = await api.query.tokens.accounts(address, a.id);
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
