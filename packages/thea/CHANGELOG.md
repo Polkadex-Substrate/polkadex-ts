@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 5.8.0
+
+### Minor Changes
+
+- c12d819: Added support for more tokens between Astar and Polkadex
+
 ## 5.7.0
 
 ### Minor Changes
