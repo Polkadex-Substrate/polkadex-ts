@@ -97,6 +97,41 @@ export const astar = new Parachain({
       asset: astr,
       decimals: 18,
     },
+    {
+      asset: dot,
+      decimals: 10,
+      id: "340282366920938463463374607431768211455",
+    },
+    {
+      asset: glmr,
+      decimals: 18,
+      id: "18446744073709551619",
+    },
+    {
+      asset: unq,
+      decimals: 18,
+      id: "18446744073709551631",
+    },
+    {
+      asset: pha,
+      decimals: 12,
+      id: "18446744073709551622",
+    },
+    {
+      asset: ibtc,
+      decimals: 8,
+      id: "18446744073709551620",
+    },
+    {
+      asset: bnc,
+      decimals: 12,
+      id: "18446744073709551623",
+    },
+    {
+      asset: vdot,
+      decimals: 10,
+      id: "18446744073709551624",
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: ASTAR_GENESIS,

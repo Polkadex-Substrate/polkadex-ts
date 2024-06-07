@@ -168,6 +168,160 @@ const toAstar: AssetConfig[] = [
       xcmDeliveryFeeAmount,
     },
   }),
+
+  new AssetConfig({
+    asset: dot,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: astar,
+    destinationFee: {
+      amount: 0.05,
+      asset: dot,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: glmr,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: astar,
+    destinationFee: {
+      amount: 0.0035,
+      asset: glmr,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: unq,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: astar,
+    destinationFee: {
+      amount: 0.01,
+      asset: unq,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: pha,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: astar,
+    destinationFee: {
+      amount: 0.065,
+      asset: pha,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: bnc,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: astar,
+    destinationFee: {
+      amount: 0.001,
+      asset: bnc,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: vdot,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: astar,
+    destinationFee: {
+      amount: 0.0000085,
+      asset: vdot,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: ibtc,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: astar,
+    destinationFee: {
+      amount: 0.0000063,
+      asset: ibtc,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
 ];
 
 const toPhala: AssetConfig[] = [
@@ -176,7 +330,7 @@ const toPhala: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: phala,
     destinationFee: {
-      amount: 0.064296,
+      amount: 0.065,
       asset: pha,
       balance: BalanceBuilder().substrate().system().account(),
     },

@@ -1,9 +1,9 @@
 import { AssetConfig, ChainConfig } from "@moonbeam-network/xcm-config";
-import { BalanceBuilder } from "@moonbeam-network/xcm-builder";
+import { BalanceBuilder, AssetMinBuilder } from "@moonbeam-network/xcm-builder";
 
 import { ExtrinsicBuilderV2 } from "../builders";
 import { astar, polkadex } from "../chains";
-import { astr } from "../assets";
+import { astr, dot, glmr, unq, pha, bnc, vdot, ibtc } from "../assets";
 
 const toPolkadex: AssetConfig[] = [
   new AssetConfig({
@@ -16,6 +16,125 @@ const toPolkadex: AssetConfig[] = [
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2().xTokens().transferMultiassets().here(),
+    fee: {
+      asset: astr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+  }),
+
+  new AssetConfig({
+    asset: dot,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0.1,
+      asset: dot,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: astr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+  }),
+
+  new AssetConfig({
+    asset: glmr,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0.1,
+      asset: glmr,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: astr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+  }),
+
+  new AssetConfig({
+    asset: unq,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0.1,
+      asset: unq,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: astr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+  }),
+
+  new AssetConfig({
+    asset: pha,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0.2,
+      asset: pha,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: astr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+  }),
+
+  new AssetConfig({
+    asset: bnc,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0.0006,
+      asset: bnc,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: astr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+  }),
+
+  new AssetConfig({
+    asset: vdot,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0.00000007,
+      asset: vdot,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: astr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+  }),
+
+  new AssetConfig({
+    asset: ibtc,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0.000003,
+      asset: ibtc,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: astr,
       balance: BalanceBuilder().substrate().system().account(),
