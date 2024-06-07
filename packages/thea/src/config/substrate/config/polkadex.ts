@@ -169,13 +169,12 @@ const toAstar: AssetConfig[] = [
     },
   }),
 
-  // Need to test
   new AssetConfig({
     asset: dot,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: astar,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.05,
       asset: dot,
       balance: BalanceBuilder().substrate().assets().account(),
     },
