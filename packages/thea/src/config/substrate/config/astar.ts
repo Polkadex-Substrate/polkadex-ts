@@ -1,9 +1,9 @@
 import { AssetConfig, ChainConfig } from "@moonbeam-network/xcm-config";
-import { BalanceBuilder } from "@moonbeam-network/xcm-builder";
+import { BalanceBuilder, AssetMinBuilder } from "@moonbeam-network/xcm-builder";
 
 import { ExtrinsicBuilderV2 } from "../builders";
 import { astar, polkadex } from "../chains";
-import { astr, dot, glmr, unq, pha, bnc, vdot } from "../assets";
+import { astr, dot, glmr, unq, pha, bnc, vdot, ibtc } from "../assets";
 
 const toPolkadex: AssetConfig[] = [
   new AssetConfig({
@@ -33,6 +33,7 @@ const toPolkadex: AssetConfig[] = [
       balance: BalanceBuilder().substrate().system().account(),
     },
     extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: astr,
       balance: BalanceBuilder().substrate().system().account(),
@@ -50,6 +51,7 @@ const toPolkadex: AssetConfig[] = [
       balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: astr,
       balance: BalanceBuilder().substrate().system().account(),
@@ -67,6 +69,7 @@ const toPolkadex: AssetConfig[] = [
       balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: astr,
       balance: BalanceBuilder().substrate().system().account(),
@@ -84,6 +87,7 @@ const toPolkadex: AssetConfig[] = [
       balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: astr,
       balance: BalanceBuilder().substrate().system().account(),
@@ -101,6 +105,7 @@ const toPolkadex: AssetConfig[] = [
       balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: astr,
       balance: BalanceBuilder().substrate().system().account(),
@@ -118,6 +123,25 @@ const toPolkadex: AssetConfig[] = [
       balance: BalanceBuilder().substrate().assets().account(),
     },
     extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: astr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+  }),
+
+  // Tested & Working
+  new AssetConfig({
+    asset: ibtc,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: polkadex,
+    destinationFee: {
+      amount: 0.00000063,
+      asset: ibtc,
+      balance: BalanceBuilder().substrate().assets().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2().xTokens().transfer().X3(),
+    min: AssetMinBuilder().assets().asset(),
     fee: {
       asset: astr,
       balance: BalanceBuilder().substrate().system().account(),
