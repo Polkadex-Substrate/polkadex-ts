@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 5.7.0
+
+### Minor Changes
+
+- 7a073e3: In this PR, we will be allowing DOT, GLMR, BNC & vDOT transfer from Interlay to Polkadex network.
+
 ## 5.6.0
 
 ### Minor Changes
