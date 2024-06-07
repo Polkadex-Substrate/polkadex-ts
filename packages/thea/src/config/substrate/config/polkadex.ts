@@ -307,13 +307,13 @@ const toAstar: AssetConfig[] = [
     },
   }),
 
-  // Need to test
+  // Tested & Working
   new AssetConfig({
     asset: ibtc,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: astar,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.0000063,
       asset: ibtc,
       balance: BalanceBuilder().substrate().assets().account(),
     },
