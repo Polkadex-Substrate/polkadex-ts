@@ -27,7 +27,7 @@ const toPolkadex: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadex,
     destinationFee: {
-      amount: 0.05,
+      amount: 0.1,
       asset: dot,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -61,7 +61,7 @@ const toPolkadex: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadex,
     destinationFee: {
-      amount: 0,
+      amount: 0.1,
       asset: unq,
       balance: BalanceBuilder().substrate().assets().account(),
     },
@@ -78,7 +78,7 @@ const toPolkadex: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadex,
     destinationFee: {
-      amount: 0.1,
+      amount: 0.2,
       asset: pha,
       balance: BalanceBuilder().substrate().assets().account(),
     },
@@ -129,7 +129,7 @@ const toPolkadex: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadex,
     destinationFee: {
-      amount: 0.00000063,
+      amount: 0.000003,
       asset: ibtc,
       balance: BalanceBuilder().substrate().assets().account(),
     },
