@@ -169,7 +169,6 @@ const toAstar: AssetConfig[] = [
     },
   }),
 
-  // Tested & Working
   new AssetConfig({
     asset: dot,
     balance: BalanceBuilder().substrate().assets().account(),
@@ -192,7 +191,6 @@ const toAstar: AssetConfig[] = [
     },
   }),
 
-  // Tested & Working
   new AssetConfig({
     asset: glmr,
     balance: BalanceBuilder().substrate().assets().account(),
@@ -215,7 +213,6 @@ const toAstar: AssetConfig[] = [
     },
   }),
 
-  // Tested & Working
   new AssetConfig({
     asset: unq,
     balance: BalanceBuilder().substrate().assets().account(),
@@ -238,7 +235,6 @@ const toAstar: AssetConfig[] = [
     },
   }),
 
-  // Tested & Working
   new AssetConfig({
     asset: pha,
     balance: BalanceBuilder().substrate().assets().account(),
@@ -261,7 +257,6 @@ const toAstar: AssetConfig[] = [
     },
   }),
 
-  // Tested & Working
   new AssetConfig({
     asset: bnc,
     balance: BalanceBuilder().substrate().assets().account(),
@@ -284,7 +279,6 @@ const toAstar: AssetConfig[] = [
     },
   }),
 
-  // Tested & Working
   new AssetConfig({
     asset: vdot,
     balance: BalanceBuilder().substrate().assets().account(),
@@ -307,7 +301,6 @@ const toAstar: AssetConfig[] = [
     },
   }),
 
-  // Tested & Working
   new AssetConfig({
     asset: ibtc,
     balance: BalanceBuilder().substrate().assets().account(),
