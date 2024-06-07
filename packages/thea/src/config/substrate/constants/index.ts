@@ -14,6 +14,20 @@ const Interlay: Config = {
   },
 };
 
+const Astar: Config = {
+  Polkadex: {
+    ASTR: 0.01,
+    DOT: 0.1,
+    GLMR: 0.15,
+    UNQ: 0.1,
+    PHA: 0.2,
+    IBTC: 0.000003,
+    BNC: 0.1,
+    vDOT: 0.1,
+  },
+};
+
 export const MIN_BRIDGE_AMOUNT: Record<string, Config> = {
   Interlay,
+  Astar,
 };
