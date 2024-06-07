@@ -15,7 +15,7 @@ const limitedReserveTransferAssets = () => {
   const func = "limitedReserveTransferAssets";
   return {
     X1: (): ExtrinsicConfigBuilder => ({
-      build: ({ address, amount, asset, destination, palletInstance }) =>
+      build: ({ address, amount, destination }) =>
         new ExtrinsicConfig({
           module: pallet,
           func,

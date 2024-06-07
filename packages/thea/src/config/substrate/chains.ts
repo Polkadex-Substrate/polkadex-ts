@@ -183,10 +183,32 @@ export const interlay = new Parachain({
       metadataId: 0,
     },
     {
+      asset: dot,
+      decimals: 10,
+      id: { Token: dot.originSymbol },
+      metadataId: 0,
+    },
+    {
+      asset: glmr,
+      decimals: 18,
+      id: { ForeignAsset: 10 },
+      metadataId: 0,
+    },
+    {
       asset: ibtc,
       decimals: 8,
       id: { Token: ibtc.originSymbol },
       metadataId: 0,
+    },
+    {
+      asset: bnc,
+      decimals: 12,
+      id: { ForeignAsset: 11 },
+    },
+    {
+      asset: vdot,
+      decimals: 10,
+      id: { ForeignAsset: 3 },
     },
   ],
   ecosystem: Ecosystem.Polkadot,
