@@ -261,13 +261,13 @@ const toAstar: AssetConfig[] = [
     },
   }),
 
-  // Need to test
+  // Tested & Working
   new AssetConfig({
     asset: bnc,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: astar,
     destinationFee: {
-      amount: 0, // TODO: Change it later
+      amount: 0.001,
       asset: bnc,
       balance: BalanceBuilder().substrate().assets().account(),
     },
