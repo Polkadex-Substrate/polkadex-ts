@@ -27,7 +27,15 @@ const Astar: Config = {
   },
 };
 
+const Bifrost: Config = {
+  Polkadex: {
+    vDOT: 0.001,
+    ASTR: 0.1,
+  },
+};
+
 export const MIN_BRIDGE_AMOUNT: Record<string, Config> = {
   Interlay,
   Astar,
+  Bifrost,
 };
