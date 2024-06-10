@@ -15,6 +15,7 @@ import {
   chainsMap,
   getSubstrateChain,
   getSubstrateAsset,
+  MIN_BRIDGE_AMOUNT,
 } from "../../config";
 import { AssetAmount, BaseChainAdapter, TransferConfig } from "../types";
 
@@ -102,9 +103,13 @@ export class Astar implements BaseChainAdapter {
 
     const min: AssetAmount = {
       ticker: transferConfig.source.min.originSymbol,
-      amount: +Utils.formatUnits(
-        transferConfig.source.min.amount,
-        transferConfig.source.min.decimals
+      amount: Math.max(
+        MIN_BRIDGE_AMOUNT[this.chain.name]?.[destChain.name]?.[asset.ticker] ||
+          0,
+        +Utils.formatUnits(
+          transferConfig.source.min.amount,
+          transferConfig.source.min.decimals
+        )
       ),
     };
 
