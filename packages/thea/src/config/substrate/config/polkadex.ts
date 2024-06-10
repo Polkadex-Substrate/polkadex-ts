@@ -437,6 +437,29 @@ const toMoonbeam: AssetConfig[] = [
       xcmDeliveryFeeAmount,
     },
   }),
+
+  // Need to test
+  new AssetConfig({
+    asset: pha,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: moonbeam,
+    destinationFee: {
+      amount: 0, // Change it
+      asset: pha,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
 ];
 
 const toUnique: AssetConfig[] = [

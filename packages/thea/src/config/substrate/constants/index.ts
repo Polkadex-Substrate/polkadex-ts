@@ -33,6 +33,7 @@ const Moonbeam: Config = {
     GLMR: 0.1,
     DOT: 0.1,
     ASTR: 0.1,
+    PHA: 0.2,
   },
 };
 
