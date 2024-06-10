@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 5.8.1
+
+### Patch Changes
+
+- 6f3c20a: Defined minimum bridge amount for some cross-chain combinations
+
 ## 5.8.0
 
 ### Minor Changes
