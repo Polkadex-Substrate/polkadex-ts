@@ -31,6 +31,7 @@ const Bifrost: Config = {
   Polkadex: {
     vDOT: 0.001,
     ASTR: 0.1,
+    GLMR: 0.01,
   },
 };
 

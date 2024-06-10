@@ -596,6 +596,29 @@ const toBifrost: AssetConfig[] = [
       xcmDeliveryFeeAmount,
     },
   }),
+
+  // Need to test
+  new AssetConfig({
+    asset: glmr,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: bifrost,
+    destinationFee: {
+      amount: 0, // Need to change
+      asset: glmr,
+      balance: BalanceBuilder().substrate().tokens().accounts(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
 ];
 
 export const polkadexConfig = new ChainConfig({
