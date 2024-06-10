@@ -27,7 +27,16 @@ const Astar: Config = {
   },
 };
 
+const Moonbeam: Config = {
+  Polkadex: {
+    PDEX: 0.1,
+    GLMR: 0.1,
+    DOT: 0.1,
+  },
+};
+
 export const MIN_BRIDGE_AMOUNT: Record<string, Config> = {
   Interlay,
   Astar,
+  Moonbeam,
 };

@@ -231,6 +231,11 @@ export const moonbeam = new EvmParachain({
       decimals: 12,
       id: "90225766094594282577230355136633846906",
     },
+    {
+      asset: dot,
+      decimals: 10,
+      id: "42259045809535163221576417993425387648",
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: MOONBEAM_GENESIS,
