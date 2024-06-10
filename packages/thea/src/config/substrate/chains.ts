@@ -257,6 +257,23 @@ export const bifrost = new Parachain({
       metadataId: { VToken2: 0 },
       decimals: 10,
     },
+    {
+      asset: dot,
+      id: { Token2: 0 },
+      metadataId: { Token2: 0 },
+      decimals: 10,
+    },
+    {
+      asset: astr,
+      id: { Token2: 3 },
+      metadataId: { Token2: 3 },
+      decimals: 18,
+    },
+    {
+      asset: glmr,
+      id: { Token2: 1 },
+      decimals: 18,
+    },
   ],
   ecosystem: Ecosystem.Polkadot,
   genesisHash: BIFROST_GENESIS,
