@@ -574,13 +574,12 @@ const toBifrost: AssetConfig[] = [
     },
   }),
 
-  // Need to test
   new AssetConfig({
     asset: astr,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: bifrost,
     destinationFee: {
-      amount: 0, // Need to change
+      amount: 0.045,
       asset: astr,
       balance: BalanceBuilder().substrate().tokens().accounts(),
     },
