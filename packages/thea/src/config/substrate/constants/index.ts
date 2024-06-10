@@ -32,6 +32,7 @@ const Bifrost: Config = {
     vDOT: 0.001,
     ASTR: 0.1,
     GLMR: 0.01,
+    DOT: 0.1,
   },
 };
 
