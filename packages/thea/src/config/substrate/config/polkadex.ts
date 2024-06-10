@@ -128,7 +128,7 @@ const toPolkadot: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadot,
     destinationFee: {
-      amount: 0.005,
+      amount: 0.05,
       asset: dot,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -618,13 +618,12 @@ const toBifrost: AssetConfig[] = [
     },
   }),
 
-  // Need to test
   new AssetConfig({
     asset: dot,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: bifrost,
     destinationFee: {
-      amount: 0, // Need to change
+      amount: 0.05,
       asset: dot,
       balance: BalanceBuilder().substrate().tokens().accounts(),
     },
