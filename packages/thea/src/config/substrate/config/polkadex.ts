@@ -458,13 +458,12 @@ const toMoonbeam: AssetConfig[] = [
     },
   }),
 
-  // Need to test
   new AssetConfig({
     asset: bnc,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: moonbeam,
     destinationFee: {
-      amount: 0, // Change it
+      amount: 0.019,
       asset: bnc,
       balance: BalanceBuilder().substrate().system().account(),
     },
