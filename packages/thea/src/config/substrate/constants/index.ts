@@ -55,6 +55,7 @@ const Polkadex: Config = {
     DOT: 0.1,
     PHA: 0.2,
     BNC: 0.15,
+    vDOT: 0.01,
   },
 };
 

@@ -480,13 +480,12 @@ const toMoonbeam: AssetConfig[] = [
     },
   }),
 
-  // Need to test
   new AssetConfig({
     asset: vdot,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: moonbeam,
     destinationFee: {
-      amount: 0, // Change it
+      amount: 0.0011,
       asset: vdot,
       balance: BalanceBuilder().substrate().system().account(),
     },
