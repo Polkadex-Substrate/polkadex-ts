@@ -36,6 +36,7 @@ const Moonbeam: Config = {
     PHA: 0.2,
     BNC: 0.01,
     vDOT: 0.001,
+    IBTC: 0.000003,
   },
 };
 
