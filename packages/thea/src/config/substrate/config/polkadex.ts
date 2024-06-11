@@ -502,13 +502,12 @@ const toMoonbeam: AssetConfig[] = [
     },
   }),
 
-  // Need to test
   new AssetConfig({
     asset: ibtc,
     balance: BalanceBuilder().substrate().assets().account(),
     destination: moonbeam,
     destinationFee: {
-      amount: 0, // Change it
+      amount: 0.00000084,
       asset: ibtc,
       balance: BalanceBuilder().substrate().system().account(),
     },

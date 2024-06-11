@@ -56,6 +56,7 @@ const Polkadex: Config = {
     PHA: 0.2,
     BNC: 0.15,
     vDOT: 0.01,
+    IBTC: 0.000002,
   },
 };
 
