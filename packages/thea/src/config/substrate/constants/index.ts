@@ -52,6 +52,7 @@ const Moonbeam: Config = {
 const Polkadex: Config = {
   Moonbeam: {
     ASTR: 0.2,
+    DOT: 0.1,
   },
 };
 
