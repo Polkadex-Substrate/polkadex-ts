@@ -183,6 +183,12 @@ export const interlay = new Parachain({
       metadataId: 0,
     },
     {
+      asset: ibtc,
+      decimals: 8,
+      id: { Token: ibtc.originSymbol },
+      metadataId: 0,
+    },
+    {
       asset: dot,
       decimals: 10,
       id: { Token: dot.originSymbol },
@@ -192,12 +198,6 @@ export const interlay = new Parachain({
       asset: glmr,
       decimals: 18,
       id: { ForeignAsset: 10 },
-      metadataId: 0,
-    },
-    {
-      asset: ibtc,
-      decimals: 8,
-      id: { Token: ibtc.originSymbol },
       metadataId: 0,
     },
     {
