@@ -35,6 +35,7 @@ const Moonbeam: Config = {
     ASTR: 0.1,
     PHA: 0.2,
     BNC: 0.01,
+    vDOT: 0.001,
   },
 };
 
