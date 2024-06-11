@@ -27,6 +27,15 @@ const Astar: Config = {
   },
 };
 
+const Bifrost: Config = {
+  Polkadex: {
+    vDOT: 0.001,
+    ASTR: 0.1,
+    GLMR: 0.01,
+    DOT: 0.1,
+  },
+};
+
 const Moonbeam: Config = {
   Polkadex: {
     PDEX: 0.1,
@@ -43,5 +52,6 @@ const Moonbeam: Config = {
 export const MIN_BRIDGE_AMOUNT: Record<string, Config> = {
   Interlay,
   Astar,
+  Bifrost,
   Moonbeam,
 };

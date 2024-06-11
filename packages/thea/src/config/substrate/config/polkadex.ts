@@ -128,7 +128,7 @@ const toPolkadot: AssetConfig[] = [
     balance: BalanceBuilder().substrate().assets().account(),
     destination: polkadot,
     destinationFee: {
-      amount: 0.005,
+      amount: 0.05,
       asset: dot,
       balance: BalanceBuilder().substrate().system().account(),
     },
@@ -697,6 +697,72 @@ const toBifrost: AssetConfig[] = [
     destinationFee: {
       amount: 0.00000007,
       asset: vdot,
+      balance: BalanceBuilder().substrate().tokens().accounts(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: astr,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: bifrost,
+    destinationFee: {
+      amount: 0.05,
+      asset: astr,
+      balance: BalanceBuilder().substrate().tokens().accounts(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: glmr,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: bifrost,
+    destinationFee: {
+      amount: 0.0035,
+      asset: glmr,
+      balance: BalanceBuilder().substrate().tokens().accounts(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: dot,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: bifrost,
+    destinationFee: {
+      amount: 0.05,
+      asset: dot,
       balance: BalanceBuilder().substrate().tokens().accounts(),
     },
     extrinsic: ExtrinsicBuilderV2()
