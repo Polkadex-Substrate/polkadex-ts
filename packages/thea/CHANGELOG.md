@@ -1,5 +1,12 @@
 # @polkadex/thea
 
+## 5.9.0
+
+### Minor Changes
+
+- 7aa046e: Added support for non-native assets from Bifrost to Polkadex
+- 3716842: Added support for non-native assets of Moonbeam from Moonbeam to Polkadex and vice-versa
+
 ## 5.8.1
 
 ### Patch Changes
