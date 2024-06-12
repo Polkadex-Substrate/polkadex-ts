@@ -391,6 +391,138 @@ const toMoonbeam: AssetConfig[] = [
       xcmDeliveryFeeAmount,
     },
   }),
+
+  new AssetConfig({
+    asset: dot,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: moonbeam,
+    destinationFee: {
+      amount: 0.05,
+      asset: dot,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: astr,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: moonbeam,
+    destinationFee: {
+      amount: 0.132,
+      asset: astr,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: pha,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: moonbeam,
+    destinationFee: {
+      amount: 0.152,
+      asset: pha,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: bnc,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: moonbeam,
+    destinationFee: {
+      amount: 0.019,
+      asset: bnc,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: vdot,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: moonbeam,
+    destinationFee: {
+      amount: 0.0011,
+      asset: vdot,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
+
+  new AssetConfig({
+    asset: ibtc,
+    balance: BalanceBuilder().substrate().assets().account(),
+    destination: moonbeam,
+    destinationFee: {
+      amount: 0.00000084,
+      asset: ibtc,
+      balance: BalanceBuilder().substrate().system().account(),
+    },
+    extrinsic: ExtrinsicBuilderV2()
+      .theaExecuter()
+      .parachainWithdraw()
+      .X2()
+      .sufficient(),
+    min: AssetMinBuilder().assets().asset(),
+    fee: {
+      asset: pdex,
+      balance: BalanceBuilder().substrate().system().account(),
+      xcmDeliveryFeeAmount,
+    },
+  }),
 ];
 
 const toUnique: AssetConfig[] = [

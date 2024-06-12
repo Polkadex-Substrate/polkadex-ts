@@ -4,6 +4,7 @@ import { Sdk } from "@moonbeam-network/xcm-sdk";
 import { ConfigService, ConfigBuilder } from "@moonbeam-network/xcm-config";
 import { AnyChain } from "@moonbeam-network/xcm-types";
 import { getPolkadotApi } from "@moonbeam-network/xcm-utils";
+import { parseScientific } from "@polkadex/numericals";
 
 import {
   Asset,
@@ -192,7 +193,7 @@ export class Interlay implements BaseChainAdapter {
 
         const destAccountId = api.createType("AccountId32", toAddress).toHex();
         const amountFormatted = BigInt(
-          Utils.parseUnits(amount.toString(), asset.decimal)
+          Utils.parseUnits(parseScientific(amount.toString()), asset.decimal)
         );
 
         const palletInstance = this.chain.getAssetPalletInstance(

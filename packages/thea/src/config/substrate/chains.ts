@@ -183,6 +183,12 @@ export const interlay = new Parachain({
       metadataId: 0,
     },
     {
+      asset: ibtc,
+      decimals: 8,
+      id: { Token: ibtc.originSymbol },
+      metadataId: 0,
+    },
+    {
       asset: dot,
       decimals: 10,
       id: { Token: dot.originSymbol },
@@ -192,12 +198,6 @@ export const interlay = new Parachain({
       asset: glmr,
       decimals: 18,
       id: { ForeignAsset: 10 },
-      metadataId: 0,
-    },
-    {
-      asset: ibtc,
-      decimals: 8,
-      id: { Token: ibtc.originSymbol },
       metadataId: 0,
     },
     {
@@ -230,6 +230,36 @@ export const moonbeam = new EvmParachain({
       asset: pdex,
       decimals: 12,
       id: "90225766094594282577230355136633846906",
+    },
+    {
+      asset: dot,
+      decimals: 10,
+      id: "42259045809535163221576417993425387648",
+    },
+    {
+      asset: astr,
+      decimals: 18,
+      id: "224077081838586484055667086558292981199",
+    },
+    {
+      asset: pha,
+      decimals: 12,
+      id: "132685552157663328694213725410064821485",
+    },
+    {
+      asset: bnc,
+      decimals: 12,
+      id: "165823357460190568952172802245839421906",
+    },
+    {
+      asset: vdot,
+      decimals: 10,
+      id: "29085784439601774464560083082574142143",
+    },
+    {
+      asset: ibtc,
+      decimals: 8,
+      id: "120637696315203257380661607956669368914",
     },
   ],
   ecosystem: Ecosystem.Polkadot,
