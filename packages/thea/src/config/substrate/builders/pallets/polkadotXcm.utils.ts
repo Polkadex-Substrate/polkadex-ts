@@ -21,7 +21,21 @@ export const toDest = (version: XcmVersion, destination: AnyChain) => {
   };
 };
 
-export const toBeneficiary = (version: XcmVersion, account: any) => {
+export const toBeneficiary = (
+  version: XcmVersion,
+  account: any,
+  isDirectTransfer?: boolean
+) => {
+  if (isDirectTransfer) {
+    return {
+      [version]: {
+        parents: 0,
+        interior: {
+          X2: [account, { PalletInstance: 0 }],
+        },
+      },
+    };
+  }
   return {
     [version]: {
       parents: 0,
