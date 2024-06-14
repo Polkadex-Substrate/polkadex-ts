@@ -4,17 +4,20 @@ import {
 } from "@moonbeam-network/xcm-builder";
 
 import { getExtrinsicAccount } from "../ExtrinsicBuilder.utils";
+import { ExtrinsicConfigBuilderParams } from "../../types";
 
 const pallet = "xTransfer";
 
 const transfer = () => {
   return {
     here: (): ExtrinsicConfigBuilder => ({
-      build: ({ address, amount, destination }) =>
+      build: (args) =>
         new ExtrinsicConfig({
           module: pallet,
           func: "transfer",
           getArgs: () => {
+            const { address, amount, destination } =
+              args as ExtrinsicConfigBuilderParams;
             return [
               {
                 id: {
