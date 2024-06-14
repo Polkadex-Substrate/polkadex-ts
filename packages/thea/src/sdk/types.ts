@@ -39,7 +39,8 @@ export interface BaseChainAdapter {
     destChain: Chain,
     assetId: Asset,
     fromAddress: string,
-    toAddress: string
+    toAddress: string,
+    isDirectTransfer?: boolean
   ): Promise<TransferConfig>;
 
   // Returns array of balances of all supported assets for given chain
