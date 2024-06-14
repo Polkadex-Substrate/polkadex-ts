@@ -34,19 +34,21 @@ const limitedReserveTransferAssets = () => {
         }),
     }),
     X2: (): ExtrinsicConfigBuilder => ({
-      build: ({
-        address,
-        amount,
-        asset,
-        destination,
-        palletInstance,
-        fee,
-        feeAsset,
-      }) =>
+      build: (args) =>
         new ExtrinsicConfig({
           module: pallet,
           func,
           getArgs: () => {
+            const {
+              address,
+              amount,
+              asset,
+              destination,
+              palletInstance,
+              fee,
+              feeAsset,
+              isDirectTransfer,
+            } = args as ExtrinsicConfigBuilderParams;
             const version = XcmVersion.v3;
             const account = getExtrinsicAccount(address);
             const isAssetDifferent = !!feeAsset && asset !== feeAsset;
@@ -88,7 +90,7 @@ const limitedReserveTransferAssets = () => {
 
             return [
               toDest(version, destination),
-              toBeneficiary(version, account),
+              toBeneficiary(version, account, isDirectTransfer),
               {
                 [version]: assets,
               },
