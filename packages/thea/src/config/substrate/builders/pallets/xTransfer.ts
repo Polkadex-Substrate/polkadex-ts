@@ -6,6 +6,8 @@ import {
 import { getExtrinsicAccount } from "../ExtrinsicBuilder.utils";
 import { ExtrinsicConfigBuilderParams } from "../../types";
 
+import { toDest } from "./xTransfer.utils";
+
 const pallet = "xTransfer";
 
 const transfer = () => {
@@ -16,8 +18,9 @@ const transfer = () => {
           module: pallet,
           func: "transfer",
           getArgs: () => {
-            const { address, amount, destination } =
+            const { address, amount, destination, isDirectTransfer } =
               args as ExtrinsicConfigBuilderParams;
+            const account = getExtrinsicAccount(address);
             return [
               {
                 id: {
@@ -30,17 +33,7 @@ const transfer = () => {
                   Fungible: amount,
                 },
               },
-              {
-                parents: 1,
-                interior: {
-                  X2: [
-                    {
-                      Parachain: destination.parachainId,
-                    },
-                    getExtrinsicAccount(address),
-                  ],
-                },
-              },
+              toDest(destination, account, isDirectTransfer),
               {
                 refTime: 5_000_000_000,
                 proofSize: 2_000_000,
