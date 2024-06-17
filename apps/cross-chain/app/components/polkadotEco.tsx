@@ -4,13 +4,13 @@ import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
 import { Signer } from "@polkadot/api/types";
 import { getChainConnector, Thea, directDeposit } from "@polkadex/thea";
 
-const SOURCE_CHAIN = "Polkadot";
+const SOURCE_CHAIN = "Interlay";
 const DESTINATION_CHAIN = "Polkadex";
-const SELECTED_ASSET = "DOT";
+const SELECTED_ASSET = "vDOT";
 
 const fromAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
 const toAddress = "5GLFKUxSXTf8MDDKM1vqEFb5TuV1q642qpQT964mrmjeKz4w";
-const amount = 0.1;
+const amount = 0.0001;
 
 export const PolkadotEco = () => {
   const { getAllChains } = new Thea();

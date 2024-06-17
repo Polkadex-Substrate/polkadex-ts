@@ -16,7 +16,6 @@ import {
   getSubstrateAsset,
   getSubstrateChain,
   MIN_BRIDGE_AMOUNT,
-  ExtrinsicConfigBuilderParams,
 } from "../../config";
 import { AssetAmount, BaseChainAdapter, TransferConfig } from "../types";
 
@@ -86,8 +85,7 @@ export class Polkadex implements BaseChainAdapter {
     destChain: Chain,
     asset: Asset,
     fromAddress: string,
-    toAddress: string,
-    isDirectTransfer?: boolean
+    toAddress: string
   ): Promise<TransferConfig> {
     const subDestChain = getSubstrateChain(destChain);
     const subAsset = getSubstrateAsset(asset);
@@ -214,8 +212,7 @@ export class Polkadex implements BaseChainAdapter {
           feeAsset: "",
           palletInstance: palletInstance,
           source: this.chain,
-          isDirectTransfer,
-        } as ExtrinsicConfigBuilderParams);
+        });
 
         if (!extrinsicBuilder)
           throw new Error("Could not create extrinsic builder..");

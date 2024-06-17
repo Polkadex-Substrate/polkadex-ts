@@ -16,6 +16,7 @@ import {
   getSubstrateChain,
   getSubstrateAsset,
   ExtrinsicConfigBuilderParams,
+  POLKADEX_GENESIS,
 } from "../../config";
 import { AssetAmount, BaseChainAdapter, TransferConfig } from "../types";
 
@@ -205,7 +206,10 @@ export class Phala implements BaseChainAdapter {
           feeAsset: "",
           palletInstance: palletInstance,
           source: this.chain,
-          isDirectTransfer,
+          isDirectTransfer:
+            subDestChain.genesisHash === POLKADEX_GENESIS
+              ? isDirectTransfer
+              : false,
         } as ExtrinsicConfigBuilderParams);
 
         if (!extrinsicBuilder)
