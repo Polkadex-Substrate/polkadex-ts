@@ -5,6 +5,7 @@ import {
 } from "@moonbeam-network/xcm-builder";
 
 import { getExtrinsicAccount } from "../ExtrinsicBuilder.utils";
+import { ExtrinsicConfigBuilderParams } from "../../types";
 
 import { toAsset, toDest, toEvmAsset } from "./xTokens.utils";
 
@@ -125,11 +126,19 @@ const transferMultiasset = (originParachainId?: number) => {
 const transferMultiassets = (originParachainId?: number) => {
   return {
     here: (): ExtrinsicConfigBuilder => ({
-      build: ({ address, amount, asset, destination, palletInstance }) =>
+      build: (args) =>
         new ExtrinsicConfig({
           module: pallet,
           func: "transferMultiassets",
           getArgs: () => {
+            const {
+              address,
+              amount,
+              asset,
+              destination,
+              palletInstance,
+              isDirectTransfer,
+            } = args as ExtrinsicConfigBuilderParams;
             const version = XcmVersion.v3;
             const account = getExtrinsicAccount(address);
             const assets = [
@@ -141,7 +150,7 @@ const transferMultiassets = (originParachainId?: number) => {
                 [version]: assets,
               },
               0,
-              toDest(version, destination, account),
+              toDest(version, destination, account, isDirectTransfer),
               "Unlimited",
             ];
           },
