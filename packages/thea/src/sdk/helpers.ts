@@ -63,6 +63,9 @@ export const getDirectWithdrawalMultilocation = (
   type: "sign" | "send"
 ) => {
   const parachainId = getSubstrateChain(destChain)?.parachainId;
+  if (!parachainId) {
+    throw new Error("Chain not found for the given destination chain.");
+  }
   return {
     parents: 1,
     interior: {

@@ -2,7 +2,7 @@
 
 import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
 import { Signer } from "@polkadot/api/types";
-import { getChainConnector, Thea, directDeposit } from "@polkadex/thea";
+import { getChainConnector, Thea } from "@polkadex/thea";
 
 const SOURCE_CHAIN = "Interlay";
 const DESTINATION_CHAIN = "Polkadex";
@@ -90,11 +90,12 @@ export const PolkadotEco = () => {
 
     console.log("Fetching transfer config...");
 
-    const transferConfig = await directDeposit(
-      srcChain,
+    const transferConfig = await srcChainConnector.getTransferConfig(
+      destChain,
       selectedAsset,
       fromAddress,
-      toAddress
+      toAddress,
+      true
     );
 
     console.log(transferConfig);
