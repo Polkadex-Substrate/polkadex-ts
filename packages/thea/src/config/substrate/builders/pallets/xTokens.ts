@@ -75,18 +75,20 @@ const evmTransfer = (): ExtrinsicConfigBuilder => ({
 const transferMultiasset = (originParachainId?: number) => {
   return {
     X2: (): ExtrinsicConfigBuilder => ({
-      build: ({ address, amount, destination }) =>
+      build: (args) =>
         new ExtrinsicConfig({
           module: pallet,
           func: "transferMultiasset",
           getArgs: () => {
+            const { address, amount, destination, isDirectTransfer } =
+              args as ExtrinsicConfigBuilderParams;
             const version = XcmVersion.v2;
             const account = getExtrinsicAccount(address);
             return [
               {
                 [version]: toAsset("Here", amount),
               },
-              toDest(version, destination, account),
+              toDest(version, destination, account, isDirectTransfer),
               "Unlimited",
             ];
           },
