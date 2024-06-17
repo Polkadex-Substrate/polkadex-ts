@@ -13,6 +13,7 @@ import {
   BIFROST_GENESIS,
   Chain,
   getSubstrateChain,
+  ChainType,
 } from "../config";
 
 import {
@@ -64,8 +65,23 @@ export const getDirectWithdrawalMultilocation = (
 ) => {
   const parachainId = getSubstrateChain(destChain)?.parachainId;
   if (!parachainId) {
-    throw new Error("Chain not found for the given destination chain.");
+    // Withdraw to Relay chain i.e. Polkadot chain
+    return {
+      parents: 1,
+      interior: {
+        X1: {
+          AccountId32: {
+            network: null,
+            id: type === "sign" ? id.toHex() : Array.from(id.toU8a()),
+          },
+        },
+      },
+    };
   }
+
+  const accountKey =
+    destChain.type === ChainType.EvmSubstrate ? "AccountKey20" : "AccountId32";
+
   return {
     parents: 1,
     interior: {
@@ -74,7 +90,7 @@ export const getDirectWithdrawalMultilocation = (
           Parachain: parachainId,
         },
         {
-          AccountId32: {
+          [accountKey]: {
             network: null,
             id: type === "sign" ? id.toHex() : Array.from(id.toU8a()),
           },
