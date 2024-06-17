@@ -95,7 +95,7 @@ export const PolkadotEco = () => {
       selectedAsset,
       fromAddress,
       toAddress,
-      true
+      true // Direct deposit flag
     );
 
     console.log(transferConfig);
