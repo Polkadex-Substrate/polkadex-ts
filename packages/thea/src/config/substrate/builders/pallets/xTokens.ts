@@ -51,17 +51,19 @@ const transfer = () => ({
 });
 
 const evmTransfer = (): ExtrinsicConfigBuilder => ({
-  build: ({ address, amount, asset, destination }) =>
+  build: (args) =>
     new ExtrinsicConfig({
       module: pallet,
       func: "transfer",
       getArgs: () => {
+        const { address, amount, asset, destination, isDirectTransfer } =
+          args as ExtrinsicConfigBuilderParams;
         const version = XcmVersion.v2;
         const account = getExtrinsicAccount(address);
         return [
           toEvmAsset(asset),
           amount,
-          toDest(version, destination, account),
+          toDest(version, destination, account, isDirectTransfer),
           "Unlimited",
         ];
       },
