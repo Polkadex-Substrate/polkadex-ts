@@ -1,3 +1,5 @@
+import { AccountId32 } from "@polkadot/types/interfaces";
+
 import {
   ASSETHUB_GENESIS,
   POLKADEX_GENESIS,
@@ -9,6 +11,8 @@ import {
   UNIQUE_GENESIS,
   INTERLAY_GENESIS,
   BIFROST_GENESIS,
+  Chain,
+  getSubstrateChain,
 } from "../config";
 
 import {
@@ -51,4 +55,28 @@ export const getChainConnector = (genesis: string): BaseChainAdapter => {
     default:
       throw new Error("No chain found for given genesis..");
   }
+};
+
+export const getDirectWithdrawalMultilocation = (
+  id: AccountId32,
+  destChain: Chain,
+  type: "sign" | "send"
+) => {
+  const parachainId = getSubstrateChain(destChain)?.parachainId;
+  return {
+    parents: 1,
+    interior: {
+      X2: [
+        {
+          Parachain: parachainId,
+        },
+        {
+          AccountId32: {
+            network: null,
+            id: type === "sign" ? id.toHex() : Array.from(id.toU8a()),
+          },
+        },
+      ],
+    },
+  };
 };
