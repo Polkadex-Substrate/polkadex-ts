@@ -5,7 +5,7 @@ Collection of SDK(s) crafted to ease Polkadex chain integration.
 ### Apps and Packages
 
 - `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
+- `web/polkapool`: another [Next.js](https://nextjs.org/) [app](https://polkapool.polkadex.trade/) for on chain swap protocol
 - `polkadex-api`: wrapper api for interacting with polkadex chain
 - `local-wallets`: utilities for keyrings stored locally in browser
 - `thea`: sdk for cross-chain transfer functionality
