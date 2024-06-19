@@ -1,23 +1,15 @@
-# Turborepo starter
+# polkadex-ts
 
-This is an official starter Turborepo.
-
-## Using this example
-
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
+Collection of SDK(s) crafted to ease Polkadex chain integration.
 
 ### Apps and Packages
 
 - `docs`: a [Next.js](https://nextjs.org/) app
 - `web`: another [Next.js](https://nextjs.org/) app
+- `polkadex-api`: wrapper api for interacting with polkadex chain
+- `local-wallets`: utilities for keyrings stored locally in browser
+- `thea`: sdk for cross-chain transfer functionality
+- `numericals`: commonly used decimal formats and math methods
 - `ui`: a stub React component library shared by both `web` and `docs` applications
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
