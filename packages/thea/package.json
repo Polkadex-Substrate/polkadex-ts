@@ -4,7 +4,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "license": "GPL-3.0-only",
-  "version": "5.9.0",
+  "version": "6.0.0",
   "files": [
     "dist/**"
   ],

@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 6.0.0
+
+### Major Changes
+
+- 65a6de8: Added logic for direct deposit & added a helper function for direct withdrawal
+
 ## 5.9.0
 
 ### Minor Changes

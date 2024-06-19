@@ -1,5 +1,16 @@
 # @polkadex/cross-chain
 
+## 0.5.0
+
+### Minor Changes
+
+- 65a6de8: Added logic for direct deposit & added a helper function for direct withdrawal
+
+### Patch Changes
+
+- Updated dependencies [65a6de8]
+  - @polkadex/thea@6.0.0
+
 ## 0.4.0
 
 ### Minor Changes
