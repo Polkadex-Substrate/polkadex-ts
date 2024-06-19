@@ -16,6 +16,8 @@ import {
   getSubstrateChain,
   getSubstrateAsset,
   MIN_BRIDGE_AMOUNT,
+  ExtrinsicConfigBuilderParams,
+  POLKADEX_GENESIS,
 } from "../../config";
 import { AssetAmount, BaseChainAdapter, TransferConfig } from "../types";
 
@@ -85,7 +87,8 @@ export class Bifrost implements BaseChainAdapter {
     destChain: Chain,
     asset: Asset,
     fromAddress: string,
-    toAddress: string
+    toAddress: string,
+    isDirectTransfer?: boolean
   ): Promise<TransferConfig> {
     const subDestChain = getSubstrateChain(destChain);
     const subAsset = getSubstrateAsset(asset);
@@ -208,7 +211,11 @@ export class Bifrost implements BaseChainAdapter {
           feeAsset: "",
           palletInstance: palletInstance,
           source: this.chain,
-        });
+          isDirectTransfer:
+            subDestChain.genesisHash === POLKADEX_GENESIS
+              ? isDirectTransfer
+              : false,
+        } as ExtrinsicConfigBuilderParams);
 
         if (!extrinsicBuilder)
           throw new Error("Could not create extrinsic builder..");

@@ -4,7 +4,8 @@ import { AnyChain, ChainAssetId } from "@moonbeam-network/xcm-types";
 export const toDest = (
   version: XcmVersion,
   destination: AnyChain,
-  account: any
+  account: any,
+  isDirectTransfer?: boolean
 ) => {
   if (destination.key === "polkadot" || destination.key === "kusama") {
     return {
@@ -12,6 +13,23 @@ export const toDest = (
         parents: 1,
         interior: {
           X1: account,
+        },
+      },
+    };
+  }
+
+  if (isDirectTransfer) {
+    return {
+      [version]: {
+        parents: 1,
+        interior: {
+          X3: [
+            {
+              Parachain: destination.parachainId,
+            },
+            account,
+            { PalletInstance: 0 },
+          ],
         },
       },
     };

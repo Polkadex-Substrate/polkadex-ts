@@ -15,6 +15,8 @@ import {
   chainsMap,
   getSubstrateChain,
   getSubstrateAsset,
+  ExtrinsicConfigBuilderParams,
+  POLKADEX_GENESIS,
 } from "../../config";
 import { AssetAmount, BaseChainAdapter, TransferConfig } from "../types";
 
@@ -84,7 +86,8 @@ export class Phala implements BaseChainAdapter {
     destChain: Chain,
     asset: Asset,
     fromAddress: string,
-    toAddress: string
+    toAddress: string,
+    isDirectTransfer?: boolean
   ): Promise<TransferConfig> {
     const subDestChain = getSubstrateChain(destChain);
     const subAsset = getSubstrateAsset(asset);
@@ -203,7 +206,11 @@ export class Phala implements BaseChainAdapter {
           feeAsset: "",
           palletInstance: palletInstance,
           source: this.chain,
-        });
+          isDirectTransfer:
+            subDestChain.genesisHash === POLKADEX_GENESIS
+              ? isDirectTransfer
+              : false,
+        } as ExtrinsicConfigBuilderParams);
 
         if (!extrinsicBuilder)
           throw new Error("Could not create extrinsic builder..");

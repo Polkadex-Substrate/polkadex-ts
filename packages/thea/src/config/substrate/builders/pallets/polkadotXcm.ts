@@ -6,6 +6,7 @@ import {
 } from "@moonbeam-network/xcm-builder";
 
 import { getExtrinsicAccount } from "../ExtrinsicBuilder.utils";
+import { ExtrinsicConfigBuilderParams } from "../../types";
 
 import { toAsset, toAssets, toBeneficiary, toDest } from "./polkadotXcm.utils";
 
@@ -33,19 +34,21 @@ const limitedReserveTransferAssets = () => {
         }),
     }),
     X2: (): ExtrinsicConfigBuilder => ({
-      build: ({
-        address,
-        amount,
-        asset,
-        destination,
-        palletInstance,
-        fee,
-        feeAsset,
-      }) =>
+      build: (args) =>
         new ExtrinsicConfig({
           module: pallet,
           func,
           getArgs: () => {
+            const {
+              address,
+              amount,
+              asset,
+              destination,
+              palletInstance,
+              fee,
+              feeAsset,
+              isDirectTransfer,
+            } = args as ExtrinsicConfigBuilderParams;
             const version = XcmVersion.v3;
             const account = getExtrinsicAccount(address);
             const isAssetDifferent = !!feeAsset && asset !== feeAsset;
@@ -87,7 +90,7 @@ const limitedReserveTransferAssets = () => {
 
             return [
               toDest(version, destination),
-              toBeneficiary(version, account),
+              toBeneficiary(version, account, isDirectTransfer),
               {
                 [version]: assets,
               },
@@ -98,16 +101,18 @@ const limitedReserveTransferAssets = () => {
         }),
     }),
     X3: (): ExtrinsicConfigBuilder => ({
-      build: ({ address, amount, destination }) =>
+      build: (args) =>
         new ExtrinsicConfig({
           module: pallet,
           func,
           getArgs: () => {
+            const { address, amount, destination, isDirectTransfer } =
+              args as ExtrinsicConfigBuilderParams;
             const version = XcmVersion.v3;
             const account = getExtrinsicAccount(address);
             return [
               toDest(version, destination),
-              toBeneficiary(version, account),
+              toBeneficiary(version, account, isDirectTransfer),
               toAssets(version, 0, "Here", amount),
               0,
               "Unlimited",

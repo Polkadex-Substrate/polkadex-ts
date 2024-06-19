@@ -6,6 +6,7 @@ import {
 } from "@moonbeam-network/xcm-builder";
 
 import { getExtrinsicAccount } from "../ExtrinsicBuilder.utils";
+import { ExtrinsicConfigBuilderParams } from "../..";
 
 import { toAssets, toBeneficiary, toDest } from "./xcmPallet.utils";
 
@@ -39,16 +40,18 @@ const reserveTransferAssets = (parent: Parents) => {
   const func = "reserveTransferAssets";
   return {
     here: (): ExtrinsicConfigBuilder => ({
-      build: ({ address, amount, destination }) =>
+      build: (args) =>
         new ExtrinsicConfig({
           module: pallet,
           func,
           getArgs: () => {
+            const { address, amount, destination, isDirectTransfer } =
+              args as ExtrinsicConfigBuilderParams;
             const version = XcmVersion.v2;
             const account = getExtrinsicAccount(address);
             return [
               toDest(version, destination),
-              toBeneficiary(version, account),
+              toBeneficiary(version, account, isDirectTransfer),
               toAssets(version, parent, "Here", amount),
               0,
             ];
