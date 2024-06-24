@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 6.1.0
+
+### Minor Changes
+
+- 792807a: Withdraw to Relay chain fix
+
 ## 6.0.0
 
 ### Major Changes
