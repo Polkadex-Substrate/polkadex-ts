@@ -64,7 +64,7 @@ export const getDirectWithdrawalMultilocation = (
   type: "sign" | "send"
 ) => {
   const parachainId = getSubstrateChain(destChain)?.parachainId;
-  if (!parachainId) {
+  if (!parachainId || parachainId === -1) {
     // Withdraw to Relay chain i.e. Polkadot chain
     return {
       parents: 1,
