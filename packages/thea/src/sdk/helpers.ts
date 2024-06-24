@@ -1,4 +1,4 @@
-import { AccountId32 } from "@polkadot/types/interfaces";
+import { AccountId20, AccountId32 } from "@polkadot/types/interfaces";
 
 import {
   ASSETHUB_GENESIS,
@@ -59,7 +59,7 @@ export const getChainConnector = (genesis: string): BaseChainAdapter => {
 };
 
 export const getDirectWithdrawalMultilocation = (
-  id: AccountId32,
+  id: AccountId32 | AccountId20,
   destChain: Chain,
   type: "sign" | "send"
 ) => {
@@ -82,6 +82,8 @@ export const getDirectWithdrawalMultilocation = (
   const accountKey =
     destChain.type === ChainType.EvmSubstrate ? "AccountKey20" : "AccountId32";
 
+  const key = destChain.type === ChainType.EvmSubstrate ? "key" : "id";
+
   return {
     parents: 1,
     interior: {
@@ -92,7 +94,7 @@ export const getDirectWithdrawalMultilocation = (
         {
           [accountKey]: {
             network: null,
-            id: type === "sign" ? id.toHex() : Array.from(id.toU8a()),
+            [key]: type === "sign" ? id.toHex() : Array.from(id.toU8a()),
           },
         },
       ],
