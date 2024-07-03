@@ -1,5 +1,11 @@
 # @polkadex/thea
 
+## 6.1.1
+
+### Patch Changes
+
+- c889dd4: Version changes
+
 ## 6.1.0
 
 ### Minor Changes
