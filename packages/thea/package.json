@@ -9,20 +9,20 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external lru-cache",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
     "test": "vitest"
   },
   "dependencies": {
-    "@moonbeam-network/xcm-sdk": "^2.1.2",
+    "@moonbeam-network/xcm-sdk": "^2.4.3",
     "@polkadex/numericals": "*",
     "@polkadex/polkadex-api": "*",
     "@polkadex/utils": "^1.1.46",
-    "@polkadot/api": "^10.13.1",
+    "@polkadot/api": "^11.2.1",
     "@polkadot/apps-config": "^0.136.1",
-    "@polkadot/types": "^11.0.1",
+    "@polkadot/types": "^11.2.1",
     "@polkadot/util": "^12.6.2",
     "@polkadot/util-crypto": "^12.6.2",
     "bignumber": "^1.1.0",
