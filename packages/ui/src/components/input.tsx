@@ -16,7 +16,7 @@ import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 import { RiAddLine, RiSearchLine, RiSubtractLine } from "@remixicon/react";
 
-import { isValidComponent } from "../helpers";
+import { fontSizeClasses, isValidComponent } from "../helpers";
 
 import { Button as PolkadexButton } from "./button";
 import type { ButtonProps as PolkadexButtonProps } from "./button";
@@ -39,8 +39,12 @@ const Action = forwardRef<
 
 Action.displayName = "Action";
 
-const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
-  ({ className, ...props }, ref) => {
+interface BaseProps extends ComponentPropsWithoutRef<"input"> {
+  fontSize?: keyof typeof fontSizeClasses;
+}
+
+const Base = forwardRef<ElementRef<"input">, BaseProps>(
+  ({ className, fontSize = "sm", ...props }, ref) => {
     return (
       <input
         ref={ref}
@@ -48,7 +52,8 @@ const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
         type="text"
         className={twMerge(
           classNames(
-            "flex-1 bg-transparent text-white placeholder:text-secondary outline-none max-sm:focus:text-[16px]"
+            "flex-1 bg-transparent text-white placeholder:text-secondary outline-none max-sm:focus:text-[16px]",
+            fontSizeClasses[fontSize]
           ),
           className
         )}
@@ -63,9 +68,17 @@ Base.displayName = "Base";
 interface InputWithContainerProps extends ComponentPropsWithoutRef<"input"> {
   containerProps?: ComponentProps<"div">;
   vertical?: boolean;
+  fontSize?: keyof typeof fontSizeClasses;
 }
 const Primary = forwardRef<ElementRef<"input">, InputWithContainerProps>(
-  ({ children, className, vertical, containerProps, ...props }) => {
+  ({
+    children,
+    className,
+    vertical,
+    fontSize = "sm",
+    containerProps,
+    ...props
+  }) => {
     const ref = useRef<HTMLInputElement>(null);
 
     const ButtonComponents = isValidComponent(children, Button);
@@ -111,7 +124,8 @@ const Primary = forwardRef<ElementRef<"input">, InputWithContainerProps>(
             )}
             <Base
               ref={ref}
-              className={twMerge("text-sm", className)}
+              className={className}
+              fontSize={fontSize}
               {...props}
             />
           </div>
