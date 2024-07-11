@@ -62,20 +62,24 @@ Base.displayName = "Base";
 
 interface InputWithContainerProps extends ComponentPropsWithoutRef<"input"> {
   containerProps?: ComponentProps<"div">;
+  vertical?: boolean;
 }
 const Primary = forwardRef<ElementRef<"input">, InputWithContainerProps>(
-  ({ children, className, containerProps, ...props }) => {
+  ({ children, className, vertical, containerProps, ...props }) => {
     const ref = useRef<HTMLInputElement>(null);
+
     const ButtonComponents = isValidComponent(children, Button);
     const [LabelComponent] = isValidComponent(children, Label);
     const [TickerComponent] = isValidComponent(children, Ticker);
 
     const { className: containerClassName } = containerProps ?? {};
+
     return (
       <div
         className={twMerge(
           classNames(
-            "flex-1 flex justify-between items-center gap-2 bg-level-1 h-[40px] rounded-sm"
+            "flex-1 flex justify-between gap-2 bg-level-1 rounded-sm",
+            !vertical && "h-[40px] items-center"
           ),
           containerClassName
         )}
@@ -86,19 +90,42 @@ const Primary = forwardRef<ElementRef<"input">, InputWithContainerProps>(
         }}
         {...containerProps}
       >
-        <div className="flex flex-1 items-center justify-between gap-2 pl-3 pr-2">
-          <div className="flex flex-1 items-center gap-2">
-            {LabelComponent}
+        <div
+          className={classNames(
+            "flex flex-1 items-center justify-between gap-2",
+            vertical ? "p-2" : "pl-3 pr-2"
+          )}
+        >
+          <div
+            className={classNames(
+              "flex flex-1 gap-2",
+              vertical ? "flex-col" : "items-center"
+            )}
+          >
+            {vertical ? (
+              <div className="flex items-center gap-0.5">
+                {LabelComponent} {TickerComponent}
+              </div>
+            ) : (
+              LabelComponent
+            )}
             <Base
               ref={ref}
-              className={twMerge(classNames("text-sm"), className)}
+              className={twMerge("text-sm", className)}
               {...props}
             />
           </div>
-          {TickerComponent}
+          {!vertical && TickerComponent}
         </div>
         {!!ButtonComponents?.length && (
-          <div className="flex h-full flex-col gap-0.5">{ButtonComponents}</div>
+          <div
+            className={classNames(
+              "flex flex-col gap-0.5",
+              !vertical && " h-full"
+            )}
+          >
+            {ButtonComponents}
+          </div>
         )}
       </div>
     );
