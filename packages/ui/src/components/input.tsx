@@ -16,7 +16,7 @@ import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 import { RiAddLine, RiSearchLine, RiSubtractLine } from "@remixicon/react";
 
-import { isValidComponent } from "../helpers";
+import { fontSizeClasses, isValidComponent } from "../helpers";
 
 import { Button as PolkadexButton } from "./button";
 import type { ButtonProps as PolkadexButtonProps } from "./button";
@@ -39,8 +39,12 @@ const Action = forwardRef<
 
 Action.displayName = "Action";
 
-const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
-  ({ className, ...props }, ref) => {
+interface BaseProps extends ComponentPropsWithoutRef<"input"> {
+  fontSize?: keyof typeof fontSizeClasses;
+}
+
+const Base = forwardRef<ElementRef<"input">, BaseProps>(
+  ({ className, fontSize = "sm", ...props }, ref) => {
     return (
       <input
         ref={ref}
@@ -48,7 +52,8 @@ const Base = forwardRef<ElementRef<"input">, ComponentPropsWithoutRef<"input">>(
         type="text"
         className={twMerge(
           classNames(
-            "flex-1 bg-transparent text-white placeholder:text-secondary outline-none max-sm:focus:text-[16px]"
+            "flex-1 bg-transparent text-white placeholder:text-secondary outline-none max-sm:focus:text-[16px]",
+            fontSizeClasses[fontSize]
           ),
           className
         )}
@@ -62,20 +67,32 @@ Base.displayName = "Base";
 
 interface InputWithContainerProps extends ComponentPropsWithoutRef<"input"> {
   containerProps?: ComponentProps<"div">;
+  vertical?: boolean;
+  fontSize?: keyof typeof fontSizeClasses;
 }
 const Primary = forwardRef<ElementRef<"input">, InputWithContainerProps>(
-  ({ children, className, containerProps, ...props }) => {
+  ({
+    children,
+    className,
+    vertical,
+    fontSize = "sm",
+    containerProps,
+    ...props
+  }) => {
     const ref = useRef<HTMLInputElement>(null);
+
     const ButtonComponents = isValidComponent(children, Button);
     const [LabelComponent] = isValidComponent(children, Label);
     const [TickerComponent] = isValidComponent(children, Ticker);
 
     const { className: containerClassName } = containerProps ?? {};
+
     return (
       <div
         className={twMerge(
           classNames(
-            "flex-1 flex justify-between items-center gap-2 bg-level-1 h-[40px] rounded-sm"
+            "flex-1 flex justify-between gap-2 bg-level-1 rounded-sm",
+            !vertical && "h-[40px] items-center"
           ),
           containerClassName
         )}
@@ -86,19 +103,43 @@ const Primary = forwardRef<ElementRef<"input">, InputWithContainerProps>(
         }}
         {...containerProps}
       >
-        <div className="flex flex-1 items-center justify-between gap-2 pl-3 pr-2">
-          <div className="flex flex-1 items-center gap-2">
-            {LabelComponent}
+        <div
+          className={classNames(
+            "flex flex-1 items-center justify-between gap-2",
+            vertical ? "p-2" : "pl-3 pr-2"
+          )}
+        >
+          <div
+            className={classNames(
+              "flex flex-1 gap-2",
+              vertical ? "flex-col" : "items-center"
+            )}
+          >
+            {vertical ? (
+              <div className="flex items-center gap-0.5">
+                {LabelComponent} {TickerComponent}
+              </div>
+            ) : (
+              LabelComponent
+            )}
             <Base
               ref={ref}
-              className={twMerge(classNames("text-sm"), className)}
+              className={className}
+              fontSize={fontSize}
               {...props}
             />
           </div>
-          {TickerComponent}
+          {!vertical && TickerComponent}
         </div>
         {!!ButtonComponents?.length && (
-          <div className="flex h-full flex-col gap-0.5">{ButtonComponents}</div>
+          <div
+            className={classNames(
+              "flex flex-col gap-0.5",
+              !vertical && " h-full"
+            )}
+          >
+            {ButtonComponents}
+          </div>
         )}
       </div>
     );
