@@ -54,6 +54,16 @@ export class OcexApi extends BalancesApi {
     return this.api.tx.ocex.deposit(asset, amt.toFixed(0));
   }
 
+  // TODO: Need to test this when backend is upgraded
+  // Place an anuction bid
+  public async placeAuctionBid(amount: number): Promise<SubmittableExtrinsic> {
+    await this.initApi();
+    // transform amount decimals into usable form
+    const decimals = this.chainDecimals;
+    const amt = toPlanck(amount, decimals);
+    return this.api.tx.ocex.placeBid(amt.toFixed(0));
+  }
+
   // Fetch current auction info
   public async auctionInfo(): Promise<AuctionInfo> {
     await this.initApi();
