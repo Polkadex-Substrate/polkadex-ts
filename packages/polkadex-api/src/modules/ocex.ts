@@ -1,6 +1,11 @@
 import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
-import { PolkadexPrimitivesOcexAccountInfo } from "@polkadex/types";
-import { toPlanck } from "@polkadex/numericals";
+import {
+  PolkadexPrimitivesOcexAccountInfo,
+  PolkadexPrimitivesAuctionAuctionInfo,
+} from "@polkadex/types";
+import { toPlanck, toUnit } from "@polkadex/numericals";
+
+import { AuctionInfo } from "../types";
 
 import { BalancesApi } from "./balances";
 
@@ -47,5 +52,28 @@ export class OcexApi extends BalancesApi {
     const decimals = this.chainDecimals;
     const amt = toPlanck(amount, decimals);
     return this.api.tx.ocex.deposit(asset, amt.toFixed(0));
+  }
+
+  // Fetch current auction info
+  public async auctionInfo(): Promise<AuctionInfo> {
+    await this.initApi();
+
+    const decimals = this.chainDecimals;
+    const auctionInfo = (
+      await this.api.query?.ocex?.auction()
+    )?.toJSON() as unknown as PolkadexPrimitivesAuctionAuctionInfo;
+
+    if (!auctionInfo) return {} as AuctionInfo;
+
+    const feeInfo: AuctionInfo["feeInfo"] = {};
+    for (const itr of Object.entries(auctionInfo.feeInfo)) {
+      const amt = toUnit(itr[1], decimals);
+      feeInfo[itr[0]] = amt.toNumber();
+    }
+    return {
+      feeInfo,
+      highestBid: auctionInfo.highestBid,
+      highestBidder: auctionInfo.highestBidder,
+    };
   }
 }
