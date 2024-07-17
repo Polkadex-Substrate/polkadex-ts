@@ -1,5 +1,11 @@
 # @polkadex/polkadex-api
 
+## 3.7.0
+
+### Minor Changes
+
+- 7d47911: Added RPC for placing a bid and fetching auction info
+
 ## 3.6.2
 
 ### Patch Changes
