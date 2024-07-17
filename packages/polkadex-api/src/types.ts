@@ -1,3 +1,4 @@
+import { AccountId } from "@polkadot/types/interfaces";
 import { DefinitionsCall } from "@polkadot/types/types";
 
 export enum AssetType {
@@ -10,6 +11,12 @@ export type Asset = {
   id: string;
   decimal: number;
   network: AssetType;
+};
+
+export type AuctionInfo = {
+  feeInfo: { [key: string]: number };
+  highestBidder: AccountId | null;
+  highestBid: number;
 };
 
 export const runtimeTypes = {

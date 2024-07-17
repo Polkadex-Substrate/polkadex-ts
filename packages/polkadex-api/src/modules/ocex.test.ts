@@ -83,4 +83,9 @@ describe("OCEX modules testing", () => {
       expect(res.meta.name.toJSON()).toBe("remove_proxy_account");
     }
   );
+
+  test("Get Auction Info", { timeout: 100000 }, async () => {
+    const res = await ocex.auctionInfo();
+    expectTypeOf(res.highestBid).toBeNumber();
+  });
 });

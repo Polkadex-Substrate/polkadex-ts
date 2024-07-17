@@ -65,3 +65,9 @@ export interface LMPEpochConfig extends Struct {
   maxAccountsRewarded: u16;
   claimSafetyPeriod: u16;
 }
+
+export interface PolkadexPrimitivesAuctionAuctionInfo extends Struct {
+  feeInfo: { [key: string]: string };
+  highestBidder: AccountId | null;
+  highestBid: number;
+}
